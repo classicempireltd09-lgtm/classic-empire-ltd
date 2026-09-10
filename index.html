@@ -1,32 +1,109 @@
-<meta name="google-site-verification" content="LqWoP82OWMYkGOJwyDOEtP-4F0vzXrlwCZ9v_rlrMaE" /><!doctype html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Classic Empire Ltd. — Dream • Plan • Build • Grow</title>
-<link rel="icon" type="image/png" href="classic-empire-logo.png">
+<meta name="description" content="Classic Empire Ltd. — a fictional company created for educational and gaming purposes.">
+<meta name="google-site-verification" content="LqWoP82OWMYkGOJwyDOEtP-4F0vzXrlwCZ9v_rlrMaE" />
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;color:#17202a;background:linear-gradient(180deg,#eef2f5,#f8f9fa)}
-header{position:sticky;top:0;background:#101820;color:#fff;border-bottom:2px solid #c9a227;z-index:5}nav{max-width:1100px;margin:auto;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}.logo{width:58px;height:58px;object-fit:contain}nav a{color:#fff;text-decoration:none;margin:0 8px;font-weight:bold}
-.hero{text-align:center;padding:65px 20px;background:linear-gradient(135deg,#101820,#2b3741);color:#fff}.hero-logo{width:190px;max-width:55vw}.hero h1{font-size:clamp(32px,7vw,58px);margin:15px 0 5px}.hero p{color:#dce3e8}.btn{display:inline-block;padding:11px 20px;border-radius:24px;background:#c9a227;color:#111;text-decoration:none;font-weight:bold}
-section{max-width:1100px;margin:auto;padding:50px 20px}h2{text-align:center;font-size:32px;margin:0 0 25px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}.card{background:#fff;border:1px solid #dfe4e8;border-radius:16px;padding:22px;text-align:center;box-shadow:0 8px 24px #0000000d}.avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;border:4px solid #c9a227}.dept{text-align:left;border-left:5px solid #c9a227}.small{color:#65727e}footer{background:#101820;color:#dce3e8;text-align:center;padding:28px 15px}
-@media(max-width:650px){nav{flex-wrap:wrap;justify-content:center}nav div{width:100%;text-align:center}}
-</style></head><body>
-<header><nav><img class="logo" src="classic-empire-logo.png" alt="Classic Empire Ltd. logo"><div>
-<a href="#home">Home</a><a href="#about">About</a><a href="#management">Management</a><a href="#departments">Departments</a><a href="#contact">Contact</a>
-</div></nav></header>
-<section class="hero" id="home"><img class="hero-logo" src="classic-empire-logo.png" alt="Classic Empire Ltd."><h1>Classic Empire Ltd.</h1><p>Dream • Plan • Build • Grow</p><p>A fictional educational business and management project.</p><a class="btn" href="#management">Explore Empire</a></section>
-<section id="about"><h2>About Classic Empire</h2><div class="card"><p>Classic Empire Ltd. is a fictional company created for learning, creativity, teamwork and management in a game world.</p></div></section>
-<section id="management"><h2>Management</h2><div class="grid">
-<div class="card"><img class="avatar" src="jakir-hussain.png" alt="Jakir Hussain"><h3>Jakir Hussain</h3><span>Founder</span></div>
-<div class="card"><img class="avatar" src="noor-ahmad.png" alt="Noor Ahmad"><h3>Noor Ahmad</h3><span>Chairman</span></div>
-<div class="card"><img class="avatar" src="shadat-hussain.png" alt="Shadat Hussain"><h3>Shadat Hussain</h3><span>Deputy Chairman</span></div>
-<div class="card"><h3>Aszad Sayeed</h3><span>CEO</span></div>
-<div class="card"><h3>Shahnawaz Alam</h3><span>Director</span></div>
-<div class="card"><img class="avatar" src="tabshir-alam.png" alt="Tabshir Alam"><h3>Tabshir Alam</h3><span>Manager</span></div>
-<div class="card"><h3>Aszad Sayeed</h3><span>Team Leader</span></div>
-<div class="card"><h3>Shadab Alam • Sajjad • Mahir Alam</h3><span>Members</span></div>
-</div></section>
-<section id="departments"><h2>Departments</h2><div class="grid">
-<div class="card dept"><h3>CID Department</h3></div><div class="card dept"><h3>Legal Department</h3></div><div class="card dept"><h3>Main Department</h3></div><div class="card dept"><h3>Bodyguard Department</h3></div><div class="card dept"><h3>Finance Department</h3></div><div class="card dept"><h3>Business Department</h3></div>
-</div></section>
-<section id="contact"><h2>Contact</h2><div class="card"><p class="small">Contact information will be added later.</p></div></section>
-<footer>© Classic Empire Ltd. — Dream • Plan • Build • Grow<br><span class="small">Fictional educational project</span></footer>
-</body></html>
+:root{--navy:#071827;--navy2:#0d263a;--gold:#e5b84f;--gold2:#f5d47c;--cream:#f7f5ef;--text:#172333;--muted:#667384;--card:#fff;--line:#e5e8ed}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f4f6f8;color:var(--text);line-height:1.6}
+nav{position:sticky;top:0;z-index:20;background:rgba(7,24,39,.96);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;padding:13px 6%;color:#fff}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px}.logo{width:48px;height:48px;border:2px solid var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--gold);font-family:Georgia;font-size:25px;position:relative}.logo:after{content:"";position:absolute;inset:5px;border:1px solid var(--gold);border-radius:50%}
+.brand small{display:block;color:#d9dde3;font-size:10px;letter-spacing:2px}
+.links{display:flex;gap:24px}.links a{color:#fff;text-decoration:none;font-size:14px}.links a:hover{color:var(--gold)}
+.hero{min-height:600px;padding:90px 6%;display:grid;grid-template-columns:1.2fr .8fr;gap:45px;align-items:center;background:linear-gradient(120deg,#061624 0%,#0c2940 65%,#173b55 100%);color:#fff}
+.kicker{color:var(--gold2);letter-spacing:4px;font-size:13px;font-weight:700}.hero h1{font:700 clamp(46px,7vw,82px)/.98 Georgia,serif;margin:14px 0 22px}.hero p{max-width:650px;color:#d8e0e7;font-size:18px}.buttons{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}.btn{padding:13px 21px;border-radius:8px;text-decoration:none;font-weight:700;border:1px solid var(--gold)}.primary{background:var(--gold);color:#101a22}.secondary{color:#fff}
+.building{min-height:380px;border:1px solid rgba(229,184,79,.35);border-radius:22px;background:radial-gradient(circle at 70% 25%,#e5b84f55,transparent 25%),linear-gradient(145deg,#183d58,#061624);display:flex;align-items:center;justify-content:center;box-shadow:0 25px 70px #0005}.building .emblem{font:700 120px Georgia;color:var(--gold);text-shadow:0 5px 25px #000}
+.stats{background:var(--gold);display:grid;grid-template-columns:repeat(4,1fr);padding:26px 6%;gap:20px}.stat{text-align:center}.stat b{font-size:30px;display:block}.stat span{font-size:13px}
+section{padding:80px 6%}.section-head{text-align:center;max-width:760px;margin:0 auto 45px}.section-head .kicker{color:#a77a18}.section-head h2{font:700 42px Georgia;margin:8px 0 10px}.section-head p{color:var(--muted)}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center}.about-card{background:var(--navy);color:#fff;padding:42px;border-radius:20px}.about-card h3{font:32px Georgia;margin-top:0}.about-card p{color:#d3dbe2}.quote{border-left:3px solid var(--gold);padding-left:18px;color:#e9edf0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.card{background:var(--card);border:1px solid var(--line);padding:25px;border-radius:15px;box-shadow:0 10px 30px #0b20300b}.icon{font-size:28px}.card h3{margin:9px 0 5px}.card p{color:var(--muted);font-size:14px;margin:0}
+.management{background:#eef1f4}.people{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.person{background:#fff;border-radius:15px;padding:22px;text-align:center;border:1px solid var(--line)}.avatar{width:82px;height:82px;border-radius:50%;margin:auto;display:grid;place-items:center;background:#dfe5ea;color:var(--navy);font:700 28px Georgia;border:3px solid var(--gold)}.person h3{margin:12px 0 2px}.person span{color:#9a711b;font-weight:700;font-size:13px}
+.vision{background:var(--navy);color:#fff}.vision .section-head p{color:#c7d0d8}.visiongrid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.visionbox{border:1px solid #ffffff25;border-radius:15px;padding:30px;background:#ffffff08}.visionbox h3{color:var(--gold2)}
+.notice{background:#fff7df;border:1px solid #ecd28b;padding:20px;border-radius:12px;color:#594713;margin-top:25px}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:25px}.contactbox{background:#fff;border:1px solid var(--line);border-radius:15px;padding:28px}.contactbox a{color:#8b6512}
+footer{background:#061522;color:#fff;padding:35px 6%;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}footer small{color:#aeb8c0}
+@media(max-width:900px){.hero,.about,.contact,.visiongrid{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.people{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.links{display:none}}
+@media(max-width:560px){section{padding:60px 5%}.hero{padding:65px 5%}.grid,.people{grid-template-columns:1fr}.hero h1{font-size:50px}.building{min-height:270px}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="#home" style="text-decoration:none;color:#fff">
+    <span class="logo">C</span><span>Classic Empire Ltd.<small>DREAM • PLAN • BUILD • GROW</small></span>
+  </a>
+  <div class="links"><a href="#home">Home</a><a href="#about">About</a><a href="#management">Management</a><a href="#departments">Departments</a><a href="#contact">Contact</a></div>
+</nav>
+
+<header class="hero" id="home">
+  <div>
+    <div class="kicker">WELCOME TO</div>
+    <h1>Classic Empire Ltd.</h1>
+    <p>A fictional company built for learning, creativity, teamwork and management in our game world.</p>
+    <div class="buttons"><a class="btn primary" href="#about">Explore Our Journey →</a><a class="btn secondary" href="#management">Meet Management</a></div>
+  </div>
+  <div class="building"><div class="emblem">CE</div></div>
+</header>
+
+<div class="stats">
+  <div class="stat"><b>9+</b><span>Team Members</span></div><div class="stat"><b>8</b><span>Departments</span></div><div class="stat"><b>1</b><span>Shared Vision</span></div><div class="stat"><b>∞</b><span>Growth Potential</span></div>
+</div>
+
+<section id="about">
+  <div class="section-head"><div class="kicker">ABOUT US</div><h2>Built on ideas. Driven by teamwork.</h2><p>Classic Empire Ltd. is a fictional company for an educational game. It gives players a simple way to experience leadership, teamwork, departments and business decisions.</p>
+<p><strong>About the Creator:</strong> I created this game for my friends as a fun way to learn, work together and enjoy a shared game world.</p></div>
+  <div class="about">
+    <div class="about-card"><h3>Our Story</h3><p>We turn ideas into plans, plans into action, and teamwork into results. Every role has a purpose, and every member can contribute.</p><div class="quote">“Dream • Plan • Build • Grow”</div></div>
+    <div><h3>What we focus on</h3><p>Leadership, responsible decision-making, creativity, communication and learning through play.</p><div class="notice"><b>Important:</b> Classic Empire Ltd. is a fictional/game company and is not presented as a real registered business.</div></div>
+  </div>
+</section>
+
+<section id="departments" style="background:#f8fafb">
+  <div class="section-head"><div class="kicker">OUR DEPARTMENTS</div><h2>Different teams, one goal</h2><p>Departments can be expanded or changed as your game develops.</p></div>
+  <div class="grid">
+    <div class="card"><div class="icon">⚙️</div><h3>Production</h3><p>Builds and manages game resources.</p></div>
+    <div class="card"><div class="icon">📣</div><h3>Marketing</h3><p>Promotes the company and its projects.</p></div>
+    <div class="card"><div class="icon">💰</div><h3>Finance</h3><p>Handles budgets and game investments.</p></div>
+    <div class="card"><div class="icon">👥</div><h3>Human Resources</h3><p>Manages teams, roles and talent.</p></div>
+    <div class="card"><div class="icon">💻</div><h3>IT & Tech</h3><p>Develops and maintains systems.</p></div>
+    <div class="card"><div class="icon">💡</div><h3>Research & Development</h3><p>Creates new ideas and innovations.</p></div>
+    <div class="card"><div class="icon">🎯</div><h3>Strategy</h3><p>Plans future growth and decisions.</p></div>
+    <div class="card"><div class="icon">🤝</div><h3>Customer Support</h3><p>Supports players and the community.</p></div>
+  </div>
+</section>
+
+<section class="management" id="management">
+  <div class="section-head"><div class="kicker">LEADERSHIP</div><h2>Our Management</h2><p>The management structure created for the Classic Empire game.</p></div>
+  <div class="people">
+    <div class="person"><div class="avatar">JH</div><h3>Jakir Hussain</h3><span>Founder</span></div>
+    <div class="person"><div class="avatar">NA</div><h3>Noor Ahmad</h3><span>Chairman</span></div>
+    <div class="person"><div class="avatar">SH</div><h3>Shahadat Hussain</h3><span>Deputy Chairman</span></div>
+    <div class="person"><div class="avatar">A</div><h3>Asjad</h3><span>CEO</span></div>
+    <div class="person"><div class="avatar">S</div><h3>Shahnawaz</h3><span>Director</span></div>
+    <div class="person"><div class="avatar">T</div><h3>Tabshir</h3><span>Manager</span></div>
+    <div class="person"><div class="avatar">A</div><h3>Asjad</h3><span>Team Leader</span></div>
+    <div class="person"><div class="avatar">S M S</div><h3>Shadab • Mahir • Sajjad</h3><span>Members</span></div>
+  </div>
+</section>
+
+<section class="vision">
+  <div class="section-head"><div class="kicker">OUR VISION & MISSION</div><h2>Building a better game world</h2><p>Learning, creativity and teamwork come first.</p></div>
+  <div class="visiongrid">
+    <div class="visionbox"><h3>Our Vision</h3><p>To become a memorable fictional game company known for teamwork, creativity and smart decisions.</p></div>
+    <div class="visionbox"><h3>Our Mission</h3><p>To create an engaging learning experience where every player gets a meaningful role.</p></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-head"><div class="kicker">CONTACT</div><h2>Get in touch</h2><p>For the purposes of this game project.</p></div>
+  <div class="contact">
+    <div class="contactbox"><h3>Classic Empire Ltd.</h3><p>Fictional / Educational Game Company</p><p>📍 Kishanganj, Bihar, India</p><p>✉️ <a href="mailto:classicempireltd09@gmail.com">classicempireltd09@gmail.com</a></p></div>
+    <div class="contactbox"><h3>Quick Links</h3><p><a href="#about">About Us</a> · <a href="#management">Management</a> · <a href="#departments">Departments</a></p><p>Dream • Plan • Build • Grow</p></div>
+  </div>
+</section>
+
+<footer><div><b>Classic Empire Ltd.</b><br><small>DREAM • PLAN • BUILD • GROW</small></div><small>© 2026 Classic Empire Ltd. • Fictional company created for educational and gaming purposes only.</small></footer>
+</body>
+</html>

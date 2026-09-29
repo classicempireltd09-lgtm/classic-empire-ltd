@@ -1,83 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Classic Empire Ltd. — Dream • Plan • Build • Grow</title>
-<link rel="icon" type="image/png" href="classic-empire-logo.png">
-<meta name="description" content="Classic Empire Ltd. — a fictional educational empire-management game.">
-<meta name="google-site-verification" content="LqWoP82OWMYkGOJwyDOEtP-4F0vzXrlwCZ9v_rlrMaE">
-<style>
-*{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:#080808;color:#f7d774}
-header{position:sticky;top:0;z-index:10;background:rgba(8,8,8,.96);border-bottom:1px solid #8d6b20;padding:12px 5%}
-nav{display:flex;align-items:center;gap:18px;flex-wrap:wrap} nav img{width:52px;height:52px;object-fit:contain} nav a{color:#f7d774;text-decoration:none;font-weight:bold}
-.hero{min-height:78vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:70px 6%;background:radial-gradient(circle at center,#35270c 0,#0b0b0b 55%,#000 100%)}
-.hero img{width:130px;filter:drop-shadow(0 12px 18px #000);margin-bottom:15px}.hero h1{font-size:clamp(38px,8vw,78px);margin:8px 0;text-shadow:0 5px 12px #000}.hero p{font-size:20px;color:#eee}
-.btn{display:inline-block;margin:8px;padding:13px 20px;border-radius:12px;background:linear-gradient(145deg,#ffeaa0,#b88619);color:#111;text-decoration:none;font-weight:bold;box-shadow:0 8px 0 #6d4d0b}
-section{padding:65px 6%;max-width:1200px;margin:auto}h2{text-align:center;font-size:38px;margin-top:0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.card{background:linear-gradient(145deg,#171717,#090909);border:1px solid #725719;border-radius:18px;padding:24px;box-shadow:0 15px 30px #000;transform:perspective(700px) rotateX(1deg)}.card h3{margin-top:0;color:#ffe28a}.card p,.card li{color:#ddd;line-height:1.6}
-.badge{display:inline-block;padding:6px 10px;border:1px solid #8d6b20;border-radius:20px;margin:3px;font-size:13px}
-footer{text-align:center;padding:35px;border-top:1px solid #5e4816;color:#aaa}
-table{width:100%;border-collapse:collapse}.card table td{padding:10px;border-bottom:1px solid #3b3018;color:#ddd}
-@media(max-width:600px){nav{gap:10px}nav a{font-size:13px}.hero{min-height:70vh}section{padding:45px 5%}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classic Empire</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #111;
+    }
+
+    header {
+      background: #111;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: 28px;
+    }
+
+    nav {
+      margin-top: 15px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .person {
+      background: white;
+      padding: 22px;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .person h2 {
+      margin-bottom: 8px;
+    }
+
+    .person p {
+      font-size: 17px;
+    }
+
+    #contact {
+      margin-top: 45px;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      margin-top: 40px;
+      background: #111;
+      color: white;
+    }
+  </style>
 </head>
+
 <body>
-<header><nav>
-<img src="classic-empire-logo.png" alt="Classic Empire Ltd. logo">
-<a href="#home">Home</a><a href="#about">About</a><a href="#departments">Departments</a><a href="#management">Management</a><a href="#game">Game World</a><a href="#currency">Currency</a><a href="#contact">Contact</a>
-</nav></header>
 
-<main id="home" class="hero">
-<div><img src="classic-empire-logo.png" alt="Classic Empire Ltd.">
-<h1>Classic Empire Ltd.</h1><p>Dream • Plan • Build • Grow</p>
-<a class="btn" href="#game">Enter Game World</a><a class="btn" href="#management">View Management</a>
-</div></main>
+  <header>
+    <!-- अपना Classic Empire logo यहाँ रखें -->
+    <img src="logo.png" alt="Classic Empire Logo" class="logo">
 
-<section id="about"><h2>About</h2><div class="card">
-<p><b>Classic Empire Ltd.</b> is a fictional educational empire-management game project created for friends. Build departments, manage people, use fictional currencies, run businesses, handle tax/GST, and grow your empire.</p>
-<span class="badge">Fictional Game</span><span class="badge">Educational</span><span class="badge">Strategy</span>
-</div></section>
+    <h1>Classic Empire</h1>
 
-<section id="departments"><h2>Departments</h2><div class="grid">
-<div class="card"><h3>1. CID Department</h3><p>Investigation and internal security.</p></div>
-<div class="card"><h3>2. Legal Department</h3><p>Rules, legal matters and documentation.</p></div>
-<div class="card"><h3>3. Main Department</h3><p>Central administration and empire operations.</p></div>
-<div class="card"><h3>4. Bodyguard Department</h3><p>Protection and security operations.</p></div>
-<div class="card"><h3>5. Finance Department</h3><p>Money management and financial records.</p></div>
-<div class="card"><h3>6. Business Department</h3><p>Business planning, trade and growth.</p></div>
-<div class="card"><h3>7. Court Department</h3><p>Game disputes, hearings and decisions.</p></div>
-</div></section>
+    <nav>
+      <a href="#people">People</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-<section id="management"><h2>Management</h2><div class="card"><table>
-<tr><td><b>Founder</b></td><td>Jakir Hussain</td></tr>
-<tr><td><b>Chairman</b></td><td>Noor Ahmad</td></tr>
-<tr><td><b>Deputy Chairman</b></td><td>Shadat Hussain</td></tr>
-<tr><td><b>CEO</b></td><td>Aszad Sayeed</td></tr>
-<tr><td><b>Director</b></td><td>Shahnawaz Alam</td></tr>
-<tr><td><b>Manager</b></td><td>Tabshir Alam</td></tr>
-<tr><td><b>Team Leader</b></td><td>Aszad Sayeed</td></tr>
-</table></div></section>
+  <main>
 
-<section id="game"><h2>Game World</h2><div class="grid">
-<div class="card"><h3>🏦 Bank</h3><p>Manage deposits, payments and game finances.</p></div>
-<div class="card"><h3>💰 Ruhan Currency</h3><p>Use the empire's fictional money system.</p></div>
-<div class="card"><h3>🏢 Business & Tax/GST</h3><p>Build businesses and apply the game's tax and GST rules.</p></div>
-<div class="card"><h3>🗺️ Empire Map</h3><p>Explore the empire map, including natural areas such as trees and forests.</p></div>
-<div class="card"><h3>🏆 Achievements</h3><p>Complete goals and unlock achievements.</p></div>
-<div class="card"><h3>⚙️ Management</h3><p>Organize departments and manage the empire.</p></div>
-</div></section>
+    <section id="people">
+      <div class="person">
+        <h2>President</h2>
+        <p><strong>Noor Ahmad</strong></p>
+      </div>
 
-<section id="currency"><h2>Three Fictional Currencies</h2><div class="grid">
-<div class="card"><h3>Yenar — Symbol: Ұ</h3><p>A fictional currency for the Classic Empire Ltd. game.</p></div>
-<div class="card"><h3>Ruhan — Symbol: ℞</h3><p>A fictional currency used in the game's main economy.</p></div>
-<div class="card"><h3>Dorel — Symbol: Đ</h3><p>A fictional high-value currency in the game economy.</p></div>
-</div></section>
+      <div class="person">
+        <h2>President's Assistant</h2>
+        <p><strong>Tabshir</strong></p>
+      </div>
+    </section>
 
-<section id="contact"><h2>Contact</h2><div class="card">
-<p><b>Email:</b> classicempireltd09@gmail.com</p>
-<p><b>Creator note:</b> I have created this game for my friends.</p>
-</div></section>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Contact information will be added here.</p>
+    </section>
 
-<footer>© 2026 Classic Empire Ltd. — Dream • Plan • Build • Grow</footer>
-</body></html>
+  </main>
+
+  <footer>
+    <p>© Classic Empire</p>
+  </footer>
+
+</body>
+</html>

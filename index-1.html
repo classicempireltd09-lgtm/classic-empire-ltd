@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classic Empire Ltd</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#080808;color:#fff}
+header{background:#0b0b0b;text-align:center;padding:25px 15px;border-bottom:1px solid #4a3910}
+.logo{width:150px;max-width:70%;margin-bottom:10px}
+header h1{color:#f5c542;font-size:32px;letter-spacing:2px}
+header p{color:#aaa;margin-top:7px}
+nav{margin-top:18px}
+nav a{color:#f5c542;text-decoration:none;margin:0 12px;font-weight:bold}
+.banner{width:100%;height:520px;position:relative;overflow:hidden;background:#111}
+.banner img{width:100%;height:100%;object-fit:cover;display:block}
+.banner::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.05),rgba(0,0,0,.82))}
+.banner-text{position:absolute;z-index:2;bottom:40px;left:7%}
+.banner-text h2{color:#f5c542;font-size:48px}
+.banner-text p{font-size:20px;margin-top:8px}
+main{width:min(1200px,94%);margin:45px auto}
+.title{text-align:center;margin-bottom:30px}
+.title h2{color:#f5c542;font-size:32px}
+.title p{color:#aaa;margin-top:8px}
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.card{background:#111;border:1px solid #4a3910;border-radius:15px;overflow:hidden;text-align:center;transition:.3s}
+.card:hover{transform:translateY(-6px);border-color:#f5c542}
+.card img{width:100%;height:360px;object-fit:cover;display:block;background:#222}
+.info{padding:20px 12px 24px}
+.role{color:#f5c542;font-size:22px;font-weight:bold}
+.name{color:white;font-size:19px;margin-top:8px}
+.badge{display:inline-block;margin-top:12px;padding:6px 13px;border:1px solid #f5c542;border-radius:20px;color:#f5c542;font-size:11px}
+.about,.structure,.contact{margin-top:30px;background:#111;border:1px solid #4a3910;border-radius:15px;padding:30px;text-align:center}
+.about h2,.structure h2,.contact h2{color:#f5c542;margin-bottom:12px}
+.about p{color:#ddd;line-height:1.7}
+.structure p{color:#ddd;line-height:2;font-size:18px}
+.structure strong{color:#f5c542}
+.contact a{color:#f5c542;text-decoration:none}
+footer{margin-top:45px;padding:25px;text-align:center;color:#888;border-top:1px solid #4a3910}
+footer strong{color:#f5c542}
+@media(max-width:900px){.people{grid-template-columns:repeat(2,1fr)}.banner{height:420px}}
+@media(max-width:550px){
+header h1{font-size:25px}
+nav a{margin:0 6px;font-size:13px}
+.banner{height:330px}
+.banner-text{left:20px;bottom:25px}
+.banner-text h2{font-size:29px}
+.banner-text p{font-size:15px}
+.people{grid-template-columns:1fr}
+.card img{height:400px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="classic-empire-logo.png" alt="Classic Empire Logo" class="logo">
+  <h1>CLASSIC EMPIRE LTD</h1>
+  <p>Official Administration Portal</p>
+  <nav>
+    <a href="#people">People</a>
+    <a href="#structure">Administration</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="banner">
+  <img src="noor-ahmad.png" alt="President Noor Ahmad">
+  <div class="banner-text">
+    <h2>CLASSIC EMPIRE LTD</h2>
+    <p>President — Noor Ahmad</p>
+  </div>
+</section>
+
+<main>
+<section id="people">
+  <div class="title">
+    <h2>Leadership & Administration</h2>
+    <p>Official Classic Empire Ltd Posts</p>
+  </div>
+
+  <div class="people">
+
+    <div class="card">
+      <img src="noor-ahmad.png" alt="Noor Ahmad">
+      <div class="info">
+        <div class="role">President</div>
+        <div class="name">Noor Ahmad</div>
+        <span class="badge">PRESIDENT</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="tabshir-alam.png" alt="Tabshir Alam">
+      <div class="info">
+        <div class="role">President's Assistant</div>
+        <div class="name">Tabshir Alam</div>
+        <span class="badge">PRESIDENT'S OFFICE</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="jakir-hussain.png" alt="Jakir Hussain">
+      <div class="info">
+        <div class="role">DM</div>
+        <div class="name">Jakir Hussain</div>
+        <span class="badge">DISTRICT MAGISTRATE</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="shadat-hussain.png" alt="Shadat Hussain">
+      <div class="info">
+        <div class="role">DM's Assistant</div>
+        <div class="name">Shadat Hussain</div>
+        <span class="badge">DM OFFICE</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="aszad-sayeed.png" alt="Aszad Sayeed">
+      <div class="info">
+        <div class="role">SDM</div>
+        <div class="name">Aszad Sayeed</div>
+        <span class="badge">SUB-DIVISIONAL MAGISTRATE</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="shahnawaz-alam.png" alt="Shahnawaz Alam">
+      <div class="info">
+        <div class="role">SP</div>
+        <div class="name">Shahnawaz Alam</div>
+        <span class="badge">SUPERINTENDENT OF POLICE</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="shadab-alam.png" alt="Shadab Alam">
+      <div class="info">
+        <div class="role">DSP</div>
+        <div class="name">Shadab Alam</div>
+        <span class="badge">DEPUTY SUPERINTENDENT OF POLICE</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="about">
+  <h2>About Classic Empire Ltd</h2>
+  <p>Classic Empire Ltd is a fictional role-play world created for friends. It includes leadership, administration, responsibilities and teamwork through different official posts.</p>
+</section>
+
+<section id="structure" class="structure">
+  <h2>Administration Structure</h2>
+  <p>
+    <strong>President</strong> — Noor Ahmad<br>↓<br>
+    <strong>President's Assistant</strong> — Tabshir Alam<br><br>
+    <strong>District Administration</strong><br>
+    DM — Jakir Hussain<br>
+    DM's Assistant — Shadat Hussain<br>
+    SDM — Aszad Sayeed<br><br>
+    <strong>Police Administration</strong><br>
+    SP — Shahnawaz Alam<br>
+    DSP — Shadab Alam
+  </p>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Contact</h2>
+  <a href="mailto:classicempireltd09@gmail.com">classicempireltd09@gmail.com</a>
+</section>
+</main>
+
+<footer>© 2026 <strong>Classic Empire Ltd</strong> — Official Empire Portal</footer>
+
+</body>
+</html>

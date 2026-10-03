@@ -12,7 +12,7 @@ header{background:#0b0b0b;text-align:center;padding:25px 15px;border-bottom:1px 
 header h1{color:#f5c542;font-size:32px;letter-spacing:2px}
 header p{color:#aaa;margin-top:7px}
 nav{margin-top:18px}
-nav a{color:#f5c542;text-decoration:none;margin:0 12px;font-weight:bold}
+nav a{color:#f5c542;text-decoration:none;margin:0 10px;font-weight:bold}
 .banner{width:100%;height:520px;position:relative;overflow:hidden;background:#111}
 .banner img{width:100%;height:100%;object-fit:cover;display:block}
 .banner::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.05),rgba(0,0,0,.82))}
@@ -31,24 +31,47 @@ main{width:min(1200px,94%);margin:45px auto}
 .role{color:#f5c542;font-size:22px;font-weight:bold}
 .name{color:white;font-size:19px;margin-top:8px}
 .badge{display:inline-block;margin-top:12px;padding:6px 13px;border:1px solid #f5c542;border-radius:20px;color:#f5c542;font-size:11px}
-.about,.structure,.contact{margin-top:30px;background:#111;border:1px solid #4a3910;border-radius:15px;padding:30px;text-align:center}
-.about h2,.structure h2,.contact h2{color:#f5c542;margin-bottom:12px}
-.about p{color:#ddd;line-height:1.7}
+.about,.structure,.contact,.updates,.currency,.salaries{margin-top:30px;background:#111;border:1px solid #4a3910;border-radius:15px;padding:30px}
+.about{text-align:center}
+.about h2,.structure h2,.contact h2,.updates h2,.currency h2,.salaries h2{color:#f5c542;margin-bottom:12px}
+.about p,.updates p,.currency p{color:#ddd;line-height:1.7}
+.structure{text-align:center}
 .structure p{color:#ddd;line-height:2;font-size:18px}
 .structure strong{color:#f5c542}
+.update-card{background:#0b0b0b;border:1px solid #4a3910;border-radius:12px;padding:18px;margin-top:15px}
+.update-card h3{color:#f5c542;margin-bottom:8px}
+.update-date{color:#888;font-size:13px;margin-bottom:8px}
+.currency-box{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:18px}
+.currency-item{background:#0b0b0b;border:1px solid #4a3910;border-radius:12px;padding:18px;text-align:center}
+.currency-item .big{color:#f5c542;font-size:25px;font-weight:bold}
+.currency-item small{display:block;color:#aaa;margin-top:6px}
+.salary-table{width:100%;border-collapse:collapse;margin-top:18px}
+.salary-table th,.salary-table td{padding:13px 10px;border-bottom:1px solid #33280d;text-align:left}
+.salary-table th{color:#f5c542;background:#0b0b0b}
+.salary-table td{color:#ddd}
+.salary-table tr:hover td{background:#151515}
+.cd{color:#f5c542;font-weight:bold}
+.contact{text-align:center}
 .contact a{color:#f5c542;text-decoration:none}
 footer{margin-top:45px;padding:25px;text-align:center;color:#888;border-top:1px solid #4a3910}
 footer strong{color:#f5c542}
-@media(max-width:900px){.people{grid-template-columns:repeat(2,1fr)}.banner{height:420px}}
+@media(max-width:900px){
+.people{grid-template-columns:repeat(2,1fr)}
+.banner{height:420px}
+.currency-box{grid-template-columns:repeat(2,1fr)}
+}
 @media(max-width:550px){
 header h1{font-size:25px}
-nav a{margin:0 6px;font-size:13px}
+nav a{margin:0 5px;font-size:12px}
 .banner{height:330px}
 .banner-text{left:20px;bottom:25px}
 .banner-text h2{font-size:29px}
 .banner-text p{font-size:15px}
 .people{grid-template-columns:1fr}
 .card img{height:400px}
+.currency-box{grid-template-columns:1fr}
+.salary-table{font-size:13px}
+.salary-table th,.salary-table td{padding:10px 6px}
 }
 </style>
 </head>
@@ -60,6 +83,9 @@ nav a{margin:0 6px;font-size:13px}
   <p>Official Administration Portal</p>
   <nav>
     <a href="#people">People</a>
+    <a href="#updates">Empire Updates</a>
+    <a href="#currency">Currency</a>
+    <a href="#salaries">Salaries</a>
     <a href="#structure">Administration</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -74,6 +100,70 @@ nav a{margin:0 6px;font-size:13px}
 </section>
 
 <main>
+
+<section id="updates" class="updates">
+  <h2>📰 Empire Updates / New Empire Changes</h2>
+  <p>Classic Empire Ltd के सभी नए systems, rules, currency और important changes यहाँ दर्ज किए जाएंगे।</p>
+
+  <div class="update-card">
+    <div class="update-date">03 October 2026</div>
+    <h3>🆕 New Currency Introduced</h3>
+    <p>
+      Classic Empire Ltd की official fictional currency अब <strong>Classic Dinar</strong> है।
+      इसका short name <strong>CD</strong> और official code <strong>CLD</strong> है।
+    </p>
+  </div>
+
+  <div class="update-card">
+    <div class="update-date">03 October 2026</div>
+    <h3>💰 New Salary & Award System</h3>
+    <p>
+      Salary हर Thursday दी जाएगी। Awards हर Thursday नहीं, बल्कि महीने में केवल एक बार
+      monthly performance के आधार पर दिए जाएंगे।
+    </p>
+  </div>
+
+  <div class="update-card">
+    <div class="update-date">03 October 2026</div>
+    <h3>📊 Monthly Point System</h3>
+    <p>
+      रोज़ पढ़ाई के लिए 1 point और अपने पद के काम के लिए 2 points मिलेंगे।
+      महीने में कम-से-कम 25 दिन काम बढ़िया करने पर +10 bonus points मिलेगा।
+      Award महीने में एक बार दिया जाएगा।
+    </p>
+  </div>
+</section>
+
+<section id="currency" class="currency">
+  <h2>💰 Classic Empire Currency</h2>
+  <p>Official fictional currency information</p>
+
+  <div class="currency-box">
+    <div class="currency-item">
+      <div class="big">Classic Dinar</div>
+      <small>Currency Name</small>
+    </div>
+    <div class="currency-item">
+      <div class="big">CD</div>
+      <small>Short Name</small>
+    </div>
+    <div class="currency-item">
+      <div class="big">CLD</div>
+      <small>Official Code</small>
+    </div>
+    <div class="currency-item">
+      <div class="big">د.ك</div>
+      <small>Symbol</small>
+    </div>
+  </div>
+
+  <div class="update-card">
+    <h3>Official Conversion</h3>
+    <p><strong>1 CD = 300 KD = ₹93,600</strong></p>
+    <p style="margin-top:6px;color:#aaa">यह Classic Empire Ltd के fictional system की तय conversion है।</p>
+  </div>
+</section>
+
 <section id="people">
   <div class="title">
     <h2>Leadership & Administration</h2>
@@ -148,9 +238,39 @@ nav a{margin:0 6px;font-size:13px}
   </div>
 </section>
 
+<section id="salaries" class="salaries">
+  <h2>💵 Official Monthly Salary</h2>
+  <p style="color:#aaa">Salary हर Thursday दी जाएगी। नीचे salary को Classic Dinar (CD) में भी दिखाया गया है।</p>
+
+  <table class="salary-table">
+    <thead>
+      <tr>
+        <th>Post</th>
+        <th>Name</th>
+        <th>Salary (₹)</th>
+        <th>Salary (CD)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>President</td><td>Noor Ahmad</td><td>Unlimited</td><td class="cd">Unlimited CD</td></tr>
+      <tr><td>President's Assistant</td><td>Tabshir Alam</td><td>₹1,50,000</td><td class="cd">≈ 1.60 CD</td></tr>
+      <tr><td>DM</td><td>Jakir Hussain</td><td>₹2,18,200</td><td class="cd">≈ 2.33 CD</td></tr>
+      <tr><td>DM's Assistant</td><td>Shadat Hussain</td><td>₹1,20,000</td><td class="cd">≈ 1.28 CD</td></tr>
+      <tr><td>SDM</td><td>Aszad Sayeed</td><td>₹1,77,500</td><td class="cd">≈ 1.90 CD</td></tr>
+      <tr><td>SP</td><td>Shahnawaz Alam</td><td>₹2,15,900</td><td class="cd">≈ 2.31 CD</td></tr>
+      <tr><td>DSP</td><td>Shadab Alam</td><td>₹1,77,500</td><td class="cd">≈ 1.90 CD</td></tr>
+    </tbody>
+  </table>
+
+  <div class="update-card">
+    <h3>💳 Salary Rule</h3>
+    <p>Salary payment day: <strong>Every Thursday</strong></p>
+  </div>
+</section>
+
 <section class="about">
   <h2>About Classic Empire Ltd</h2>
-  <p>Classic Empire Ltd is a fictional role-play world created for friends. It includes leadership, administration, responsibilities and teamwork through different official posts.</p>
+  <p>Classic Empire Ltd is a fictional role-play world created for friends. It includes leadership, administration, responsibilities, teamwork, a fictional currency, salary and award systems through different official posts.</p>
 </section>
 
 <section id="structure" class="structure">
@@ -172,6 +292,7 @@ nav a{margin:0 6px;font-size:13px}
   <h2>Contact</h2>
   <a href="mailto:classicempireltd09@gmail.com">classicempireltd09@gmail.com</a>
 </section>
+
 </main>
 
 <footer>© 2026 <strong>Classic Empire Ltd</strong> — Official Empire Portal</footer>

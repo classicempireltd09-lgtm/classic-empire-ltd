@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Classic Empire Ltd - Exam Code Generator</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#080808;
+  color:#fff;
+  min-height:100vh;
+  padding:20px;
+}
+
+.container{
+  max-width:600px;
+  margin:40px auto;
+  background:#111;
+  border:1px solid #c9a227;
+  border-radius:15px;
+  padding:25px;
+  box-shadow:0 0 25px rgba(201,162,39,.15);
+}
+
+h1{
+  text-align:center;
+  color:#d4af37;
+  margin-bottom:10px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#aaa;
+  margin-bottom:25px;
+}
+
+label{
+  display:block;
+  margin-top:18px;
+  margin-bottom:7px;
+  color:#d4af37;
+  font-weight:bold;
+}
+
+input,
+select{
+  width:100%;
+  padding:13px;
+  border-radius:8px;
+  border:1px solid #555;
+  background:#1b1b1b;
+  color:#fff;
+  font-size:16px;
+}
+
+button{
+  width:100%;
+  margin-top:25px;
+  padding:14px;
+  border:none;
+  border-radius:8px;
+  background:#d4af37;
+  color:#000;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.result{
+  display:none;
+  margin-top:25px;
+  padding:20px;
+  border:1px solid #d4af37;
+  border-radius:10px;
+  text-align:center;
+}
+
+.code{
+  font-size:28px;
+  font-weight:bold;
+  color:#d4af37;
+  margin:15px 0;
+  letter-spacing:2px;
+  word-break:break-all;
+}
+
+.copy-btn{
+  margin-top:10px;
+  background:#222;
+  color:#d4af37;
+  border:1px solid #d4af37;
+}
+
+.message{
+  margin-top:15px;
+  text-align:center;
+  color:#ff7777;
+}
+
+.back{
+  display:block;
+  text-align:center;
+  margin-top:25px;
+  color:#d4af37;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Classic Empire Ltd</h1>
+
+<div class="subtitle">
+Exam Code Generator
+</div>
+
+<label for="applicantName">
+Applicant Name
+</label>
+
+<input
+  type="text"
+  id="applicantName"
+  placeholder="Applicant का नाम"
+>
+
+<label for="post">
+Post
+</label>
+
+<select id="post">
+
+<option value="">
+-- Post चुनें --
+</option>
+
+<option value="President's Assistant">
+President's Assistant
+</option>
+
+<option value="DM">
+DM
+</option>
+
+<option value="DM's Assistant">
+DM's Assistant
+</option>
+
+<option value="SDM">
+SDM
+</option>
+
+<option value="SP">
+SP
+</option>
+
+<option value="DSP">
+DSP
+</option>
+
+</select>
+
+<button onclick="generateCode()">
+Generate Exam Code
+</button>
+
+<div id="message" class="message"></div>
+
+<div id="result" class="result">
+
+<div>Generated Exam Code</div>
+
+<div id="generatedCode" class="code"></div>
+
+<div id="applicantInfo"></div>
+
+<button
+class="copy-btn"
+onclick="copyCode()"
+>
+Copy Exam Code
+</button>
+
+</div>
+
+<a href="index.html" class="back">
+← Back to Classic Empire Ltd
+</a>
+
+</div>
+
+<script>
+
+const SUPABASE_URL =
+"https://hjatspkzgoddcpgwfkxo.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
+
+
+async function generateCode(){
+
+const applicantName =
+document.getElementById("applicantName")
+.value
+.trim();
+
+const post =
+document.getElementById("post")
+.value;
+
+const message =
+document.getElementById("message");
+
+const result =
+document.getElementById("result");
+
+if(!applicantName){
+
+message.textContent =
+"Applicant Name डालें।";
+
+result.style.display="none";
+
+return;
+}
+
+if(!post){
+
+message.textContent =
+"Post चुनें।";
+
+result.style.display="none";
+
+return;
+}
+
+message.textContent =
+"Exam Code बनाया जा रहा है...";
+
+result.style.display="none";
+
+try{
+
+const response = await fetch(
+SUPABASE_URL +
+"/rest/v1/rpc/generate_exam_code",
+{
+method:"POST",
+
+headers:{
+"Content-Type":"application/json",
+"apikey":SUPABASE_KEY,
+"Authorization":
+"Bearer " + SUPABASE_KEY
+},
+
+body:JSON.stringify({
+input_applicant_name:
+applicantName,
+
+input_post:
+post
+})
+}
+);
+
+const data =
+await response.json();
+
+if(!response.ok){
+
+throw new Error(
+data.message ||
+"Exam Code generate नहीं हुआ।"
+);
+
+}
+
+document.getElementById(
+"generatedCode"
+).textContent = data;
+
+document.getElementById(
+"applicantInfo"
+).textContent =
+applicantName + " — " + post;
+
+result.style.display="block";
+
+message.textContent =
+"Exam Code successfully generated.";
+
+}
+
+catch(error){
+
+console.error(error);
+
+message.textContent =
+"Exam Code generate नहीं हुआ। Supabase connection check करें।";
+
+}
+
+}
+
+
+async function copyCode(){
+
+const code =
+document.getElementById(
+"generatedCode"
+).textContent;
+
+if(!code) return;
+
+try{
+
+await navigator.clipboard.writeText(code);
+
+alert(
+"Exam Code copied: " + code
+);
+
+}
+
+catch(error){
+
+alert(
+"Code copy नहीं हो पाया।"
+);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

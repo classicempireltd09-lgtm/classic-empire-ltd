@@ -4,384 +4,492 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Classic Empire Ltd</title>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:#090909;
   color:#f5f5f5;
   line-height:1.6;
 }
+
 a{color:inherit;text-decoration:none}
-.container{width:min(1120px,92%);margin:auto}
+
+.container{
+  width:min(1120px,92%);
+  margin:auto
+}
+
 header{
-  position:sticky;top:0;z-index:20;
+  position:sticky;
+  top:0;
+  z-index:20;
   background:rgba(8,8,8,.96);
   border-bottom:1px solid #3b2b00;
-  backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px)
 }
+
 .nav{
-  min-height:68px;display:flex;align-items:center;
-  justify-content:space-between;gap:18px;
+  min-height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px
 }
-.brand{display:flex;align-items:center;gap:12px;font-weight:800;color:#ffd54a}
-.brand img{width:44px;height:44px;border-radius:10px;object-fit:cover;border:1px solid #6d5200}
-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:800;
+  color:#ffd54a
+}
+
+.brand img{
+  width:44px;
+  height:44px;
+  border-radius:10px;
+  object-fit:cover;
+  border:1px solid #6d5200
+}
+
+nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:flex-end
+}
+
 nav a{
-  padding:8px 11px;border-radius:8px;color:#ddd;font-size:14px
+  padding:8px 11px;
+  border-radius:8px;
+  color:#ddd;
+  font-size:14px
 }
-nav a:hover{background:#171717;color:#ffd54a}
+
+nav a:hover{
+  background:#171717;
+  color:#ffd54a
+}
+
 .hero{
   padding:75px 0 60px;
   text-align:center;
-  background:radial-gradient(circle at top,#2a2105 0,#111 36%,#090909 70%);
+  background:radial-gradient(circle at top,#2a2105 0,#111 36%,#090909 70%)
 }
+
 .hero img{
-  width:96px;height:96px;object-fit:cover;border-radius:22px;
-  border:2px solid #c99b19;margin-bottom:18px;
+  width:96px;
+  height:96px;
+  object-fit:cover;
+  border-radius:22px;
+  border:2px solid #c99b19;
+  margin-bottom:18px
 }
-.hero h1{font-size:clamp(34px,7vw,62px);color:#ffd54a}
-.hero p{max-width:760px;margin:12px auto;color:#cfcfcf}
+
+.hero h1{
+  font-size:clamp(34px,7vw,62px);
+  color:#ffd54a
+}
+
+.hero p{
+  max-width:760px;
+  margin:12px auto;
+  color:#cfcfcf
+}
+
 .badge{
-  display:inline-block;margin-top:15px;padding:8px 13px;
-  border:1px solid #735700;border-radius:999px;color:#ffd54a;
-  background:#151105;font-size:13px
+  display:inline-block;
+  margin-top:15px;
+  padding:8px 13px;
+  border:1px solid #735700;
+  border-radius:999px;
+  color:#ffd54a;
+  background:#151105;
+  font-size:13px
 }
-section{padding:55px 0}
-.section-title{font-size:30px;color:#ffd54a;margin-bottom:9px}
-.section-subtitle{color:#aaa;margin-bottom:25px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+
+section{
+  padding:55px 0
+}
+
+.section-title{
+  font-size:30px;
+  color:#ffd54a;
+  margin-bottom:9px
+}
+
+.section-subtitle{
+  color:#aaa;
+  margin-bottom:25px
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px
+}
+
 .card{
-  background:#111;border:1px solid #292929;border-radius:16px;padding:20px;
+  background:#111;
+  border:1px solid #292929;
+  border-radius:16px;
+  padding:20px;
   box-shadow:0 8px 30px rgba(0,0,0,.2)
 }
-.person{text-align:center}
-.person img{
-  width:110px;height:110px;border-radius:50%;object-fit:cover;
-  border:2px solid #b88b0c;background:#1b1b1b;margin-bottom:12px
+
+.person{
+  text-align:center
 }
-.person h3{color:#fff;margin-bottom:4px}
-.role{color:#ffd54a;font-weight:700}
-.small{font-size:13px;color:#999}
+
+.person img{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #b88b0c;
+  background:#1b1b1b;
+  margin-bottom:12px
+}
+
+.person h3{
+  color:#fff;
+  margin-bottom:4px
+}
+
+.role{
+  color:#ffd54a;
+  font-weight:700
+}
+
+.small{
+  font-size:13px;
+  color:#999
+}
+
 details{
-  background:#111;border:1px solid #4b3905;border-radius:15px;
+  background:#111;
+  border:1px solid #4b3905;
+  border-radius:15px;
   overflow:hidden
 }
+
 summary{
-  cursor:pointer;padding:18px 20px;font-weight:800;color:#ffd54a;
+  cursor:pointer;
+  padding:18px 20px;
+  font-weight:800;
+  color:#ffd54a;
   list-style:none
 }
-summary::-webkit-details-marker{display:none}
-summary:after{content:"＋";float:right;font-size:22px}
-details[open] summary:after{content:"−"}
-.updates{padding:0 20px 20px;display:grid;gap:12px}
+
+summary::-webkit-details-marker{
+  display:none
+}
+
+summary:after{
+  content:"＋";
+  float:right;
+  font-size:22px
+}
+
+details[open] summary:after{
+  content:"−"
+}
+
+.updates{
+  padding:0 20px 20px;
+  display:grid;
+  gap:12px
+}
+
 .update{
-  padding:15px;border-left:3px solid #d4a91d;background:#171717;border-radius:8px
+  padding:15px;
+  border-left:3px solid #d4a91d;
+  background:#171717;
+  border-radius:8px
 }
-.update strong{color:#ffd54a}
+
+.update strong{
+  color:#ffd54a
+}
+
 .currency{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:15px
 }
-.currency .card{text-align:center}
-.currency .value{font-size:25px;font-weight:800;color:#ffd54a;margin-top:5px}
-.table-wrap{overflow-x:auto;border:1px solid #2c2c2c;border-radius:14px}
-table{width:100%;border-collapse:collapse;min-width:650px;background:#111}
-th,td{padding:14px 16px;border-bottom:1px solid #292929;text-align:left}
-th{background:#191502;color:#ffd54a}
-tr:last-child td{border-bottom:0}
+
+.currency .card{
+  text-align:center
+}
+
+.currency .value{
+  font-size:25px;
+  font-weight:800;
+  color:#ffd54a;
+  margin-top:5px
+}
+
+.table-wrap{
+  overflow-x:auto;
+  border:1px solid #2c2c2c;
+  border-radius:14px
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:650px;
+  background:#111
+}
+
+th,td{
+  padding:14px 16px;
+  border-bottom:1px solid #292929;
+  text-align:left
+}
+
+th{
+  background:#191502;
+  color:#ffd54a
+}
+
+tr:last-child td{
+  border-bottom:0
+}
+
 form{
-  background:#111;border:1px solid #333;border-radius:16px;padding:22px
+  background:#111;
+  border:1px solid #333;
+  border-radius:16px;
+  padding:22px
 }
-.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.field{display:flex;flex-direction:column;gap:7px}
-.field.full{grid-column:1/-1}
-label{font-size:14px;color:#ddd;font-weight:700}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px
+}
+
+.field.full{
+  grid-column:1/-1
+}
+
+label{
+  font-size:14px;
+  color:#ddd;
+  font-weight:700
+}
+
 input,select,textarea{
-  width:100%;padding:12px 13px;border-radius:9px;
-  border:1px solid #3b3b3b;background:#0b0b0b;color:#fff;
+  width:100%;
+  padding:12px 13px;
+  border-radius:9px;
+  border:1px solid #3b3b3b;
+  background:#0b0b0b;
+  color:#fff;
   outline:none
 }
-input:focus,select:focus,textarea:focus{border-color:#c69b16}
-textarea{min-height:110px;resize:vertical}
-input[type=file]{padding:10px}
+
+input:focus,select:focus,textarea:focus{
+  border-color:#c69b16
+}
+
+textarea{
+  min-height:110px;
+  resize:vertical
+}
+
+input[type=file]{
+  padding:10px
+}
+
 button{
-  border:0;border-radius:10px;padding:13px 18px;
-  background:#d5aa24;color:#090909;font-weight:800;cursor:pointer;
+  border:0;
+  border-radius:10px;
+  padding:13px 18px;
+  background:#d5aa24;
+  color:#090909;
+  font-weight:800;
+  cursor:pointer;
   font-size:15px
 }
-button:hover{background:#f0c83f}
+
+button:hover{
+  background:#f0c83f
+}
+
 .note{
-  margin-top:12px;padding:12px;border-radius:9px;
-  background:#171717;color:#aaa;font-size:13px
+  margin-top:12px;
+  padding:12px;
+  border-radius:9px;
+  background:#171717;
+  color:#aaa;
+  font-size:13px
 }
-.admin-list{display:grid;gap:10px}
+
+.admin-list{
+  display:grid;
+  gap:10px
+}
+
 .admin-row{
-  display:flex;justify-content:space-between;gap:15px;
-  padding:13px 15px;background:#111;border:1px solid #292929;border-radius:10px
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:13px 15px;
+  background:#111;
+  border:1px solid #292929;
+  border-radius:10px
 }
-.admin-row span:last-child{color:#ffd54a;font-weight:700;text-align:right}
-.contact-box{text-align:center}
+
+.admin-row span:last-child{
+  color:#ffd54a;
+  font-weight:700;
+  text-align:right
+}
+
+.contact-box{
+  text-align:center
+}
+
 footer{
-  border-top:1px solid #2d2304;padding:25px 0;color:#888;text-align:center
+  border-top:1px solid #2d2304;
+  padding:25px 0;
+  color:#888;
+  text-align:center
 }
+
 @media(max-width:700px){
-  .nav{align-items:flex-start;flex-direction:column;padding:12px 0}
-  nav{justify-content:flex-start}
-  .form-grid{grid-template-columns:1fr}
-  .field.full{grid-column:auto}
-  .admin-row{flex-direction:column}
-  .admin-row span:last-child{text-align:left}
+
+  .nav{
+    align-items:flex-start;
+    flex-direction:column;
+    padding:12px 0
+  }
+
+  nav{
+    justify-content:flex-start
+  }
+
+  .form-grid{
+    grid-template-columns:1fr
+  }
+
+  .field.full{
+    grid-column:auto
+  }
+
+  .admin-row{
+    flex-direction:column
+  }
+
+  .admin-row span:last-child{
+    text-align:left
+  }
 }
 </style>
 </head>
+
 <body>
 
 <header>
-  <div class="container nav">
-    <a class="brand" href="#home">
-      <img src="classic-empire-logo.png" alt="Classic Empire Ltd Logo">
-      <span>Classic Empire Ltd</span>
-    </a>
-    <nav>
-      <a href="#people">People</a>
-      <a href="#updates">Empire Updates</a>
-      <a href="#currency">Currency</a>
-      <a href="#salaries">Salaries</a>
-      <a href="#apply">Apply</a>
-      <a href="#administration">Administration</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </div>
+<div class="container nav">
+
+<a class="brand" href="#home">
+<img src="classic-empire-logo.png" alt="Classic Empire Ltd Logo">
+<span>Classic Empire Ltd</span>
+</a>
+
+<nav>
+<a href="#people">People</a>
+<a href="#updates">Empire Updates</a>
+<a href="#currency">Currency</a>
+<a href="#salaries">Salaries</a>
+<a href="#apply">Apply</a>
+
+<!-- NEW EXAM PORTAL -->
+<a href="exam.html">📝 Exam Portal</a>
+
+<a href="#administration">Administration</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</nav>
+
+</div>
 </header>
 
+
 <main>
+
 <section class="hero" id="home">
-  <div class="container">
-    <img src="classic-empire-logo.png" alt="Classic Empire Ltd Logo">
-    <h1>Classic Empire Ltd</h1>
-    <p>A fictional school-style Empire system with defined posts, duties, salaries, awards, currency and administration.</p>
-    <span class="badge">Official Empire System</span>
-  </div>
+<div class="container">
+
+<img src="classic-empire-logo.png" alt="Classic Empire Ltd Logo">
+
+<h1>Classic Empire Ltd</h1>
+
+<p>
+A fictional school-style Empire system with defined posts, duties,
+salaries, awards, currency and administration.
+</p>
+
+<span class="badge">Official Empire System</span>
+
+</div>
 </section>
+
 
 <section id="people">
-  <div class="container">
-    <h2 class="section-title">Empire People</h2>
-    <p class="section-subtitle">Current office holders of Classic Empire Ltd.</p>
-    <div class="grid">
-      <div class="card person">
-        <img src="noor-ahmad.png" alt="Noor Ahmad">
-        <h3>Noor Ahmad</h3><div class="role">President</div>
-      </div>
-      <div class="card person">
-        <img src="tabshir-alam.png" alt="Tabshir Alam">
-        <h3>Tabshir Alam</h3><div class="role">President's Assistant</div>
-      </div>
-      <div class="card person">
-        <img src="jakir-hussain.png" alt="Jakir Hussain">
-        <h3>Jakir Hussain</h3><div class="role">DM</div>
-      </div>
-      <div class="card person">
-        <img src="shadat-hussain.png" alt="Shadat Hussain">
-        <h3>Shadat Hussain</h3><div class="role">DM's Assistant</div>
-      </div>
-      <div class="card person">
-        <img src="aszad-sayeed.png" alt="Aszad Sayeed">
-        <h3>Aszad Sayeed</h3><div class="role">SDM</div>
-      </div>
-      <div class="card person">
-        <img src="shahnawaz-alam.png" alt="Shahnawaz Alam">
-        <h3>Shahnawaz Alam</h3><div class="role">SP</div>
-      </div>
-      <div class="card person">
-        <img src="shadab-alam.png" alt="Shadab Alam">
-        <h3>Shadab Alam</h3><div class="role">DSP</div>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="container">
 
-<section id="updates">
-  <div class="container">
-    <h2 class="section-title">Empire Updates</h2>
-    <p class="section-subtitle">Click the box below to see the latest Empire changes.</p>
+<h2 class="section-title">Empire People</h2>
 
-    <details>
-      <summary>New Empire Changes</summary>
-      <div class="updates">
-        <div class="update"><strong>01. President System:</strong> The President is the founder and permanent President under the normal system.</div>
-        <div class="update"><strong>02. Administration:</strong> The current administrative structure uses President, President's Assistant, DM, DM's Assistant, SDM, SP and DSP posts.</div>
-        <div class="update"><strong>03. Removed Posts:</strong> PM, Ministers, Management/Founder/Chairman posts, CID, Bodyguard and Election Department are not part of the current system.</div>
-        <div class="update"><strong>04. Salary:</strong> Salaries are official weekly salaries and are paid every Thursday.</div>
-        <div class="update"><strong>05. Currency:</strong> Classic Dinar (CD/CLD) is the fictional official currency of the Empire.</div>
-        <div class="update"><strong>06. Applications:</strong> Eligible people can apply for available posts using the application form below. The President post is not available through the normal application form.</div>
-      </div>
-    </details>
-  </div>
-</section>
+<p class="section-subtitle">
+Current office holders of Classic Empire Ltd.
+</p>
 
-<section id="currency">
-  <div class="container">
-    <h2 class="section-title">Empire Currency</h2>
-    <p class="section-subtitle">Official fictional currency information.</p>
-    <div class="currency">
-      <div class="card"><div class="small">Currency Name</div><div class="value">Classic Dinar</div></div>
-      <div class="card"><div class="small">Short Name</div><div class="value">CD</div></div>
-      <div class="card"><div class="small">Official Code</div><div class="value">CLD</div></div>
-      <div class="card"><div class="small">Symbol</div><div class="value">د.ك</div></div>
-      <div class="card"><div class="small">Fixed Conversion</div><div class="value">1 CD = 300 KD</div></div>
-      <div class="card"><div class="small">Indian Rupee Value</div><div class="value">1 CD = ₹93,600</div></div>
-    </div>
-  </div>
-</section>
+<div class="grid">
 
-<section id="salaries">
-  <div class="container">
-    <h2 class="section-title">Official Weekly Salary</h2>
-    <p class="section-subtitle">Salary is paid every Thursday. All amounts below are weekly.</p>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Post</th><th>Person</th><th>Weekly Salary</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>President</td><td>Noor Ahmad</td><td>Unlimited</td></tr>
-          <tr><td>President's Assistant</td><td>Tabshir Alam</td><td>₹1,50,000</td></tr>
-          <tr><td>DM</td><td>Jakir Hussain</td><td>₹2,18,200</td></tr>
-          <tr><td>DM's Assistant</td><td>Shadat Hussain</td><td>₹1,20,000</td></tr>
-          <tr><td>SDM</td><td>Aszad Sayeed</td><td>₹1,77,500</td></tr>
-          <tr><td>SP</td><td>Shahnawaz Alam</td><td>₹2,15,900</td></tr>
-          <tr><td>DSP</td><td>Shadab Alam</td><td>₹1,77,500</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
+<div class="card person">
+<img src="noor-ahmad.png" alt="Noor Ahmad">
+<h3>Noor Ahmad</h3>
+<div class="role">President</div>
+</div>
 
-<section id="apply">
-  <div class="container">
-    <h2 class="section-title">Apply for a Post</h2>
-    <p class="section-subtitle">Submit your application directly through the Classic Empire application form.</p>
+<div class="card person">
+<img src="tabshir-alam.png" alt="Tabshir Alam">
+<h3>Tabshir Alam</h3>
+<div class="role">President's Assistant</div>
+</div>
 
-    <form id="applicationForm"
-          action="https://formsubmit.co/classicempireltd09@gmail.com"
-          method="POST"
-          enctype="multipart/form-data">
+<div class="card person">
+<img src="jakir-hussain.png" alt="Jakir Hussain">
+<h3>Jakir Hussain</h3>
+<div class="role">DM</div>
+</div>
 
-      <input type="hidden" name="_subject" value="Classic Empire Ltd Post Application">
-      <input type="hidden" name="_template" value="table">
+<div class="card person">
+<img src="shadat-hussain.png" alt="Shadat Hussain">
+<h3>Shadat Hussain</h3>
+<div class="role">DM's Assistant</div>
+</div>
 
-      <div class="form-grid">
-        <div class="field">
-          <label for="name">Applicant Name *</label>
-          <input id="name" type="text" name="name" required>
-        </div>
+<div class="card person">
+<img src="aszad-sayeed.png" alt="Aszad Sayeed">
+<h3>Aszad Sayeed</h3>
+<div class="role">SDM</div>
+</div>
 
-        <div class="field">
-          <label for="age">Age *</label>
-          <input id="age" type="number" name="age" min="1" max="100" required>
-        </div>
-
-        <div class="field">
-          <label for="class">Class *</label>
-          <input id="class" type="text" name="class" required>
-        </div>
-
-        <div class="field">
-          <label for="post">Apply For Post *</label>
-          <select id="post" name="post" required>
-            <option value="">Select a post</option>
-            <option>President's Assistant</option>
-            <option>DM</option>
-            <option>DM's Assistant</option>
-            <option>SDM</option>
-            <option>SP</option>
-            <option>DSP</option>
-          </select>
-        </div>
-
-        <div class="field full">
-          <label for="photo">Applicant Photo *</label>
-          <input id="photo" type="file" name="attachment" accept="image/png,image/jpeg,image/webp" required>
-        </div>
-
-        <div class="field">
-          <label for="email">Applicant Email *</label>
-          <input id="email" type="email" name="email" required>
-        </div>
-
-        <div class="field">
-          <label for="phone">Contact Number</label>
-          <input id="phone" type="tel" name="contact_number">
-        </div>
-
-        <div class="field full">
-          <label for="reason">Why do you want this post? *</label>
-          <textarea id="reason" name="reason" required></textarea>
-        </div>
-
-        <div class="field full">
-          <button type="submit">Submit Application</button>
-        </div>
-      </div>
-
-      <div class="note">
-        Your application details and selected photo will be sent to the Classic Empire Ltd official email through FormSubmit.
-        On the first submission, FormSubmit may send an activation email to the form owner. The maximum combined file size is 10 MB.
-      </div>
-    </form>
-  </div>
-</section>
-
-<section id="administration">
-  <div class="container">
-    <h2 class="section-title">Administration Structure</h2>
-    <p class="section-subtitle">Current Classic Empire Ltd administrative posts.</p>
-    <div class="admin-list">
-      <div class="admin-row"><span>President</span><span>Noor Ahmad</span></div>
-      <div class="admin-row"><span>President's Assistant</span><span>Tabshir Alam</span></div>
-      <div class="admin-row"><span>DM</span><span>Jakir Hussain</span></div>
-      <div class="admin-row"><span>DM's Assistant</span><span>Shadat Hussain</span></div>
-      <div class="admin-row"><span>SDM</span><span>Aszad Sayeed</span></div>
-      <div class="admin-row"><span>SP</span><span>Shahnawaz Alam</span></div>
-      <div class="admin-row"><span>DSP</span><span>Shadab Alam</span></div>
-    </div>
-  </div>
-</section>
-
-<section id="about">
-  <div class="container">
-    <h2 class="section-title">About Classic Empire Ltd</h2>
-    <div class="card">
-      <p>
-        The President is the founder of Classic Empire Ltd and is the person who established this Empire.
-        The President is the permanent President of Classic Empire Ltd and the position of President will never change under the normal system.
-      </p>
-      <br>
-      <p>
-        The President can personally appoint or transfer the position of President to another person only by the President's own decision.
-        No other person or authority can change the President.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="container">
-    <div class="card contact-box">
-      <h2 class="section-title">Contact</h2>
-      <p class="section-subtitle">Classic Empire Ltd official contact email</p>
-      <p><strong style="color:#ffd54a">classicempireltd09@gmail.com</strong></p>
-    </div>
-  </div>
-</section>
-</main>
-
-<footer>
-  <div class="container">© Classic Empire Ltd — Fictional Empire System</div>
-</footer>
-
-</body>
-</html>
+<div class="card person">
+<img src="shahnawaz-alam.png" alt="Shahnawaz Alam">
+<h3>Shahnawaz Alam</h

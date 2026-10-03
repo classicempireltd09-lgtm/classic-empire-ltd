@@ -3,56 +3,136 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Classic Empire Ltd — Exam</title>
+
+<title>Classic Empire Ltd — Examination Portal</title>
 
 <style>
-body{
+
+*{
+  box-sizing:border-box;
   margin:0;
-  font-family:Arial,sans-serif;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
   background:#080808;
   color:white;
-  text-align:center;
+  line-height:1.6;
 }
 
 .container{
-  max-width:500px;
-  margin:80px auto;
-  padding:30px;
+  width:min(850px,92%);
+  margin:40px auto;
+}
+
+.box{
   background:#111;
-  border:1px solid #444;
-  border-radius:15px;
+  border:1px solid #3d3d3d;
+  border-radius:16px;
+  padding:25px;
+  margin-bottom:20px;
 }
 
-h1{
-  color:#ffd700;
+h1,h2{
+  color:#ffd54a;
+  text-align:center;
 }
 
-input,button{
+.subtitle{
+  text-align:center;
+  color:#aaa;
+  margin:8px 0 25px;
+}
+
+input,select,button{
   width:100%;
-  padding:14px;
-  margin-top:15px;
-  border-radius:8px;
+  padding:13px;
+  margin-top:12px;
+  border-radius:9px;
   box-sizing:border-box;
 }
 
-input{
-  background:#222;
+input,select{
+  background:#090909;
   color:white;
-  border:1px solid #555;
+  border:1px solid #444;
 }
 
 button{
-  background:#ffd700;
+  background:#d5aa24;
   color:#000;
   border:0;
   font-weight:bold;
   cursor:pointer;
 }
 
-#message{
-  margin-top:20px;
-  font-weight:bold;
+button:hover{
+  background:#f0c83f;
 }
+
+#examArea{
+  display:none;
+}
+
+#result{
+  display:none;
+  text-align:center;
+}
+
+.question{
+  background:#171717;
+  border:1px solid #292929;
+  border-radius:12px;
+  padding:18px;
+  margin:15px 0;
+}
+
+.question p{
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+label{
+  display:block;
+  padding:7px 0;
+  color:#ddd;
+}
+
+.correct{
+  color:#6ee76e;
+}
+
+.wrong{
+  color:#ff7777;
+}
+
+.exam-info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:20px;
+}
+
+.info{
+  background:#191919;
+  border:1px solid #303030;
+  padding:12px;
+  border-radius:9px;
+  text-align:center;
+}
+
+.info strong{
+  display:block;
+  color:#ffd54a;
+}
+
+@media(max-width:600px){
+  .exam-info{
+    grid-template-columns:1fr;
+  }
+}
+
 </style>
 </head>
 
@@ -60,50 +140,531 @@ button{
 
 <div class="container">
 
+<!-- ACCESS CODE -->
+
+<div class="box" id="loginBox">
+
 <h1>🏛️ Classic Empire Ltd</h1>
 
-<h2>📝 Examination Portal</h2>
-
-<p>Enter your Exam Access Code</p>
+<p class="subtitle">
+📝 Official Examination Portal
+</p>
 
 <input
-  type="text"
-  id="examCode"
-  placeholder="Enter Exam Code"
+type="text"
+id="examCode"
+placeholder="Enter Exam Access Code"
 >
 
-<button onclick="checkCode()">Enter Exam</button>
+<select id="postSelect">
 
-<div id="message"></div>
+<option value="">Select Your Post</option>
+
+<option value="President's Assistant">
+President's Assistant
+</option>
+
+<option value="DM">
+DM
+</option>
+
+<option value="DM's Assistant">
+DM's Assistant
+</option>
+
+<option value="SDM">
+SDM
+</option>
+
+<option value="SP">
+SP
+</option>
+
+<option value="DSP">
+DSP
+</option>
+
+</select>
+
+<button onclick="startExam()">
+Enter Examination
+</button>
+
+<p id="loginMessage"></p>
 
 </div>
 
+
+<!-- EXAM -->
+
+<div class="box" id="examArea">
+
+<h1>📝 Empire Examination</h1>
+
+<div class="exam-info">
+
+<div class="info">
+<strong id="examPost">Post</strong>
+Post
+</div>
+
+<div class="info">
+<strong>10</strong>
+Questions
+</div>
+
+</div>
+
+<form id="examForm">
+
+<!-- QUESTION 1 -->
+
+<div class="question">
+
+<p>1. What is the highest post in the current Classic Empire system?</p>
+
+<label>
+<input type="radio" name="q1" value="President">
+President
+</label>
+
+<label>
+<input type="radio" name="q1" value="DM">
+DM
+</label>
+
+<label>
+<input type="radio" name="q1" value="SP">
+SP
+</label>
+
+<label>
+<input type="radio" name="q1" value="DSP">
+DSP
+</label>
+
+</div>
+
+
+<!-- QUESTION 2 -->
+
+<div class="question">
+
+<p>2. Who is the current President of Classic Empire Ltd?</p>
+
+<label>
+<input type="radio" name="q2" value="Noor Ahmad">
+Noor Ahmad
+</label>
+
+<label>
+<input type="radio" name="q2" value="Jakir Hussain">
+Jakir Hussain
+</label>
+
+<label>
+<input type="radio" name="q2" value="Shadab Alam">
+Shadab Alam
+</label>
+
+<label>
+<input type="radio" name="q2" value="Tabshir Alam">
+Tabshir Alam
+</label>
+
+</div>
+
+
+<!-- QUESTION 3 -->
+
+<div class="question">
+
+<p>3. Which post comes below DM in the current structure?</p>
+
+<label>
+<input type="radio" name="q3" value="SDM">
+SDM
+</label>
+
+<label>
+<input type="radio" name="q3" value="President">
+President
+</label>
+
+<label>
+<input type="radio" name="q3" value="SP">
+SP
+</label>
+
+<label>
+<input type="radio" name="q3" value="DSP">
+DSP
+</label>
+
+</div>
+
+
+<!-- QUESTION 4 -->
+
+<div class="question">
+
+<p>4. What is the official fictional currency of Classic Empire Ltd?</p>
+
+<label>
+<input type="radio" name="q4" value="Classic Dinar">
+Classic Dinar
+</label>
+
+<label>
+<input type="radio" name="q4" value="Indian Rupee">
+Indian Rupee
+</label>
+
+<label>
+<input type="radio" name="q4" value="Dollar">
+Dollar
+</label>
+
+<label>
+<input type="radio" name="q4" value="Euro">
+Euro
+</label>
+
+</div>
+
+
+<!-- QUESTION 5 -->
+
+<div class="question">
+
+<p>5. When are weekly salaries paid?</p>
+
+<label>
+<input type="radio" name="q5" value="Thursday">
+Thursday
+</label>
+
+<label>
+<input type="radio" name="q5" value="Monday">
+Monday
+</label>
+
+<label>
+<input type="radio" name="q5" value="Friday">
+Friday
+</label>
+
+<label>
+<input type="radio" name="q5" value="Sunday">
+Sunday
+</label>
+
+</div>
+
+
+<!-- QUESTION 6 -->
+
+<div class="question">
+
+<p>6. Who is the President's Assistant?</p>
+
+<label>
+<input type="radio" name="q6" value="Tabshir Alam">
+Tabshir Alam
+</label>
+
+<label>
+<input type="radio" name="q6" value="Shadat Hussain">
+Shadat Hussain
+</label>
+
+<label>
+<input type="radio" name="q6" value="Aszad Sayeed">
+Aszad Sayeed
+</label>
+
+<label>
+<input type="radio" name="q6" value="Shahnawaz Alam">
+Shahnawaz Alam
+</label>
+
+</div>
+
+
+<!-- QUESTION 7 -->
+
+<div class="question">
+
+<p>7. What is the official short name of the currency?</p>
+
+<label>
+<input type="radio" name="q7" value="CD">
+CD
+</label>
+
+<label>
+<input type="radio" name="q7" value="USD">
+USD
+</label>
+
+<label>
+<input type="radio" name="q7" value="INR">
+INR
+</label>
+
+<label>
+<input type="radio" name="q7" value="KD">
+KD
+</label>
+
+</div>
+
+
+<!-- QUESTION 8 -->
+
+<div class="question">
+
+<p>8. Who holds the DM post?</p>
+
+<label>
+<input type="radio" name="q8" value="Jakir Hussain">
+Jakir Hussain
+</label>
+
+<label>
+<input type="radio" name="q8" value="Noor Ahmad">
+Noor Ahmad
+</label>
+
+<label>
+<input type="radio" name="q8" value="Shadab Alam">
+Shadab Alam
+</label>
+
+<label>
+<input type="radio" name="q8" value="Aszad Sayeed">
+Aszad Sayeed
+</label>
+
+</div>
+
+
+<!-- QUESTION 9 -->
+
+<div class="question">
+
+<p>9. Which post is part of the current system?</p>
+
+<label>
+<input type="radio" name="q9" value="DSP">
+DSP
+</label>
+
+<label>
+<input type="radio" name="q9" value="PM">
+PM
+</label>
+
+<label>
+<input type="radio" name="q9" value="Minister">
+Minister
+</label>
+
+<label>
+<input type="radio" name="q9" value="CID">
+CID
+</label>
+
+</div>
+
+
+<!-- QUESTION 10 -->
+
+<div class="question">
+
+<p>10. What is the fixed value of 1 CD in Indian Rupees?</p>
+
+<label>
+<input type="radio" name="q10" value="93600">
+₹93,600
+</label>
+
+<label>
+<input type="radio" name="q10" value="9360">
+₹9,360
+</label>
+
+<label>
+<input type="radio" name="q10" value="936">
+₹936
+</label>
+
+<label>
+<input type="radio" name="q10" value="936000">
+₹9,36,000
+</label>
+
+</div>
+
+
+<button type="button" onclick="submitExam()">
+Submit Examination
+</button>
+
+</form>
+
+</div>
+
+
+<!-- RESULT -->
+
+<div class="box" id="result">
+
+<h1>🎓 Examination Result</h1>
+
+<p id="resultText"></p>
+
+<button onclick="location.reload()">
+Back to Examination Portal
+</button>
+
+</div>
+
+</div>
+
+
 <script>
 
-function checkCode(){
+const correctAnswers = {
 
-  const code =
-    document.getElementById("examCode").value
-    .trim()
-    .toUpperCase();
+q1:"President",
+q2:"Noor Ahmad",
+q3:"SDM",
+q4:"Classic Dinar",
+q5:"Thursday",
+q6:"Tabshir Alam",
+q7:"CD",
+q8:"Jakir Hussain",
+q9:"DSP",
+q10:"93600"
 
-  /*
-    Temporary test code.
-    Later we will connect this
-    with the real application system.
-  */
+};
 
-  if(code === "CE-TEST-123456"){
 
-    document.getElementById("message").innerHTML =
-      "✅ Code verified! Exam access granted.";
+function startExam(){
 
-  }else{
+const code =
+document.getElementById("examCode")
+.value
+.trim()
+.toUpperCase();
 
-    document.getElementById("message").innerHTML =
-      "❌ Invalid Exam Code.";
+const post =
+document.getElementById("postSelect")
+.value;
 
-  }
+const message =
+document.getElementById("loginMessage");
+
+
+/*
+Temporary testing code.
+Real unique codes will be connected later.
+*/
+
+if(code !== "CE-TEST-123456"){
+
+message.innerHTML =
+"<span class='wrong'>❌ Invalid Exam Access Code.</span>";
+
+return;
+
+}
+
+
+if(post === ""){
+
+message.innerHTML =
+"<span class='wrong'>❌ Please select your post.</span>";
+
+return;
+
+}
+
+
+document.getElementById("loginBox").style.display="none";
+
+document.getElementById("examArea").style.display="block";
+
+document.getElementById("examPost").innerText=post;
+
+window.scrollTo(0,0);
+
+}
+
+
+function submitExam(){
+
+let score=0;
+
+for(let i=1;i<=10;i++){
+
+const selected =
+document.querySelector(
+'input[name="q'+i+'"]:checked'
+);
+
+if(selected &&
+selected.value === correctAnswers["q"+i]){
+
+score++;
+
+}
+
+}
+
+
+document.getElementById("examArea").style.display="none";
+
+document.getElementById("result").style.display="block";
+
+
+let percentage =
+(score/10)*100;
+
+
+let status;
+
+if(score>=8){
+
+status="✅ PASS";
+
+}else{
+
+status="❌ FAIL";
+
+}
+
+
+document.getElementById("resultText").innerHTML =
+
+"Post: <strong>"+
+document.getElementById("examPost").innerText+
+"</strong><br><br>"+
+
+"Score: <strong>"+
+score+
+"/10</strong><br><br>"+
+
+"Percentage: <strong>"+
+percentage+
+"%</strong><br><br>"+
+
+"<strong>"+
+status+
+"</strong>";
+
+window.scrollTo(0,0);
 
 }
 

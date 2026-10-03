@@ -228,3 +228,66 @@ Post:
 
 Objective:
 <strong>10 Questions</
+  const selected =
+document.querySelector(
+'input[name="q'+index+'"]:checked'
+);
+
+if(!selected){
+    unanswered++;
+    return;
+}
+
+if(Number(selected.value) === item.answer){
+    score++;
+}
+
+});
+
+const totalObjective = paper.length - subjective;
+
+const percentage =
+Math.round((score / totalObjective) * 100);
+
+const passed = percentage >= 60;
+
+document.getElementById("examArea").style.display = "none";
+document.getElementById("result").style.display = "block";
+
+document.getElementById("resultText").innerHTML =
+
+"<p><strong>Applicant:</strong> "+
+document.getElementById("showName").textContent+
+"</p>"+
+
+"<p><strong>Post:</strong> "+
+post+
+"</p>"+
+
+"<p><strong>Objective Score:</strong> "+
+score+" / "+totalObjective+
+"</p>"+
+
+"<p><strong>Percentage:</strong> "+
+percentage+"%</p>"+
+
+"<p><strong>Unanswered:</strong> "+
+unanswered+
+"</p>"+
+
+"<p><strong>Subjective Questions:</strong> "+
+subjective+
+"</p><br>"+
+
+"<p class='"+(passed ? "pass" : "fail")+"'>"+
+(passed ? "✅ PASSED" : "❌ NOT PASSED")+
+"</p>";
+
+window.scrollTo(0,0);
+
+}
+
+</script>
+
+</body>
+</html>

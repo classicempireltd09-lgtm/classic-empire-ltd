@@ -1,85 +1,157 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Classic Empire Ltd — Examination</title>
+<title>Classic Empire Ltd — Examination Portal</title>
 
 <style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#080808;
-  color:white;
+font-family:Arial,Helvetica,sans-serif;
+background:#080808;
+color:#fff;
+line-height:1.6;
 }
 
 .container{
-  max-width:850px;
-  margin:30px auto;
-  padding:20px;
+width:min(900px,92%);
+margin:30px auto;
 }
 
 .box{
-  background:#111;
-  border:1px solid #444;
-  border-radius:15px;
-  padding:25px;
+background:#111;
+border:1px solid #3b3b3b;
+border-radius:16px;
+padding:25px;
+margin-bottom:20px;
 }
 
-h1{
-  color:#ffd700;
-  text-align:center;
+h1,h2{
+color:#ffd54a;
+text-align:center;
 }
 
-input,select,button{
-  width:100%;
-  padding:14px;
-  margin-top:12px;
-  border-radius:8px;
-  box-sizing:border-box;
+.subtitle{
+color:#aaa;
+text-align:center;
+margin:8px 0 25px;
 }
 
-input,select{
-  background:#222;
-  color:white;
-  border:1px solid #555;
+input,select,textarea,button{
+width:100%;
+padding:13px;
+margin-top:10px;
+border-radius:9px;
+}
+
+input,select,textarea{
+background:#090909;
+color:#fff;
+border:1px solid #444;
 }
 
 button{
-  background:#ffd700;
-  color:#000;
-  border:0;
-  font-weight:bold;
+background:#d5aa24;
+color:#000;
+border:0;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#f0c83f;
 }
 
 .question{
-  background:#181818;
-  border:1px solid #333;
-  padding:18px;
-  margin:15px 0;
-  border-radius:10px;
+background:#171717;
+border:1px solid #303030;
+border-radius:12px;
+padding:18px;
+margin:16px 0;
+}
+
+.question-number{
+color:#ffd54a;
+font-weight:bold;
+margin-bottom:8px;
+}
+
+.type{
+display:inline-block;
+font-size:12px;
+color:#ffd54a;
+border:1px solid #5b4707;
+padding:3px 8px;
+border-radius:20px;
+margin-bottom:10px;
 }
 
 .option{
-  display:block;
-  padding:8px;
+display:block;
+padding:8px;
+margin:5px 0;
+border-radius:7px;
+cursor:pointer;
 }
 
-#exam{
-  display:none;
+.option:hover{
+background:#222;
 }
 
-#result{
-  display:none;
-  text-align:center;
+textarea{
+min-height:120px;
+resize:vertical;
 }
 
-.correct{
-  color:#5cff75;
+.info{
+background:#191919;
+padding:14px;
+border-radius:10px;
+text-align:center;
+margin-bottom:20px;
 }
 
-.wrong{
-  color:#ff6464;
+.info strong{
+color:#ffd54a;
+}
+
+#examArea,#result{
+display:none;
+}
+
+#loginMessage{
+text-align:center;
+margin-top:12px;
+font-weight:bold;
+}
+
+.pass{
+color:#5cff75;
+font-size:24px;
+font-weight:bold;
+}
+
+.fail{
+color:#ff6464;
+font-size:24px;
+font-weight:bold;
+}
+
+.warning{
+color:#ffcc55;
+text-align:center;
+}
+
+hr{
+border:0;
+border-top:1px solid #333;
+margin:20px 0;
 }
 </style>
 </head>
@@ -88,21 +160,71 @@ button{
 
 <div class="container">
 
-<div class="box" id="login">
+<!-- LOGIN -->
+
+<div class="box" id="loginBox">
 
 <h1>🏛️ Classic Empire Ltd</h1>
 
-<p style="text-align:center">
-📝 Hard-Level Mixed Examination
+<p class="subtitle">
+Hard-Level Official Examination Portal
 </p>
 
-<input id="name" placeholder="Applicant Name">
+<input
+id="candidateName"
+type="text"
+placeholder="Applicant Name"
+>
 
-<input id="code" placeholder="Exam Access Code">
+<input
+id="examCode"
+type="text"
+placeholder="Exam Access Code"
+>
 
-<select id="post">
+<select id="postSelect">
 
-<option value="">Select Post</option>
+<option value="">Select Examination Post</option>
+
 <option>President's Assistant</option>
 <option>DM</option>
-<option>DM's Assistant
+<option>DM's Assistant</option>
+<option>SDM</option>
+<option>SP</option>
+<option>DSP</option>
+
+</select>
+
+<button onclick="startExam()">
+Start Examination
+</button>
+
+<p id="loginMessage"></p>
+
+</div>
+
+
+<!-- EXAM -->
+
+<div class="box" id="examArea">
+
+<h1>📝 Empire Examination</h1>
+
+<p class="subtitle">
+Hindi + English • Hard Level • Mixed Questions
+</p>
+
+<div class="info">
+
+Applicant:
+<strong id="showName"></strong>
+
+<br>
+
+Post:
+<strong id="showPost"></strong>
+
+<br>
+
+Objective:
+<strong>10 Questions</

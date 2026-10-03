@@ -83,8 +83,7 @@ nav a:hover{
 .hero{
   text-align:center;
   padding:80px 20px;
-  background:
-    radial-gradient(circle at top,#222 0%,#080808 55%);
+  background:radial-gradient(circle at top,#222 0%,#080808 55%);
 }
 
 .hero h1{
@@ -122,4 +121,1062 @@ section{
 .section-subtitle{
   text-align:center;
   color:#aaa;
- 
+  margin-bottom:30px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:#111;
+  border:1px solid #333;
+  border-radius:15px;
+  padding:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.25);
+}
+
+.person{
+  text-align:center;
+}
+
+.person img{
+  width:130px;
+  height:130px;
+  object-fit:cover;
+  border-radius:50%;
+  border:3px solid #ffd700;
+  margin-bottom:15px;
+}
+
+.person h3{
+  color:#ffd700;
+  margin-bottom:5px;
+}
+
+.person p{
+  color:#bbb;
+}
+
+details{
+  background:#111;
+  border:1px solid #333;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+summary{
+  cursor:pointer;
+  padding:18px;
+  color:#ffd700;
+  font-weight:bold;
+  font-size:18px;
+}
+
+.updates{
+  padding:20px;
+}
+
+.update{
+  padding:15px;
+  border-bottom:1px solid #333;
+}
+
+.update:last-child{
+  border-bottom:none;
+}
+
+.update h3{
+  color:#ffd700;
+  margin-bottom:5px;
+}
+
+.currency-box{
+  background:#111;
+  border:1px solid #333;
+  border-radius:15px;
+  padding:30px;
+  max-width:700px;
+  margin:auto;
+  text-align:center;
+}
+
+.currency-box .big{
+  font-size:32px;
+  color:#ffd700;
+  font-weight:bold;
+  margin:10px 0;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#111;
+}
+
+th,td{
+  padding:14px;
+  border:1px solid #333;
+  text-align:left;
+}
+
+th{
+  color:#ffd700;
+  background:#161616;
+}
+
+form{
+  background:#111;
+  border:1px solid #333;
+  border-radius:15px;
+  padding:25px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+label{
+  color:#ddd;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #444;
+  background:#080808;
+  color:#fff;
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+button{
+  background:#ffd700;
+  color:#000;
+  border:none;
+  padding:13px 22px;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#fff;
+}
+
+.note{
+  color:#aaa;
+  margin-top:10px;
+  font-size:14px;
+}
+
+.admin-list{
+  display:grid;
+  gap:12px;
+  max-width:800px;
+  margin:auto;
+}
+
+.admin-row{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding:15px 18px;
+  background:#111;
+  border:1px solid #333;
+  border-radius:10px;
+}
+
+.admin-row strong{
+  color:#ffd700;
+}
+
+.contact-box{
+  max-width:700px;
+  margin:auto;
+  text-align:center;
+  background:#111;
+  border:1px solid #333;
+  border-radius:15px;
+  padding:30px;
+}
+
+.contact-box a{
+  color:#ffd700;
+  text-decoration:none;
+}
+
+footer{
+  text-align:center;
+  padding:30px 15px;
+  background:#050505;
+  border-top:1px solid #333;
+  color:#888;
+}
+
+@media(max-width:800px){
+
+  .nav{
+    flex-direction:column;
+    padding:15px 0;
+  }
+
+  nav{
+    width:100%;
+  }
+
+  .hero h1{
+    font-size:36px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .admin-row{
+    flex-direction:column;
+    gap:5px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="container nav">
+
+<div class="brand">
+<img src="classic-empire-logo.png" alt="Classic Empire Logo">
+<span>Classic Empire Ltd</span>
+</div>
+
+<nav>
+<a href="#people">People</a>
+<a href="#updates">Empire Updates</a>
+<a href="#currency">Currency</a>
+<a href="#salaries">Salaries</a>
+<a href="#apply">Apply</a>
+<a href="exam.html">📝 Exam Portal</a>
+<a href="#administration">Administration</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</nav>
+
+</div>
+
+</header>
+
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<div class="container">
+
+<h1>Classic Empire Ltd</h1>
+
+<p>
+A fictional school-style Empire system with defined posts,
+duties, salaries, awards, currency and administration.
+</p>
+
+<span class="badge">Official Empire System</span>
+
+</div>
+
+</section>
+
+
+<!-- PEOPLE -->
+
+<section id="people">
+
+<div class="container">
+
+<h2 class="section-title">People</h2>
+
+<p class="section-subtitle">
+Current office holders of Classic Empire Ltd
+</p>
+
+<div class="grid">
+
+
+<div class="card person">
+
+<img src="noor-ahmad.png" alt="Noor Ahmad">
+
+<h3>Noor Ahmad</h3>
+
+<p>President</p>
+
+</div>
+
+
+<div class="card person">
+
+<img src="tabshir-alam.png" alt="Tabshir Alam">
+
+<h3>Tabshir Alam</h3>
+
+<p>President's Assistant</p>
+
+</div>
+
+
+<div class="card person">
+
+<img src="jakir-hussain.png" alt="Jakir Hussain">
+
+<h3>Jakir Hussain</h3>
+
+<p>DM</p>
+
+</div>
+
+
+<div class="card person">
+
+<img src="shadat-hussain.png" alt="Shadat Hussain">
+
+<h3>Shadat Hussain</h3>
+
+<p>DM's Assistant</p>
+
+</div>
+
+
+<div class="card person">
+
+<img src="aszad-sayeed.png" alt="Aszad Sayeed">
+
+<h3>Aszad Sayeed</h3>
+
+<p>SDM</p>
+
+</div>
+
+
+<div class="card person">
+
+<img src="shahnawaz-alam.png" alt="Shahnawaz Alam">
+
+<h3>Shahnawaz Alam</h3>
+
+<p>SP</p>
+
+</div>
+
+
+<div class="card person">
+
+<img src="shadab-alam.png" alt="Shadab Alam">
+
+<h3>Shadab Alam</h3>
+
+<p>DSP</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- EMPIRE UPDATES -->
+
+<section id="updates">
+
+<div class="container">
+
+<h2 class="section-title">Empire Updates</h2>
+
+<p class="section-subtitle">
+Click below to view the latest Empire changes
+</p>
+
+<details>
+
+<summary>📢 New Empire Changes</summary>
+
+<div class="updates">
+
+
+<div class="update">
+
+<h3>President System</h3>
+
+<p>
+The President is the founder and permanent President
+of Classic Empire Ltd under the normal system.
+</p>
+
+</div>
+
+
+<div class="update">
+
+<h3>Administration Update</h3>
+
+<p>
+The current administration consists of President,
+President's Assistant, DM, DM's Assistant, SDM, SP and DSP.
+</p>
+
+</div>
+
+
+<div class="update">
+
+<h3>Exam Portal</h3>
+
+<p>
+Every eligible post can have an examination through
+the Classic Empire Exam Portal.
+</p>
+
+</div>
+
+
+<div class="update">
+
+<h3>Salary System</h3>
+
+<p>
+Weekly salaries are paid every Thursday according
+to the official Empire salary table.
+</p>
+
+</div>
+
+
+<div class="update">
+
+<h3>Currency System</h3>
+
+<p>
+Classic Empire uses Classic Dinar (CLD), also called CD.
+</p>
+
+</div>
+
+
+</div>
+
+</details>
+
+</div>
+
+</section>
+
+
+<!-- CURRENCY -->
+
+<section id="currency">
+
+<div class="container">
+
+<h2 class="section-title">Empire Currency</h2>
+
+<p class="section-subtitle">
+Official currency information
+</p>
+
+<div class="currency-box">
+
+<p>Currency Name</p>
+
+<div class="big">Classic Dinar</div>
+
+<p>Official Code: <strong>CLD</strong></p>
+
+<p>Short Name: <strong>CD</strong></p>
+
+<p>Symbol: <strong>د.ك</strong></p>
+
+<br>
+
+<p>Fixed Conversion</p>
+
+<div class="big">
+1 CD = 300 KD
+</div>
+
+<div class="big">
+1 CD = ₹93,600
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SALARIES -->
+
+<section id="salaries">
+
+<div class="container">
+
+<h2 class="section-title">Weekly Salaries</h2>
+
+<p class="section-subtitle">
+Official salary system — Payment every Thursday
+</p>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Post</th>
+<th>Weekly Salary</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>President</td>
+<td>Unlimited</td>
+</tr>
+
+<tr>
+<td>President's Assistant</td>
+<td>₹1,50,000</td>
+</tr>
+
+<tr>
+<td>DM</td>
+<td>₹2,18,200</td>
+</tr>
+
+<tr>
+<td>DM's Assistant</td>
+<td>₹1,20,000</td>
+</tr>
+
+<tr>
+<td>SDM</td>
+<td>₹1,77,500</td>
+</tr>
+
+<tr>
+<td>SP</td>
+<td>₹2,15,900</td>
+</tr>
+
+<tr>
+<td>DSP</td>
+<td>₹1,77,500</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<p class="note">
+💰 Salary payment day: Every Thursday
+</p>
+
+</div>
+
+</section>
+
+
+<!-- APPLY -->
+
+<section id="apply">
+
+<div class="container">
+
+<h2 class="section-title">Apply for a Post</h2>
+
+<p class="section-subtitle">
+Submit your application to Classic Empire Ltd
+</p>
+
+<form
+id="applicationForm"
+action="https://formsubmit.co/classicempireltd09@gmail.com"
+method="POST"
+enctype="multipart/form-data"
+>
+
+<input
+type="hidden"
+name="_subject"
+value="Classic Empire Ltd - New Post Application"
+>
+
+<input
+type="hidden"
+name="_captcha"
+value="false"
+>
+
+<input
+type="hidden"
+name="_template"
+value="table"
+>
+
+
+<div class="form-grid">
+
+
+<div class="field">
+
+<label>Applicant Name</label>
+
+<input
+type="text"
+name="Applicant Name"
+required
+>
+
+</div>
+
+
+<div class="field">
+
+<label>Age</label>
+
+<input
+type="number"
+name="Age"
+min="1"
+max="100"
+required
+>
+
+</div>
+
+
+<div class="field">
+
+<label>Class</label>
+
+<input
+type="text"
+name="Class"
+required
+>
+
+</div>
+
+
+<div class="field">
+
+<label>Apply For Post</label>
+
+<select
+name="Apply For Post"
+required
+>
+
+<option value="">
+Select Post
+</option>
+
+<option value="President's Assistant">
+President's Assistant
+</option>
+
+<option value="DM">
+DM
+</option>
+
+<option value="DM's Assistant">
+DM's Assistant
+</option>
+
+<option value="SDM">
+SDM
+</option>
+
+<option value="SP">
+SP
+</option>
+
+<option value="DSP">
+DSP
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>Applicant Photo</label>
+
+<input
+type="file"
+name="Applicant Photo"
+accept="image/*"
+required
+>
+
+</div>
+
+
+<div class="field">
+
+<label>Applicant Email</label>
+
+<input
+type="email"
+name="Applicant Email"
+required
+>
+
+</div>
+
+
+<div class="field">
+
+<label>Contact Number</label>
+
+<input
+type="tel"
+name="Contact Number"
+required
+>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+Why do you want this post?
+</label>
+
+<textarea
+name="Why do you want this post?"
+required
+></textarea>
+
+</div>
+
+
+<div class="field full">
+
+<button type="submit">
+Submit Application
+</button>
+
+</div>
+
+
+</div>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- EXAM PORTAL -->
+
+<section id="exam">
+
+<div class="container">
+
+<h2 class="section-title">Exam Portal</h2>
+
+<p class="section-subtitle">
+Official Classic Empire examination system
+</p>
+
+<div
+class="card"
+style="text-align:center;"
+>
+
+<h3
+style="color:#ffd700;margin-bottom:10px;"
+>
+📝 Classic Empire Exam Portal
+</h3>
+
+<p
+style="color:#bbb;margin-bottom:20px;"
+>
+Candidates can enter their examination code
+and take the examination for their selected post.
+</p>
+
+<a
+href="exam.html"
+style="
+display:inline-block;
+background:#ffd700;
+color:#000;
+text-decoration:none;
+padding:13px 22px;
+border-radius:8px;
+font-weight:bold;
+"
+>
+Open Exam Portal
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ADMINISTRATION -->
+
+<section id="administration">
+
+<div class="container">
+
+<h2 class="section-title">Administration</h2>
+
+<p class="section-subtitle">
+Current Classic Empire administrative structure
+</p>
+
+<div class="admin-list">
+
+
+<div class="admin-row">
+
+<strong>President</strong>
+
+<span>Noor Ahmad</span>
+
+</div>
+
+
+<div class="admin-row">
+
+<strong>President's Assistant</strong>
+
+<span>Tabshir Alam</span>
+
+</div>
+
+
+<div class="admin-row">
+
+<strong>DM</strong>
+
+<span>Jakir Hussain</span>
+
+</div>
+
+
+<div class="admin-row">
+
+<strong>DM's Assistant</strong>
+
+<span>Shadat Hussain</span>
+
+</div>
+
+
+<div class="admin-row">
+
+<strong>SDM</strong>
+
+<span>Aszad Sayeed</span>
+
+</div>
+
+
+<div class="admin-row">
+
+<strong>SP</strong>
+
+<span>Shahnawaz Alam</span>
+
+</div>
+
+
+<div class="admin-row">
+
+<strong>DSP</strong>
+
+<span>Shadab Alam</span>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<div class="container">
+
+<h2 class="section-title">
+About Classic Empire Ltd
+</h2>
+
+<p class="section-subtitle">
+Official Empire information
+</p>
+
+<div class="card">
+
+<p>
+Classic Empire Ltd is a fictional school-style Empire
+system created for role-play, learning and management practice.
+</p>
+
+<br>
+
+<p>
+The Empire contains defined administrative posts,
+examinations, salaries, currency, applications and
+internal rules.
+</p>
+
+<br>
+
+<h3 style="color:#ffd700;">
+Permanent President Rule
+</h3>
+
+<br>
+
+<p>
+The President is the founder of Classic Empire Ltd and is
+the person who established this Empire.
+</p>
+
+<br>
+
+<p>
+The President is the permanent President of Classic Empire Ltd
+and the position of President will never change under the
+normal system.
+</p>
+
+<br>
+
+<p>
+The President can personally appoint or transfer the position
+of President to another person only by the President's own
+decision.
+</p>
+
+<br>
+
+<p>
+No other person or authority can change the President.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<div class="container">
+
+<h2 class="section-title">Contact</h2>
+
+<p class="section-subtitle">
+Official Classic Empire Ltd contact
+</p>
+
+<div class="contact-box">
+
+<h3 style="color:#ffd700;margin-bottom:10px;">
+Classic Empire Ltd
+</h3>
+
+<p>
+Official Email:
+</p>
+
+<p style="margin-top:8px;">
+
+<a href="mailto:classicempireltd09@gmail.com">
+classicempireltd09@gmail.com
+</a>
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+<p>
+© 2026 Classic Empire Ltd. All Rights Reserved.
+</p>
+
+<p style="margin-top:5px;">
+Fictional school-style Empire project.
+</p>
+
+</footer>
+
+</body>
+</html>

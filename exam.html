@@ -7,7 +7,6 @@
 <title>Classic Empire Ltd — Examination Portal</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -17,18 +16,18 @@
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:#080808;
-  color:white;
+  color:#fff;
   line-height:1.6;
 }
 
 .container{
-  width:min(850px,92%);
-  margin:40px auto;
+  width:min(900px,92%);
+  margin:35px auto;
 }
 
 .box{
   background:#111;
-  border:1px solid #3d3d3d;
+  border:1px solid #383838;
   border-radius:16px;
   padding:25px;
   margin-bottom:20px;
@@ -40,23 +39,27 @@ h1,h2{
 }
 
 .subtitle{
-  text-align:center;
   color:#aaa;
+  text-align:center;
   margin:8px 0 25px;
 }
 
-input,select,button{
+input,select,textarea,button{
   width:100%;
   padding:13px;
-  margin-top:12px;
+  margin-top:10px;
   border-radius:9px;
-  box-sizing:border-box;
 }
 
-input,select{
+input,select,textarea{
   background:#090909;
-  color:white;
+  color:#fff;
   border:1px solid #444;
+}
+
+textarea{
+  min-height:130px;
+  resize:vertical;
 }
 
 button{
@@ -71,66 +74,72 @@ button:hover{
   background:#f0c83f;
 }
 
-#examArea{
+#examArea,#result{
   display:none;
-}
-
-#result{
-  display:none;
-  text-align:center;
 }
 
 .question{
   background:#171717;
-  border:1px solid #292929;
+  border:1px solid #303030;
   border-radius:12px;
   padding:18px;
-  margin:15px 0;
+  margin:16px 0;
 }
 
-.question p{
+.question-title{
   font-weight:bold;
+  color:#fff;
   margin-bottom:10px;
 }
 
-label{
+.option{
   display:block;
-  padding:7px 0;
-  color:#ddd;
+  padding:8px;
+  margin:5px 0;
+  border-radius:7px;
+  cursor:pointer;
 }
 
-.correct{
-  color:#6ee76e;
+.option:hover{
+  background:#222;
 }
 
-.wrong{
-  color:#ff7777;
-}
-
-.exam-info{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:20px;
+.type{
+  display:inline-block;
+  font-size:12px;
+  color:#ffd54a;
+  border:1px solid #5b4707;
+  padding:3px 8px;
+  border-radius:20px;
+  margin-bottom:8px;
 }
 
 .info{
   background:#191919;
-  border:1px solid #303030;
-  padding:12px;
-  border-radius:9px;
+  padding:13px;
+  border-radius:10px;
   text-align:center;
+  margin-bottom:18px;
 }
 
 .info strong{
-  display:block;
   color:#ffd54a;
 }
 
-@media(max-width:600px){
-  .exam-info{
-    grid-template-columns:1fr;
-  }
+.pass{
+  color:#65e765;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.fail{
+  color:#ff6b6b;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.warning{
+  color:#ffcc55;
 }
 
 </style>
@@ -140,54 +149,43 @@ label{
 
 <div class="container">
 
-<!-- ACCESS CODE -->
+<!-- LOGIN -->
 
 <div class="box" id="loginBox">
 
 <h1>🏛️ Classic Empire Ltd</h1>
 
 <p class="subtitle">
-📝 Official Examination Portal
+Hard-Level Official Examination Portal
 </p>
 
 <input
+id="candidateName"
 type="text"
+placeholder="Applicant Name"
+>
+
+<input
 id="examCode"
-placeholder="Enter Exam Access Code"
+type="text"
+placeholder="Exam Access Code"
 >
 
 <select id="postSelect">
 
-<option value="">Select Your Post</option>
+<option value="">Select Examination Post</option>
 
-<option value="President's Assistant">
-President's Assistant
-</option>
-
-<option value="DM">
-DM
-</option>
-
-<option value="DM's Assistant">
-DM's Assistant
-</option>
-
-<option value="SDM">
-SDM
-</option>
-
-<option value="SP">
-SP
-</option>
-
-<option value="DSP">
-DSP
-</option>
+<option>President's Assistant</option>
+<option>DM</option>
+<option>DM's Assistant</option>
+<option>SDM</option>
+<option>SP</option>
+<option>DSP</option>
 
 </select>
 
 <button onclick="startExam()">
-Enter Examination
+Start Examination
 </button>
 
 <p id="loginMessage"></p>
@@ -201,311 +199,35 @@ Enter Examination
 
 <h1>📝 Empire Examination</h1>
 
-<div class="exam-info">
+<p class="subtitle">
+Hard-Level Mixed Examination
+</p>
 
 <div class="info">
-<strong id="examPost">Post</strong>
-Post
-</div>
 
-<div class="info">
+Applicant:
+<strong id="showName"></strong>
+
+<br>
+
+Post:
+<strong id="showPost"></strong>
+
+<br>
+
+Objective Questions:
 <strong>10</strong>
-Questions
-</div>
+
+<br>
+
+Subjective Questions:
+<strong>2</strong>
 
 </div>
 
 <form id="examForm">
 
-<!-- QUESTION 1 -->
-
-<div class="question">
-
-<p>1. What is the highest post in the current Classic Empire system?</p>
-
-<label>
-<input type="radio" name="q1" value="President">
-President
-</label>
-
-<label>
-<input type="radio" name="q1" value="DM">
-DM
-</label>
-
-<label>
-<input type="radio" name="q1" value="SP">
-SP
-</label>
-
-<label>
-<input type="radio" name="q1" value="DSP">
-DSP
-</label>
-
-</div>
-
-
-<!-- QUESTION 2 -->
-
-<div class="question">
-
-<p>2. Who is the current President of Classic Empire Ltd?</p>
-
-<label>
-<input type="radio" name="q2" value="Noor Ahmad">
-Noor Ahmad
-</label>
-
-<label>
-<input type="radio" name="q2" value="Jakir Hussain">
-Jakir Hussain
-</label>
-
-<label>
-<input type="radio" name="q2" value="Shadab Alam">
-Shadab Alam
-</label>
-
-<label>
-<input type="radio" name="q2" value="Tabshir Alam">
-Tabshir Alam
-</label>
-
-</div>
-
-
-<!-- QUESTION 3 -->
-
-<div class="question">
-
-<p>3. Which post comes below DM in the current structure?</p>
-
-<label>
-<input type="radio" name="q3" value="SDM">
-SDM
-</label>
-
-<label>
-<input type="radio" name="q3" value="President">
-President
-</label>
-
-<label>
-<input type="radio" name="q3" value="SP">
-SP
-</label>
-
-<label>
-<input type="radio" name="q3" value="DSP">
-DSP
-</label>
-
-</div>
-
-
-<!-- QUESTION 4 -->
-
-<div class="question">
-
-<p>4. What is the official fictional currency of Classic Empire Ltd?</p>
-
-<label>
-<input type="radio" name="q4" value="Classic Dinar">
-Classic Dinar
-</label>
-
-<label>
-<input type="radio" name="q4" value="Indian Rupee">
-Indian Rupee
-</label>
-
-<label>
-<input type="radio" name="q4" value="Dollar">
-Dollar
-</label>
-
-<label>
-<input type="radio" name="q4" value="Euro">
-Euro
-</label>
-
-</div>
-
-
-<!-- QUESTION 5 -->
-
-<div class="question">
-
-<p>5. When are weekly salaries paid?</p>
-
-<label>
-<input type="radio" name="q5" value="Thursday">
-Thursday
-</label>
-
-<label>
-<input type="radio" name="q5" value="Monday">
-Monday
-</label>
-
-<label>
-<input type="radio" name="q5" value="Friday">
-Friday
-</label>
-
-<label>
-<input type="radio" name="q5" value="Sunday">
-Sunday
-</label>
-
-</div>
-
-
-<!-- QUESTION 6 -->
-
-<div class="question">
-
-<p>6. Who is the President's Assistant?</p>
-
-<label>
-<input type="radio" name="q6" value="Tabshir Alam">
-Tabshir Alam
-</label>
-
-<label>
-<input type="radio" name="q6" value="Shadat Hussain">
-Shadat Hussain
-</label>
-
-<label>
-<input type="radio" name="q6" value="Aszad Sayeed">
-Aszad Sayeed
-</label>
-
-<label>
-<input type="radio" name="q6" value="Shahnawaz Alam">
-Shahnawaz Alam
-</label>
-
-</div>
-
-
-<!-- QUESTION 7 -->
-
-<div class="question">
-
-<p>7. What is the official short name of the currency?</p>
-
-<label>
-<input type="radio" name="q7" value="CD">
-CD
-</label>
-
-<label>
-<input type="radio" name="q7" value="USD">
-USD
-</label>
-
-<label>
-<input type="radio" name="q7" value="INR">
-INR
-</label>
-
-<label>
-<input type="radio" name="q7" value="KD">
-KD
-</label>
-
-</div>
-
-
-<!-- QUESTION 8 -->
-
-<div class="question">
-
-<p>8. Who holds the DM post?</p>
-
-<label>
-<input type="radio" name="q8" value="Jakir Hussain">
-Jakir Hussain
-</label>
-
-<label>
-<input type="radio" name="q8" value="Noor Ahmad">
-Noor Ahmad
-</label>
-
-<label>
-<input type="radio" name="q8" value="Shadab Alam">
-Shadab Alam
-</label>
-
-<label>
-<input type="radio" name="q8" value="Aszad Sayeed">
-Aszad Sayeed
-</label>
-
-</div>
-
-
-<!-- QUESTION 9 -->
-
-<div class="question">
-
-<p>9. Which post is part of the current system?</p>
-
-<label>
-<input type="radio" name="q9" value="DSP">
-DSP
-</label>
-
-<label>
-<input type="radio" name="q9" value="PM">
-PM
-</label>
-
-<label>
-<input type="radio" name="q9" value="Minister">
-Minister
-</label>
-
-<label>
-<input type="radio" name="q9" value="CID">
-CID
-</label>
-
-</div>
-
-
-<!-- QUESTION 10 -->
-
-<div class="question">
-
-<p>10. What is the fixed value of 1 CD in Indian Rupees?</p>
-
-<label>
-<input type="radio" name="q10" value="93600">
-₹93,600
-</label>
-
-<label>
-<input type="radio" name="q10" value="9360">
-₹9,360
-</label>
-
-<label>
-<input type="radio" name="q10" value="936">
-₹936
-</label>
-
-<label>
-<input type="radio" name="q10" value="936000">
-₹9,36,000
-</label>
-
-</div>
-
+<div id="questions"></div>
 
 <button type="button" onclick="submitExam()">
 Submit Examination
@@ -522,10 +244,18 @@ Submit Examination
 
 <h1>🎓 Examination Result</h1>
 
-<p id="resultText"></p>
+<div id="resultText"></div>
+
+<br>
+
+<p class="warning">
+Subjective answers require manual evaluation.
+</p>
+
+<br>
 
 <button onclick="location.reload()">
-Back to Examination Portal
+Return to Portal
 </button>
 
 </div>
@@ -535,140 +265,95 @@ Back to Examination Portal
 
 <script>
 
-const correctAnswers = {
-
-q1:"President",
-q2:"Noor Ahmad",
-q3:"SDM",
-q4:"Classic Dinar",
-q5:"Thursday",
-q6:"Tabshir Alam",
-q7:"CD",
-q8:"Jakir Hussain",
-q9:"DSP",
-q10:"93600"
-
-};
-
-
-function startExam(){
-
-const code =
-document.getElementById("examCode")
-.value
-.trim()
-.toUpperCase();
-
-const post =
-document.getElementById("postSelect")
-.value;
-
-const message =
-document.getElementById("loginMessage");
-
-
 /*
-Temporary testing code.
-Real unique codes will be connected later.
+====================================================
+CLASSIC EMPIRE LTD EXAM QUESTION BANK
+====================================================
 */
 
-if(code !== "CE-TEST-123456"){
+const examData = {
 
-message.innerHTML =
-"<span class='wrong'>❌ Invalid Exam Access Code.</span>";
+"President's Assistant":[
 
-return;
+{
+type:"MCQ",
+q:"Which responsibility is most appropriate for a President's Assistant in the Classic Empire system?",
+options:[
+"Independently replacing the President",
+"Assisting the President and coordinating assigned official work",
+"Controlling every department without authority",
+"Changing the permanent President automatically"
+],
+answer:1
+},
 
-}
+{
+type:"MCQ",
+q:"If the President issues an official instruction, what should an Assistant primarily do?",
+options:[
+"Ignore it",
+"Change it without permission",
+"Assist in carrying it out according to the instruction",
+"Transfer the President"
+],
+answer:2
+},
 
+{
+type:"MCQ",
+q:"Which quality is most important when handling confidential administrative information?",
+options:[
+"Responsibility",
+"Carelessness",
+"Rumour spreading",
+"Unauthorized disclosure"
+],
+answer:0
+},
 
-if(post === ""){
+{
+type:"TRUE",
+q:"A President's Assistant automatically becomes President whenever the President is absent.",
+options:["True","False"],
+answer:1
+},
 
-message.innerHTML =
-"<span class='wrong'>❌ Please select your post.</span>";
+{
+type:"MCQ",
+q:"Why should an Assistant maintain accurate official records?",
+options:[
+"To create confusion",
+"To prevent accountability",
+"To support organized administration",
+"To remove all other posts"
+],
+answer:2
+},
 
-return;
+{
+type:"CASE",
+q:"The President gives two instructions that concern the same official meeting. What should the Assistant do first?",
+options:[
+"Ignore both",
+"Clarify the instructions and organize the work accordingly",
+"Choose randomly",
+"Cancel the meeting"
+],
+answer:1
+},
 
-}
+{
+type:"MCQ",
+q:"Which statement best describes administrative coordination?",
+options:[
+"Connecting relevant people and information so work proceeds properly",
+"Giving unlimited power to everyone",
+"Removing all records",
+"Making decisions without authority"
+],
+answer:0
+},
 
-
-document.getElementById("loginBox").style.display="none";
-
-document.getElementById("examArea").style.display="block";
-
-document.getElementById("examPost").innerText=post;
-
-window.scrollTo(0,0);
-
-}
-
-
-function submitExam(){
-
-let score=0;
-
-for(let i=1;i<=10;i++){
-
-const selected =
-document.querySelector(
-'input[name="q'+i+'"]:checked'
-);
-
-if(selected &&
-selected.value === correctAnswers["q"+i]){
-
-score++;
-
-}
-
-}
-
-
-document.getElementById("examArea").style.display="none";
-
-document.getElementById("result").style.display="block";
-
-
-let percentage =
-(score/10)*100;
-
-
-let status;
-
-if(score>=8){
-
-status="✅ PASS";
-
-}else{
-
-status="❌ FAIL";
-
-}
-
-
-document.getElementById("resultText").innerHTML =
-
-"Post: <strong>"+
-document.getElementById("examPost").innerText+
-"</strong><br><br>"+
-
-"Score: <strong>"+
-score+
-"/10</strong><br><br>"+
-
-"Percentage: <strong>"+
-percentage+
-"%</strong><br><br>"+
-
-"<strong>"+
-status+
-"</strong>";
-
-window.scrollTo(0,0);
-
-}
-
-</script>
-
-</body>
-</html>
+{
+type:"MCQ",
+q:"Which is an example

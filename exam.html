@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,6 +43,11 @@ h1,h2{
   margin:8px 0 25px;
 }
 
+label{
+  display:block;
+  margin-top:12px;
+}
+
 input,select,textarea,button{
   width:100%;
   padding:13px;
@@ -66,6 +71,11 @@ button{
 
 button:hover{
   background:#f0c83f;
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
 .question{
@@ -177,6 +187,12 @@ hr{
   margin-top:10px;
 }
 
+.loading{
+  color:#ffd54a;
+  text-align:center;
+  margin-top:12px;
+}
+
 @media(max-width:600px){
   .container{
     width:94%;
@@ -215,7 +231,7 @@ Official Examination Portal
 <input
   type="text"
   id="candidateName"
-  placeholder="Enter candidate name"
+  placeholder="उम्मीदवार का नाम दर्ज करें"
 >
 
 <label>Exam Code</label>
@@ -223,7 +239,7 @@ Official Examination Portal
 <input
   type="text"
   id="examCode"
-  placeholder="Enter examination code"
+  placeholder="प्राप्त Examination Code दर्ज करें"
 >
 
 <label>Select Post</label>
@@ -260,15 +276,11 @@ DSP
 
 </select>
 
-<button type="button" onclick="startExam()">
+<button type="button" id="startButton" onclick="startExam()">
 Start Examination
 </button>
 
 <p id="loginMessage"></p>
-
-<p class="small">
-Temporary testing code: CE-TEST-123456
-</p>
 
 <a class="back" href="index.html">
 ← Back to Classic Empire Website
@@ -285,7 +297,7 @@ Temporary testing code: CE-TEST-123456
 
 <div class="info">
 
-Candidate:
+उम्मीदवार:
 <strong id="showName"></strong>
 
 <br>
@@ -297,7 +309,7 @@ Post:
 
 <div id="questions"></div>
 
-<button type="button" onclick="submitExam()">
+<button type="button" id="submitButton" onclick="submitExam()">
 Submit Examination
 </button>
 
@@ -321,7 +333,7 @@ Submit Examination
 <br>
 
 <p class="warning">
-Subjective answers require manual evaluation.
+वर्णनात्मक उत्तरों का मूल्यांकन प्रशासन द्वारा मैन्युअल रूप से किया जाएगा।
 </p>
 
 <a class="back" href="index.html">
@@ -335,138 +347,153 @@ Subjective answers require manual evaluation.
 
 <script>
 
+/* ==============================
+   SUPABASE CONNECTION
+================================ */
+
+const SUPABASE_URL =
+"https://hjatspkzgoddcpgwfkxo.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
+
+
+/* ==============================
+   EXAM DATA
+================================ */
+
 const examData = {
 
 "President's Assistant":[
 
 {
 type:"MCQ",
-question:"Which responsibility best matches a President's Assistant?",
+question:"President's Assistant की मुख्य जिम्मेदारी क्या है?",
 options:[
-"Managing the official support and coordination work of the President",
-"Conducting criminal trials",
-"Collecting school fees",
-"Managing a police station"
+"राष्ट्रपति के आधिकारिक कार्यों में सहायता और समन्वय करना",
+"आपराधिक मुकदमों का फैसला करना",
+"स्कूल की फीस जमा करना",
+"पुलिस थाने का संचालन करना"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"A President's Assistant receives an important official message. What should be done first?",
+question:"यदि President's Assistant को राष्ट्रपति के लिए कोई महत्वपूर्ण आधिकारिक संदेश मिले, तो सबसे पहले क्या करना चाहिए?",
 options:[
-"Ignore it",
-"Properly communicate it to the President",
-"Delete it",
-"Publish it publicly"
+"उसे अनदेखा करना",
+"उसे उचित तरीके से राष्ट्रपति तक पहुँचाना",
+"उसे मिटा देना",
+"उसे सार्वजनिक रूप से प्रकाशित करना"
 ],
 answer:1
 },
 
 {
 type:"TRUE",
-question:"An assistant should maintain confidentiality when handling official information.",
+question:"आधिकारिक जानकारी को संभालते समय गोपनीयता बनाए रखना आवश्यक है।",
 options:[
-"True",
-"False",
-"Only on Sunday",
-"Never"
+"सही",
+"गलत",
+"केवल रविवार को",
+"कभी नहीं"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Which skill is most useful for administrative coordination?",
+question:"प्रशासनिक समन्वय के लिए कौन-सा कौशल सबसे उपयोगी है?",
 options:[
-"Communication",
-"Guessing",
-"Carelessness",
-"Silence"
+"संचार कौशल",
+"अनुमान लगाना",
+"लापरवाही",
+"काम से बचना"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"If two departments need a meeting with the President, the assistant can help with:",
+question:"यदि दो विभागों को राष्ट्रपति के साथ बैठक करनी हो, तो President's Assistant किस कार्य में सहायता कर सकता है?",
 options:[
-"Scheduling and coordination",
-"Changing the law",
-"Issuing court judgments",
-"Making police arrests"
+"समय और बैठक का समन्वय",
+"कानून बदलना",
+"न्यायालय का फैसला सुनाना",
+"पुलिस गिरफ्तारी करना"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"What does confidentiality mean?",
+question:"गोपनीयता का सही अर्थ क्या है?",
 options:[
-"Sharing everything online",
-"Keeping authorized information private",
-"Deleting every document",
-"Never speaking to anyone"
+"हर जानकारी इंटरनेट पर डालना",
+"अधिकृत जानकारी को सुरक्षित और निजी रखना",
+"हर दस्तावेज़ मिटा देना",
+"किसी से कभी बात न करना"
 ],
 answer:1
 },
 
 {
 type:"MCQ",
-question:"An official document should normally be handled:",
+question:"किसी आधिकारिक दस्तावेज़ को सामान्यतः कैसे संभालना चाहिए?",
 options:[
-"Carelessly",
-"Responsibly",
-"Secretly from everyone including authorized officers",
-"Without reading"
+"लापरवाही से",
+"जिम्मेदारी से",
+"अधिकृत अधिकारियों से भी छिपाकर",
+"बिना पढ़े"
 ],
 answer:1
 },
 
 {
 type:"TRUE",
-question:"Good record keeping can help an administration remain organized.",
+question:"सही रिकॉर्ड रखना प्रशासन को व्यवस्थित रखने में सहायता करता है।",
 options:[
-"True",
-"False",
-"Sometimes never",
-"None"
+"सही",
+"गलत",
+"कभी नहीं",
+"केवल छुट्टी के दिन"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Which is an example of coordination?",
+question:"समन्वय का उदाहरण कौन-सा है?",
 options:[
-"Connecting two departments for an official meeting",
-"Starting an argument",
-"Deleting records",
-"Ignoring instructions"
+"दो विभागों को आधिकारिक बैठक के लिए जोड़ना",
+"विवाद शुरू करना",
+"रिकॉर्ड मिटाना",
+"निर्देशों को अनदेखा करना"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"The main purpose of an official schedule is to:",
+question:"आधिकारिक कार्यक्रम बनाने का मुख्य उद्देश्य क्या है?",
 options:[
-"Create confusion",
-"Organize activities and appointments",
-"Hide information",
-"Cancel all work"
+"भ्रम पैदा करना",
+"कार्य और बैठकों को व्यवस्थित करना",
+"जानकारी छिपाना",
+"सारा काम रद्द करना"
 ],
 answer:1
 },
 
 {
 type:"SUBJECTIVE",
-question:"Case: The President has three important meetings on the same day. Explain how you would organize the schedule."
+question:"स्थिति: राष्ट्रपति के एक ही दिन में तीन महत्वपूर्ण बैठकें हैं। President's Assistant के रूप में आप उनका कार्यक्रम कैसे व्यवस्थित करेंगे?"
 },
 
 {
 type:"SUBJECTIVE",
-question:"Write a short note on confidentiality and responsibility in an administrative office."
+question:"प्रशासनिक कार्यालय में गोपनीयता और जिम्मेदारी के महत्व पर संक्षिप्त टिप्पणी लिखिए।"
 }
 
 ],
@@ -476,132 +503,132 @@ question:"Write a short note on confidentiality and responsibility in an adminis
 
 {
 type:"MCQ",
-question:"What is one major administrative function of a DM in this fictional system?",
+question:"इस काल्पनिक प्रशासनिक व्यवस्था में DM का एक प्रमुख कार्य क्या है?",
 options:[
-"Coordinating district-level administration",
-"Writing movie scripts",
-"Running a restaurant",
-"Managing a sports team"
+"जिला स्तर के प्रशासन का समन्वय करना",
+"फिल्म की पटकथा लिखना",
+"रेस्तरां चलाना",
+"खेल टीम का प्रबंधन करना"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"If two local departments disagree about an administrative matter, the DM should first:",
+question:"यदि दो स्थानीय विभाग किसी प्रशासनिक विषय पर असहमत हों, तो DM को सबसे पहले क्या करना चाहिए?",
 options:[
-"Create more conflict",
-"Coordinate and review the issue",
-"Ignore both departments",
-"Immediately close both departments"
+"विवाद बढ़ाना",
+"मामले की समीक्षा करके समन्वय करना",
+"दोनों विभागों को अनदेखा करना",
+"दोनों विभागों को तुरंत बंद करना"
 ],
 answer:1
 },
 
 {
 type:"TRUE",
-question:"An administrative officer should maintain proper records of important decisions.",
+question:"किसी महत्वपूर्ण प्रशासनिक निर्णय का उचित रिकॉर्ड रखना आवश्यक है।",
 options:[
-"True",
-"False",
-"Only during holidays",
-"Never"
+"सही",
+"गलत",
+"केवल छुट्टी में",
+"कभी नहीं"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Which quality is important for district administration?",
+question:"जिला प्रशासन के लिए कौन-सा गुण महत्वपूर्ण है?",
 options:[
-"Fair coordination",
-"Carelessness",
-"Random decisions",
-"Refusing information"
+"निष्पक्ष समन्वय",
+"लापरवाही",
+"बिना जानकारी निर्णय लेना",
+"जानकारी से बचना"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"A DM receives reports from subordinate officers. The DM should:",
+question:"DM को अधीनस्थ अधिकारियों से रिपोर्ट मिलने पर क्या करना चाहिए?",
 options:[
-"Review relevant information",
-"Destroy the reports",
-"Ignore every report",
-"Publish private information"
+"प्रासंगिक जानकारी की समीक्षा करना",
+"रिपोर्ट नष्ट करना",
+"हर रिपोर्ट को अनदेखा करना",
+"निजी जानकारी सार्वजनिक करना"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Good administration generally requires:",
+question:"अच्छे प्रशासन के लिए सामान्यतः क्या आवश्यक है?",
 options:[
-"Planning and coordination",
-"Confusion",
-"No records",
-"No communication"
+"योजना और समन्वय",
+"भ्रम",
+"रिकॉर्ड न रखना",
+"संचार न करना"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"If an urgent administrative problem occurs, the first useful step is usually to:",
+question:"यदि कोई तत्काल प्रशासनिक समस्या सामने आए, तो पहला उपयोगी कदम क्या होना चाहिए?",
 options:[
-"Understand the facts",
-"Guess the facts",
-"Ignore it",
-"Delete the report"
+"तथ्यों को समझना",
+"तथ्यों का अनुमान लगाना",
+"समस्या को अनदेखा करना",
+"रिपोर्ट मिटा देना"
 ],
 answer:0
 },
 
 {
 type:"TRUE",
-question:"Communication between administrative officers can improve coordination.",
+question:"प्रशासनिक अधिकारियों के बीच अच्छा संचार समन्वय को बेहतर कर सकता है।",
 options:[
-"True",
-"False",
-"Never",
-"Only at night"
+"सही",
+"गलत",
+"कभी नहीं",
+"केवल रात में"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"A district report should ideally contain:",
+question:"जिला प्रशासन की रिपोर्ट में सामान्यतः क्या होना चाहिए?",
 options:[
-"Relevant facts and information",
-"Random jokes",
-"Unverified rumors only",
-"No details"
+"प्रासंगिक तथ्य और जानकारी",
+"सिर्फ मजाक",
+"केवल अपुष्ट अफवाहें",
+"कोई विवरण नहीं"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Which approach is most suitable for solving an administrative dispute?",
+question:"प्रशासनिक विवाद को सुलझाने के लिए कौन-सा तरीका उचित है?",
 options:[
-"Review facts and coordinate with concerned officers",
-"Immediately blame everyone",
-"Ignore the issue",
-"Destroy the records"
+"तथ्यों की समीक्षा करके संबंधित अधिकारियों से समन्वय करना",
+"तुरंत सभी को दोष देना",
+"मामले को अनदेखा करना",
+"रिकॉर्ड नष्ट करना"
 ],
 answer:0
 },
 
 {
 type:"SUBJECTIVE",
-question:"Case: Two administrative departments submit conflicting reports about the same incident. Explain what steps you would take as DM."
+question:"स्थिति: दो प्रशासनिक विभाग एक ही घटना के बारे में अलग-अलग रिपोर्ट देते हैं। DM के रूप में आप कौन-कौन से कदम उठाएँगे?"
 },
 
 {
 type:"SUBJECTIVE",
-question:"Explain why coordination is important in district administration."
+question:"जिला प्रशासन में समन्वय क्यों महत्वपूर्ण है? समझाइए।"
 }
 
 ],
@@ -611,132 +638,132 @@ question:"Explain why coordination is important in district administration."
 
 {
 type:"MCQ",
-question:"A DM's Assistant mainly supports:",
+question:"DM's Assistant मुख्य रूप से किसके प्रशासनिक कार्य में सहायता करता है?",
 options:[
-"The DM's administrative work",
-"A cinema hall",
-"A sports club",
-"A restaurant"
+"DM के",
+"सिनेमा हॉल के",
+"खेल क्लब के",
+"रेस्तरां के"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"What is an important task when receiving official files?",
+question:"आधिकारिक फाइल प्राप्त होने पर महत्वपूर्ण कार्य क्या है?",
 options:[
-"Organize and forward them properly",
-"Throw them away",
-"Hide them",
-"Change their contents"
+"उसे व्यवस्थित करके सही अधिकारी तक पहुँचाना",
+"उसे फेंक देना",
+"उसे छिपाना",
+"उसकी सामग्री बदल देना"
 ],
 answer:0
 },
 
 {
 type:"TRUE",
-question:"An assistant should follow authorized administrative instructions.",
+question:"Assistant को अधिकृत प्रशासनिक निर्देशों का पालन करना चाहिए।",
 options:[
-"True",
-"False",
-"Never",
-"Only sometimes"
+"सही",
+"गलत",
+"कभी नहीं",
+"केवल कभी-कभी"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Which skill helps an assistant manage multiple tasks?",
+question:"कई प्रशासनिक कार्यों को संभालने में कौन-सा कौशल मदद करता है?",
 options:[
-"Organization",
-"Carelessness",
-"Confusion",
-"Delay"
+"व्यवस्थित कार्य करना",
+"लापरवाही",
+"भ्रम",
+"जानबूझकर देरी"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"A meeting notice should contain:",
+question:"किसी बैठक की सूचना में क्या होना चाहिए?",
 options:[
-"Relevant meeting information",
-"Random information",
-"Private passwords",
-"Nothing useful"
+"बैठक से संबंधित आवश्यक जानकारी",
+"यादृच्छिक जानकारी",
+"निजी पासवर्ड",
+"कोई उपयोगी जानकारी नहीं"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"If a file is marked urgent, the assistant should:",
+question:"यदि किसी फाइल को अत्यावश्यक बताया गया हो, तो Assistant को क्या करना चाहिए?",
 options:[
-"Handle it according to the authorized priority",
-"Ignore it",
-"Delete it",
-"Hide it"
+"अधिकृत प्राथमिकता के अनुसार उसे संभालना",
+"उसे अनदेखा करना",
+"उसे मिटा देना",
+"उसे छिपा देना"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Proper documentation helps an office by:",
+question:"सही दस्तावेजीकरण से कार्यालय को क्या लाभ होता है?",
 options:[
-"Keeping records organized",
-"Creating confusion",
-"Removing accountability",
-"Destroying information"
+"रिकॉर्ड व्यवस्थित रहते हैं",
+"भ्रम बढ़ता है",
+"जवाबदेही खत्म होती है",
+"जानकारी नष्ट होती है"
 ],
 answer:0
 },
 
 {
 type:"TRUE",
-question:"An assistant can help reduce administrative delays through proper coordination.",
+question:"सही समन्वय से प्रशासनिक देरी को कम करने में सहायता मिल सकती है।",
 options:[
-"True",
-"False",
-"Never",
-"None"
+"सही",
+"गलत",
+"कभी नहीं",
+"इनमें से कोई नहीं"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"If an instruction is unclear, the safest administrative approach is to:",
+question:"यदि कोई प्रशासनिक निर्देश स्पष्ट न हो, तो सबसे उचित कदम क्या है?",
 options:[
-"Seek clarification from the authorized officer",
-"Guess",
-"Ignore it",
-"Change the instruction"
+"अधिकृत अधिकारी से स्पष्टीकरण लेना",
+"अनुमान लगाना",
+"उसे अनदेखा करना",
+"निर्देश बदल देना"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Which is an example of good office management?",
+question:"अच्छे कार्यालय प्रबंधन का उदाहरण कौन-सा है?",
 options:[
-"Maintaining organized records",
-"Losing documents",
-"Ignoring deadlines",
-"Sharing confidential files publicly"
+"रिकॉर्ड को व्यवस्थित रखना",
+"दस्तावेज़ खो देना",
+"समय-सीमा को अनदेखा करना",
+"गोपनीय फाइलें सार्वजनिक करना"
 ],
 answer:0
 },
 
 {
 type:"SUBJECTIVE",
-question:"Case: You have five files marked urgent. Explain how you would organize them before presenting them to the DM."
+question:"स्थिति: आपके पास पाँच अत्यावश्यक फाइलें हैं। DM के सामने प्रस्तुत करने से पहले आप उन्हें किस प्रकार व्यवस्थित करेंगे?"
 },
 
 {
 type:"SUBJECTIVE",
-question:"Explain the role of an assistant in maintaining accurate administrative records."
+question:"सही प्रशासनिक रिकॉर्ड बनाए रखने में Assistant की भूमिका समझाइए।"
 }
 
 ],
@@ -746,7 +773,7 @@ question:"Explain the role of an assistant in maintaining accurate administrativ
 
 {
 type:"MCQ",
-question:"SDM stands for:",
+question:"SDM का पूरा नाम क्या है?",
 options:[
 "Sub-Divisional Magistrate",
 "Senior Department Manager",
@@ -758,120 +785,120 @@ answer:0
 
 {
 type:"MCQ",
-question:"In this fictional administrative structure, the SDM works under:",
+question:"इस काल्पनिक प्रशासनिक व्यवस्था में SDM किसके अधीन कार्य करता है?",
 options:[
 "DM",
 "DSP",
-"SP only",
-"President's Assistant only"
+"केवल SP",
+"केवल President's Assistant"
 ],
 answer:0
 },
 
 {
 type:"TRUE",
-question:"An SDM can assist with sub-divisional administrative coordination.",
+question:"SDM उप-विभागीय प्रशासन के समन्वय में सहायता कर सकता है।",
 options:[
-"True",
-"False",
-"Never",
-"None"
+"सही",
+"गलत",
+"कभी नहीं",
+"इनमें से कोई नहीं"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Which quality is useful for an SDM?",
+question:"SDM के लिए कौन-सा गुण उपयोगी है?",
 options:[
-"Responsible decision-making",
-"Carelessness",
-"Random guessing",
-"Poor communication"
+"जिम्मेदारी से निर्णय लेना",
+"लापरवाही",
+"बिना जानकारी अनुमान लगाना",
+"खराब संचार"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"When handling an administrative complaint, an SDM should first:",
+question:"किसी प्रशासनिक शिकायत को संभालते समय SDM को सबसे पहले क्या करना चाहिए?",
 options:[
-"Review relevant facts",
-"Ignore it",
-"Delete it",
-"Immediately blame someone"
+"प्रासंगिक तथ्यों की समीक्षा करना",
+"शिकायत को अनदेखा करना",
+"शिकायत मिटा देना",
+"तुरंत किसी को दोष देना"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Official records should be:",
+question:"आधिकारिक रिकॉर्ड कैसे होने चाहिए?",
 options:[
-"Accurate and organized",
-"Destroyed",
-"Random",
-"Hidden from authorized officers"
+"सटीक और व्यवस्थित",
+"नष्ट किए हुए",
+"यादृच्छिक",
+"अधिकृत अधिकारियों से छिपे हुए"
 ],
 answer:0
 },
 
 {
 type:"TRUE",
-question:"Coordination with higher administrative officers can help resolve local issues.",
+question:"उच्च प्रशासनिक अधिकारियों के साथ समन्वय स्थानीय समस्याओं को सुलझाने में सहायता कर सकता है।",
 options:[
-"True",
-"False",
-"Never",
-"None"
+"सही",
+"गलत",
+"कभी नहीं",
+"इनमें से कोई नहीं"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"An SDM should communicate important developments to:",
+question:"SDM को महत्वपूर्ण प्रशासनिक घटनाओं की जानकारी किसे देनी चाहिए?",
 options:[
-"Relevant senior authority",
-"No one",
-"Random people",
-"Social media first"
+"संबंधित वरिष्ठ अधिकारी को",
+"किसी को नहीं",
+"यादृच्छिक लोगों को",
+"सबसे पहले सोशल मीडिया पर"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Which is important when making an administrative report?",
+question:"प्रशासनिक रिपोर्ट बनाते समय क्या महत्वपूर्ण है?",
 options:[
-"Facts and clarity",
-"Rumors",
-"Insults",
-"Guesswork"
+"तथ्य और स्पष्टता",
+"अफवाहें",
+"अपमानजनक बातें",
+"अनुमान"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"A responsible officer should make decisions based on:",
+question:"जिम्मेदार अधिकारी को निर्णय किस आधार पर लेना चाहिए?",
 options:[
-"Relevant information and rules",
-"Rumors",
-"Personal jokes",
-"Random guesses"
+"प्रासंगिक जानकारी और नियम",
+"अफवाहें",
+"व्यक्तिगत मजाक",
+"बिना आधार अनुमान"
 ],
 answer:0
 },
 
 {
 type:"SUBJECTIVE",
-question:"Case: A local administrative issue requires immediate attention, but complete information is not yet available. Explain your approach."
+question:"स्थिति: किसी स्थानीय प्रशासनिक समस्या पर तुरंत ध्यान देना आवश्यक है, लेकिन पूरी जानकारी अभी उपलब्ध नहीं है। SDM के रूप में आपका तरीका क्या होगा?"
 },
 
 {
 type:"SUBJECTIVE",
-question:"Describe two important responsibilities of an SDM."
+question:"SDM की दो महत्वपूर्ण जिम्मेदारियाँ लिखिए।"
 }
 
 ],
@@ -881,7 +908,7 @@ question:"Describe two important responsibilities of an SDM."
 
 {
 type:"MCQ",
-question:"SP stands for:",
+question:"SP का पूरा नाम क्या है?",
 options:[
 "Superintendent of Police",
 "Senior President",
@@ -893,120 +920,120 @@ answer:0
 
 {
 type:"MCQ",
-question:"The SP is primarily connected with:",
+question:"SP मुख्य रूप से किस क्षेत्र से संबंधित है?",
 options:[
-"Police administration",
-"School examinations",
-"Currency printing",
-"Website design"
+"पुलिस प्रशासन",
+"स्कूल परीक्षा",
+"मुद्रा छपाई",
+"वेबसाइट डिजाइन"
 ],
 answer:0
 },
 
 {
 type:"TRUE",
-question:"The SP can coordinate police administration within the fictional system.",
+question:"SP इस काल्पनिक व्यवस्था में पुलिस प्रशासन का समन्वय कर सकता है।",
 options:[
-"True",
-"False",
-"Never",
-"None"
+"सही",
+"गलत",
+"कभी नहीं",
+"इनमें से कोई नहीं"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"The SP should expect police reports to contain:",
+question:"SP को मिलने वाली पुलिस रिपोर्ट में क्या होना चाहिए?",
 options:[
-"Relevant facts",
-"Random rumors",
-"Jokes",
-"No information"
+"प्रासंगिक तथ्य",
+"यादृच्छिक अफवाहें",
+"मजाक",
+"कोई जानकारी नहीं"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Which quality is important in police administration?",
+question:"पुलिस प्रशासन में कौन-सा गुण महत्वपूर्ण है?",
 options:[
-"Discipline",
-"Carelessness",
-"Confusion",
-"Dishonesty"
+"अनुशासन",
+"लापरवाही",
+"भ्रम",
+"बेईमानी"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"If an urgent police matter is reported, an SP should:",
+question:"यदि कोई अत्यावश्यक पुलिस मामला सामने आए, तो SP को क्या करना चाहिए?",
 options:[
-"Review the situation and coordinate appropriate action",
-"Ignore it",
-"Delete the report",
-"Publish confidential details"
+"स्थिति की समीक्षा करके उचित कार्रवाई का समन्वय करना",
+"उसे अनदेखा करना",
+"रिपोर्ट मिटा देना",
+"गोपनीय जानकारी सार्वजनिक करना"
 ],
 answer:0
 },
 
 {
 type:"TRUE",
-question:"Proper communication between police officers can improve coordination.",
+question:"पुलिस अधिकारियों के बीच उचित संचार से समन्वय बेहतर हो सकता है।",
 options:[
-"True",
-"False",
-"Never",
-"None"
+"सही",
+"गलत",
+"कभी नहीं",
+"इनमें से कोई नहीं"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"The SP supervises police administration and may coordinate with:",
+question:"SP पुलिस प्रशासन की निगरानी करता है और किसके साथ समन्वय कर सकता है?",
 options:[
-"Subordinate police officers",
-"No one",
-"Random civilians only",
-"Only website developers"
+"अधीनस्थ पुलिस अधिकारियों के साथ",
+"किसी के साथ नहीं",
+"केवल यादृच्छिक नागरिकों के साथ",
+"केवल वेबसाइट डेवलपर के साथ"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"An official police report should be:",
+question:"आधिकारिक पुलिस रिपोर्ट कैसी होनी चाहिए?",
 options:[
-"Clear and based on relevant information",
-"Made entirely from rumors",
-"Blank",
-"Filled with jokes"
+"स्पष्ट और प्रासंगिक जानकारी पर आधारित",
+"केवल अफवाहों पर आधारित",
+"खाली",
+"मजाक से भरी हुई"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Good police administration requires:",
+question:"अच्छे पुलिस प्रशासन के लिए क्या आवश्यक है?",
 options:[
-"Discipline, communication and proper records",
-"Confusion",
-"No reporting",
-"No supervision"
+"अनुशासन, संचार और सही रिकॉर्ड",
+"भ्रम",
+"रिपोर्टिंग न करना",
+"निगरानी न करना"
 ],
 answer:0
 },
 
 {
 type:"SUBJECTIVE",
-question:"Case: The DSP sends two conflicting reports about an incident. Explain what the SP should do before making an administrative decision."
+question:"स्थिति: DSP किसी घटना के बारे में दो अलग-अलग रिपोर्ट भेजता है। प्रशासनिक निर्णय लेने से पहले SP को क्या करना चाहिए?"
 },
 
 {
 type:"SUBJECTIVE",
-question:"Explain the importance of discipline and communication in police administration."
+question:"पुलिस प्रशासन में अनुशासन और संचार के महत्व को समझाइए।"
 }
 
 ],
@@ -1016,10 +1043,10 @@ question:"Explain the importance of discipline and communication in police admin
 
 {
 type:"MCQ",
-question:"DSP is a police administrative post in this fictional system. It works under:",
+question:"इस काल्पनिक व्यवस्था में DSP किसके अधीन कार्य करता है?",
 options:[
 "SP",
-"SDM only",
+"केवल SDM",
 "President's Assistant",
 "DM's Assistant"
 ],
@@ -1028,120 +1055,120 @@ answer:0
 
 {
 type:"MCQ",
-question:"A DSP receives an important police report. What should the DSP do?",
+question:"DSP को कोई महत्वपूर्ण पुलिस रिपोर्ट मिलने पर क्या करना चाहिए?",
 options:[
-"Review and report through the proper chain",
-"Delete it",
-"Ignore it",
-"Post it publicly"
+"उसकी समीक्षा करके उचित माध्यम से रिपोर्ट करना",
+"उसे मिटा देना",
+"उसे अनदेखा करना",
+"उसे सार्वजनिक रूप से पोस्ट करना"
 ],
 answer:0
 },
 
 {
 type:"TRUE",
-question:"A DSP should maintain proper communication with the SP.",
+question:"DSP को SP के साथ उचित संचार बनाए रखना चाहिए।",
 options:[
-"True",
-"False",
-"Never",
-"None"
+"सही",
+"गलत",
+"कभी नहीं",
+"इनमें से कोई नहीं"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Which quality is important for a DSP?",
+question:"DSP के लिए कौन-सा गुण महत्वपूर्ण है?",
 options:[
-"Discipline",
-"Carelessness",
-"Confusion",
-"Neglect"
+"अनुशासन",
+"लापरवाही",
+"भ्रम",
+"उपेक्षा"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"If a police team needs administrative guidance, the DSP should:",
+question:"यदि किसी पुलिस टीम को प्रशासनिक मार्गदर्शन की आवश्यकता हो, तो DSP को क्या करना चाहिए?",
 options:[
-"Coordinate according to the proper chain of command",
-"Ignore them",
-"Delete their reports",
-"Publish their private information"
+"उचित पदानुक्रम के अनुसार समन्वय करना",
+"उसे अनदेखा करना",
+"रिपोर्ट मिटा देना",
+"निजी जानकारी सार्वजनिक करना"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"A good police report should be:",
+question:"एक अच्छी पुलिस रिपोर्ट कैसी होनी चाहिए?",
 options:[
-"Accurate and clear",
-"Based only on rumors",
-"Empty",
-"Unorganized"
+"सटीक और स्पष्ट",
+"केवल अफवाहों पर आधारित",
+"खाली",
+"अव्यवस्थित"
 ],
 answer:0
 },
 
 {
 type:"TRUE",
-question:"Following the proper chain of command helps administrative coordination.",
+question:"उचित पदानुक्रम का पालन करने से प्रशासनिक समन्वय बेहतर होता है।",
 options:[
-"True",
-"False",
-"Never",
-"None"
+"सही",
+"गलत",
+"कभी नहीं",
+"इनमें से कोई नहीं"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"When an urgent matter is received, the DSP should:",
+question:"किसी अत्यावश्यक मामले की सूचना मिलने पर DSP को क्या करना चाहिए?",
 options:[
-"Assess the information and communicate appropriately",
-"Ignore it",
-"Destroy it",
-"Wait without reason"
+"जानकारी का आकलन करके उचित तरीके से सूचना देना",
+"उसे अनदेखा करना",
+"उसे नष्ट करना",
+"बिना कारण प्रतीक्षा करना"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"Which is important when supervising police work?",
+question:"पुलिस कार्य की निगरानी करते समय क्या महत्वपूर्ण है?",
 options:[
-"Clear instructions and reporting",
-"No communication",
-"Random decisions",
-"Poor records"
+"स्पष्ट निर्देश और सही रिपोर्टिंग",
+"कोई संचार नहीं",
+"यादृच्छिक निर्णय",
+"खराब रिकॉर्ड"
 ],
 answer:0
 },
 
 {
 type:"MCQ",
-question:"The DSP should normally keep the SP informed about:",
+question:"DSP को सामान्यतः SP को किसकी जानकारी देनी चाहिए?",
 options:[
-"Important developments",
-"Personal jokes",
-"Unrelated entertainment",
-"Nothing"
+"महत्वपूर्ण घटनाक्रम की",
+"व्यक्तिगत मजाक की",
+"असंबंधित मनोरंजन की",
+"किसी भी बात की नहीं"
 ],
 answer:0
 },
 
 {
 type:"SUBJECTIVE",
-question:"Case: A police team reports an urgent situation to the DSP. Explain the steps the DSP should take while keeping the proper chain of command."
+question:"स्थिति: पुलिस टीम DSP को किसी अत्यावश्यक स्थिति की सूचना देती है। उचित पदानुक्रम बनाए रखते हुए DSP को कौन-कौन से कदम उठाने चाहिए?"
 },
 
 {
 type:"SUBJECTIVE",
-question:"Explain why accurate reporting is important in police administration."
+question:"पुलिस प्रशासन में सही और सटीक रिपोर्टिंग क्यों महत्वपूर्ण है? समझाइए।"
 }
 
 ]
@@ -1149,25 +1176,45 @@ question:"Explain why accurate reporting is important in police administration."
 };
 
 
-function startExam(){
+/* ==============================
+   GLOBAL VARIABLES
+================================ */
 
-const name=
+let verifiedCode = "";
+let verifiedPost = "";
+let verifiedApplicantName = "";
+let examSubmitted = false;
+
+
+/* ==============================
+   START EXAM
+================================ */
+
+async function startExam(){
+
+const name =
 document.getElementById("candidateName").value.trim();
 
-const code=
+const code =
 document.getElementById("examCode").value.trim().toUpperCase();
 
-const post=
+const post =
 document.getElementById("postSelect").value;
 
-const message=
+const message =
 document.getElementById("loginMessage");
+
+const button =
+document.getElementById("startButton");
+
+
+message.textContent = "";
 
 
 if(name===""){
 
 message.style.color="#ff6464";
-message.textContent="Please enter candidate name.";
+message.textContent="कृपया उम्मीदवार का नाम दर्ज करें।";
 
 return;
 
@@ -1177,7 +1224,7 @@ return;
 if(code===""){
 
 message.style.color="#ff6464";
-message.textContent="Please enter examination code.";
+message.textContent="कृपया Exam Code दर्ज करें।";
 
 return;
 
@@ -1187,17 +1234,95 @@ return;
 if(post===""){
 
 message.style.color="#ff6464";
-message.textContent="Please select an examination post.";
+message.textContent="कृपया Examination Post चुनें।";
 
 return;
 
 }
 
 
-if(code!=="CE-TEST-123456"){
+button.disabled=true;
+
+button.textContent="Code जाँच हो रही है...";
+
+
+try{
+
+const response = await fetch(
+SUPABASE_URL + "/rest/v1/rpc/verify_exam_code",
+{
+method:"POST",
+
+headers:{
+"Content-Type":"application/json",
+"apikey":SUPABASE_KEY,
+"Authorization":"Bearer " + SUPABASE_KEY
+},
+
+body:JSON.stringify({
+input_code:code,
+input_post:post
+})
+
+});
+
+
+const data = await response.json();
+
+
+if(!response.ok){
+
+throw new Error(
+data.message || "Supabase verification failed"
+);
+
+}
+
+
+if(!data.success){
 
 message.style.color="#ff6464";
-message.textContent="Invalid examination code.";
+
+message.textContent =
+data.message ||
+"गलत, अमान्य या पहले इस्तेमाल किया गया Exam Code";
+
+button.disabled=false;
+button.textContent="Start Examination";
+
+return;
+
+}
+
+
+/*
+  Database में दर्ज applicant name
+  को सुरक्षित रूप से इस्तेमाल किया जा रहा है।
+*/
+
+verifiedCode = code;
+verifiedPost = post;
+verifiedApplicantName =
+data.applicant_name || name;
+
+
+/*
+  Candidate द्वारा डाला गया नाम
+  database वाले नाम से मिलना चाहिए।
+*/
+
+if(
+name.trim().toLowerCase() !==
+verifiedApplicantName.trim().toLowerCase()
+){
+
+message.style.color="#ff6464";
+
+message.textContent =
+"Candidate Name और Exam Code के नाम में मिलान नहीं है।";
+
+button.disabled=false;
+button.textContent="Start Examination";
 
 return;
 
@@ -1208,25 +1333,48 @@ document.getElementById("loginBox").style.display="none";
 
 document.getElementById("examArea").style.display="block";
 
-document.getElementById("showName").textContent=name;
+document.getElementById("showName").textContent=
+verifiedApplicantName;
 
-document.getElementById("showPost").textContent=post;
+document.getElementById("showPost").textContent=
+verifiedPost;
 
-loadQuestions(post);
+loadQuestions(verifiedPost);
 
 window.scrollTo(0,0);
+
+
+}catch(error){
+
+console.error(error);
+
+message.style.color="#ff6464";
+
+message.textContent =
+"Exam Code जाँचने में समस्या हुई। कृपया बाद में फिर प्रयास करें।";
+
+button.disabled=false;
+button.textContent="Start Examination";
+
+}
 
 }
 
 
+/* ==============================
+   LOAD QUESTIONS
+================================ */
+
 function loadQuestions(post){
 
-const area=
+const area =
 document.getElementById("questions");
 
 area.innerHTML="";
 
-const paper=examData[post];
+const paper =
+examData[post];
+
 
 paper.forEach((item,index)=>{
 
@@ -1236,11 +1384,13 @@ html+=`
 <div class="question">
 
 <div class="question-number">
-Question ${index+1}
+प्रश्न ${index+1}
 </div>
 
 <div class="type">
-${item.type}
+${item.type==="MCQ" ? "बहुविकल्पीय प्रश्न" :
+  item.type==="TRUE" ? "सही / गलत" :
+  "वर्णनात्मक प्रश्न"}
 </div>
 
 <p>
@@ -1248,13 +1398,14 @@ ${escapeHTML(item.question)}
 </p>
 `;
 
+
 if(item.type==="SUBJECTIVE"){
 
 html+=`
 
 <textarea
 id="subjective${index}"
-placeholder="Write your answer here..."
+placeholder="अपना उत्तर यहाँ लिखें..."
 ></textarea>
 
 `;
@@ -1263,7 +1414,7 @@ placeholder="Write your answer here..."
 
 item.options.forEach((option,optIndex)=>{
 
-const letter=
+const letter =
 String.fromCharCode(65+optIndex);
 
 html+=`
@@ -1286,21 +1437,32 @@ ${letter}. ${escapeHTML(option)}
 
 }
 
-html+=`</div>`;
+html+=`
+</div>
+`;
 
-area.innerHTML+=html;
+area.innerHTML += html;
 
 });
 
 }
 
 
-function submitExam(){
+/* ==============================
+   SUBMIT EXAM
+================================ */
 
-const post=
+async function submitExam(){
+
+if(examSubmitted){
+return;
+}
+
+
+const post =
 document.getElementById("showPost").textContent;
 
-const paper=
+const paper =
 examData[post];
 
 let score=0;
@@ -1321,7 +1483,7 @@ return;
 }
 
 
-const selected=
+const selected =
 document.querySelector(
 'input[name="q'+index+'"]:checked'
 );
@@ -1336,7 +1498,10 @@ return;
 }
 
 
-if(Number(selected.value)===item.answer){
+if(
+Number(selected.value) ===
+item.answer
+){
 
 score++;
 
@@ -1345,25 +1510,83 @@ score++;
 });
 
 
-const totalObjective=
-paper.length-subjective;
+const totalObjective =
+paper.length - subjective;
 
-const percentage=
-Math.round((score/totalObjective)*100);
+const percentage =
+Math.round(
+(score / totalObjective) * 100
+);
 
-const passed=
-percentage>=60;
+const passed =
+percentage >= 60;
 
+
+/*
+  पहले Supabase में code को
+  used करने की कोशिश होगी।
+*/
+
+const submitButton =
+document.getElementById("submitButton");
+
+submitButton.disabled=true;
+
+submitButton.textContent=
+"Exam जमा हो रहा है...";
+
+
+try{
+
+const response = await fetch(
+SUPABASE_URL + "/rest/v1/rpc/submit_exam_code",
+{
+method:"POST",
+
+headers:{
+"Content-Type":"application/json",
+"apikey":SUPABASE_KEY,
+"Authorization":"Bearer " + SUPABASE_KEY
+},
+
+body:JSON.stringify({
+input_code:verifiedCode
+})
+
+});
+
+
+const data =
+await response.json();
+
+
+if(!response.ok || !data.success){
+
+throw new Error(
+data.message ||
+"Exam submission failed"
+);
+
+}
+
+
+examSubmitted=true;
+
+
+/*
+  Code successfully used होने के बाद
+  result दिखाया जाएगा।
+*/
 
 document.getElementById("examArea").style.display="none";
 
 document.getElementById("result").style.display="block";
 
 
-const resultText=
+const resultText =
 document.getElementById("resultText");
 
-const scoreText=
+const scoreText =
 document.getElementById("scoreText");
 
 
@@ -1412,18 +1635,37 @@ ${subjective}
 
 <p style="text-align:center;color:#aaa;">
 
-Passing threshold:
-60% in the automatically scored objective section.
+उत्तीर्ण सीमा:
+स्वचालित Objective Section में 60%।
 
 </p>
 
 `;
 
-
 window.scrollTo(0,0);
+
+
+}catch(error){
+
+console.error(error);
+
+submitButton.disabled=false;
+
+submitButton.textContent=
+"Submit Examination";
+
+alert(
+"Exam जमा नहीं हुआ। आपका Exam Code अभी इस्तेमाल नहीं हुआ है। कृपया फिर से Submit करें।"
+);
 
 }
 
+}
+
+
+/* ==============================
+   HTML SECURITY
+================================ */
 
 function escapeHTML(value){
 

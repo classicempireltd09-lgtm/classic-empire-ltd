@@ -158,4 +158,1290 @@ textarea{
 
 hr{
   border:0;
-  border-top:1px solid #333
+  border-top:1px solid #333;
+  margin:20px 0;
+}
+
+.back{
+  display:block;
+  text-align:center;
+  color:#ffd54a;
+  text-decoration:none;
+  margin-top:15px;
+}
+
+.small{
+  color:#888;
+  font-size:13px;
+  text-align:center;
+  margin-top:10px;
+}
+
+@media(max-width:600px){
+  .container{
+    width:94%;
+    margin:15px auto;
+  }
+
+  .box{
+    padding:18px;
+  }
+
+  h1{
+    font-size:28px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- LOGIN -->
+
+<div class="box" id="loginBox">
+
+<h1>Classic Empire Ltd</h1>
+
+<p class="subtitle">
+Official Examination Portal
+</p>
+
+<hr>
+
+<label>Candidate Name</label>
+
+<input
+  type="text"
+  id="candidateName"
+  placeholder="Enter candidate name"
+>
+
+<label>Exam Code</label>
+
+<input
+  type="text"
+  id="examCode"
+  placeholder="Enter examination code"
+>
+
+<label>Select Post</label>
+
+<select id="postSelect">
+
+<option value="">
+Select Examination Post
+</option>
+
+<option value="President's Assistant">
+President's Assistant
+</option>
+
+<option value="DM">
+DM
+</option>
+
+<option value="DM's Assistant">
+DM's Assistant
+</option>
+
+<option value="SDM">
+SDM
+</option>
+
+<option value="SP">
+SP
+</option>
+
+<option value="DSP">
+DSP
+</option>
+
+</select>
+
+<button type="button" onclick="startExam()">
+Start Examination
+</button>
+
+<p id="loginMessage"></p>
+
+<p class="small">
+Temporary testing code: CE-TEST-123456
+</p>
+
+<a class="back" href="index.html">
+← Back to Classic Empire Website
+</a>
+
+</div>
+
+
+<!-- EXAM -->
+
+<div class="box" id="examArea">
+
+<h1>Examination</h1>
+
+<div class="info">
+
+Candidate:
+<strong id="showName"></strong>
+
+<br>
+
+Post:
+<strong id="showPost"></strong>
+
+</div>
+
+<div id="questions"></div>
+
+<button type="button" onclick="submitExam()">
+Submit Examination
+</button>
+
+</div>
+
+
+<!-- RESULT -->
+
+<div class="box" id="result">
+
+<h1>Examination Result</h1>
+
+<hr>
+
+<div id="resultText"></div>
+
+<br>
+
+<div id="scoreText"></div>
+
+<br>
+
+<p class="warning">
+Subjective answers require manual evaluation.
+</p>
+
+<a class="back" href="index.html">
+← Back to Classic Empire Website
+</a>
+
+</div>
+
+</div>
+
+
+<script>
+
+const examData = {
+
+"President's Assistant":[
+
+{
+type:"MCQ",
+question:"Which responsibility best matches a President's Assistant?",
+options:[
+"Managing the official support and coordination work of the President",
+"Conducting criminal trials",
+"Collecting school fees",
+"Managing a police station"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"A President's Assistant receives an important official message. What should be done first?",
+options:[
+"Ignore it",
+"Properly communicate it to the President",
+"Delete it",
+"Publish it publicly"
+],
+answer:1
+},
+
+{
+type:"TRUE",
+question:"An assistant should maintain confidentiality when handling official information.",
+options:[
+"True",
+"False",
+"Only on Sunday",
+"Never"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Which skill is most useful for administrative coordination?",
+options:[
+"Communication",
+"Guessing",
+"Carelessness",
+"Silence"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"If two departments need a meeting with the President, the assistant can help with:",
+options:[
+"Scheduling and coordination",
+"Changing the law",
+"Issuing court judgments",
+"Making police arrests"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"What does confidentiality mean?",
+options:[
+"Sharing everything online",
+"Keeping authorized information private",
+"Deleting every document",
+"Never speaking to anyone"
+],
+answer:1
+},
+
+{
+type:"MCQ",
+question:"An official document should normally be handled:",
+options:[
+"Carelessly",
+"Responsibly",
+"Secretly from everyone including authorized officers",
+"Without reading"
+],
+answer:1
+},
+
+{
+type:"TRUE",
+question:"Good record keeping can help an administration remain organized.",
+options:[
+"True",
+"False",
+"Sometimes never",
+"None"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Which is an example of coordination?",
+options:[
+"Connecting two departments for an official meeting",
+"Starting an argument",
+"Deleting records",
+"Ignoring instructions"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"The main purpose of an official schedule is to:",
+options:[
+"Create confusion",
+"Organize activities and appointments",
+"Hide information",
+"Cancel all work"
+],
+answer:1
+},
+
+{
+type:"SUBJECTIVE",
+question:"Case: The President has three important meetings on the same day. Explain how you would organize the schedule."
+},
+
+{
+type:"SUBJECTIVE",
+question:"Write a short note on confidentiality and responsibility in an administrative office."
+}
+
+],
+
+
+"DM":[
+
+{
+type:"MCQ",
+question:"What is one major administrative function of a DM in this fictional system?",
+options:[
+"Coordinating district-level administration",
+"Writing movie scripts",
+"Running a restaurant",
+"Managing a sports team"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"If two local departments disagree about an administrative matter, the DM should first:",
+options:[
+"Create more conflict",
+"Coordinate and review the issue",
+"Ignore both departments",
+"Immediately close both departments"
+],
+answer:1
+},
+
+{
+type:"TRUE",
+question:"An administrative officer should maintain proper records of important decisions.",
+options:[
+"True",
+"False",
+"Only during holidays",
+"Never"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Which quality is important for district administration?",
+options:[
+"Fair coordination",
+"Carelessness",
+"Random decisions",
+"Refusing information"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"A DM receives reports from subordinate officers. The DM should:",
+options:[
+"Review relevant information",
+"Destroy the reports",
+"Ignore every report",
+"Publish private information"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Good administration generally requires:",
+options:[
+"Planning and coordination",
+"Confusion",
+"No records",
+"No communication"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"If an urgent administrative problem occurs, the first useful step is usually to:",
+options:[
+"Understand the facts",
+"Guess the facts",
+"Ignore it",
+"Delete the report"
+],
+answer:0
+},
+
+{
+type:"TRUE",
+question:"Communication between administrative officers can improve coordination.",
+options:[
+"True",
+"False",
+"Never",
+"Only at night"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"A district report should ideally contain:",
+options:[
+"Relevant facts and information",
+"Random jokes",
+"Unverified rumors only",
+"No details"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Which approach is most suitable for solving an administrative dispute?",
+options:[
+"Review facts and coordinate with concerned officers",
+"Immediately blame everyone",
+"Ignore the issue",
+"Destroy the records"
+],
+answer:0
+},
+
+{
+type:"SUBJECTIVE",
+question:"Case: Two administrative departments submit conflicting reports about the same incident. Explain what steps you would take as DM."
+},
+
+{
+type:"SUBJECTIVE",
+question:"Explain why coordination is important in district administration."
+}
+
+],
+
+
+"DM's Assistant":[
+
+{
+type:"MCQ",
+question:"A DM's Assistant mainly supports:",
+options:[
+"The DM's administrative work",
+"A cinema hall",
+"A sports club",
+"A restaurant"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"What is an important task when receiving official files?",
+options:[
+"Organize and forward them properly",
+"Throw them away",
+"Hide them",
+"Change their contents"
+],
+answer:0
+},
+
+{
+type:"TRUE",
+question:"An assistant should follow authorized administrative instructions.",
+options:[
+"True",
+"False",
+"Never",
+"Only sometimes"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Which skill helps an assistant manage multiple tasks?",
+options:[
+"Organization",
+"Carelessness",
+"Confusion",
+"Delay"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"A meeting notice should contain:",
+options:[
+"Relevant meeting information",
+"Random information",
+"Private passwords",
+"Nothing useful"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"If a file is marked urgent, the assistant should:",
+options:[
+"Handle it according to the authorized priority",
+"Ignore it",
+"Delete it",
+"Hide it"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Proper documentation helps an office by:",
+options:[
+"Keeping records organized",
+"Creating confusion",
+"Removing accountability",
+"Destroying information"
+],
+answer:0
+},
+
+{
+type:"TRUE",
+question:"An assistant can help reduce administrative delays through proper coordination.",
+options:[
+"True",
+"False",
+"Never",
+"None"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"If an instruction is unclear, the safest administrative approach is to:",
+options:[
+"Seek clarification from the authorized officer",
+"Guess",
+"Ignore it",
+"Change the instruction"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Which is an example of good office management?",
+options:[
+"Maintaining organized records",
+"Losing documents",
+"Ignoring deadlines",
+"Sharing confidential files publicly"
+],
+answer:0
+},
+
+{
+type:"SUBJECTIVE",
+question:"Case: You have five files marked urgent. Explain how you would organize them before presenting them to the DM."
+},
+
+{
+type:"SUBJECTIVE",
+question:"Explain the role of an assistant in maintaining accurate administrative records."
+}
+
+],
+
+
+"SDM":[
+
+{
+type:"MCQ",
+question:"SDM stands for:",
+options:[
+"Sub-Divisional Magistrate",
+"Senior Department Manager",
+"State District Member",
+"Special Development Minister"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"In this fictional administrative structure, the SDM works under:",
+options:[
+"DM",
+"DSP",
+"SP only",
+"President's Assistant only"
+],
+answer:0
+},
+
+{
+type:"TRUE",
+question:"An SDM can assist with sub-divisional administrative coordination.",
+options:[
+"True",
+"False",
+"Never",
+"None"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Which quality is useful for an SDM?",
+options:[
+"Responsible decision-making",
+"Carelessness",
+"Random guessing",
+"Poor communication"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"When handling an administrative complaint, an SDM should first:",
+options:[
+"Review relevant facts",
+"Ignore it",
+"Delete it",
+"Immediately blame someone"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Official records should be:",
+options:[
+"Accurate and organized",
+"Destroyed",
+"Random",
+"Hidden from authorized officers"
+],
+answer:0
+},
+
+{
+type:"TRUE",
+question:"Coordination with higher administrative officers can help resolve local issues.",
+options:[
+"True",
+"False",
+"Never",
+"None"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"An SDM should communicate important developments to:",
+options:[
+"Relevant senior authority",
+"No one",
+"Random people",
+"Social media first"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Which is important when making an administrative report?",
+options:[
+"Facts and clarity",
+"Rumors",
+"Insults",
+"Guesswork"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"A responsible officer should make decisions based on:",
+options:[
+"Relevant information and rules",
+"Rumors",
+"Personal jokes",
+"Random guesses"
+],
+answer:0
+},
+
+{
+type:"SUBJECTIVE",
+question:"Case: A local administrative issue requires immediate attention, but complete information is not yet available. Explain your approach."
+},
+
+{
+type:"SUBJECTIVE",
+question:"Describe two important responsibilities of an SDM."
+}
+
+],
+
+
+"SP":[
+
+{
+type:"MCQ",
+question:"SP stands for:",
+options:[
+"Superintendent of Police",
+"Senior President",
+"Special Prosecutor",
+"State Planner"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"The SP is primarily connected with:",
+options:[
+"Police administration",
+"School examinations",
+"Currency printing",
+"Website design"
+],
+answer:0
+},
+
+{
+type:"TRUE",
+question:"The SP can coordinate police administration within the fictional system.",
+options:[
+"True",
+"False",
+"Never",
+"None"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"The SP should expect police reports to contain:",
+options:[
+"Relevant facts",
+"Random rumors",
+"Jokes",
+"No information"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Which quality is important in police administration?",
+options:[
+"Discipline",
+"Carelessness",
+"Confusion",
+"Dishonesty"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"If an urgent police matter is reported, an SP should:",
+options:[
+"Review the situation and coordinate appropriate action",
+"Ignore it",
+"Delete the report",
+"Publish confidential details"
+],
+answer:0
+},
+
+{
+type:"TRUE",
+question:"Proper communication between police officers can improve coordination.",
+options:[
+"True",
+"False",
+"Never",
+"None"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"The SP supervises police administration and may coordinate with:",
+options:[
+"Subordinate police officers",
+"No one",
+"Random civilians only",
+"Only website developers"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"An official police report should be:",
+options:[
+"Clear and based on relevant information",
+"Made entirely from rumors",
+"Blank",
+"Filled with jokes"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Good police administration requires:",
+options:[
+"Discipline, communication and proper records",
+"Confusion",
+"No reporting",
+"No supervision"
+],
+answer:0
+},
+
+{
+type:"SUBJECTIVE",
+question:"Case: The DSP sends two conflicting reports about an incident. Explain what the SP should do before making an administrative decision."
+},
+
+{
+type:"SUBJECTIVE",
+question:"Explain the importance of discipline and communication in police administration."
+}
+
+],
+
+
+"DSP":[
+
+{
+type:"MCQ",
+question:"DSP is a police administrative post in this fictional system. It works under:",
+options:[
+"SP",
+"SDM only",
+"President's Assistant",
+"DM's Assistant"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"A DSP receives an important police report. What should the DSP do?",
+options:[
+"Review and report through the proper chain",
+"Delete it",
+"Ignore it",
+"Post it publicly"
+],
+answer:0
+},
+
+{
+type:"TRUE",
+question:"A DSP should maintain proper communication with the SP.",
+options:[
+"True",
+"False",
+"Never",
+"None"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Which quality is important for a DSP?",
+options:[
+"Discipline",
+"Carelessness",
+"Confusion",
+"Neglect"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"If a police team needs administrative guidance, the DSP should:",
+options:[
+"Coordinate according to the proper chain of command",
+"Ignore them",
+"Delete their reports",
+"Publish their private information"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"A good police report should be:",
+options:[
+"Accurate and clear",
+"Based only on rumors",
+"Empty",
+"Unorganized"
+],
+answer:0
+},
+
+{
+type:"TRUE",
+question:"Following the proper chain of command helps administrative coordination.",
+options:[
+"True",
+"False",
+"Never",
+"None"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"When an urgent matter is received, the DSP should:",
+options:[
+"Assess the information and communicate appropriately",
+"Ignore it",
+"Destroy it",
+"Wait without reason"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"Which is important when supervising police work?",
+options:[
+"Clear instructions and reporting",
+"No communication",
+"Random decisions",
+"Poor records"
+],
+answer:0
+},
+
+{
+type:"MCQ",
+question:"The DSP should normally keep the SP informed about:",
+options:[
+"Important developments",
+"Personal jokes",
+"Unrelated entertainment",
+"Nothing"
+],
+answer:0
+},
+
+{
+type:"SUBJECTIVE",
+question:"Case: A police team reports an urgent situation to the DSP. Explain the steps the DSP should take while keeping the proper chain of command."
+},
+
+{
+type:"SUBJECTIVE",
+question:"Explain why accurate reporting is important in police administration."
+}
+
+]
+
+};
+
+
+function startExam(){
+
+const name=
+document.getElementById("candidateName").value.trim();
+
+const code=
+document.getElementById("examCode").value.trim().toUpperCase();
+
+const post=
+document.getElementById("postSelect").value;
+
+const message=
+document.getElementById("loginMessage");
+
+
+if(name===""){
+
+message.style.color="#ff6464";
+message.textContent="Please enter candidate name.";
+
+return;
+
+}
+
+
+if(code===""){
+
+message.style.color="#ff6464";
+message.textContent="Please enter examination code.";
+
+return;
+
+}
+
+
+if(post===""){
+
+message.style.color="#ff6464";
+message.textContent="Please select an examination post.";
+
+return;
+
+}
+
+
+if(code!=="CE-TEST-123456"){
+
+message.style.color="#ff6464";
+message.textContent="Invalid examination code.";
+
+return;
+
+}
+
+
+document.getElementById("loginBox").style.display="none";
+
+document.getElementById("examArea").style.display="block";
+
+document.getElementById("showName").textContent=name;
+
+document.getElementById("showPost").textContent=post;
+
+loadQuestions(post);
+
+window.scrollTo(0,0);
+
+}
+
+
+function loadQuestions(post){
+
+const area=
+document.getElementById("questions");
+
+area.innerHTML="";
+
+const paper=examData[post];
+
+paper.forEach((item,index)=>{
+
+let html="";
+
+html+=`
+<div class="question">
+
+<div class="question-number">
+Question ${index+1}
+</div>
+
+<div class="type">
+${item.type}
+</div>
+
+<p>
+${escapeHTML(item.question)}
+</p>
+`;
+
+if(item.type==="SUBJECTIVE"){
+
+html+=`
+
+<textarea
+id="subjective${index}"
+placeholder="Write your answer here..."
+></textarea>
+
+`;
+
+}else{
+
+item.options.forEach((option,optIndex)=>{
+
+const letter=
+String.fromCharCode(65+optIndex);
+
+html+=`
+
+<label class="option">
+
+<input
+type="radio"
+name="q${index}"
+value="${optIndex}"
+>
+
+${letter}. ${escapeHTML(option)}
+
+</label>
+
+`;
+
+});
+
+}
+
+html+=`</div>`;
+
+area.innerHTML+=html;
+
+});
+
+}
+
+
+function submitExam(){
+
+const post=
+document.getElementById("showPost").textContent;
+
+const paper=
+examData[post];
+
+let score=0;
+
+let unanswered=0;
+
+let subjective=0;
+
+
+paper.forEach((item,index)=>{
+
+if(item.type==="SUBJECTIVE"){
+
+subjective++;
+
+return;
+
+}
+
+
+const selected=
+document.querySelector(
+'input[name="q'+index+'"]:checked'
+);
+
+
+if(!selected){
+
+unanswered++;
+
+return;
+
+}
+
+
+if(Number(selected.value)===item.answer){
+
+score++;
+
+}
+
+});
+
+
+const totalObjective=
+paper.length-subjective;
+
+const percentage=
+Math.round((score/totalObjective)*100);
+
+const passed=
+percentage>=60;
+
+
+document.getElementById("examArea").style.display="none";
+
+document.getElementById("result").style.display="block";
+
+
+const resultText=
+document.getElementById("resultText");
+
+const scoreText=
+document.getElementById("scoreText");
+
+
+if(passed){
+
+resultText.className="pass";
+
+resultText.textContent=
+"PASS — Objective Section";
+
+}else{
+
+resultText.className="fail";
+
+resultText.textContent=
+"FAIL — Objective Section";
+
+}
+
+
+scoreText.innerHTML=`
+
+<p style="text-align:center;font-size:20px;">
+
+<strong>Objective Score:</strong>
+${score} / ${totalObjective}
+
+<br>
+
+<strong>Percentage:</strong>
+${percentage}%
+
+<br>
+
+<strong>Unanswered:</strong>
+${unanswered}
+
+<br>
+
+<strong>Subjective Questions:</strong>
+${subjective}
+
+</p>
+
+<hr>
+
+<p style="text-align:center;color:#aaa;">
+
+Passing threshold:
+60% in the automatically scored objective section.
+
+</p>
+
+`;
+
+
+window.scrollTo(0,0);
+
+}
+
+
+function escapeHTML(value){
+
+return String(value)
+
+.replace(/&/g,"&amp;")
+
+.replace(/</g,"&lt;")
+
+.replace(/>/g,"&gt;")
+
+.replace(/"/g,"&quot;")
+
+.replace(/'/g,"&#039;");
+
+}
+
+</script>
+
+</body>
+</html>

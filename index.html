@@ -3,10 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Classic Empire Ltd</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 html{
   scroll-behavior:smooth;
@@ -221,7 +226,8 @@ table{
   background:#111;
 }
 
-th,td{
+th,
+td{
   padding:14px;
   border:1px solid #333;
   text-align:left;
@@ -259,7 +265,9 @@ label{
   color:#ddd;
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
   width:100%;
   padding:12px;
   border-radius:8px;
@@ -292,10 +300,28 @@ button:disabled{
   cursor:not-allowed;
 }
 
-.note{
-  color:#aaa;
-  margin-top:10px;
-  font-size:14px;
+.portal-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-top:20px;
+}
+
+.portal-button{
+  display:inline-block;
+  padding:13px 22px;
+  border-radius:8px;
+  font-weight:bold;
+  text-decoration:none;
+  background:#ffd700;
+  color:#000;
+}
+
+.portal-button.status{
+  background:#222;
+  color:#ffd700;
+  border:1px solid #ffd700;
 }
 
 .application-status{
@@ -395,6 +421,12 @@ footer{
   display:none;
 }
 
+.note{
+  color:#aaa;
+  margin-top:10px;
+  font-size:14px;
+}
+
 @media(max-width:800px){
 
   .nav{
@@ -422,6 +454,14 @@ footer{
     flex-direction:column;
     gap:5px;
   }
+
+  .portal-buttons{
+    flex-direction:column;
+  }
+
+  .portal-button{
+    text-align:center;
+  }
 }
 </style>
 </head>
@@ -437,6 +477,7 @@ footer{
 
 
 <header>
+
 <div class="container nav">
 
 <div class="brand">
@@ -449,6 +490,7 @@ footer{
 <span>Classic Empire Ltd</span>
 
 </div>
+
 
 <nav>
 
@@ -471,7 +513,11 @@ Apply
 </a>
 
 <a href="exam.html">
-📝 Exam Portal
+📝 Exam
+</a>
+
+<a href="status.html">
+📋 Status
 </a>
 
 <a href="#administration">
@@ -489,12 +535,14 @@ Contact
 </nav>
 
 </div>
+
 </header>
 
 
 <main>
 
-<!-- HERO -->
+
+<!-- ================= HERO ================= -->
 
 <section class="hero" id="home">
 
@@ -518,7 +566,7 @@ Official Empire System
 </section>
 
 
-<!-- PEOPLE -->
+<!-- ================= PEOPLE ================= -->
 
 <section id="people">
 
@@ -531,6 +579,7 @@ People
 <p class="section-subtitle">
 Current office holders of Classic Empire Ltd
 </p>
+
 
 <div class="grid">
 
@@ -662,11 +711,13 @@ DSP
 
 
 </div>
+
 </div>
+
 </section>
 
 
-<!-- UPDATES -->
+<!-- ================= UPDATES ================= -->
 
 <section id="updates">
 
@@ -680,11 +731,13 @@ Empire Updates
 Click below to view the latest Empire changes
 </p>
 
+
 <details>
 
 <summary>
 📢 New Empire Changes
 </summary>
+
 
 <div class="updates">
 
@@ -724,8 +777,8 @@ Exam Portal
 </h3>
 
 <p>
-Every eligible post can have an examination through
-the Classic Empire Exam Portal.
+Eligible candidates can take their examination through
+the Classic Empire Exam Portal using their unique Exam Code.
 </p>
 
 </div>
@@ -739,7 +792,21 @@ Application System
 
 <p>
 Candidates can submit applications for eligible posts.
-Applications are reviewed by the Admin.
+Applications are reviewed and approved by the Admin.
+</p>
+
+</div>
+
+
+<div class="update">
+
+<h3>
+Application Status
+</h3>
+
+<p>
+Applicants can check their application status and,
+after approval and code generation, their Exam Code.
 </p>
 
 </div>
@@ -781,7 +848,7 @@ Classic Empire uses Classic Dinar (CLD), also called CD.
 </section>
 
 
-<!-- CURRENCY -->
+<!-- ================= CURRENCY ================= -->
 
 <section id="currency">
 
@@ -794,6 +861,7 @@ Empire Currency
 <p class="section-subtitle">
 Official currency information
 </p>
+
 
 <div class="currency-box">
 
@@ -841,7 +909,7 @@ Fixed Conversion
 </section>
 
 
-<!-- SALARIES -->
+<!-- ================= SALARIES ================= -->
 
 <section id="salaries">
 
@@ -854,6 +922,7 @@ Weekly Salaries
 <p class="section-subtitle">
 Official salary system — Payment every Thursday
 </p>
+
 
 <div class="table-wrap">
 
@@ -911,6 +980,7 @@ Official salary system — Payment every Thursday
 
 </div>
 
+
 <p class="note">
 💰 Salary payment day: Every Thursday
 </p>
@@ -920,7 +990,7 @@ Official salary system — Payment every Thursday
 </section>
 
 
-<!-- APPLY -->
+<!-- ================= APPLY ================= -->
 
 <section id="apply">
 
@@ -950,13 +1020,11 @@ name="_subject"
 value="Classic Empire Ltd - New Post Application"
 >
 
-
 <input
 type="hidden"
 name="_captcha"
 value="false"
 >
-
 
 <input
 type="hidden"
@@ -1141,8 +1209,6 @@ Submit Application
 </div>
 
 
-<!-- SUCCESS / ERROR -->
-
 <div
 id="applicationStatus"
 class="application-status">
@@ -1151,12 +1217,41 @@ class="application-status">
 
 </form>
 
+
+<!-- STATUS LINK -->
+
+<div
+style="
+text-align:center;
+margin-top:20px;
+"
+>
+
+<p
+style="
+color:#aaa;
+margin-bottom:10px;
+"
+>
+Already applied?
+</p>
+
+<a
+href="status.html"
+class="portal-button status"
+>
+📋 Check Application Status
+</a>
+
+</div>
+
+
 </div>
 
 </section>
 
 
-<!-- EXAM PORTAL -->
+<!-- ================= EXAM PORTAL ================= -->
 
 <section id="exam">
 
@@ -1177,32 +1272,44 @@ style="text-align:center;"
 >
 
 <h3
-style="color:#ffd700;margin-bottom:10px;"
+style="
+color:#ffd700;
+margin-bottom:10px;
+"
 >
 📝 Classic Empire Exam Portal
 </h3>
 
+
 <p
-style="color:#bbb;margin-bottom:20px;"
+style="
+color:#bbb;
+margin-bottom:5px;
+"
 >
 Candidates can enter their examination code
 and take the examination for their selected post.
 </p>
 
+
+<div class="portal-buttons">
+
 <a
 href="exam.html"
-style="
-display:inline-block;
-background:#ffd700;
-color:#000;
-text-decoration:none;
-padding:13px 22px;
-border-radius:8px;
-font-weight:bold;
-"
+class="portal-button"
 >
-Open Exam Portal
+📝 Open Exam Portal
 </a>
+
+
+<a
+href="status.html"
+class="portal-button status"
+>
+📋 Check Application Status
+</a>
+
+</div>
 
 </div>
 
@@ -1211,7 +1318,7 @@ Open Exam Portal
 </section>
 
 
-<!-- ADMINISTRATION -->
+<!-- ================= ADMINISTRATION ================= -->
 
 <section id="administration">
 
@@ -1224,6 +1331,7 @@ Administration
 <p class="section-subtitle">
 Current Classic Empire administrative structure
 </p>
+
 
 <div class="admin-list">
 
@@ -1277,7 +1385,7 @@ Current Classic Empire administrative structure
 </section>
 
 
-<!-- ABOUT -->
+<!-- ================= ABOUT ================= -->
 
 <section id="about">
 
@@ -1349,7 +1457,7 @@ No other person or authority can change the President.
 </section>
 
 
-<!-- CONTACT -->
+<!-- ================= CONTACT ================= -->
 
 <section id="contact">
 
@@ -1367,7 +1475,10 @@ Official Classic Empire Ltd contact
 <div class="contact-box">
 
 <h3
-style="color:#ffd700;margin-bottom:10px;"
+style="
+color:#ffd700;
+margin-bottom:10px;
+"
 >
 Classic Empire Ltd
 </h3>
@@ -1391,6 +1502,7 @@ classicempireltd09@gmail.com
 </div>
 
 </section>
+
 
 </main>
 
@@ -1422,15 +1534,41 @@ const APPLICATION_SUPABASE_KEY =
 
 
 const applicationForm =
-document.getElementById("applicationForm");
+document.getElementById(
+  "applicationForm"
+);
 
 const statusBox =
-document.getElementById("applicationStatus");
+document.getElementById(
+  "applicationStatus"
+);
 
 const submitButton =
 document.getElementById(
   "submitApplicationButton"
 );
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
 
 /* =========================================
@@ -1498,8 +1636,6 @@ async function(event){
     .files[0];
 
 
-  /* REQUIRED CHECK */
-
   if(
     !name ||
     !age ||
@@ -1518,18 +1654,15 @@ async function(event){
       "❌ कृपया सभी जरूरी जानकारी भरें।";
 
     return;
+
   }
 
-
-  /* BUTTON */
 
   submitButton.disabled = true;
 
   submitButton.innerText =
     "Saving Application...";
 
-
-  /* LOADING */
 
   statusBox.className =
     "application-status loading";
@@ -1541,64 +1674,66 @@ async function(event){
   try{
 
     /* =====================================
-       SAVE APPLICATION TO SUPABASE
+       SAVE TO SUPABASE
     ===================================== */
 
-    const response = await fetch(
+    const response =
+      await fetch(
 
-      APPLICATION_SUPABASE_URL +
-      "/rest/v1/rpc/submit_application",
+        APPLICATION_SUPABASE_URL +
+        "/rest/v1/rpc/submit_application",
 
-      {
-        method:"POST",
+        {
+          method:"POST",
 
-        headers:{
-          "Content-Type":"application/json",
+          headers:{
+            "Content-Type":
+              "application/json",
 
-          "apikey":
-            APPLICATION_SUPABASE_KEY,
+            "apikey":
+              APPLICATION_SUPABASE_KEY,
 
-          "Authorization":
-            "Bearer " +
-            APPLICATION_SUPABASE_KEY
-        },
+            "Authorization":
+              "Bearer " +
+              APPLICATION_SUPABASE_KEY
+          },
 
-        body:JSON.stringify({
+          body:JSON.stringify({
 
-          input_applicant_name:
-            name,
+            input_applicant_name:
+              name,
 
-          input_age:
-            age,
+            input_age:
+              age,
 
-          input_class:
-            applicantClass,
+            input_class:
+              applicantClass,
 
-          input_post:
-            post,
+            input_post:
+              post,
 
-          input_applicant_photo:
-            photo.name,
+            input_applicant_photo:
+              photo.name,
 
-          input_applicant_email:
-            email,
+            input_applicant_email:
+              email,
 
-          input_contact_number:
-            contact,
+            input_contact_number:
+              contact,
 
-          input_reason:
-            reason
+            input_reason:
+              reason
 
-        })
-      }
-    );
+          })
+
+        }
+
+      );
 
 
     const result =
       await response.json();
 
-
-    /* ERROR CHECK */
 
     if(
       !response.ok ||
@@ -1647,30 +1782,44 @@ async function(event){
 
         <br>
 
-        Approved होने पर आपको Exam Code
-        दिया जाएगा।
+        Approved होने पर Exam Code
+        generate किया जाएगा।
+
+        <br><br>
+
+        Application का status देखने के लिए
+        नीचे दिए button का उपयोग करें।
+
+        <br><br>
+
+        <a
+          href="status.html"
+          style="
+            display:inline-block;
+            padding:10px 16px;
+            background:#ffd700;
+            color:#000;
+            border-radius:8px;
+            text-decoration:none;
+            font-weight:bold;
+          "
+        >
+          📋 Check Application Status
+        </a>
 
       </div>
 
     `;
 
 
-    /* =====================================
-       SEND ACTUAL FORM + PHOTO TO FORMSUBMIT
-       THROUGH HIDDEN IFRAME
-    ===================================== */
-
     submitButton.innerText =
       "Application Submitted";
 
 
-    /*
-      Native submit का उपयोग नहीं करेंगे,
-      क्योंकि उससे main page बदल जाता।
-
-      Hidden iframe के कारण applicant
-      इसी page पर रहेगा।
-    */
+    /* =====================================
+       SEND ACTUAL FORM + PHOTO
+       THROUGH FORMSUBMIT
+    ===================================== */
 
     setTimeout(function(){
 
@@ -1681,19 +1830,8 @@ async function(event){
     },500);
 
 
-    /*
-      Form को disable ही रखा जाएगा ताकि
-      duplicate application न जाए।
-    */
-
-
-  }catch(error){
-
-    console.error(
-      "Application Error:",
-      error
-    );
-
+  }
+  catch(error){
 
     statusBox.className =
       "application-status error";
@@ -1701,11 +1839,10 @@ async function(event){
 
     statusBox.innerHTML = `
 
-      ❌ Application save नहीं हुई।
-
-      <br><br>
-
-      ${escapeHTML(error.message)}
+      ❌ ${escapeHTML(
+        error.message ||
+        "Application submit नहीं हुई।"
+      )}
 
     `;
 
@@ -1720,33 +1857,6 @@ async function(event){
   }
 
 });
-
-
-/* =========================================
-   HTML ESCAPE
-========================================= */
-
-function escapeHTML(value){
-
-  if(
-    value === null ||
-    value === undefined
-  ){
-    return "";
-  }
-
-  return String(value)
-
-    .replace(/&/g,"&amp;")
-
-    .replace(/</g,"&lt;")
-
-    .replace(/>/g,"&gt;")
-
-    .replace(/"/g,"&quot;")
-
-    .replace(/'/g,"&#039;");
-}
 
 </script>
 

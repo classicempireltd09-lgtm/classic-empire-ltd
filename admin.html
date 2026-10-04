@@ -1,1467 +1,1172 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Classic Empire Ltd - Exam Portal</title>
+<title>Classic Empire Ltd</title>
 
 <style>
+
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+html{
+scroll-behavior:smooth;
 }
 
 body{
-  font-family:Arial,sans-serif;
-  background:#080808;
-  color:#fff;
-  min-height:100vh;
-  padding:20px;
+font-family:Arial,sans-serif;
+background:#080808;
+color:#fff;
+line-height:1.6;
+}
+
+nav{
+position:sticky;
+top:0;
+z-index:1000;
+background:#050505;
+border-bottom:1px solid #c9a227;
+padding:14px 20px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:22px;
+flex-wrap:wrap;
+}
+
+nav a{
+color:#d4af37;
+text-decoration:none;
+font-weight:bold;
+font-size:15px;
+}
+
+nav a:hover{
+color:#fff;
 }
 
 .container{
-  width:92%;
-  max-width:850px;
-  margin:30px auto;
+max-width:1100px;
+margin:auto;
+padding:25px 18px;
+}
+
+.hero{
+text-align:center;
+padding:50px 15px;
+}
+
+.logo{
+width:120px;
+height:120px;
+object-fit:contain;
+margin-bottom:15px;
+}
+
+.hero h1{
+font-size:42px;
+color:#d4af37;
+}
+
+.hero p{
+color:#aaa;
+margin-top:8px;
+}
+
+section{
+margin-top:35px;
+}
+
+.section-title{
+color:#d4af37;
+text-align:center;
+font-size:28px;
+margin-bottom:22px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:18px;
 }
 
 .card{
-  background:#111;
-  border:1px solid #333;
-  border-radius:15px;
-  padding:25px;
-  margin-bottom:20px;
+background:#111;
+border:1px solid #333;
+border-radius:14px;
+padding:20px;
+text-align:center;
 }
 
-h1,h2,h3{
-  color:#ffd700;
+.card:hover{
+border-color:#d4af37;
 }
 
-h1{
-  text-align:center;
-  margin-bottom:10px;
+.card img{
+width:110px;
+height:110px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid #d4af37;
+margin-bottom:12px;
 }
 
-.subtitle{
-  text-align:center;
-  color:#aaa;
-  margin-bottom:25px;
+.card h3{
+color:#d4af37;
+}
+
+.card p{
+color:#bbb;
+}
+
+.salary-table{
+width:100%;
+border-collapse:collapse;
+background:#111;
+overflow:hidden;
+border-radius:10px;
+}
+
+.salary-table th,
+.salary-table td{
+border:1px solid #333;
+padding:12px;
+text-align:center;
+}
+
+.salary-table th{
+background:#191919;
+color:#d4af37;
+}
+
+.salary-table td{
+color:#ddd;
+}
+
+.currency-box{
+background:#111;
+border:1px solid #c9a227;
+border-radius:14px;
+padding:25px;
+text-align:center;
+}
+
+.currency-name{
+font-size:30px;
+color:#d4af37;
+font-weight:bold;
+}
+
+.currency-box p{
+margin:8px 0;
+color:#ddd;
+}
+
+.details{
+background:#111;
+border:1px solid #333;
+border-radius:10px;
+padding:18px;
+}
+
+details summary{
+cursor:pointer;
+color:#d4af37;
+font-weight:bold;
+font-size:18px;
+}
+
+form{
+background:#111;
+border:1px solid #333;
+border-radius:14px;
+padding:22px;
 }
 
 label{
-  display:block;
-  color:#ffd700;
-  font-weight:bold;
-  margin-bottom:8px;
+display:block;
+color:#d4af37;
+font-weight:bold;
+margin:14px 0 6px;
 }
 
-input,select{
-  width:100%;
-  padding:13px;
-  background:#080808;
-  color:#fff;
-  border:1px solid #444;
-  border-radius:8px;
-  font-size:16px;
-  margin-bottom:15px;
+input,
+select,
+textarea{
+width:100%;
+padding:12px;
+background:#1b1b1b;
+border:1px solid #555;
+border-radius:8px;
+color:#fff;
+font-size:15px;
+}
+
+textarea{
+min-height:120px;
+resize:vertical;
 }
 
 button{
-  width:100%;
-  padding:14px;
-  border:0;
-  border-radius:8px;
-  background:#ffd700;
-  color:#000;
-  font-size:17px;
-  font-weight:bold;
-  cursor:pointer;
+margin-top:18px;
+width:100%;
+padding:13px;
+border:0;
+border-radius:8px;
+background:#d4af37;
+color:#000;
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
 }
 
 button:hover{
-  background:#fff;
+background:#fff;
 }
 
-.message{
-  text-align:center;
-  margin-top:15px;
-  color:#ff7777;
+.admin-links{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+justify-content:center;
+margin-top:20px;
 }
 
-#examSection{
-  display:none;
+.portal-btn{
+display:inline-block;
+padding:13px 22px;
+background:#d4af37;
+color:#000;
+border-radius:8px;
+text-decoration:none;
+font-weight:bold;
 }
 
-.question{
-  background:#161616;
-  border:1px solid #333;
-  border-radius:12px;
-  padding:18px;
-  margin-bottom:18px;
+.portal-btn:hover{
+background:#fff;
 }
 
-.question-title{
-  color:#fff;
-  font-weight:bold;
-  margin-bottom:12px;
-  line-height:1.6;
+.structure{
+background:#111;
+border:1px solid #333;
+border-radius:14px;
+padding:25px;
 }
 
-.option{
-  display:block;
-  background:#0c0c0c;
-  border:1px solid #333;
-  border-radius:8px;
-  padding:11px;
-  margin:8px 0;
-  cursor:pointer;
-  color:#ddd;
+.structure-item{
+padding:14px;
+margin:8px 0;
+background:#191919;
+border-left:3px solid #d4af37;
+border-radius:6px;
 }
 
-.option:hover{
-  border-color:#ffd700;
+.structure-item strong{
+color:#d4af37;
 }
 
-.option input{
-  width:auto;
-  margin:0 8px 0 0;
+footer{
+margin-top:50px;
+padding:30px 15px;
+text-align:center;
+border-top:1px solid #333;
+color:#888;
 }
 
-.subjective{
-  min-height:130px;
-  resize:vertical;
-}
-
-.result{
-  display:none;
-  text-align:center;
-  padding:25px;
-  border:1px solid #ffd700;
-  border-radius:12px;
-  margin-top:20px;
-}
-
-.score{
-  font-size:30px;
-  color:#ffd700;
-  font-weight:bold;
-  margin:15px 0;
-}
-
-.back{
-  display:block;
-  text-align:center;
-  color:#ffd700;
-  text-decoration:none;
-  margin-top:20px;
-}
-
-.info{
-  text-align:center;
-  color:#aaa;
-  margin-bottom:20px;
+.small{
+font-size:13px;
+color:#777;
+margin-top:8px;
 }
 
 @media(max-width:600px){
-  .container{
-    width:100%;
-  }
 
-  .card{
-    padding:18px;
-  }
+.hero h1{
+font-size:32px;
 }
+
+nav{
+gap:12px;
+}
+
+nav a{
+font-size:13px;
+}
+
+.salary-table{
+font-size:13px;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- =========================
+     NAVIGATION
+========================= -->
 
-<div class="card" id="loginSection">
+<nav>
 
-<h1>Classic Empire Ltd</h1>
+<a href="#home">Home</a>
 
-<div class="subtitle">
-📝 Official Examination Portal
+<a href="#administration">
+Administration
+</a>
+
+<a href="#currency">
+Currency
+</a>
+
+<a href="#salary">
+Salary
+</a>
+
+<a href="#application">
+Apply
+</a>
+
+<a href="exam.html">
+📝 Exam Portal
+</a>
+
+<a href="admin.html">
+🔐 Admin
+</a>
+
+<a href="#about">
+About
+</a>
+
+</nav>
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<section id="home">
+
+<div class="container hero">
+
+<img
+src="classic-empire-logo.png"
+class="logo"
+alt="Classic Empire Ltd Logo"
+>
+
+<h1>
+Classic Empire Ltd
+</h1>
+
+<p>
+Official Empire Administration Portal
+</p>
+
+<div class="admin-links">
+
+<a
+href="exam.html"
+class="portal-btn"
+>
+📝 Examination Portal
+</a>
+
+<a
+href="admin.html"
+class="portal-btn"
+>
+🔐 Admin Panel
+</a>
+
 </div>
 
-<label for="examCode">
-Exam Code
+</div>
+
+</section>
+
+
+<!-- =========================
+     ADMINISTRATION
+========================= -->
+
+<section id="administration">
+
+<div class="container">
+
+<h2 class="section-title">
+Administration
+</h2>
+
+<div class="cards">
+
+
+<div class="card">
+
+<img
+src="noor-ahmad.png"
+alt="Noor Ahmad"
+>
+
+<h3>
+President
+</h3>
+
+<p>
+Noor Ahmad
+</p>
+
+</div>
+
+
+<div class="card">
+
+<img
+src="tabshir-alam.png"
+alt="Tabshir Alam"
+>
+
+<h3>
+President's Assistant
+</h3>
+
+<p>
+Tabshir Alam
+</p>
+
+</div>
+
+
+<div class="card">
+
+<img
+src="jakir-hussain.png"
+alt="Jakir Hussain"
+>
+
+<h3>
+DM
+</h3>
+
+<p>
+Jakir Hussain
+</p>
+
+</div>
+
+
+<div class="card">
+
+<img
+src="shadat-hussain.png"
+alt="Shadat Hussain"
+>
+
+<h3>
+DM's Assistant
+</h3>
+
+<p>
+Shadat Hussain
+</p>
+
+</div>
+
+
+<div class="card">
+
+<img
+src="aszad-sayeed.png"
+alt="Aszad Sayeed"
+>
+
+<h3>
+SDM
+</h3>
+
+<p>
+Aszad Sayeed
+</p>
+
+</div>
+
+
+<div class="card">
+
+<img
+src="shahnawaz-alam.png"
+alt="Shahnawaz Alam"
+>
+
+<h3>
+SP
+</h3>
+
+<p>
+Shahnawaz Alam
+</p>
+
+</div>
+
+
+<div class="card">
+
+<img
+src="shadab-alam.png"
+alt="Shadab Alam"
+>
+
+<h3>
+DSP
+</h3>
+
+<p>
+Shadab Alam
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     ADMINISTRATION STRUCTURE
+========================= -->
+
+<section>
+
+<div class="container">
+
+<h2 class="section-title">
+Administration Structure
+</h2>
+
+<div class="structure">
+
+<div class="structure-item">
+<strong>President</strong> — Noor Ahmad
+</div>
+
+<div class="structure-item">
+<strong>President's Assistant</strong> — Tabshir Alam
+</div>
+
+<div class="structure-item">
+<strong>DM</strong> — Jakir Hussain
+</div>
+
+<div class="structure-item">
+<strong>DM's Assistant</strong> — Shadat Hussain
+</div>
+
+<div class="structure-item">
+<strong>SDM</strong> — Aszad Sayeed
+</div>
+
+<div class="structure-item">
+<strong>SP</strong> — Shahnawaz Alam
+</div>
+
+<div class="structure-item">
+<strong>DSP</strong> — Shadab Alam
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     EMPIRE UPDATES
+========================= -->
+
+<section>
+
+<div class="container">
+
+<div class="details">
+
+<details>
+
+<summary>
+Empire Updates
+</summary>
+
+<div style="margin-top:18px;">
+
+<p>
+<strong style="color:#d4af37;">
+President Rule:
+</strong>
+The President is the founder of Classic Empire Ltd and is the person who established this Empire.
+</p>
+
+<p style="margin-top:12px;">
+The President is the permanent President of Classic Empire Ltd and the position of President will never change under the normal system.
+</p>
+
+<p style="margin-top:12px;">
+The President can personally appoint or transfer the position of President to another person only by the President's own decision.
+</p>
+
+<p style="margin-top:12px;">
+No other person or authority can change the President.
+</p>
+
+</div>
+
+</details>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CURRENCY
+========================= -->
+
+<section id="currency">
+
+<div class="container">
+
+<h2 class="section-title">
+Classic Empire Currency
+</h2>
+
+<div class="currency-box">
+
+<div class="currency-name">
+Classic Dinar
+</div>
+
+<p>
+<strong>Official Code:</strong>
+CLD
+</p>
+
+<p>
+<strong>Short Name:</strong>
+CD
+</p>
+
+<p>
+<strong>Symbol:</strong>
+د.ك
+</p>
+
+<hr style="border-color:#333;margin:20px 0;">
+
+<p>
+<strong>1 CD = 300 KD</strong>
+</p>
+
+<p>
+<strong>1 CD = ₹93,600</strong>
+</p>
+
+<p>
+<strong>1 KD = ₹312</strong>
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SALARY
+========================= -->
+
+<section id="salary">
+
+<div class="container">
+
+<h2 class="section-title">
+Weekly Salary
+</h2>
+
+<p style="text-align:center;color:#aaa;margin-bottom:15px;">
+Salary is paid every Thursday.
+</p>
+
+<table class="salary-table">
+
+<tr>
+
+<th>
+Post
+</th>
+
+<th>
+Person
+</th>
+
+<th>
+Weekly Salary
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+President
+</td>
+
+<td>
+Noor Ahmad
+</td>
+
+<td>
+Unlimited
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+President's Assistant
+</td>
+
+<td>
+Tabshir Alam
+</td>
+
+<td>
+₹1,50,000
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+DM
+</td>
+
+<td>
+Jakir Hussain
+</td>
+
+<td>
+₹2,18,200
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+DM's Assistant
+</td>
+
+<td>
+Shadat Hussain
+</td>
+
+<td>
+₹1,20,000
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+SDM
+</td>
+
+<td>
+Aszad Sayeed
+</td>
+
+<td>
+₹1,77,500
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+SP
+</td>
+
+<td>
+Shahnawaz Alam
+</td>
+
+<td>
+₹2,15,900
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+DSP
+</td>
+
+<td>
+Shadab Alam
+</td>
+
+<td>
+₹1,77,500
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     APPLICATION
+========================= -->
+
+<section id="application">
+
+<div class="container">
+
+<h2 class="section-title">
+Apply for a Post
+</h2>
+
+<form
+id="applicationForm"
+action="https://formsubmit.co/classicempireltd09@gmail.com"
+method="POST"
+enctype="multipart/form-data"
+>
+
+<input
+type="hidden"
+name="_subject"
+value="Classic Empire Ltd - New Application"
+>
+
+<input
+type="hidden"
+name="_captcha"
+value="false"
+>
+
+<input
+type="hidden"
+name="_template"
+value="table"
+>
+
+
+<label>
+Applicant Name
 </label>
 
 <input
-  type="text"
-  id="examCode"
-  placeholder="अपना Exam Code डालें"
-  autocomplete="off"
+type="text"
+name="Applicant Name"
+required
 >
 
-<label for="post">
-Post
+
+<label>
+Age
 </label>
 
-<select id="post">
+<input
+type="number"
+name="Age"
+required
+>
+
+
+<label>
+Class
+</label>
+
+<input
+type="text"
+name="Class"
+required
+>
+
+
+<label>
+Apply For Post
+</label>
+
+<select
+name="Apply For Post"
+required
+>
 
 <option value="">
 -- Post चुनें --
 </option>
 
-<option value="President's Assistant">
+<option>
 President's Assistant
 </option>
 
-<option value="DM">
+<option>
 DM
 </option>
 
-<option value="DM's Assistant">
+<option>
 DM's Assistant
 </option>
 
-<option value="SDM">
+<option>
 SDM
 </option>
 
-<option value="SP">
+<option>
 SP
 </option>
 
-<option value="DSP">
+<option>
 DSP
 </option>
 
 </select>
 
-<button onclick="startExam()">
-परीक्षा शुरू करें
-</button>
 
-<div id="loginMessage" class="message"></div>
+<label>
+Applicant Photo
+</label>
 
-<a href="index.html" class="back">
-← Classic Empire Ltd Home
-</a>
+<input
+type="file"
+name="Applicant Photo"
+accept="image/*"
+required
+>
 
-</div>
+
+<label>
+Applicant Email
+</label>
+
+<input
+type="email"
+name="Applicant Email"
+required
+>
 
 
-<div class="card" id="examSection">
+<label>
+Contact Number
+</label>
 
-<h1 id="examTitle">
-Classic Empire Examination
-</h1>
+<input
+type="tel"
+name="Contact Number"
+required
+>
 
-<div id="candidateInfo" class="info"></div>
 
-<form id="examForm">
+<label>
+Why do you want this post?
+</label>
 
-<div id="objectiveQuestions"></div>
+<textarea
+name="Why do you want this post?"
+required
+></textarea>
 
-<h2 style="margin:30px 0 15px;">
-वर्णनात्मक प्रश्न
-</h2>
-
-<div id="subjectiveQuestions"></div>
 
 <button type="submit">
-परीक्षा जमा करें
+Submit Application
 </button>
 
 </form>
 
-<div id="result" class="result">
-
-<h2>परीक्षा परिणाम</h2>
-
-<div id="score" class="score"></div>
-
-<div id="resultMessage"></div>
-
 </div>
 
-</div>
+</section>
 
-</div>
 
+<!-- =========================
+     EXAM PORTAL
+========================= -->
 
-<script>
+<section>
 
-const SUPABASE_URL =
-"https://hjatspkzgoddcpgwfkxo.supabase.co";
+<div class="container">
 
-const SUPABASE_KEY =
-"sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
+<h2 class="section-title">
+Examination System
+</h2>
 
+<div class="details">
 
-let verifiedCode = "";
-let currentPost = "";
-let currentCandidate = "";
+<p>
+Applicants who are approved for an examination will receive a unique Exam Code.
+</p>
 
+<p style="margin-top:10px;">
+The applicant must enter the Exam Code and select the correct post in the Examination Portal.
+</p>
 
-/* =========================
-   EXAM QUESTIONS
-========================= */
+<p style="margin-top:10px;">
+Each examination contains:
+</p>
 
-const exams = {
+<ul style="margin:12px 0 0 25px;color:#bbb;">
 
-"President's Assistant": {
+<li>
+18 Objective Questions
+</li>
 
-objective:[
+<li>
+2 Subjective Questions
+</li>
 
-{
-q:"President's Assistant का मुख्य कार्य क्या होना चाहिए?",
-o:[
-"President के प्रशासनिक कार्यों में सहायता करना",
-"सिर्फ वेतन लेना",
-"सिर्फ खेल प्रतियोगिता आयोजित करना",
-"सिर्फ वेबसाइट बनाना"
-],
-a:0
-},
+<li>
+Objective qualifying level: 60%
+</li>
 
-{
-q:"यदि President कोई महत्वपूर्ण प्रशासनिक निर्देश दें, तो Assistant को क्या करना चाहिए?",
-o:[
-"निर्देश को अनदेखा करना",
-"निर्देश को सही तरीके से लागू कराने में सहायता करना",
-"निर्देश को बदल देना",
-"किसी को न बताना"
-],
-a:1
-},
+<li>
+Subjective answers are saved for manual checking
+</li>
 
-{
-q:"एक अच्छे प्रशासनिक Assistant की सबसे महत्वपूर्ण विशेषता क्या है?",
-o:[
-"लापरवाही",
-"अनुशासन और जिम्मेदारी",
-"देरी करना",
-"नियम तोड़ना"
-],
-a:1
-},
+</ul>
 
-{
-q:"President's Assistant किसके साथ सीधे प्रशासनिक समन्वय करता है?",
-o:[
-"President",
-"किसी बाहरी व्यक्ति",
-"किसी छात्र से ही",
-"किसी खिलाड़ी से"
-],
-a:0
-},
+<div class="admin-links">
 
-{
-q:"गोपनीय प्रशासनिक जानकारी मिलने पर Assistant को क्या करना चाहिए?",
-o:[
-"उसे सार्वजनिक कर देना",
-"सोशल मीडिया पर डालना",
-"गोपनीय रखना",
-"सबको भेज देना"
-],
-a:2
-},
-
-{
-q:"यदि दो प्रशासनिक विभागों के बीच मतभेद हो, तो Assistant को क्या करना चाहिए?",
-o:[
-"मतभेद बढ़ाना",
-"निष्पक्ष समन्वय में सहायता करना",
-"किसी एक पक्ष को बिना कारण चुनना",
-"काम बंद कर देना"
-],
-a:1
-},
-
-{
-q:"President's Assistant के लिए समय की पाबंदी क्यों महत्वपूर्ण है?",
-o:[
-"क्योंकि प्रशासनिक कार्य समय पर पूरे होने चाहिए",
-"क्योंकि इससे वेतन बढ़ता है",
-"क्योंकि इससे परीक्षा आसान होती है",
-"क्योंकि इससे छुट्टी मिलती है"
-],
-a:0
-},
-
-{
-q:"किसी आदेश को लागू करने से पहले Assistant को क्या सुनिश्चित करना चाहिए?",
-o:[
-"आदेश स्पष्ट और वैध है",
-"आदेश मजेदार है",
-"आदेश कठिन है",
-"आदेश लंबा है"
-],
-a:0
-},
-
-{
-q:"प्रशासनिक रिपोर्ट का उद्देश्य क्या है?",
-o:[
-"मनोरंजन करना",
-"कार्य की स्थिति और जानकारी प्रस्तुत करना",
-"व्यक्तिगत कहानी लिखना",
-"विज्ञापन करना"
-],
-a:1
-},
-
-{
-q:"एक जिम्मेदार Assistant को समस्या मिलने पर क्या करना चाहिए?",
-o:[
-"समस्या छिपानी चाहिए",
-"समस्या की जानकारी देकर समाधान में सहायता करनी चाहिए",
-"समस्या बढ़ानी चाहिए",
-"काम छोड़ देना चाहिए"
-],
-a:1
-}
-
-],
-
-subjective:[
-"President's Assistant की तीन प्रमुख जिम्मेदारियाँ लिखिए।",
-"यदि प्रशासन में कोई गंभीर समस्या उत्पन्न हो जाए, तो आप उसे कैसे संभालेंगे?"
-]
-
-},
-
-
-"DM": {
-
-objective:[
-
-{
-q:"DM का प्रमुख प्रशासनिक दायित्व क्या है?",
-o:[
-"जिले के प्रशासन का समन्वय करना",
-"केवल खेल आयोजित करना",
-"केवल परीक्षा लेना",
-"केवल वेतन बांटना"
-],
-a:0
-},
-
-{
-q:"DM को प्रशासनिक रिपोर्ट किस उद्देश्य से तैयार करनी चाहिए?",
-o:[
-"स्थिति की सही जानकारी देने के लिए",
-"मनोरंजन के लिए",
-"व्यक्तिगत उपयोग के लिए",
-"रिकॉर्ड मिटाने के लिए"
-],
-a:0
-},
-
-{
-q:"किसी क्षेत्र में गंभीर प्रशासनिक समस्या हो तो DM को क्या करना चाहिए?",
-o:[
-"उसे नजरअंदाज करना",
-"स्थिति का मूल्यांकन करके उचित कार्रवाई करना",
-"काम रोक देना",
-"समस्या छिपाना"
-],
-a:1
-},
-
-{
-q:"DM और SDM के संबंध को कैसे समझा जा सकता है?",
-o:[
-"SDM प्रशासनिक कार्यों में DM के अधीन काम करता है",
-"DM SDM के अधीन होता है",
-"दोनों का कोई संबंध नहीं",
-"SDM केवल वेबसाइट देखता है"
-],
-a:0
-},
-
-{
-q:"DM के लिए सबसे महत्वपूर्ण गुण कौन-सा है?",
-o:[
-"लापरवाही",
-"पक्षपात",
-"निर्णय क्षमता और जिम्मेदारी",
-"अनुशासनहीनता"
-],
-a:2
-},
-
-{
-q:"प्रशासनिक निर्णय लेते समय DM को क्या ध्यान रखना चाहिए?",
-o:[
-"नियम और निष्पक्षता",
-"व्यक्तिगत पसंद",
-"अफवाह",
-"दबाव"
-],
-a:0
-},
-
-{
-q:"DM को अधीनस्थ अधिकारियों से क्या अपेक्षा करनी चाहिए?",
-o:[
-"अनुशासन और जिम्मेदार कार्य",
-"नियम तोड़ना",
-"रिपोर्ट छिपाना",
-"देरी करना"
-],
-a:0
-},
-
-{
-q:"किसी आपात स्थिति में DM की पहली प्राथमिकता क्या होनी चाहिए?",
-o:[
-"स्थिति को नजरअंदाज करना",
-"सुरक्षा और प्रभावी प्रशासन",
-"केवल प्रचार करना",
-"काम स्थगित करना"
-],
-a:1
-},
-
-{
-q:"DM द्वारा निरीक्षण का मुख्य उद्देश्य क्या है?",
-o:[
-"कमियाँ पहचानना और व्यवस्था सुधारना",
-"समय बिताना",
-"लोगों को परेशान करना",
-"केवल फोटो लेना"
-],
-a:0
-},
-
-{
-q:"एक अच्छे DM को शिकायत मिलने पर क्या करना चाहिए?",
-o:[
-"बिना जांच के फैसला करना",
-"शिकायत की जांच करके उचित कार्रवाई करना",
-"शिकायत छिपाना",
-"शिकायतकर्ता को नजरअंदाज करना"
-],
-a:1
-}
-
-],
-
-subjective:[
-"DM की पाँच प्रमुख प्रशासनिक जिम्मेदारियाँ लिखिए।",
-"यदि किसी जिले में अचानक गंभीर समस्या उत्पन्न हो जाए, तो DM के रूप में आपकी कार्ययोजना क्या होगी?"
-]
-
-},
-
-
-"DM's Assistant": {
-
-objective:[
-
-{
-q:"DM's Assistant का मुख्य कार्य क्या है?",
-o:[
-"DM के प्रशासनिक कार्यों में सहायता करना",
-"DM के आदेशों को बदलना",
-"सिर्फ वेतन देखना",
-"सिर्फ खेल कराना"
-],
-a:0
-},
-
-{
-q:"DM's Assistant को रिपोर्ट तैयार करते समय क्या करना चाहिए?",
-o:[
-"गलत जानकारी लिखना",
-"सही और स्पष्ट जानकारी देना",
-"जानकारी छिपाना",
-"अनुमान लगाना"
-],
-a:1
-},
-
-{
-q:"DM के निर्देश मिलने पर Assistant को क्या करना चाहिए?",
-o:[
-"निर्देश समझकर उचित सहायता करनी चाहिए",
-"निर्देश को अनदेखा करना चाहिए",
-"निर्देश बदल देना चाहिए",
-"काम छोड़ देना चाहिए"
-],
-a:0
-},
-
-{
-q:"प्रशासनिक रिकॉर्ड क्यों महत्वपूर्ण होते हैं?",
-o:[
-"सही जानकारी और भविष्य के संदर्भ के लिए",
-"सिर्फ सजावट के लिए",
-"मनोरंजन के लिए",
-"उन्हें मिटाने के लिए"
-],
-a:0
-},
-
-{
-q:"Assistant को गोपनीय जानकारी कैसे संभालनी चाहिए?",
-o:[
-"सार्वजनिक करके",
-"सुरक्षित और गोपनीय रखकर",
-"सबको भेजकर",
-"सोशल मीडिया पर डालकर"
-],
-a:1
-},
-
-{
-q:"यदि DM उपलब्ध न हों और कोई जरूरी संदेश आए, तो Assistant को क्या करना चाहिए?",
-o:[
-"संदेश नष्ट करना",
-"उचित प्रक्रिया के अनुसार जानकारी सुरक्षित रखना और वरिष्ठ को सूचित करना",
-"संदेश छिपाना",
-"अफवाह फैलाना"
-],
-a:1
-},
-
-{
-q:"DM's Assistant के लिए कौन-सा गुण सबसे आवश्यक है?",
-o:[
-"लापरवाही",
-"जिम्मेदारी",
-"अव्यवस्था",
-"देरी"
-],
-a:1
-},
-
-{
-q:"एक अच्छी प्रशासनिक रिपोर्ट कैसी होनी चाहिए?",
-o:[
-"अस्पष्ट",
-"बहुत छोटी और अधूरी",
-"सटीक और व्यवस्थित",
-"बिना तथ्यों की"
-],
-a:2
-},
-
-{
-q:"Assistant को विभागों के बीच समन्वय क्यों करना चाहिए?",
-o:[
-"काम को व्यवस्थित रखने के लिए",
-"काम रोकने के लिए",
-"विवाद बढ़ाने के लिए",
-"नियम तोड़ने के लिए"
-],
-a:0
-},
-
-{
-q:"किसी प्रशासनिक गलती का पता चले तो Assistant को क्या करना चाहिए?",
-o:[
-"उसे छिपाना",
-"गलती की जानकारी देना और सुधार में सहायता करना",
-"दोष किसी और पर डालना",
-"रिकॉर्ड मिटाना"
-],
-a:1
-}
-
-],
-
-subjective:[
-"DM's Assistant के चार प्रमुख कार्य लिखिए।",
-"यदि आपको कोई महत्वपूर्ण प्रशासनिक सूचना मिले, तो आप उसे किस प्रकार सुरक्षित रखेंगे और आगे भेजेंगे?"
-]
-
-},
-
-
-"SDM": {
-
-objective:[
-
-{
-q:"SDM का मुख्य कार्य किससे संबंधित है?",
-o:[
-"उपखंड स्तर के प्रशासन से",
-"केवल खेल से",
-"केवल वेतन से",
-"केवल वेबसाइट से"
-],
-a:0
-},
-
-{
-q:"SDM किसके प्रशासनिक निर्देशों के अनुसार कार्य करता है?",
-o:[
-"DM",
-"किसी खिलाड़ी",
-"किसी बाहरी व्यक्ति",
-"किसी विज्ञापनदाता"
-],
-a:0
-},
-
-{
-q:"SDM को क्षेत्रीय समस्या मिलने पर क्या करना चाहिए?",
-o:[
-"समस्या को अनदेखा करना",
-"स्थिति की जांच करके उचित प्रशासनिक कदम उठाना",
-"समस्या छिपाना",
-"काम बंद करना"
-],
-a:1
-},
-
-{
-q:"SDM के लिए रिपोर्टिंग क्यों आवश्यक है?",
-o:[
-"वरिष्ठ अधिकारी को सही जानकारी देने के लिए",
-"मनोरंजन के लिए",
-"समय बिताने के लिए",
-"वेतन बढ़ाने के लिए"
-],
-a:0
-},
-
-{
-q:"SDM को जनता की शिकायतों के साथ कैसा व्यवहार करना चाहिए?",
-o:[
-"निष्पक्ष और जिम्मेदारी से",
-"लापरवाही से",
-"पक्षपात से",
-"गुस्से से"
-],
-a:0
-},
-
-{
-q:"प्रशासनिक निरीक्षण का उद्देश्य क्या है?",
-o:[
-"व्यवस्था की स्थिति समझना और सुधार करना",
-"केवल फोटो लेना",
-"समय बिताना",
-"नियम तोड़ना"
-],
-a:0
-},
-
-{
-q:"यदि किसी क्षेत्र में व्यवस्था खराब हो रही हो तो SDM को क्या करना चाहिए?",
-o:[
-"उसे नजरअंदाज करना",
-"स्थिति का मूल्यांकन करके सुधारात्मक कार्रवाई करना",
-"काम बंद करना",
-"समस्या बढ़ाना"
-],
-a:1
-},
-
-{
-q:"SDM के लिए निष्पक्षता क्यों जरूरी है?",
-o:[
-"क्योंकि प्रशासन में समान और उचित निर्णय आवश्यक हैं",
-"क्योंकि इससे छुट्टी मिलती है",
-"क्योंकि इससे वेतन दोगुना होता है",
-"क्योंकि इससे परीक्षा आसान होती है"
-],
-a:0
-},
-
-{
-q:"SDM को अपने अधीन कर्मचारियों से क्या अपेक्षा करनी चाहिए?",
-o:[
-"अनुशासन और जिम्मेदारी",
-"लापरवाही",
-"देरी",
-"नियम तोड़ना"
-],
-a:0
-},
-
-{
-q:"किसी गंभीर घटना के बाद SDM को क्या करना चाहिए?",
-o:[
-"घटना छिपाना",
-"तथ्य जुटाकर वरिष्ठ अधिकारी को रिपोर्ट करना",
-"रिकॉर्ड मिटाना",
-"अफवाह फैलाना"
-],
-a:1
-}
-
-],
-
-subjective:[
-"SDM की पाँच प्रमुख जिम्मेदारियाँ लिखिए।",
-"यदि आपके क्षेत्र में कोई गंभीर प्रशासनिक समस्या उत्पन्न हो, तो आप उसे कैसे नियंत्रित करेंगे?"
-]
-
-},
-
-
-"SP": {
-
-objective:[
-
-{
-q:"SP का मुख्य क्षेत्र किससे संबंधित है?",
-o:[
-"पुलिस और कानून-व्यवस्था",
-"केवल शिक्षा",
-"केवल वेतन",
-"केवल वेबसाइट"
-],
-a:0
-},
-
-{
-q:"SP का प्रमुख उद्देश्य क्या होना चाहिए?",
-o:[
-"कानून-व्यवस्था बनाए रखना",
-"लोगों को परेशान करना",
-"रिकॉर्ड छिपाना",
-"काम रोकना"
-],
-a:0
-},
-
-{
-q:"SP को पुलिस अधिकारियों से क्या अपेक्षा करनी चाहिए?",
-o:[
-"अनुशासन और कानून के अनुसार कार्य",
-"मनमानी",
-"लापरवाही",
-"नियमों की अनदेखी"
-],
-a:0
-},
-
-{
-q:"किसी गंभीर कानून-व्यवस्था की समस्या में SP को क्या करना चाहिए?",
-o:[
-"स्थिति की अनदेखी",
-"स्थिति का मूल्यांकन करके उचित पुलिस कार्रवाई का समन्वय",
-"अफवाह फैलाना",
-"रिकॉर्ड मिटाना"
-],
-a:1
-},
-
-{
-q:"SP के लिए निष्पक्षता क्यों आवश्यक है?",
-o:[
-"कानून सभी के लिए उचित रूप से लागू होना चाहिए",
-"क्योंकि इससे छुट्टी मिलती है",
-"क्योंकि इससे वेतन बढ़ता है",
-"क्योंकि इससे परीक्षा आसान होती है"
-],
-a:0
-},
-
-{
-q:"SP को पुलिस विभाग की कार्यप्रणाली की समीक्षा क्यों करनी चाहिए?",
-o:[
-"व्यवस्था और कार्यक्षमता सुधारने के लिए",
-"समय बिताने के लिए",
-"केवल फोटो लेने के लिए",
-"काम रोकने के लिए"
-],
-a:0
-},
-
-{
-q:"SP को शिकायत मिलने पर क्या करना चाहिए?",
-o:[
-"बिना जांच के फैसला करना",
-"उचित जांच और प्रक्रिया सुनिश्चित करना",
-"शिकायत छिपाना",
-"शिकायतकर्ता को धमकाना"
-],
-a:1
-},
-
-{
-q:"SP के अधीन DSP की भूमिका क्या हो सकती है?",
-o:[
-"SP के निर्देशों के अनुसार पुलिस प्रशासन में सहायता करना",
-"SP को हटाना",
-"केवल वेतन लेना",
-"कोई कार्य न करना"
-],
-a:0
-},
-
-{
-q:"पुलिस प्रशासन में रिकॉर्ड क्यों महत्वपूर्ण हैं?",
-o:[
-"घटनाओं और कार्रवाई का सही विवरण रखने के लिए",
-"रिकॉर्ड मिटाने के लिए",
-"मनोरंजन के लिए",
-"विज्ञापन के लिए"
-],
-a:0
-},
-
-{
-q:"SP को किसी अधिकारी की गलती मिलने पर क्या करना चाहिए?",
-o:[
-"गलती छिपानी चाहिए",
-"नियमों के अनुसार उचित कार्रवाई करनी चाहिए",
-"रिकॉर्ड मिटाना चाहिए",
-"बिना जांच के दोषी घोषित करना चाहिए"
-],
-a:1
-}
-
-],
-
-subjective:[
-"SP की पाँच प्रमुख जिम्मेदारियाँ लिखिए।",
-"किसी गंभीर कानून-व्यवस्था की स्थिति में SP के रूप में आपकी कार्ययोजना क्या होगी?"
-]
-
-},
-
-
-"DSP": {
-
-objective:[
-
-{
-q:"DSP का मुख्य कार्य किससे जुड़ा है?",
-o:[
-"पुलिस प्रशासन और कानून-व्यवस्था में सहायता",
-"केवल वेतन",
-"केवल शिक्षा",
-"केवल वेबसाइट"
-],
-a:0
-},
-
-{
-q:"DSP किसके निर्देशों के अनुसार अपने क्षेत्र में कार्य करता है?",
-o:[
-"SP",
-"किसी खिलाड़ी",
-"किसी बाहरी व्यक्ति",
-"किसी विज्ञापनदाता"
-],
-a:0
-},
-
-{
-q:"DSP को पुलिस कर्मचारियों के कार्य की निगरानी क्यों करनी चाहिए?",
-o:[
-"अनुशासन और कार्यक्षमता बनाए रखने के लिए",
-"मनोरंजन के लिए",
-"काम रोकने के लिए",
-"रिकॉर्ड मिटाने के लिए"
-],
-a:0
-},
-
-{
-q:"किसी गंभीर घटना की सूचना मिलने पर DSP को क्या करना चाहिए?",
-o:[
-"घटना को अनदेखा करना",
-"स्थिति का मूल्यांकन करके उचित कार्रवाई और वरिष्ठ को रिपोर्ट करना",
-"अफवाह फैलाना",
-"रिकॉर्ड छिपाना"
-],
-a:1
-},
-
-{
-q:"DSP के लिए कानून का पालन क्यों जरूरी है?",
-o:[
-"क्योंकि पुलिस कार्य नियम और कानून के अनुसार होना चाहिए",
-"क्योंकि इससे छुट्टी मिलती है",
-"क्योंकि इससे वेतन बढ़ता है",
-"क्योंकि इससे परीक्षा आसान होती है"
-],
-a:0
-},
-
-{
-q:"DSP को अधीनस्थ अधिकारियों से क्या अपेक्षा करनी चाहिए?",
-o:[
-"अनुशासन और जिम्मेदारी",
-"लापरवाही",
-"मनमानी",
-"देरी"
-],
-a:0
-},
-
-{
-q:"यदि किसी पुलिस कर्मचारी के विरुद्ध शिकायत मिले तो DSP को क्या करना चाहिए?",
-o:[
-"शिकायत छिपाना",
-"उचित प्रक्रिया के अनुसार जांच कराना",
-"बिना जांच के दोषी घोषित करना",
-"शिकायतकर्ता को रोकना"
-],
-a:1
-},
-
-{
-q:"DSP को वरिष्ठ अधिकारी को रिपोर्ट कब देनी चाहिए?",
-o:[
-"महत्वपूर्ण घटनाओं और आवश्यक प्रशासनिक मामलों में",
-"कभी नहीं",
-"सिर्फ छुट्टी के समय",
-"सिर्फ वेतन के समय"
-],
-a:0
-},
-
-{
-q:"DSP की निगरानी व्यवस्था का उद्देश्य क्या है?",
-o:[
-"पुलिस कार्य को व्यवस्थित और प्रभावी बनाना",
-"काम रोकना",
-"विवाद बढ़ाना",
-"रिकॉर्ड हटाना"
-],
-a:0
-},
-
-{
-q:"एक जिम्मेदार DSP को किसी विवाद की स्थिति में क्या करना चाहिए?",
-o:[
-"विवाद बढ़ाना",
-"नियमों के अनुसार निष्पक्ष कार्रवाई करना",
-"किसी पक्ष का बिना कारण समर्थन करना",
-"समस्या छिपाना"
-],
-a:1
-}
-
-],
-
-subjective:[
-"DSP की पाँच प्रमुख जिम्मेदारियाँ लिखिए।",
-"यदि आपके क्षेत्र में कानून-व्यवस्था की गंभीर समस्या हो, तो आप वरिष्ठ अधिकारी के साथ मिलकर क्या कदम उठाएँगे?"
-]
-
-}
-
-};
-
-
-/* =========================
-   START EXAM
-========================= */
-
-async function startExam(){
-
-const code =
-document.getElementById("examCode")
-.value
-.trim()
-.toUpperCase();
-
-const post =
-document.getElementById("post")
-.value;
-
-const message =
-document.getElementById("loginMessage");
-
-if(!code){
-
-message.textContent =
-"कृपया Exam Code डालें।";
-
-return;
-}
-
-if(!post){
-
-message.textContent =
-"कृपया Post चुनें।";
-
-return;
-}
-
-message.textContent =
-"Exam Code सत्यापित किया जा रहा है...";
-
-try{
-
-const response = await fetch(
-SUPABASE_URL +
-"/rest/v1/rpc/verify_exam_code",
-{
-method:"POST",
-
-headers:{
-"Content-Type":"application/json",
-"apikey":SUPABASE_KEY,
-"Authorization":
-"Bearer " + SUPABASE_KEY
-},
-
-body:JSON.stringify({
-input_code:code,
-input_post:post
-})
-}
-);
-
-const data =
-await response.json();
-
-if(!response.ok){
-
-throw new Error(
-"Verification failed"
-);
-
-}
-
-if(!data.success){
-
-message.textContent =
-data.message ||
-"Exam Code अमान्य है।";
-
-return;
-}
-
-verifiedCode = code;
-currentPost = post;
-currentCandidate =
-data.applicant_name || "Candidate";
-
-document.getElementById(
-"loginSection"
-).style.display="none";
-
-document.getElementById(
-"examSection"
-).style.display="block";
-
-document.getElementById(
-"examTitle"
-).textContent =
-"Classic Empire - " + post + " Examination";
-
-document.getElementById(
-"candidateInfo"
-).textContent =
-"Applicant: " +
-currentCandidate +
-" | Post: " +
-post;
-
-loadQuestions(post);
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-}
-
-catch(error){
-
-console.error(error);
-
-message.textContent =
-"Exam Code verify नहीं हुआ। कृपया Code और Post जाँचें।";
-
-}
-
-}
-
-
-/* =========================
-   LOAD QUESTIONS
-========================= */
-
-function loadQuestions(post){
-
-const exam =
-exams[post];
-
-const objective =
-document.getElementById(
-"objectiveQuestions"
-);
-
-const subjective =
-document.getElementById(
-"subjectiveQuestions"
-);
-
-objective.innerHTML="";
-subjective.innerHTML="";
-
-
-exam.objective.forEach(
-(item,index)=>{
-
-const box =
-document.createElement("div");
-
-box.className="question";
-
-let html =
-`<div class="question-title">
-प्रश्न ${index+1}. ${item.q}
-</div>`;
-
-item.o.forEach(
-(option,optIndex)=>{
-
-const letter =
-["A","B","C","D"][optIndex];
-
-html += `
-<label class="option">
-<input
-type="radio"
-name="q${index}"
-value="${optIndex}"
-required
+<a
+href="exam.html"
+class="portal-btn"
 >
-<strong>${letter}.</strong>
-${option}
-</label>
-`;
+📝 Open Exam Portal
+</a>
 
-});
+<a
+href="admin.html"
+class="portal-btn"
+>
+🔐 Generate Exam Code
+</a>
 
-box.innerHTML=html;
-
-objective.appendChild(box);
-
-});
-
-
-exam.subjective.forEach(
-(item,index)=>{
-
-const box =
-document.createElement("div");
-
-box.className="question";
-
-box.innerHTML=`
-<div class="question-title">
-प्रश्न ${index+11}. ${item}
 </div>
 
-<textarea
-class="subjective"
-name="subjective${index}"
-placeholder="अपना उत्तर यहाँ लिखें..."
-required
-></textarea>
-`;
+</div>
 
-subjective.appendChild(box);
+</div>
 
-});
-
-}
+</section>
 
 
-/* =========================
-   SUBMIT EXAM
-========================= */
+<!-- =========================
+     ABOUT
+========================= -->
 
-document.getElementById(
-"examForm"
-).addEventListener(
-"submit",
-async function(event){
+<section id="about">
 
-event.preventDefault();
+<div class="container">
 
-const exam =
-exams[currentPost];
+<h2 class="section-title">
+About Classic Empire Ltd
+</h2>
 
-let score = 0;
+<div class="details">
 
-exam.objective.forEach(
-(item,index)=>{
-
-const selected =
-document.querySelector(
-`input[name="q${index}"]:checked`
-);
-
-if(
-selected &&
-Number(selected.value) === item.a
-){
-score++;
-}
-
-});
-
-const total =
-exam.objective.length;
-
-const percentage =
-(score / total) * 100;
-
-const passed =
-percentage >= 60;
-
-
-if(!passed){
-
-showResult(
-score,
-total,
-percentage,
-false
-);
-
-return;
-
-}
-
-
-/* Code is marked used only after successful submission */
-
-try{
-
-const response = await fetch(
-SUPABASE_URL +
-"/rest/v1/rpc/submit_exam_code",
-{
-method:"POST",
-
-headers:{
-"Content-Type":"application/json",
-"apikey":SUPABASE_KEY,
-"Authorization":
-"Bearer " + SUPABASE_KEY
-},
-
-body:JSON.stringify({
-input_code:verifiedCode
-})
-}
-);
-
-const data =
-await response.json();
-
-if(!response.ok || !data.success){
-
-alert(
-"Exam submit नहीं हुआ। कृपया दोबारा प्रयास करें।"
-);
-
-return;
-
-}
-
-showResult(
-score,
-total,
-percentage,
-true
-);
-
-}
-catch(error){
-
-console.error(error);
-
-alert(
-"Server से संपर्क नहीं हो पाया।"
-);
-
-}
-
-});
-
-
-/* =========================
-   RESULT
-========================= */
-
-function showResult(
-score,
-total,
-percentage,
-passed
-){
-
-document.getElementById(
-"examForm"
-).style.display="none";
-
-const result =
-document.getElementById("result");
-
-result.style.display="block";
-
-document.getElementById(
-"score"
-).textContent =
-score + " / " + total +
-" — " +
-percentage.toFixed(0) +
-"%";
-
-if(passed){
-
-document.getElementById(
-"resultMessage"
-).innerHTML =
-`
-<h3 style="color:#55ff88;">
-PASS
-</h3>
-
-<p style="margin-top:10px;color:#bbb;">
-आपने Objective Examination में आवश्यक अंक प्राप्त कर लिए हैं।
+<p>
+Classic Empire Ltd is a fictional school-style administration and examination project.
 </p>
 
-<p style="margin-top:10px;color:#bbb;">
-आपके वर्णनात्मक उत्तरों का मूल्यांकन प्रशासन द्वारा किया जाएगा।
+<p style="margin-top:12px;">
+The project contains its own administrative structure, currency system, salary system, application system and examination portal.
 </p>
 
-<p style="margin-top:10px;color:#ffd700;">
-Exam Code अब इस्तेमाल हो चुका है।
-</p>
-`;
-
-}else{
-
-document.getElementById(
-"resultMessage"
-).innerHTML =
-`
-<h3 style="color:#ff5555;">
-FAIL
-</h3>
-
-<p style="margin-top:10px;color:#bbb;">
-पास होने के लिए कम से कम 60% अंक आवश्यक हैं।
+<p style="margin-top:12px;">
+The examination system is designed for applicants applying for available Classic Empire Ltd posts.
 </p>
 
-<p style="margin-top:10px;color:#ffd700;">
-आपका Exam Code अभी इस्तेमाल नहीं हुआ है।
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section>
+
+<div class="container">
+
+<h2 class="section-title">
+Official Contact
+</h2>
+
+<div class="details" style="text-align:center;">
+
+<p>
+<strong style="color:#d4af37;">
+Email
+</strong>
 </p>
-`;
 
-}
+<p>
+classicempireltd09@gmail.com
+</p>
 
-}
+</div>
 
-</script>
+</div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+<p>
+© 2026 Classic Empire Ltd
+</p>
+
+<p class="small">
+Fictional school-style project.
+</p>
+
+</footer>
 
 </body>
 </html>

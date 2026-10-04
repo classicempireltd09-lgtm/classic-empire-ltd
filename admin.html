@@ -1,307 +1,168 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Classic Empire Ltd</title>
+<title>Classic Empire Ltd - Admin Panel</title>
 
 <style>
 
 *{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
-
-html{
-scroll-behavior:smooth;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 body{
-font-family:Arial,sans-serif;
-background:#080808;
-color:#fff;
-line-height:1.6;
-}
-
-nav{
-position:sticky;
-top:0;
-z-index:1000;
-background:#050505;
-border-bottom:1px solid #c9a227;
-padding:14px 20px;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:22px;
-flex-wrap:wrap;
-}
-
-nav a{
-color:#d4af37;
-text-decoration:none;
-font-weight:bold;
-font-size:15px;
-}
-
-nav a:hover{
-color:#fff;
+  font-family:Arial,sans-serif;
+  background:#080808;
+  color:#fff;
+  min-height:100vh;
 }
 
 .container{
-max-width:1100px;
-margin:auto;
-padding:25px 18px;
+  width:100%;
+  max-width:500px;
+  margin:auto;
+  padding:25px 18px;
 }
 
-.hero{
-text-align:center;
-padding:50px 15px;
+.header{
+  text-align:center;
+  padding:35px 10px 20px;
 }
 
-.logo{
-width:120px;
-height:120px;
-object-fit:contain;
-margin-bottom:15px;
+.header h1{
+  color:#d4af37;
+  font-size:32px;
 }
 
-.hero h1{
-font-size:42px;
-color:#d4af37;
+.header p{
+  color:#999;
+  margin-top:8px;
 }
 
-.hero p{
-color:#aaa;
-margin-top:8px;
+.panel{
+  background:#111;
+  border:1px solid #333;
+  border-radius:15px;
+  padding:25px;
+  margin-top:20px;
 }
 
-section{
-margin-top:35px;
-}
-
-.section-title{
-color:#d4af37;
-text-align:center;
-font-size:28px;
-margin-bottom:22px;
-}
-
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-gap:18px;
-}
-
-.card{
-background:#111;
-border:1px solid #333;
-border-radius:14px;
-padding:20px;
-text-align:center;
-}
-
-.card:hover{
-border-color:#d4af37;
-}
-
-.card img{
-width:110px;
-height:110px;
-border-radius:50%;
-object-fit:cover;
-border:2px solid #d4af37;
-margin-bottom:12px;
-}
-
-.card h3{
-color:#d4af37;
-}
-
-.card p{
-color:#bbb;
-}
-
-.salary-table{
-width:100%;
-border-collapse:collapse;
-background:#111;
-overflow:hidden;
-border-radius:10px;
-}
-
-.salary-table th,
-.salary-table td{
-border:1px solid #333;
-padding:12px;
-text-align:center;
-}
-
-.salary-table th{
-background:#191919;
-color:#d4af37;
-}
-
-.salary-table td{
-color:#ddd;
-}
-
-.currency-box{
-background:#111;
-border:1px solid #c9a227;
-border-radius:14px;
-padding:25px;
-text-align:center;
-}
-
-.currency-name{
-font-size:30px;
-color:#d4af37;
-font-weight:bold;
-}
-
-.currency-box p{
-margin:8px 0;
-color:#ddd;
-}
-
-.details{
-background:#111;
-border:1px solid #333;
-border-radius:10px;
-padding:18px;
-}
-
-details summary{
-cursor:pointer;
-color:#d4af37;
-font-weight:bold;
-font-size:18px;
-}
-
-form{
-background:#111;
-border:1px solid #333;
-border-radius:14px;
-padding:22px;
+.panel h2{
+  text-align:center;
+  color:#d4af37;
+  margin-bottom:20px;
 }
 
 label{
-display:block;
-color:#d4af37;
-font-weight:bold;
-margin:14px 0 6px;
+  display:block;
+  color:#d4af37;
+  font-weight:bold;
+  margin:14px 0 6px;
 }
 
 input,
-select,
-textarea{
-width:100%;
-padding:12px;
-background:#1b1b1b;
-border:1px solid #555;
-border-radius:8px;
-color:#fff;
-font-size:15px;
-}
-
-textarea{
-min-height:120px;
-resize:vertical;
+select{
+  width:100%;
+  padding:13px;
+  background:#1b1b1b;
+  border:1px solid #555;
+  border-radius:8px;
+  color:#fff;
+  font-size:15px;
 }
 
 button{
-margin-top:18px;
-width:100%;
-padding:13px;
-border:0;
-border-radius:8px;
-background:#d4af37;
-color:#000;
-font-weight:bold;
-font-size:16px;
-cursor:pointer;
+  width:100%;
+  padding:13px;
+  margin-top:18px;
+  border:0;
+  border-radius:8px;
+  background:#d4af37;
+  color:#000;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
 }
 
 button:hover{
-background:#fff;
+  background:#fff;
 }
 
-.admin-links{
-display:flex;
-gap:15px;
-flex-wrap:wrap;
-justify-content:center;
-margin-top:20px;
+.logout{
+  background:#333;
+  color:#fff;
 }
 
-.portal-btn{
-display:inline-block;
-padding:13px 22px;
-background:#d4af37;
-color:#000;
-border-radius:8px;
-text-decoration:none;
-font-weight:bold;
+.message{
+  margin-top:15px;
+  padding:12px;
+  border-radius:8px;
+  text-align:center;
+  display:none;
 }
 
-.portal-btn:hover{
-background:#fff;
+.error{
+  background:#3a1111;
+  border:1px solid #a33;
+  color:#ff9999;
 }
 
-.structure{
-background:#111;
-border:1px solid #333;
-border-radius:14px;
-padding:25px;
+.success{
+  background:#113a1d;
+  border:1px solid #3a9;
+  color:#9f9;
 }
 
-.structure-item{
-padding:14px;
-margin:8px 0;
-background:#191919;
-border-left:3px solid #d4af37;
-border-radius:6px;
+#generatorPanel{
+  display:none;
 }
 
-.structure-item strong{
-color:#d4af37;
+.code-box{
+  margin-top:20px;
+  background:#050505;
+  border:2px solid #d4af37;
+  border-radius:10px;
+  padding:20px;
+  text-align:center;
 }
 
-footer{
-margin-top:50px;
-padding:30px 15px;
-text-align:center;
-border-top:1px solid #333;
-color:#888;
+.code-label{
+  color:#aaa;
+  font-size:14px;
 }
 
-.small{
-font-size:13px;
-color:#777;
-margin-top:8px;
+.exam-code{
+  color:#d4af37;
+  font-size:27px;
+  font-weight:bold;
+  letter-spacing:2px;
+  margin-top:8px;
+  word-break:break-all;
 }
 
-@media(max-width:600px){
-
-.hero h1{
-font-size:32px;
+.back{
+  display:block;
+  text-align:center;
+  margin-top:25px;
+  color:#d4af37;
+  text-decoration:none;
+  font-weight:bold;
 }
 
-nav{
-gap:12px;
+.back:hover{
+  color:#fff;
 }
 
-nav a{
-font-size:13px;
-}
-
-.salary-table{
-font-size:13px;
-}
-
+.footer{
+  text-align:center;
+  color:#666;
+  margin-top:35px;
+  padding-bottom:25px;
+  font-size:13px;
 }
 
 </style>
@@ -309,864 +170,444 @@ font-size:13px;
 
 <body>
 
-<!-- =========================
-     NAVIGATION
-========================= -->
-
-<nav>
-
-<a href="#home">Home</a>
-
-<a href="#administration">
-Administration
-</a>
-
-<a href="#currency">
-Currency
-</a>
-
-<a href="#salary">
-Salary
-</a>
-
-<a href="#application">
-Apply
-</a>
-
-<a href="exam.html">
-📝 Exam Portal
-</a>
-
-<a href="admin.html">
-🔐 Admin
-</a>
-
-<a href="#about">
-About
-</a>
-
-</nav>
-
-
-<!-- =========================
-     HOME
-========================= -->
-
-<section id="home">
-
-<div class="container hero">
-
-<img
-src="classic-empire-logo.png"
-class="logo"
-alt="Classic Empire Ltd Logo"
->
-
-<h1>
-Classic Empire Ltd
-</h1>
-
-<p>
-Official Empire Administration Portal
-</p>
-
-<div class="admin-links">
-
-<a
-href="exam.html"
-class="portal-btn"
->
-📝 Examination Portal
-</a>
-
-<a
-href="admin.html"
-class="portal-btn"
->
-🔐 Admin Panel
-</a>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     ADMINISTRATION
-========================= -->
-
-<section id="administration">
-
 <div class="container">
 
-<h2 class="section-title">
-Administration
-</h2>
-
-<div class="cards">
-
-
-<div class="card">
-
-<img
-src="noor-ahmad.png"
-alt="Noor Ahmad"
->
-
-<h3>
-President
-</h3>
-
-<p>
-Noor Ahmad
-</p>
-
-</div>
+  <div class="header">
+    <h1>Classic Empire Ltd</h1>
+    <p>🔐 Official Admin Panel</p>
+  </div>
 
 
-<div class="card">
+  <!-- =========================
+       ADMIN LOGIN
+  ========================== -->
 
-<img
-src="tabshir-alam.png"
-alt="Tabshir Alam"
->
+  <div class="panel" id="loginPanel">
 
-<h3>
-President's Assistant
-</h3>
+    <h2>Admin Login</h2>
 
-<p>
-Tabshir Alam
-</p>
+    <label>Username</label>
 
-</div>
+    <input
+      type="text"
+      id="username"
+      placeholder="Admin Username"
+      autocomplete="username"
+    >
 
+    <label>Password</label>
 
-<div class="card">
+    <input
+      type="password"
+      id="password"
+      placeholder="Admin Password"
+      autocomplete="current-password"
+    >
 
-<img
-src="jakir-hussain.png"
-alt="Jakir Hussain"
->
+    <button onclick="adminLogin()">
+      🔐 Login
+    </button>
 
-<h3>
-DM
-</h3>
+    <div
+      id="loginMessage"
+      class="message"
+    ></div>
 
-<p>
-Jakir Hussain
-</p>
-
-</div>
-
-
-<div class="card">
-
-<img
-src="shadat-hussain.png"
-alt="Shadat Hussain"
->
-
-<h3>
-DM's Assistant
-</h3>
-
-<p>
-Shadat Hussain
-</p>
-
-</div>
+  </div>
 
 
-<div class="card">
+  <!-- =========================
+       EXAM CODE GENERATOR
+  ========================== -->
 
-<img
-src="aszad-sayeed.png"
-alt="Aszad Sayeed"
->
+  <div class="panel" id="generatorPanel">
 
-<h3>
-SDM
-</h3>
+    <h2>Exam Code Generator</h2>
 
-<p>
-Aszad Sayeed
-</p>
+    <label>Applicant Name</label>
 
-</div>
+    <input
+      type="text"
+      id="applicantName"
+      placeholder="Applicant का नाम"
+    >
 
+    <label>Post</label>
 
-<div class="card">
+    <select id="post">
 
-<img
-src="shahnawaz-alam.png"
-alt="Shahnawaz Alam"
->
+      <option value="">
+        -- Post चुनें --
+      </option>
 
-<h3>
-SP
-</h3>
+      <option value="President's Assistant">
+        President's Assistant
+      </option>
 
-<p>
-Shahnawaz Alam
-</p>
+      <option value="DM">
+        DM
+      </option>
 
-</div>
+      <option value="DM's Assistant">
+        DM's Assistant
+      </option>
 
+      <option value="SDM">
+        SDM
+      </option>
 
-<div class="card">
+      <option value="SP">
+        SP
+      </option>
 
-<img
-src="shadab-alam.png"
-alt="Shadab Alam"
->
+      <option value="DSP">
+        DSP
+      </option>
 
-<h3>
-DSP
-</h3>
+    </select>
 
-<p>
-Shadab Alam
-</p>
+    <button onclick="generateCode()">
+      Generate Exam Code
+    </button>
 
-</div>
-
-</div>
-
-</div>
-
-</section>
+    <div
+      id="generatorMessage"
+      class="message"
+    ></div>
 
 
-<!-- =========================
-     ADMINISTRATION STRUCTURE
-========================= -->
+    <div
+      class="code-box"
+      id="codeBox"
+      style="display:none;"
+    >
 
-<section>
+      <div class="code-label">
+        Generated Exam Code
+      </div>
 
-<div class="container">
+      <div
+        class="exam-code"
+        id="generatedCode"
+      ></div>
 
-<h2 class="section-title">
-Administration Structure
-</h2>
+      <button onclick="copyCode()">
+        📋 Copy Exam Code
+      </button>
 
-<div class="structure">
+    </div>
 
-<div class="structure-item">
-<strong>President</strong> — Noor Ahmad
-</div>
 
-<div class="structure-item">
-<strong>President's Assistant</strong> — Tabshir Alam
-</div>
+    <button
+      class="logout"
+      onclick="logout()"
+    >
+      Logout
+    </button>
 
-<div class="structure-item">
-<strong>DM</strong> — Jakir Hussain
-</div>
+  </div>
 
-<div class="structure-item">
-<strong>DM's Assistant</strong> — Shadat Hussain
-</div>
 
-<div class="structure-item">
-<strong>SDM</strong> — Aszad Sayeed
-</div>
+  <a
+    href="index.html"
+    class="back"
+  >
+    ← Back to Home
+  </a>
 
-<div class="structure-item">
-<strong>SP</strong> — Shahnawaz Alam
-</div>
 
-<div class="structure-item">
-<strong>DSP</strong> — Shadab Alam
-</div>
+  <div class="footer">
+    © 2026 Classic Empire Ltd
+  </div>
 
 </div>
 
-</div>
 
-</section>
+<script>
 
+/* =========================
+   SUPABASE
+========================= */
 
-<!-- =========================
-     EMPIRE UPDATES
-========================= -->
+const SUPABASE_URL =
+"https://hjatspkzgoddcpgwfkxo.supabase.co";
 
-<section>
+const SUPABASE_KEY =
+"sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
-<div class="container">
 
-<div class="details">
+/* =========================
+   ADMIN LOGIN
+========================= */
 
-<details>
+async function adminLogin(){
 
-<summary>
-Empire Updates
-</summary>
+  const username =
+    document.getElementById("username").value.trim();
 
-<div style="margin-top:18px;">
+  const password =
+    document.getElementById("password").value;
 
-<p>
-<strong style="color:#d4af37;">
-President Rule:
-</strong>
-The President is the founder of Classic Empire Ltd and is the person who established this Empire.
-</p>
+  const message =
+    document.getElementById("loginMessage");
 
-<p style="margin-top:12px;">
-The President is the permanent President of Classic Empire Ltd and the position of President will never change under the normal system.
-</p>
+  if(!username || !password){
 
-<p style="margin-top:12px;">
-The President can personally appoint or transfer the position of President to another person only by the President's own decision.
-</p>
+    showMessage(
+      message,
+      "Username और Password दोनों डालें",
+      "error"
+    );
 
-<p style="margin-top:12px;">
-No other person or authority can change the President.
-</p>
+    return;
+  }
 
-</div>
+  try{
 
-</details>
+    const response = await fetch(
+      SUPABASE_URL + "/rest/v1/rpc/admin_login",
+      {
+        method:"POST",
 
-</div>
+        headers:{
+          "Content-Type":"application/json",
+          "apikey":SUPABASE_KEY,
+          "Authorization":"Bearer " + SUPABASE_KEY
+        },
 
-</div>
+        body:JSON.stringify({
+          input_username:username,
+          input_password:password
+        })
+      }
+    );
 
-</section>
+    const data = await response.json();
 
+    if(data.success === true){
 
-<!-- =========================
-     CURRENCY
-========================= -->
+      sessionStorage.setItem(
+        "classic_empire_admin",
+        "logged_in"
+      );
 
-<section id="currency">
+      document.getElementById(
+        "loginPanel"
+      ).style.display = "none";
 
-<div class="container">
+      document.getElementById(
+        "generatorPanel"
+      ).style.display = "block";
 
-<h2 class="section-title">
-Classic Empire Currency
-</h2>
+    }else{
 
-<div class="currency-box">
+      showMessage(
+        message,
+        data.message || "गलत Username या Password",
+        "error"
+      );
 
-<div class="currency-name">
-Classic Dinar
-</div>
+    }
 
-<p>
-<strong>Official Code:</strong>
-CLD
-</p>
+  }catch(error){
 
-<p>
-<strong>Short Name:</strong>
-CD
-</p>
+    showMessage(
+      message,
+      "Login में समस्या हुई। Supabase connection check करें।",
+      "error"
+    );
 
-<p>
-<strong>Symbol:</strong>
-د.ك
-</p>
+  }
 
-<hr style="border-color:#333;margin:20px 0;">
+}
 
-<p>
-<strong>1 CD = 300 KD</strong>
-</p>
 
-<p>
-<strong>1 CD = ₹93,600</strong>
-</p>
+/* =========================
+   GENERATE EXAM CODE
+========================= */
 
-<p>
-<strong>1 KD = ₹312</strong>
-</p>
+async function generateCode(){
 
-</div>
+  const name =
+    document.getElementById("applicantName")
+    .value.trim();
 
-</div>
+  const post =
+    document.getElementById("post").value;
 
-</section>
+  const message =
+    document.getElementById("generatorMessage");
 
+  const codeBox =
+    document.getElementById("codeBox");
 
-<!-- =========================
-     SALARY
-========================= -->
+  const generatedCode =
+    document.getElementById("generatedCode");
 
-<section id="salary">
 
-<div class="container">
+  if(!name){
 
-<h2 class="section-title">
-Weekly Salary
-</h2>
+    showMessage(
+      message,
+      "Applicant का नाम डालें",
+      "error"
+    );
 
-<p style="text-align:center;color:#aaa;margin-bottom:15px;">
-Salary is paid every Thursday.
-</p>
+    return;
+  }
 
-<table class="salary-table">
 
-<tr>
+  if(!post){
 
-<th>
-Post
-</th>
+    showMessage(
+      message,
+      "Post चुनें",
+      "error"
+    );
 
-<th>
-Person
-</th>
+    return;
+  }
 
-<th>
-Weekly Salary
-</th>
 
-</tr>
+  try{
 
+    const response = await fetch(
+      SUPABASE_URL + "/rest/v1/rpc/generate_exam_code",
+      {
+        method:"POST",
 
-<tr>
+        headers:{
+          "Content-Type":"application/json",
+          "apikey":SUPABASE_KEY,
+          "Authorization":"Bearer " + SUPABASE_KEY
+        },
 
-<td>
-President
-</td>
+        body:JSON.stringify({
+          input_applicant_name:name,
+          input_post:post
+        })
+      }
+    );
 
-<td>
-Noor Ahmad
-</td>
 
-<td>
-Unlimited
-</td>
+    const data = await response.json();
 
-</tr>
 
+    if(!response.ok){
 
-<tr>
+      showMessage(
+        message,
+        "Exam Code generate नहीं हुआ।",
+        "error"
+      );
 
-<td>
-President's Assistant
-</td>
+      return;
+    }
 
-<td>
-Tabshir Alam
-</td>
 
-<td>
-₹1,50,000
-</td>
+    generatedCode.textContent = data;
 
-</tr>
+    codeBox.style.display = "block";
 
+    showMessage(
+      message,
+      "Exam Code successfully generate हो गया।",
+      "success"
+    );
 
-<tr>
 
-<td>
-DM
-</td>
+  }catch(error){
 
-<td>
-Jakir Hussain
-</td>
+    showMessage(
+      message,
+      "Supabase connection में समस्या हुई।",
+      "error"
+    );
 
-<td>
-₹2,18,200
-</td>
+  }
 
-</tr>
+}
 
 
-<tr>
+/* =========================
+   COPY CODE
+========================= */
 
-<td>
-DM's Assistant
-</td>
+function copyCode(){
 
-<td>
-Shadat Hussain
-</td>
+  const code =
+    document.getElementById(
+      "generatedCode"
+    ).textContent;
 
-<td>
-₹1,20,000
-</td>
+  navigator.clipboard.writeText(code);
 
-</tr>
+  alert("Exam Code copied!");
+}
 
 
-<tr>
+/* =========================
+   LOGOUT
+========================= */
 
-<td>
-SDM
-</td>
+function logout(){
 
-<td>
-Aszad Sayeed
-</td>
+  sessionStorage.removeItem(
+    "classic_empire_admin"
+  );
 
-<td>
-₹1,77,500
-</td>
+  location.reload();
 
-</tr>
+}
 
 
-<tr>
+/* =========================
+   MESSAGE
+========================= */
 
-<td>
-SP
-</td>
+function showMessage(
+  element,
+  text,
+  type
+){
 
-<td>
-Shahnawaz Alam
-</td>
+  element.textContent = text;
 
-<td>
-₹2,15,900
-</td>
+  element.className =
+    "message " + type;
 
-</tr>
+  element.style.display =
+    "block";
 
+}
 
-<tr>
 
-<td>
-DSP
-</td>
+/* =========================
+   SESSION CHECK
+========================= */
 
-<td>
-Shadab Alam
-</td>
+window.onload = function(){
 
-<td>
-₹1,77,500
-</td>
+  const loggedIn =
+    sessionStorage.getItem(
+      "classic_empire_admin"
+    );
 
-</tr>
+  if(loggedIn === "logged_in"){
 
-</table>
+    document.getElementById(
+      "loginPanel"
+    ).style.display = "none";
 
-</div>
+    document.getElementById(
+      "generatorPanel"
+    ).style.display = "block";
 
-</section>
+  }
 
+};
 
-<!-- =========================
-     APPLICATION
-========================= -->
-
-<section id="application">
-
-<div class="container">
-
-<h2 class="section-title">
-Apply for a Post
-</h2>
-
-<form
-id="applicationForm"
-action="https://formsubmit.co/classicempireltd09@gmail.com"
-method="POST"
-enctype="multipart/form-data"
->
-
-<input
-type="hidden"
-name="_subject"
-value="Classic Empire Ltd - New Application"
->
-
-<input
-type="hidden"
-name="_captcha"
-value="false"
->
-
-<input
-type="hidden"
-name="_template"
-value="table"
->
-
-
-<label>
-Applicant Name
-</label>
-
-<input
-type="text"
-name="Applicant Name"
-required
->
-
-
-<label>
-Age
-</label>
-
-<input
-type="number"
-name="Age"
-required
->
-
-
-<label>
-Class
-</label>
-
-<input
-type="text"
-name="Class"
-required
->
-
-
-<label>
-Apply For Post
-</label>
-
-<select
-name="Apply For Post"
-required
->
-
-<option value="">
--- Post चुनें --
-</option>
-
-<option>
-President's Assistant
-</option>
-
-<option>
-DM
-</option>
-
-<option>
-DM's Assistant
-</option>
-
-<option>
-SDM
-</option>
-
-<option>
-SP
-</option>
-
-<option>
-DSP
-</option>
-
-</select>
-
-
-<label>
-Applicant Photo
-</label>
-
-<input
-type="file"
-name="Applicant Photo"
-accept="image/*"
-required
->
-
-
-<label>
-Applicant Email
-</label>
-
-<input
-type="email"
-name="Applicant Email"
-required
->
-
-
-<label>
-Contact Number
-</label>
-
-<input
-type="tel"
-name="Contact Number"
-required
->
-
-
-<label>
-Why do you want this post?
-</label>
-
-<textarea
-name="Why do you want this post?"
-required
-></textarea>
-
-
-<button type="submit">
-Submit Application
-</button>
-
-</form>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     EXAM PORTAL
-========================= -->
-
-<section>
-
-<div class="container">
-
-<h2 class="section-title">
-Examination System
-</h2>
-
-<div class="details">
-
-<p>
-Applicants who are approved for an examination will receive a unique Exam Code.
-</p>
-
-<p style="margin-top:10px;">
-The applicant must enter the Exam Code and select the correct post in the Examination Portal.
-</p>
-
-<p style="margin-top:10px;">
-Each examination contains:
-</p>
-
-<ul style="margin:12px 0 0 25px;color:#bbb;">
-
-<li>
-18 Objective Questions
-</li>
-
-<li>
-2 Subjective Questions
-</li>
-
-<li>
-Objective qualifying level: 60%
-</li>
-
-<li>
-Subjective answers are saved for manual checking
-</li>
-
-</ul>
-
-<div class="admin-links">
-
-<a
-href="exam.html"
-class="portal-btn"
->
-📝 Open Exam Portal
-</a>
-
-<a
-href="admin.html"
-class="portal-btn"
->
-🔐 Generate Exam Code
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     ABOUT
-========================= -->
-
-<section id="about">
-
-<div class="container">
-
-<h2 class="section-title">
-About Classic Empire Ltd
-</h2>
-
-<div class="details">
-
-<p>
-Classic Empire Ltd is a fictional school-style administration and examination project.
-</p>
-
-<p style="margin-top:12px;">
-The project contains its own administrative structure, currency system, salary system, application system and examination portal.
-</p>
-
-<p style="margin-top:12px;">
-The examination system is designed for applicants applying for available Classic Empire Ltd posts.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     CONTACT
-========================= -->
-
-<section>
-
-<div class="container">
-
-<h2 class="section-title">
-Official Contact
-</h2>
-
-<div class="details" style="text-align:center;">
-
-<p>
-<strong style="color:#d4af37;">
-Email
-</strong>
-</p>
-
-<p>
-classicempireltd09@gmail.com
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer>
-
-<p>
-© 2026 Classic Empire Ltd
-</p>
-
-<p class="small">
-Fictional school-style project.
-</p>
-
-</footer>
+</script>
 
 </body>
 </html>

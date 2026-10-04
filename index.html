@@ -3,317 +3,348 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Classic Empire Ltd</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#090909;
-  color:#f5f5f5;
+  font-family:Arial,sans-serif;
+  background:#080808;
+  color:#fff;
   line-height:1.6;
 }
-a{color:inherit;text-decoration:none}
-.container{width:min(1120px,92%);margin:auto}
 
 header{
+  background:linear-gradient(135deg,#111,#241800);
+  border-bottom:2px solid #d4af37;
+  padding:20px;
+  text-align:center;
   position:sticky;
   top:0;
-  z-index:20;
-  background:rgba(8,8,8,.96);
-  border-bottom:1px solid #3b2b00;
-  backdrop-filter:blur(8px);
+  z-index:1000;
 }
-.nav{
-  min-height:68px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
+
+.logo{
+  width:75px;
+  height:75px;
+  object-fit:contain;
+  border-radius:50%;
+  border:2px solid #d4af37;
+  margin-bottom:8px;
 }
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-weight:800;
-  color:#ffd54a;
+
+header h1{
+  color:#d4af37;
+  font-size:28px;
 }
-.brand img{
-  width:44px;
-  height:44px;
-  border-radius:10px;
-  object-fit:cover;
-  border:1px solid #6d5200;
-}
-nav{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  justify-content:flex-end;
-}
-nav a{
-  padding:8px 11px;
-  border-radius:8px;
+
+header p{
   color:#ddd;
   font-size:14px;
 }
-nav a:hover{
-  background:#171717;
-  color:#ffd54a;
-}
-.points-link{
-  border:1px solid #705500;
-  color:#ffd54a!important;
+
+nav{
+  margin-top:15px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
 }
 
-.hero{
-  padding:75px 0 60px;
-  text-align:center;
-  background:radial-gradient(circle at top,#2a2105 0,#111 36%,#090909 70%);
-}
-.hero img{
-  width:96px;
-  height:96px;
-  object-fit:cover;
-  border-radius:22px;
-  border:2px solid #c99b19;
-  margin-bottom:18px;
-}
-.hero h1{
-  font-size:clamp(34px,7vw,62px);
-  color:#ffd54a;
-}
-.hero p{
-  max-width:760px;
-  margin:12px auto;
-  color:#cfcfcf;
-}
-.badge{
-  display:inline-block;
-  margin-top:15px;
-  padding:8px 13px;
-  border:1px solid #735700;
-  border-radius:999px;
-  color:#ffd54a;
-  background:#151105;
+nav a{
+  text-decoration:none;
+  color:#fff;
+  background:#1b1b1b;
+  border:1px solid #555;
+  padding:8px 12px;
+  border-radius:8px;
   font-size:13px;
 }
 
-section{padding:55px 0}
-.section-title{
-  font-size:30px;
-  color:#ffd54a;
-  margin-bottom:9px;
-}
-.section-subtitle{
-  color:#aaa;
-  margin-bottom:25px;
+nav a:hover{
+  background:#d4af37;
+  color:#000;
 }
 
-.grid{
+.container{
+  width:94%;
+  max-width:1200px;
+  margin:auto;
+}
+
+section{
+  padding:45px 0;
+}
+
+.section-title{
+  text-align:center;
+  color:#d4af37;
+  margin-bottom:25px;
+  font-size:25px;
+}
+
+.hero{
+  text-align:center;
+  padding:55px 15px;
+  background:
+    radial-gradient(circle at top,#352700,#080808 65%);
+}
+
+.hero h2{
+  color:#d4af37;
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:#ddd;
+  max-width:700px;
+  margin:auto;
+}
+
+.cards{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:18px;
 }
+
 .card{
   background:#111;
-  border:1px solid #292929;
-  border-radius:16px;
+  border:1px solid #333;
+  border-radius:15px;
   padding:20px;
-  box-shadow:0 8px 30px rgba(0,0,0,.2);
+  text-align:center;
+  box-shadow:0 5px 20px #000;
 }
-.person{text-align:center}
-.person img{
+
+.card:hover{
+  border-color:#d4af37;
+  transform:translateY(-3px);
+}
+
+.person-img{
   width:110px;
   height:110px;
-  border-radius:50%;
   object-fit:cover;
-  border:2px solid #b88b0c;
-  background:#1b1b1b;
+  border-radius:50%;
+  border:3px solid #d4af37;
   margin-bottom:12px;
+  background:#222;
 }
-.person h3{
+
+.card h3{
   color:#fff;
-  margin-bottom:4px;
+  margin-bottom:5px;
 }
-.role{
-  color:#ffd54a;
-  font-weight:700;
+
+.post{
+  color:#d4af37;
+  font-weight:bold;
 }
-.small{
+
+.salary{
+  color:#aaa;
   font-size:13px;
-  color:#999;
-}
-
-details{
-  background:#111;
-  border:1px solid #4b3905;
-  border-radius:15px;
-  overflow:hidden;
-}
-summary{
-  cursor:pointer;
-  padding:18px 20px;
-  font-weight:800;
-  color:#ffd54a;
-  list-style:none;
-}
-summary::-webkit-details-marker{display:none}
-summary:after{
-  content:"＋";
-  float:right;
-  font-size:22px;
-}
-details[open] summary:after{content:"−"}
-
-.updates{
-  padding:0 20px 20px;
-  display:grid;
-  gap:12px;
-}
-.update{
-  padding:15px;
-  border-left:3px solid #d4a91d;
-  background:#171717;
-  border-radius:8px;
-}
-.update strong{color:#ffd54a}
-
-.currency{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-  gap:15px;
-}
-.currency .card{text-align:center}
-.currency .value{
-  font-size:25px;
-  font-weight:800;
-  color:#ffd54a;
   margin-top:5px;
 }
 
 .table-wrap{
   overflow-x:auto;
-  border:1px solid #2c2c2c;
-  border-radius:14px;
 }
+
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:650px;
+  min-width:600px;
   background:#111;
 }
-th,td{
-  padding:14px 16px;
-  border-bottom:1px solid #292929;
-  text-align:left;
-}
-th{
-  background:#191502;
-  color:#ffd54a;
-}
-tr:last-child td{border-bottom:0}
 
-form{
+th,td{
+  border:1px solid #333;
+  padding:12px;
+  text-align:center;
+}
+
+th{
+  background:#241d08;
+  color:#d4af37;
+}
+
+td{
+  color:#ddd;
+}
+
+.form-box{
+  max-width:650px;
+  margin:auto;
   background:#111;
   border:1px solid #333;
-  border-radius:16px;
-  padding:22px;
+  border-radius:15px;
+  padding:25px;
 }
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:16px;
+
+.form-group{
+  margin-bottom:15px;
 }
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-.field.full{grid-column:1/-1}
+
 label{
-  font-size:14px;
-  color:#ddd;
-  font-weight:700;
+  display:block;
+  color:#d4af37;
+  margin-bottom:6px;
+  font-weight:bold;
 }
-input,select,textarea{
+
+input,
+select,
+textarea{
   width:100%;
-  padding:12px 13px;
-  border-radius:9px;
-  border:1px solid #3b3b3b;
-  background:#0b0b0b;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #444;
+  background:#080808;
   color:#fff;
   outline:none;
 }
-input:focus,select:focus,textarea:focus{
-  border-color:#c69b16;
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#d4af37;
 }
+
 textarea{
   min-height:110px;
   resize:vertical;
 }
-input[type=file]{padding:10px}
+
 button{
-  border:0;
-  border-radius:10px;
-  padding:13px 18px;
-  background:#d5aa24;
-  color:#090909;
-  font-weight:800;
+  width:100%;
+  padding:13px;
+  border:none;
+  border-radius:8px;
+  background:#d4af37;
+  color:#000;
+  font-weight:bold;
   cursor:pointer;
   font-size:15px;
 }
-button:hover{background:#f0c83f}
 
-.note{
-  margin-top:12px;
+button:hover{
+  background:#f1d76a;
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.message{
+  margin-top:15px;
   padding:12px;
-  border-radius:9px;
-  background:#171717;
-  color:#aaa;
-  font-size:13px;
-}
-
-.admin-list{
-  display:grid;
-  gap:10px;
-}
-.admin-row{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  padding:13px 15px;
-  background:#111;
-  border:1px solid #292929;
-  border-radius:10px;
-}
-.admin-row span:last-child{
-  color:#ffd54a;
-  font-weight:700;
-  text-align:right;
-}
-
-.contact-box{text-align:center}
-
-footer{
-  border-top:1px solid #2d2304;
-  padding:25px 0;
-  color:#888;
+  border-radius:8px;
+  display:none;
   text-align:center;
 }
 
-@media(max-width:700px){
-  .nav{
-    align-items:flex-start;
-    flex-direction:column;
-    padding:12px 0;
+.success{
+  display:block;
+  background:#103b1c;
+  border:1px solid #2ecc71;
+  color:#7dffac;
+}
+
+.error{
+  display:block;
+  background:#3b1010;
+  border:1px solid #ff4444;
+  color:#ff8d8d;
+}
+
+.info-box{
+  background:#111;
+  border-left:4px solid #d4af37;
+  padding:18px;
+  border-radius:8px;
+  margin:20px 0;
+}
+
+.info-box strong{
+  color:#d4af37;
+}
+
+.other-title{
+  margin-top:40px;
+  text-align:center;
+  color:#d4af37;
+  font-size:22px;
+  margin-bottom:20px;
+}
+
+.currency-box{
+  text-align:center;
+  background:#111;
+  border:1px solid #d4af37;
+  padding:25px;
+  border-radius:15px;
+  margin-bottom:25px;
+}
+
+.currency-box h3{
+  color:#d4af37;
+  font-size:24px;
+}
+
+.currency-box p{
+  margin-top:8px;
+  color:#ddd;
+}
+
+footer{
+  border-top:1px solid #333;
+  background:#050505;
+  text-align:center;
+  padding:30px 15px;
+  color:#aaa;
+}
+
+footer strong{
+  color:#d4af37;
+}
+
+.small{
+  font-size:13px;
+  color:#888;
+}
+
+@media(max-width:600px){
+  header h1{
+    font-size:23px;
   }
-  nav{justify-content:flex-start}
-  .form-grid{grid-template-columns:1fr}
-  .field.full{grid-column:auto}
-  .admin-row{flex-direction:column}
-  .admin-row span:last-child{text-align:left}
+
+  .hero h2{
+    font-size:26px;
+  }
+
+  nav a{
+    font-size:12px;
+    padding:7px 9px;
+  }
+
+  section{
+    padding:35px 0;
+  }
 }
 </style>
 </head>
@@ -321,659 +352,876 @@ footer{
 <body>
 
 <header>
-  <div class="container nav">
 
-    <a class="brand" href="#home">
-      <img src="classic-empire-logo.png" alt="Classic Empire Ltd Logo">
-      <span>Classic Empire Ltd</span>
-    </a>
+<img src="classic-empire-logo.png"
+     class="logo"
+     alt="Classic Empire Ltd Logo">
 
-    <nav>
-      <a href="#people">People</a>
-      <a href="#updates">Empire Updates</a>
-      <a href="#currency">Currency</a>
-      <a href="#salaries">Salaries</a>
-      <a href="#apply">Apply</a>
+<h1>Classic Empire Ltd</h1>
 
-      <!-- NEW POINTS SYSTEM -->
-      <a href="points.html" class="points-link">
-        🏆 Points System
-      </a>
+<p>Official Empire Management System</p>
 
-      <a href="exam.html">Exam</a>
-      <a href="status.html">Status</a>
-      <a href="admin.html">Administration</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
+<nav>
+  <a href="#home">Home</a>
+  <a href="#people">People</a>
+  <a href="#updates">Updates</a>
+  <a href="#currency">Currency</a>
+  <a href="#salary">Salary</a>
+  <a href="#apply">Apply</a>
+  <a href="points.html">Points</a>
+  <a href="exam.html">Exam</a>
+  <a href="status.html">Status</a>
+  <a href="result.html">Result</a>
+  <a href="admin.html">Admin</a>
+</nav>
 
-  </div>
 </header>
 
 
-<main>
+<section id="home" class="hero">
 
-<section class="hero" id="home">
-  <div class="container">
+<div class="container">
 
-    <img src="classic-empire-logo.png"
-         alt="Classic Empire Ltd Logo">
+<h2>Welcome to Classic Empire Ltd</h2>
 
-    <h1>Classic Empire Ltd</h1>
+<p>
+Classic Empire Ltd is a structured fictional empire system
+with leadership, administration, employees, applications,
+examinations, points and results.
+</p>
 
-    <p>
-      A fictional school-style Empire system with defined posts,
-      duties, salaries, awards, currency, examinations,
-      points and administration.
-    </p>
+</div>
 
-    <span class="badge">
-      Official Empire System
-    </span>
-
-  </div>
 </section>
 
-
-<!-- PEOPLE -->
 
 <section id="people">
-  <div class="container">
 
-    <h2 class="section-title">
-      Empire People
-    </h2>
+<div class="container">
 
-    <p class="section-subtitle">
-      Current office holders of Classic Empire Ltd.
-    </p>
+<h2 class="section-title">Leadership & Posts</h2>
 
-    <div class="grid">
+<div class="cards">
 
-      <div class="card person">
-        <img src="noor-ahmad.png" alt="Noor Ahmad">
-        <h3>Noor Ahmad</h3>
-        <div class="role">President</div>
-      </div>
+<!-- PRESIDENT -->
 
-      <div class="card person">
-        <img src="tabshir-alam.png" alt="Tabshir Alam">
-        <h3>Tabshir Alam</h3>
-        <div class="role">President's Assistant</div>
-      </div>
+<div class="card">
 
-      <div class="card person">
-        <img src="jakir-hussain.png" alt="Jakir Hussain">
-        <h3>Jakir Hussain</h3>
-        <div class="role">DM</div>
-      </div>
+<img src="noor-ahmad.png"
+     class="person-img"
+     alt="Noor Ahmad">
 
-      <div class="card person">
-        <img src="shadat-hussain.png" alt="Shadat Hussain">
-        <h3>Shadat Hussain</h3>
-        <div class="role">DM's Assistant</div>
-      </div>
+<h3>Noor Ahmad</h3>
 
-      <div class="card person">
-        <img src="aszad-sayeed.png" alt="Aszad Sayeed">
-        <h3>Aszad Sayeed</h3>
-        <div class="role">SDM</div>
-      </div>
+<div class="post">President</div>
 
-      <div class="card person">
-        <img src="shahnawaz-alam.png" alt="Shahnawaz Alam">
-        <h3>Shahnawaz Alam</h3>
-        <div class="role">SP</div>
-      </div>
+<div class="salary">Salary: Unlimited</div>
 
-      <div class="card person">
-        <img src="shadab-alam.png" alt="Shadab Alam">
-        <h3>Shadab Alam</h3>
-        <div class="role">DSP</div>
-      </div>
+</div>
 
-    </div>
-  </div>
+
+<!-- PRESIDENT ASSISTANT -->
+
+<div class="card">
+
+<img src="tabshir-alam.png"
+     class="person-img"
+     alt="Tabshir Alam">
+
+<h3>Tabshir Alam</h3>
+
+<div class="post">
+President's Assistant
+</div>
+
+<div class="salary">
+Weekly Salary: ₹1,50,000
+</div>
+
+</div>
+
+
+<!-- DM -->
+
+<div class="card">
+
+<img src="jakir-hussain.png"
+     class="person-img"
+     alt="Jakir Hussain">
+
+<h3>Jakir Hussain</h3>
+
+<div class="post">DM</div>
+
+<div class="salary">
+Weekly Salary: ₹2,18,200
+</div>
+
+</div>
+
+
+<!-- DM ASSISTANT -->
+
+<div class="card">
+
+<img src="shadat-hussain.png"
+     class="person-img"
+     alt="Shadat Hussain">
+
+<h3>Shadat Hussain</h3>
+
+<div class="post">
+DM's Assistant
+</div>
+
+<div class="salary">
+Weekly Salary: ₹1,20,000
+</div>
+
+</div>
+
+
+<!-- SDM -->
+
+<div class="card">
+
+<img src="aszad-sayeed.png"
+     class="person-img"
+     alt="Aszad Sayeed">
+
+<h3>Aszad Sayeed</h3>
+
+<div class="post">SDM</div>
+
+<div class="salary">
+Weekly Salary: ₹1,77,500
+</div>
+
+</div>
+
+
+<!-- SP -->
+
+<div class="card">
+
+<img src="shahnawaz-alam.png"
+     class="person-img"
+     alt="Shahnawaz Alam">
+
+<h3>Shahnawaz Alam</h3>
+
+<div class="post">SP</div>
+
+<div class="salary">
+Weekly Salary: ₹2,15,900
+</div>
+
+</div>
+
+
+<!-- DSP -->
+
+<div class="card">
+
+<img src="shadab-alam.png"
+     class="person-img"
+     alt="Shadab Alam">
+
+<h3>Shadab Alam</h3>
+
+<div class="post">DSP</div>
+
+<div class="salary">
+Weekly Salary: ₹1,77,500
+</div>
+
+</div>
+
+</div>
+
+
+<!-- OTHER EMPLOYEES -->
+
+<h3 class="other-title">Other Employees</h3>
+
+<div class="cards">
+
+<!-- MAHIR ALAM -->
+
+<div class="card">
+
+<img src="mahir-alam.png"
+     class="person-img"
+     alt="Mahir Alam">
+
+<h3>Mahir Alam</h3>
+
+<div class="post">
+Other Employee
+</div>
+
+</div>
+
+
+<!-- SAJJAD ALAM -->
+
+<div class="card">
+
+<img src="sajjad-alam.png"
+     class="person-img"
+     alt="Sajjad Alam">
+
+<h3>Sajjad Alam</h3>
+
+<div class="post">
+Other Employee
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-
-<!-- UPDATES -->
 
 <section id="updates">
-  <div class="container">
 
-    <h2 class="section-title">
-      Empire Updates
-    </h2>
+<div class="container">
 
-    <p class="section-subtitle">
-      Latest Classic Empire Ltd systems and rules.
-    </p>
+<h2 class="section-title">Latest Updates</h2>
 
-    <details>
+<div class="info-box">
 
-      <summary>
-        📰 New Empire Changes
-      </summary>
+<strong>Permanent President Rule</strong>
 
-      <div class="updates">
+<p>
+The President is the founder of Classic Empire Ltd and is
+the person who established this Empire.
+</p>
 
-        <div class="update">
-          <strong>President System:</strong>
-          The President is the founder and permanent President
-          under the normal system.
-        </div>
+<p>
+The President is the permanent President of Classic Empire Ltd
+and the position of President will never change under the
+normal system.
+</p>
 
-        <div class="update">
-          <strong>Administration:</strong>
-          Current posts are President, President's Assistant,
-          DM, DM's Assistant, SDM, SP and DSP.
-        </div>
+<p>
+The President can personally appoint or transfer the position
+of President to another person only by the President's own
+decision.
+</p>
 
-        <div class="update">
-          <strong>Removed Posts:</strong>
-          PM, Ministers, Management/Founder/Chairman,
-          CID, Bodyguard and Election Department are removed.
-        </div>
+<p>
+No other person or authority can change the President.
+</p>
 
-        <div class="update">
-          <strong>Currency:</strong>
-          Classic Dinar (CD/CLD).
-        </div>
+</div>
 
-        <div class="update">
-          <strong>Salary:</strong>
-          Official weekly salary is paid every Thursday.
-        </div>
 
-        <div class="update">
-          <strong>Points System:</strong>
-          School/Madrasa = 1 point,
-          Classic Empire Game Work = 2 points.
-          Daily maximum = 3 points.
-        </div>
+<div class="info-box">
 
-        <div class="update">
-          <strong>25-Day Bonus:</strong>
-          Completing 3/3 points for 25 consecutive days
-          gives a +10 bonus.
-        </div>
+<strong>Application System</strong>
 
-        <div class="update">
-          <strong>Automatic Awards:</strong>
-          75% or higher qualifies for an Award.
-        </div>
+<p>
+Applicants can submit applications through the official
+application form. Approved applicants receive an exam code
+through the system.
+</p>
 
-      </div>
+</div>
 
-    </details>
 
-  </div>
+<div class="info-box">
+
+<strong>Examination System</strong>
+
+<p>
+The Classic Empire examination system contains objective
+and subjective questions, a 30-minute exam session and
+server-controlled exam access.
+</p>
+
+</div>
+
+</div>
+
 </section>
 
-
-<!-- CURRENCY -->
 
 <section id="currency">
-  <div class="container">
 
-    <h2 class="section-title">
-      Empire Currency
-    </h2>
+<div class="container">
 
-    <p class="section-subtitle">
-      Official fictional currency information.
-    </p>
+<h2 class="section-title">
+Classic Empire Currency
+</h2>
 
-    <div class="currency">
+<div class="currency-box">
 
-      <div class="card">
-        <div class="small">Currency Name</div>
-        <div class="value">Classic Dinar</div>
-      </div>
+<h3>Classic Dinar</h3>
 
-      <div class="card">
-        <div class="small">Short Name</div>
-        <div class="value">CD</div>
-      </div>
+<p>
+Official Code: <strong>CLD</strong>
+</p>
 
-      <div class="card">
-        <div class="small">Official Code</div>
-        <div class="value">CLD</div>
-      </div>
+<p>
+Short Name: <strong>CD</strong>
+</p>
 
-      <div class="card">
-        <div class="small">Symbol</div>
-        <div class="value">د.ك</div>
-      </div>
+<p>
+Symbol: <strong>د.ك</strong>
+</p>
 
-      <div class="card">
-        <div class="small">Fixed Conversion</div>
-        <div class="value">1 CD = 300 KD</div>
-      </div>
+</div>
 
-      <div class="card">
-        <div class="small">Indian Rupee Value</div>
-        <div class="value">1 CD = ₹93,600</div>
-      </div>
+<div class="table-wrap">
 
-    </div>
-  </div>
+<table>
+
+<thead>
+
+<tr>
+<th>Currency</th>
+<th>Equivalent</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>1 CD</td>
+<td>300 KD</td>
+</tr>
+
+<tr>
+<td>1 CD</td>
+<td>₹93,600</td>
+</tr>
+
+<tr>
+<td>1 KD</td>
+<td>₹312</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
 </section>
 
 
-<!-- SALARIES -->
+<section id="salary">
 
-<section id="salaries">
-  <div class="container">
+<div class="container">
 
-    <h2 class="section-title">
-      Official Weekly Salary
-    </h2>
+<h2 class="section-title">
+Weekly Salary
+</h2>
 
-    <p class="section-subtitle">
-      Salary is paid every Thursday.
-    </p>
+<div class="table-wrap">
 
-    <div class="table-wrap">
+<table>
 
-      <table>
+<thead>
 
-        <thead>
-          <tr>
-            <th>Post</th>
-            <th>Person</th>
-            <th>Weekly Salary</th>
-          </tr>
-        </thead>
+<tr>
+<th>Post</th>
+<th>Name</th>
+<th>Weekly Salary</th>
+<th>Payment Day</th>
+</tr>
 
-        <tbody>
+</thead>
 
-          <tr>
-            <td>President</td>
-            <td>Noor Ahmad</td>
-            <td>Unlimited</td>
-          </tr>
+<tbody>
 
-          <tr>
-            <td>President's Assistant</td>
-            <td>Tabshir Alam</td>
-            <td>₹1,50,000</td>
-          </tr>
+<tr>
+<td>President</td>
+<td>Noor Ahmad</td>
+<td>Unlimited</td>
+<td>Thursday</td>
+</tr>
 
-          <tr>
-            <td>DM</td>
-            <td>Jakir Hussain</td>
-            <td>₹2,18,200</td>
-          </tr>
+<tr>
+<td>President's Assistant</td>
+<td>Tabshir Alam</td>
+<td>₹1,50,000</td>
+<td>Thursday</td>
+</tr>
 
-          <tr>
-            <td>DM's Assistant</td>
-            <td>Shadat Hussain</td>
-            <td>₹1,20,000</td>
-          </tr>
+<tr>
+<td>DM</td>
+<td>Jakir Hussain</td>
+<td>₹2,18,200</td>
+<td>Thursday</td>
+</tr>
 
-          <tr>
-            <td>SDM</td>
-            <td>Aszad Sayeed</td>
-            <td>₹1,77,500</td>
-          </tr>
+<tr>
+<td>DM's Assistant</td>
+<td>Shadat Hussain</td>
+<td>₹1,20,000</td>
+<td>Thursday</td>
+</tr>
 
-          <tr>
-            <td>SP</td>
-            <td>Shahnawaz Alam</td>
-            <td>₹2,15,900</td>
-          </tr>
+<tr>
+<td>SDM</td>
+<td>Aszad Sayeed</td>
+<td>₹1,77,500</td>
+<td>Thursday</td>
+</tr>
 
-          <tr>
-            <td>DSP</td>
-            <td>Shadab Alam</td>
-            <td>₹1,77,500</td>
-          </tr>
+<tr>
+<td>SP</td>
+<td>Shahnawaz Alam</td>
+<td>₹2,15,900</td>
+<td>Thursday</td>
+</tr>
 
-        </tbody>
+<tr>
+<td>DSP</td>
+<td>Shadab Alam</td>
+<td>₹1,77,500</td>
+<td>Thursday</td>
+</tr>
 
-      </table>
+</tbody>
 
-    </div>
-  </div>
+</table>
+
+</div>
+
+</div>
+
 </section>
 
-
-<!-- APPLY -->
 
 <section id="apply">
-  <div class="container">
-
-    <h2 class="section-title">
-      Apply for a Post
-    </h2>
-
-    <p class="section-subtitle">
-      Submit your application to Classic Empire Ltd.
-    </p>
-
-    <form
-      id="applicationForm"
-      action="https://formsubmit.co/classicempireltd09@gmail.com"
-      method="POST"
-      enctype="multipart/form-data"
-      target="formsubmitFrame"
-    >
-
-      <input
-        type="hidden"
-        name="_subject"
-        value="Classic Empire Ltd Post Application"
-      >
-
-      <input
-        type="hidden"
-        name="_captcha"
-        value="false"
-      >
-
-      <div class="form-grid">
-
-        <div class="field">
-          <label for="applicant_name">
-            Applicant Name *
-          </label>
-
-          <input
-            id="applicant_name"
-            type="text"
-            name="applicant_name"
-            required
-          >
-        </div>
 
+<div class="container">
 
-        <div class="field">
-          <label for="age">
-            Age *
-          </label>
+<h2 class="section-title">
+Apply for Classic Empire Ltd
+</h2>
 
-          <input
-            id="age"
-            type="number"
-            name="age"
-            min="1"
-            max="100"
-            required
-          >
-        </div>
+<div class="form-box">
 
+<form id="applicationForm">
 
-        <div class="field">
-          <label for="class">
-            Class *
-          </label>
+<div class="form-group">
 
-          <input
-            id="class"
-            type="text"
-            name="class"
-            required
-          >
-        </div>
+<label>
+Applicant Name *
+</label>
 
+<input
+type="text"
+id="applicantName"
+required
+placeholder="Enter your full name">
 
-        <div class="field">
-          <label for="post">
-            Apply For Post *
-          </label>
+</div>
 
-          <select
-            id="post"
-            name="post"
-            required
-          >
-            <option value="">
-              Select a post
-            </option>
 
-            <option>
-              President's Assistant
-            </option>
+<div class="form-group">
 
-            <option>DM</option>
+<label>
+Age
+</label>
 
-            <option>
-              DM's Assistant
-            </option>
+<input
+type="text"
+id="age"
+placeholder="Enter age">
 
-            <option>SDM</option>
+</div>
 
-            <option>SP</option>
 
-            <option>DSP</option>
+<div class="form-group">
 
-          </select>
-        </div>
+<label>
+Class
+</label>
 
+<input
+type="text"
+id="applicantClass"
+placeholder="Enter class">
 
-        <div class="field full">
+</div>
 
-          <label for="photo">
-            Applicant Photo
-          </label>
 
-          <input
-            id="photo"
-            type="file"
-            name="photo"
-            accept="image/*"
-          >
+<div class="form-group">
 
-        </div>
+<label>
+Post *
+</label>
 
+<select id="post" required>
 
-        <div class="field">
+<option value="">
+Select Post
+</option>
 
-          <label for="applicant_email">
-            Applicant Email *
-          </label>
+<option value="President">
+President
+</option>
 
-          <input
-            id="applicant_email"
-            type="email"
-            name="applicant_email"
-            required
-          >
+<option value="President's Assistant">
+President's Assistant
+</option>
 
-        </div>
+<option value="DM">
+DM
+</option>
 
+<option value="DM's Assistant">
+DM's Assistant
+</option>
 
-        <div class="field">
+<option value="SDM">
+SDM
+</option>
 
-          <label for="contact_number">
-            Contact Number
-          </label>
+<option value="SP">
+SP
+</option>
 
-          <input
-            id="contact_number"
-            type="tel"
-            name="contact_number"
-          >
+<option value="DSP">
+DSP
+</option>
 
-        </div>
+</select>
 
+</div>
 
-        <div class="field full">
 
-          <label for="reason">
-            Why do you want this post? *
-          </label>
+<div class="form-group">
 
-          <textarea
-            id="reason"
-            name="reason"
-            required
-          ></textarea>
+<label>
+Email *
+</label>
 
-        </div>
+<input
+type="email"
+id="email"
+required
+placeholder="Enter email">
 
+</div>
 
-        <div class="field full">
 
-          <button type="submit">
-            Submit Application
-          </button>
+<div class="form-group">
 
-        </div>
+<label>
+Contact Number
+</label>
 
-      </div>
+<input
+type="text"
+id="contact"
+placeholder="Enter contact number">
 
-      <div class="note">
-        Application will be submitted to Classic Empire Ltd.
-        The selected post is reviewed by the administration.
-      </div>
+</div>
 
-    </form>
 
-    <iframe
-      name="formsubmitFrame"
-      style="display:none"
-    ></iframe>
+<div class="form-group">
 
-  </div>
-</section>
+<label>
+Photo
+</label>
 
+<input
+type="file"
+id="photo"
+accept="image/*">
 
-<!-- ADMINISTRATION -->
+</div>
 
-<section id="administration">
-  <div class="container">
 
-    <h2 class="section-title">
-      Administration Structure
-    </h2>
+<div class="form-group">
 
-    <p class="section-subtitle">
-      Current Classic Empire Ltd administrative posts.
-    </p>
+<label>
+Reason for Applying
+</label>
 
-    <div class="admin-list">
+<textarea
+id="reason"
+placeholder="Why do you want to join Classic Empire Ltd?"></textarea>
 
-      <div class="admin-row">
-        <span>President</span>
-        <span>Noor Ahmad</span>
-      </div>
+</div>
 
-      <div class="admin-row">
-        <span>President's Assistant</span>
-        <span>Tabshir Alam</span>
-      </div>
 
-      <div class="admin-row">
-        <span>DM</span>
-        <span>Jakir Hussain</span>
-      </div>
+<button
+type="submit"
+id="submitBtn">
 
-      <div class="admin-row">
-        <span>DM's Assistant</span>
-        <span>Shadat Hussain</span>
-      </div>
+Submit Application
 
-      <div class="admin-row">
-        <span>SDM</span>
-        <span>Aszad Sayeed</span>
-      </div>
+</button>
 
-      <div class="admin-row">
-        <span>SP</span>
-        <span>Shahnawaz Alam</span>
-      </div>
+<div
+id="applicationMessage"
+class="message">
+</div>
 
-      <div class="admin-row">
-        <span>DSP</span>
-        <span>Shadab Alam</span>
-      </div>
+</form>
 
-    </div>
+</div>
 
-  </div>
-</section>
 
+<div class="info-box">
 
-<!-- ABOUT -->
+<strong>Application Process</strong>
 
-<section id="about">
-  <div class="container">
+<p>
+1. Submit your application.
+</p>
 
-    <h2 class="section-title">
-      About Classic Empire Ltd
-    </h2>
+<p>
+2. Admin reviews the application.
+</p>
 
-    <div class="card">
+<p>
+3. Approved applications receive an Exam Code.
+</p>
 
-      <p>
-        The President is the founder of Classic Empire Ltd
-        and is the person who established this Empire.
-        The President is the permanent President of Classic
-        Empire Ltd and the position of President will never
-        change under the normal system.
-      </p>
+<p>
+4. Exam Code becomes available after the system unlock time.
+</p>
 
-      <br>
+<p>
+5. Use the Exam page to start your examination.
+</p>
 
-      <p>
-        The President can personally appoint or transfer
-        the position of President to another person only by
-        the President's own decision. No other person or
-        authority can change the President.
-      </p>
+</div>
 
-    </div>
-
-  </div>
-</section>
-
-
-<!-- CONTACT -->
-
-<section id="contact">
-
-  <div class="container">
-
-    <div class="card contact-box">
-
-      <h2 class="section-title">
-        Contact
-      </h2>
-
-      <p class="section-subtitle">
-        Classic Empire Ltd official contact email
-      </p>
-
-      <p>
-        <strong style="color:#ffd54a">
-          classicempireltd09@gmail.com
-        </strong>
-      </p>
-
-      <br>
-
-      <p class="small">
-        Head Office:
-        Chakla Ghat, Kishanganj, Bihar, India
-      </p>
-
-    </div>
-
-  </div>
+</div>
 
 </section>
-
-</main>
 
 
 <footer>
-  <div class="container">
-    © Classic Empire Ltd — Fictional Empire System
-  </div>
+
+<p>
+<strong>Classic Empire Ltd</strong>
+</p>
+
+<p>
+Head Office: Chakla Ghat, Kishanganj, Bihar, India
+</p>
+
+<p class="small">
+Official Classic Empire Ltd System
+</p>
+
 </footer>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://hjatspkzgoddcpgwfkxo.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
+
+const supabaseClient =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+const applicationForm =
+document.getElementById("applicationForm");
+
+const submitBtn =
+document.getElementById("submitBtn");
+
+const applicationMessage =
+document.getElementById("applicationMessage");
+
+
+applicationForm.addEventListener(
+"submit",
+async function(event){
+
+  event.preventDefault();
+
+  if(submitBtn.disabled){
+    return;
+  }
+
+  submitBtn.disabled = true;
+
+  submitBtn.textContent =
+  "Submitting...";
+
+  applicationMessage.className =
+  "message";
+
+  applicationMessage.textContent =
+  "";
+
+
+  const applicantName =
+  document.getElementById(
+    "applicantName"
+  ).value.trim();
+
+  const age =
+  document.getElementById(
+    "age"
+  ).value.trim();
+
+  const applicantClass =
+  document.getElementById(
+    "applicantClass"
+  ).value.trim();
+
+  const post =
+  document.getElementById(
+    "post"
+  ).value.trim();
+
+  const email =
+  document.getElementById(
+    "email"
+  ).value.trim();
+
+  const contact =
+  document.getElementById(
+    "contact"
+  ).value.trim();
+
+  const reason =
+  document.getElementById(
+    "reason"
+  ).value.trim();
+
+  const photoInput =
+  document.getElementById(
+    "photo"
+  );
+
+  let photoName = "";
+
+  if(
+    photoInput.files &&
+    photoInput.files.length > 0
+  ){
+    photoName =
+    photoInput.files[0].name;
+  }
+
+
+  try{
+
+    const response =
+    await supabaseClient.rpc(
+      "submit_application",
+      {
+        input_applicant_name:
+        applicantName,
+
+        input_age:
+        age,
+
+        input_class:
+        applicantClass,
+
+        input_post:
+        post,
+
+        input_applicant_photo:
+        photoName,
+
+        input_applicant_email:
+        email,
+
+        input_contact_number:
+        contact,
+
+        input_reason:
+        reason
+      }
+    );
+
+
+    if(response.error){
+
+      throw new Error(
+        response.error.message
+      );
+
+    }
+
+
+    const data =
+    response.data;
+
+
+    if(
+      !data ||
+      data.success !== true
+    ){
+
+      throw new Error(
+        data?.message ||
+        "Application submit नहीं हो पाई"
+      );
+
+    }
+
+
+    applicationMessage.className =
+    "message success";
+
+    applicationMessage.innerHTML =
+    "<strong>Application Submitted Successfully</strong><br>" +
+    "Your application status is Pending.";
+
+
+    applicationForm.reset();
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Application Error:",
+      error
+    );
+
+    applicationMessage.className =
+    "message error";
+
+    applicationMessage.textContent =
+    "Error: " +
+    (error.message ||
+     "Application submit नहीं हो पाई");
+
+  }
+
+  finally{
+
+    submitBtn.disabled = false;
+
+    submitBtn.textContent =
+    "Submit Application";
+
+  }
+
+});
+
+</script>
 
 </body>
 </html>

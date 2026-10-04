@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Classic Empire Ltd - Application Status</title>
 
@@ -15,21 +15,21 @@
 
 body{
   font-family:Arial,sans-serif;
-  background:#0b0b0b;
+  background:#080808;
   color:#fff;
   min-height:100vh;
 }
 
 header{
   background:#111;
-  border-bottom:1px solid #c9a227;
-  padding:20px;
+  border-bottom:1px solid #d4af37;
+  padding:18px 20px;
   text-align:center;
 }
 
 header h1{
   color:#d4af37;
-  font-size:26px;
+  font-size:28px;
 }
 
 header p{
@@ -38,40 +38,39 @@ header p{
 }
 
 .container{
-  width:92%;
-  max-width:650px;
-  margin:35px auto;
+  width:min(750px,94%);
+  margin:30px auto;
 }
 
 .card{
-  background:#151515;
+  background:#111;
   border:1px solid #333;
-  border-radius:15px;
-  padding:25px;
+  border-radius:16px;
+  padding:24px;
   box-shadow:0 0 20px rgba(212,175,55,.08);
 }
 
 h2{
   color:#d4af37;
-  margin-bottom:20px;
   text-align:center;
+  margin-bottom:20px;
 }
 
 label{
   display:block;
-  margin-bottom:8px;
   color:#ddd;
+  margin-bottom:8px;
 }
 
 input{
   width:100%;
-  padding:13px;
-  border-radius:8px;
-  border:1px solid #444;
-  background:#0d0d0d;
+  padding:14px;
+  background:#080808;
   color:#fff;
+  border:1px solid #444;
+  border-radius:10px;
+  font-size:16px;
   outline:none;
-  margin-bottom:15px;
 }
 
 input:focus{
@@ -80,144 +79,156 @@ input:focus{
 
 button{
   width:100%;
-  padding:13px;
-  border:none;
-  border-radius:8px;
+  padding:14px;
+  margin-top:15px;
+  border:0;
+  border-radius:10px;
   background:#d4af37;
   color:#000;
+  font-size:16px;
   font-weight:bold;
   cursor:pointer;
 }
 
 button:hover{
-  background:#f0cc55;
+  opacity:.9;
 }
 
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-
-.result{
-  margin-top:25px;
+.message{
   display:none;
-}
-
-.info{
-  background:#101010;
-  border:1px solid #333;
-  border-radius:10px;
+  margin-top:18px;
   padding:15px;
-  margin-top:12px;
-}
-
-.row{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  padding:10px 0;
-  border-bottom:1px solid #292929;
-}
-
-.row:last-child{
-  border-bottom:none;
-}
-
-.title{
-  color:#aaa;
-}
-
-.value{
-  text-align:right;
-  font-weight:bold;
-}
-
-.status{
-  color:#d4af37;
-}
-
-.code-box{
-  margin-top:20px;
-  padding:20px;
-  text-align:center;
-  background:#0c0c0c;
-  border:2px solid #d4af37;
-  border-radius:12px;
-}
-
-.code{
-  font-size:26px;
-  color:#d4af37;
-  font-weight:bold;
-  letter-spacing:2px;
-  margin:10px 0;
-  word-break:break-word;
-}
-
-.waiting{
-  margin-top:20px;
-  padding:18px;
   border-radius:10px;
-  background:#211d0d;
-  border:1px solid #8d7422;
-  text-align:center;
-}
-
-.timer{
-  font-size:28px;
-  color:#d4af37;
-  font-weight:bold;
-  margin-top:8px;
-}
-
-.success{
-  background:#102414;
-  border:1px solid #2c7138;
-  color:#8ee59a;
-}
-
-.warning{
-  background:#241d0d;
-  border:1px solid #8d7422;
-  color:#f2d477;
+  line-height:1.6;
 }
 
 .error{
-  background:#241010;
-  border:1px solid #743333;
-  color:#ff9999;
+  background:#210d0d;
+  border:1px solid #a33;
+  color:#ffb0b0;
 }
 
-.exam-btn{
-  display:block;
-  text-decoration:none;
-  text-align:center;
-  margin-top:15px;
-  padding:13px;
-  border-radius:8px;
-  background:#d4af37;
-  color:#000;
-  font-weight:bold;
+.info{
+  background:#151515;
+  border:1px solid #555;
 }
 
-.back{
+.success{
+  background:#0d2113;
+  border:1px solid #3a9b52;
+  color:#b8ffc7;
+}
+
+.statusBox{
+  display:none;
+  margin-top:22px;
+}
+
+.profile{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.item{
+  background:#181818;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:14px;
+}
+
+.item span{
   display:block;
-  text-align:center;
+  color:#999;
+  font-size:13px;
+  margin-bottom:6px;
+}
+
+.item strong{
+  font-size:17px;
+}
+
+.section{
   margin-top:20px;
+  background:#151515;
+  border:1px solid #333;
+  border-radius:12px;
+  padding:18px;
+}
+
+.section h3{
   color:#d4af37;
-  text-decoration:none;
+  margin-bottom:10px;
+}
+
+.pending{
+  color:#ffd76a;
+}
+
+.approved{
+  color:#63e77e;
+}
+
+.rejected{
+  color:#ff7070;
+}
+
+.code{
+  font-size:25px;
+  font-weight:bold;
+  letter-spacing:2px;
+  color:#d4af37;
+  margin:12px 0;
+  word-break:break-word;
+}
+
+.countdown{
+  font-size:30px;
+  font-weight:bold;
+  text-align:center;
+  margin:16px 0;
 }
 
 .small{
   color:#999;
   font-size:13px;
-  margin-top:8px;
+  line-height:1.6;
 }
 
-footer{
+.resultButton{
+  display:block;
   text-align:center;
-  color:#777;
-  padding:30px 10px;
+  text-decoration:none;
+  margin-top:15px;
+  padding:14px;
+  border-radius:10px;
+  background:#d4af37;
+  color:#000;
+  font-weight:bold;
+}
+
+.hidden{
+  display:none!important;
+}
+
+@media(max-width:600px){
+
+  header h1{
+    font-size:23px;
+  }
+
+  .card{
+    padding:18px;
+  }
+
+  .profile{
+    grid-template-columns:1fr;
+  }
+
+  .countdown{
+    font-size:25px;
+  }
+
 }
 </style>
 </head>
@@ -225,8 +236,8 @@ footer{
 <body>
 
 <header>
-  <h1>Classic Empire Ltd</h1>
-  <p>Application Status</p>
+  <h1>🏛️ Classic Empire Ltd</h1>
+  <p>Application Status Portal</p>
 </header>
 
 <div class="container">
@@ -235,35 +246,191 @@ footer{
 
     <h2>📋 Check Application Status</h2>
 
-    <label for="email">
-      Applicant Email
-    </label>
+    <div id="searchArea">
 
-    <input
-      type="email"
-      id="email"
-      placeholder="Enter your application email"
-      autocomplete="email"
-    >
+      <label for="email">
+        Applicant Email
+      </label>
 
-    <button id="checkBtn" onclick="checkStatus()">
-      Check Status
-    </button>
+      <input
+        type="email"
+        id="email"
+        placeholder="अपना application email डालें"
+        autocomplete="email"
+      >
 
-    <div id="result" class="result"></div>
+      <button onclick="checkStatus()">
+        🔍 Check Status
+      </button>
 
-    <a href="index.html" class="back">
-      ← Back to Classic Empire Ltd
-    </a>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <div id="statusBox" class="statusBox">
+
+      <!-- APPLICANT -->
+      <div class="profile">
+
+        <div class="item">
+          <span>Applicant Name</span>
+          <strong id="applicantName">-</strong>
+        </div>
+
+        <div class="item">
+          <span>Applied Post</span>
+          <strong id="post">-</strong>
+        </div>
+
+        <div class="item">
+          <span>Application Status</span>
+          <strong id="applicationStatus">-</strong>
+        </div>
+
+        <div class="item">
+          <span>Exam Status</span>
+          <strong id="examStatus">-</strong>
+        </div>
+
+      </div>
+
+
+      <!-- PENDING -->
+      <div id="pendingBox" class="section hidden">
+
+        <h3>⏳ Application Under Review</h3>
+
+        <p>
+          आपकी application अभी Admin के review में है।
+        </p>
+
+        <p class="small" style="margin-top:8px;">
+          Application approve होने के बाद Exam Code automatically generate होगा।
+        </p>
+
+      </div>
+
+
+      <!-- REJECTED -->
+      <div id="rejectedBox" class="section hidden">
+
+        <h3 class="rejected">
+          ❌ Application Rejected
+        </h3>
+
+        <p>
+          आपकी application reject कर दी गई है।
+        </p>
+
+      </div>
+
+
+      <!-- APPROVED / CODE LOCK -->
+      <div id="codeLockBox" class="section hidden">
+
+        <h3>🔐 Exam Code Generated</h3>
+
+        <p>
+          आपका Exam Code generate हो चुका है।
+        </p>
+
+        <p class="small" style="margin-top:8px;">
+          Security के कारण Exam Code 2 घंटे बाद दिखाई देगा।
+        </p>
+
+        <div id="codeCountdown" class="countdown">
+          02:00:00
+        </div>
+
+        <p class="small" style="text-align:center;">
+          Code automatically unlock होगा।
+        </p>
+
+      </div>
+
+
+      <!-- APPROVED / CODE AVAILABLE -->
+      <div id="codeBox" class="section hidden">
+
+        <h3>🔑 Exam Code Available</h3>
+
+        <p>
+          आपका Exam Code अब available है:
+        </p>
+
+        <div id="examCode" class="code">
+          -
+        </div>
+
+        <p>
+          Post: <strong id="examPost">-</strong>
+        </p>
+
+        <p class="small" style="margin-top:10px;">
+          इस code और अपने approved post से Exam Portal में प्रवेश करें।
+        </p>
+
+        <a
+          class="resultButton"
+          href="exam.html"
+        >
+          📝 Open Exam Portal
+        </a>
+
+      </div>
+
+
+      <!-- SUBMITTED / RESULT LOCK -->
+      <div id="resultLockBox" class="section hidden">
+
+        <h3>📝 Exam Submitted</h3>
+
+        <p>
+          आपका Exam successfully submit हो चुका है।
+        </p>
+
+        <p class="small" style="margin-top:8px;">
+          Result submission के 24 घंटे बाद उपलब्ध होगा।
+        </p>
+
+        <div id="resultCountdown" class="countdown">
+          24:00:00
+        </div>
+
+        <p
+          class="small"
+          style="text-align:center;"
+        >
+          Result automatically unlock होगा।
+        </p>
+
+      </div>
+
+
+      <!-- RESULT AVAILABLE -->
+      <div id="resultBox" class="section hidden">
+
+        <h3>🎉 Result Available</h3>
+
+        <p>
+          आपका Exam Result अब उपलब्ध है।
+        </p>
+
+        <a
+          class="resultButton"
+          id="viewResultButton"
+          href="result.html"
+        >
+          📊 View Exam Result
+        </a>
+
+      </div>
+
+    </div>
 
   </div>
 
 </div>
-
-<footer>
-  Classic Empire Ltd
-</footer>
-
 
 <script>
 
@@ -273,12 +440,9 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
-let countdownInterval = null;
-
-
-/* =========================================
-   ESCAPE HTML
-========================================= */
+let codeTimer = null;
+let resultTimer = null;
+let currentEmail = "";
 
 function escapeHtml(value){
 
@@ -288,528 +452,447 @@ function escapeHtml(value){
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
-
 }
 
+function showMessage(text,type="info"){
 
-/* =========================================
-   FORMAT DATE
-========================================= */
+  const box =
+    document.getElementById("message");
 
-function formatDate(value){
+  box.className =
+    "message " + type;
 
-  if(!value) return "-";
+  box.innerHTML =
+    escapeHtml(text);
 
-  const date = new Date(value);
-
-  return date.toLocaleString(
-    "en-IN",
-    {
-      day:"2-digit",
-      month:"short",
-      year:"numeric",
-      hour:"2-digit",
-      minute:"2-digit",
-      second:"2-digit"
-    }
-  );
-
+  box.style.display =
+    "block";
 }
 
+function hideMessage(){
 
-/* =========================================
-   CHECK APPLICATION STATUS
-========================================= */
+  document.getElementById("message")
+    .style.display="none";
+}
 
-async function checkStatus(){
+function hideAllSections(){
+
+  const ids = [
+    "pendingBox",
+    "rejectedBox",
+    "codeLockBox",
+    "codeBox",
+    "resultLockBox",
+    "resultBox"
+  ];
+
+  ids.forEach(id=>{
+    document.getElementById(id)
+      .classList.add("hidden");
+  });
+}
+
+function formatCountdown(seconds){
+
+  seconds =
+    Math.max(0,Math.floor(seconds));
+
+  const hours =
+    Math.floor(seconds / 3600);
+
+  const minutes =
+    Math.floor((seconds % 3600) / 60);
+
+  const secs =
+    seconds % 60;
+
+  return String(hours).padStart(2,"0")
+    + ":" +
+    String(minutes).padStart(2,"0")
+    + ":" +
+    String(secs).padStart(2,"0");
+}
+
+function startCodeCountdown(seconds){
+
+  clearInterval(codeTimer);
+
+  let remaining =
+    Math.max(0,Number(seconds));
+
+  const box =
+    document.getElementById("codeCountdown");
+
+  box.textContent =
+    formatCountdown(remaining);
+
+  codeTimer =
+    setInterval(async()=>{
+
+      remaining--;
+
+      if(remaining <= 0){
+
+        clearInterval(codeTimer);
+
+        box.textContent =
+          "00:00:00";
+
+        await checkStatus(true);
+
+        return;
+      }
+
+      box.textContent =
+        formatCountdown(remaining);
+
+    },1000);
+}
+
+function startResultCountdown(seconds){
+
+  clearInterval(resultTimer);
+
+  let remaining =
+    Math.max(0,Number(seconds));
+
+  const box =
+    document.getElementById("resultCountdown");
+
+  box.textContent =
+    formatCountdown(remaining);
+
+  resultTimer =
+    setInterval(async()=>{
+
+      remaining--;
+
+      if(remaining <= 0){
+
+        clearInterval(resultTimer);
+
+        box.textContent =
+          "00:00:00";
+
+        await checkStatus(true);
+
+        return;
+      }
+
+      box.textContent =
+        formatCountdown(remaining);
+
+    },1000);
+}
+
+async function checkStatus(
+  automaticRefresh=false
+){
+
+  const emailInput =
+    document.getElementById("email");
 
   const email =
-    document.getElementById("email").value.trim();
+    emailInput.value.trim();
 
-  const resultBox =
-    document.getElementById("result");
+  if(email){
+    currentEmail = email;
+  }
 
-  const checkBtn =
-    document.getElementById("checkBtn");
+  if(!currentEmail && !automaticRefresh){
 
-
-  if(!email){
-
-    resultBox.style.display = "block";
-
-    resultBox.innerHTML = `
-      <div class="info error">
-        Please enter your Applicant Email.
-      </div>
-    `;
+    showMessage(
+      "कृपया Applicant Email डालें।",
+      "error"
+    );
 
     return;
   }
 
-
-  if(countdownInterval){
-
-    clearInterval(countdownInterval);
-
-    countdownInterval = null;
-
+  if(!currentEmail){
+    return;
   }
 
-
-  checkBtn.disabled = true;
-
-  checkBtn.textContent = "Checking...";
-
-  resultBox.style.display = "block";
-
-  resultBox.innerHTML = `
-    <div class="info">
-      Checking application status...
-    </div>
-  `;
-
+  hideMessage();
 
   try{
 
-    const response = await fetch(
-      SUPABASE_URL +
-      "/rest/v1/rpc/get_application_status",
-      {
-        method:"POST",
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/rpc/get_application_status",
+        {
+          method:"POST",
 
-        headers:{
-          "Content-Type":"application/json",
-          "apikey":SUPABASE_KEY,
-          "Authorization":
-            "Bearer " + SUPABASE_KEY
-        },
+          headers:{
+            "Content-Type":
+              "application/json",
 
-        body:JSON.stringify({
-          input_applicant_email:email
-        })
-      }
-    );
+            "apikey":
+              SUPABASE_KEY,
 
+            "Authorization":
+              "Bearer " + SUPABASE_KEY
+          },
 
-    const data = await response.json();
+          body:JSON.stringify({
+            input_applicant_email:
+              currentEmail
+          })
+        }
+      );
 
+    const data =
+      await response.json();
 
     if(!response.ok){
 
       throw new Error(
         data.message ||
-        "Unable to check application."
+        "Status fetch failed"
       );
-
     }
-
 
     if(!data.success){
 
-      resultBox.innerHTML = `
-        <div class="info error">
-          ${escapeHtml(
-            data.message ||
-            "Application नहीं मिली"
-          )}
-        </div>
-      `;
-
-      return;
-
-    }
-
-
-    renderStatus(data);
-
-  }
-
-  catch(error){
-
-    resultBox.innerHTML = `
-      <div class="info error">
-        ${escapeHtml(
-          error.message ||
-          "Something went wrong."
-        )}
-      </div>
-    `;
-
-  }
-
-  finally{
-
-    checkBtn.disabled = false;
-
-    checkBtn.textContent = "Check Status";
-
-  }
-
-}
-
-
-/* =========================================
-   RENDER STATUS
-========================================= */
-
-function renderStatus(data){
-
-  const resultBox =
-    document.getElementById("result");
-
-
-  const status =
-    data.status || "Pending";
-
-  const examCode =
-    data.exam_code || null;
-
-  const unlockAt =
-    data.unlock_at || null;
-
-  const codeUsed =
-    data.code_used === true;
-
-
-  let html = `
-
-    <div class="info">
-
-      <div class="row">
-        <span class="title">
-          Applicant
-        </span>
-
-        <span class="value">
-          ${escapeHtml(data.applicant_name)}
-        </span>
-      </div>
-
-
-      <div class="row">
-        <span class="title">
-          Applied Post
-        </span>
-
-        <span class="value">
-          ${escapeHtml(data.post)}
-        </span>
-      </div>
-
-
-      <div class="row">
-        <span class="title">
-          Application Status
-        </span>
-
-        <span class="value status">
-          ${escapeHtml(status)}
-        </span>
-      </div>
-
-    </div>
-
-  `;
-
-
-  /* =====================================
-     PENDING
-  ===================================== */
-
-  if(status === "Pending"){
-
-    html += `
-
-      <div class="info warning">
-
-        ⏳ Your application is still under Admin review.
-
-        <div class="small">
-          Exam Code will be generated after approval.
-        </div>
-
-      </div>
-
-    `;
-
-    resultBox.innerHTML = html;
-
-    return;
-
-  }
-
-
-  /* =====================================
-     REJECTED
-  ===================================== */
-
-  if(status === "Rejected"){
-
-    html += `
-
-      <div class="info error">
-
-        ❌ Your application has been rejected.
-
-      </div>
-
-    `;
-
-    resultBox.innerHTML = html;
-
-    return;
-
-  }
-
-
-  /* =====================================
-     APPROVED
-  ===================================== */
-
-  if(status === "Approved"){
-
-    /*
-      Code is still locked
-    */
-
-    if(!examCode && unlockAt){
-
-      html += `
-
-        <div class="waiting">
-
-          🔐 Exam Code Generated
-
-          <div class="small">
-            Your Exam Code will become visible
-            after the 2-hour waiting period.
-          </div>
-
-          <div class="small">
-            Unlock Time:
-            ${escapeHtml(formatDate(unlockAt))}
-          </div>
-
-          <div class="timer" id="countdown">
-            Calculating...
-          </div>
-
-        </div>
-
-      `;
-
-      resultBox.innerHTML = html;
-
-      startCountdown(
-        unlockAt
+      document.getElementById("statusBox")
+        .style.display="none";
+
+      showMessage(
+        data.message ||
+        "Application नहीं मिली।",
+        "error"
       );
 
       return;
+    }
 
+    clearInterval(codeTimer);
+    clearInterval(resultTimer);
+
+    document.getElementById("statusBox")
+      .style.display="block";
+
+    hideAllSections();
+
+    document.getElementById("applicantName")
+      .textContent =
+        data.applicant_name || "-";
+
+    document.getElementById("post")
+      .textContent =
+        data.post || "-";
+
+
+    /* APPLICATION STATUS */
+
+    const status =
+      data.status || "Pending";
+
+    const statusElement =
+      document.getElementById(
+        "applicationStatus"
+      );
+
+    statusElement.textContent =
+      status;
+
+    statusElement.className = "";
+
+    if(status === "Approved"){
+      statusElement.classList.add(
+        "approved"
+      );
+    }
+
+    else if(status === "Rejected"){
+      statusElement.classList.add(
+        "rejected"
+      );
+    }
+
+    else{
+      statusElement.classList.add(
+        "pending"
+      );
     }
 
 
-    /*
-      Code available
-    */
+    /* REJECTED */
 
-    if(examCode){
+    if(status === "Rejected"){
 
-      if(codeUsed){
+      document.getElementById(
+        "examStatus"
+      ).textContent =
+        "Not Available";
 
-        html += `
+      document.getElementById(
+        "rejectedBox"
+      ).classList.remove("hidden");
 
-          <div class="code-box">
+      return;
+    }
 
-            <div>
-              🔐 Exam Code
-            </div>
 
-            <div class="code">
-              ${escapeHtml(examCode)}
-            </div>
+    /* PENDING */
 
-            <div class="small">
-              This Exam Code has already been used.
-            </div>
+    if(status !== "Approved"){
 
-          </div>
+      document.getElementById(
+        "examStatus"
+      ).textContent =
+        "Waiting for Approval";
 
-        `;
+      document.getElementById(
+        "pendingBox"
+      ).classList.remove("hidden");
 
-      }else{
+      return;
+    }
 
-        html += `
 
-          <div class="code-box">
+    /* APPROVED */
 
-            <div>
-              🔐 Your Exam Code
-            </div>
+    if(data.exam_submitted === true){
 
-            <div class="code">
-              ${escapeHtml(examCode)}
-            </div>
+      document.getElementById(
+        "examStatus"
+      ).textContent =
+        "Submitted";
 
-            <div class="small">
-              Your Exam Code is now available.
-            </div>
+      /*
+        RESULT AVAILABLE
+      */
 
-          </div>
+      if(data.result_available === true){
 
-          <a
-            href="exam.html"
-            class="exam-btn"
-          >
-            📝 Open Exam Portal
-          </a>
+        document.getElementById(
+          "resultBox"
+        ).classList.remove("hidden");
 
-        `;
+        const button =
+          document.getElementById(
+            "viewResultButton"
+          );
 
+        button.href =
+          "result.html?code=" +
+          encodeURIComponent(
+            data.exam_code || ""
+          );
+
+        return;
       }
 
 
-      resultBox.innerHTML = html;
+      /*
+        RESULT LOCKED
+      */
+
+      document.getElementById(
+        "resultLockBox"
+      ).classList.remove("hidden");
+
+      startResultCountdown(
+        Number(
+          data.result_remaining_seconds || 0
+        )
+      );
 
       return;
-
     }
 
 
     /*
-      Approved but code not ready
+      CODE LOCKED
     */
 
-    html += `
+    if(data.code_unlocked !== true){
 
-      <div class="info warning">
+      document.getElementById(
+        "examStatus"
+      ).textContent =
+        "Exam Code Locked";
 
-        ✅ Application Approved.
+      document.getElementById(
+        "codeLockBox"
+      ).classList.remove("hidden");
 
-        <div class="small">
-          Your Exam Code is being prepared.
-          Please check again later.
-        </div>
-
-      </div>
-
-    `;
-
-    resultBox.innerHTML = html;
-
-    return;
-
-  }
-
-
-  resultBox.innerHTML = html;
-
-}
-
-
-/* =========================================
-   COUNTDOWN
-========================================= */
-
-function startCountdown(unlockAt){
-
-  if(countdownInterval){
-
-    clearInterval(countdownInterval);
-
-  }
-
-
-  const target =
-    new Date(unlockAt).getTime();
-
-
-  function updateCountdown(){
-
-    const element =
-      document.getElementById("countdown");
-
-
-    if(!element){
-
-      clearInterval(countdownInterval);
-
-      return;
-
-    }
-
-
-    const now =
-      Date.now();
-
-
-    const difference =
-      target - now;
-
-
-    if(difference <= 0){
-
-      clearInterval(countdownInterval);
-
-      element.textContent =
-        "Code unlocked!";
-
-      /*
-        Automatically check status again
-        after unlock.
-      */
-
-      setTimeout(
-        () => checkStatus(),
-        800
+      startCodeCountdown(
+        Number(
+          data.code_remaining_seconds || 0
+        )
       );
 
       return;
-
     }
 
 
-    const totalSeconds =
-      Math.floor(
-        difference / 1000
+    /*
+      CODE AVAILABLE
+    */
+
+    document.getElementById(
+      "examStatus"
+    ).textContent =
+      data.code_used === true
+        ? "Exam Code Used"
+        : "Exam Code Available";
+
+    if(data.code_used === true){
+
+      document.getElementById(
+        "examStatus"
+      ).textContent =
+        "Exam Code Used";
+
+      return;
+    }
+
+    document.getElementById(
+      "codeBox"
+    ).classList.remove("hidden");
+
+    document.getElementById(
+      "examCode"
+    ).textContent =
+      data.exam_code || "-";
+
+    document.getElementById(
+      "examPost"
+    ).textContent =
+      data.post || "-";
+
+  }catch(error){
+
+    console.error(error);
+
+    if(!automaticRefresh){
+
+      showMessage(
+        "Status check करने में समस्या हुई। कृपया Email दोबारा जाँचें।",
+        "error"
       );
 
-
-    const hours =
-      Math.floor(
-        totalSeconds / 3600
-      );
-
-
-    const minutes =
-      Math.floor(
-        (totalSeconds % 3600) / 60
-      );
-
-
-    const seconds =
-      totalSeconds % 60;
-
-
-    element.textContent =
-      String(hours).padStart(2,"0") +
-      ":" +
-      String(minutes).padStart(2,"0") +
-      ":" +
-      String(seconds).padStart(2,"0");
+    }
 
   }
 
-
-  updateCountdown();
-
-  countdownInterval =
-    setInterval(
-      updateCountdown,
-      1000
-    );
-
 }
+
+document
+  .getElementById("email")
+  .addEventListener(
+    "keydown",
+    function(event){
+
+      if(event.key === "Enter"){
+        checkStatus();
+      }
+
+    }
+  );
 
 </script>
 

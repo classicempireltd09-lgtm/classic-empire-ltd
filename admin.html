@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>Classic Empire Ltd - Admin Panel</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 body{
   font-family:Arial,sans-serif;
@@ -15,43 +20,67 @@ body{
   min-height:100vh;
 }
 
-header{
-  background:#111;
-  border-bottom:2px solid #d4af37;
-  padding:18px;
-  text-align:center;
-}
-
-header h1{color:#d4af37;margin-bottom:6px}
-header p{color:#bbb}
-
 .container{
   width:95%;
-  max-width:1250px;
-  margin:25px auto;
+  max-width:1400px;
+  margin:auto;
+  padding:25px 0 50px;
+}
+
+h1,h2,h3{
+  color:#ffd700;
 }
 
 .card{
-  background:#111;
+  background:#151515;
   border:1px solid #333;
-  border-radius:14px;
+  border-radius:15px;
   padding:20px;
-  margin-bottom:22px;
+  margin-bottom:20px;
+  box-shadow:0 0 15px rgba(255,215,0,.08);
 }
 
-.card h2{
-  color:#d4af37;
-  margin-bottom:15px;
+button{
+  border:0;
+  border-radius:8px;
+  padding:10px 15px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.gold{
+  background:#ffd700;
+  color:#000;
+}
+
+.green{
+  background:#20c76a;
+  color:#fff;
+}
+
+.red{
+  background:#e53935;
+  color:#fff;
+}
+
+.blue{
+  background:#1976d2;
+  color:#fff;
+}
+
+.gray{
+  background:#444;
+  color:#fff;
 }
 
 input,select,textarea{
   width:100%;
-  padding:12px;
-  margin:7px 0;
-  background:#080808;
-  color:#fff;
-  border:1px solid #555;
+  padding:11px;
+  margin:7px 0 12px;
   border-radius:8px;
+  border:1px solid #444;
+  background:#0e0e0e;
+  color:#fff;
 }
 
 textarea{
@@ -59,95 +88,118 @@ textarea{
   resize:vertical;
 }
 
-button{
-  padding:10px 16px;
-  border:0;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:bold;
-  margin:4px;
+.small{
+  color:#aaa;
+  font-size:14px;
 }
 
-.primary{background:#d4af37;color:#000}
-.success{background:#16803c;color:#fff}
-.danger{background:#b3261e;color:#fff}
-.info{background:#1769aa;color:#fff}
-.secondary{background:#444;color:#fff}
-
-button:hover{opacity:.85}
-
-.message{
-  padding:12px;
-  border-radius:8px;
-  margin:10px 0;
-  background:#191919;
+.hidden{
+  display:none;
 }
 
-.login-box{
-  max-width:450px;
-  margin:70px auto;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
   margin-bottom:20px;
+  flex-wrap:wrap;
 }
 
-.stat{
-  background:#151515;
-  border:1px solid #333;
-  border-radius:12px;
-  padding:18px;
-  text-align:center;
-}
-
-.stat strong{
-  display:block;
+.logo-title{
   font-size:28px;
-  color:#d4af37;
-  margin-top:8px;
-}
-
-.president{
-  border:2px solid #d4af37;
-  background:linear-gradient(135deg,#111,#171205);
-}
-
-.president-title{
-  font-size:25px;
-  color:#d4af37;
   font-weight:bold;
 }
 
-.president-name{
-  margin-top:8px;
-  font-size:18px;
-}
-
-.badge{
+.admin-badge{
   display:inline-block;
-  padding:5px 9px;
-  border-radius:15px;
+  background:#ffd700;
+  color:#000;
+  padding:6px 10px;
+  border-radius:20px;
   font-size:12px;
   font-weight:bold;
 }
 
-.pending{background:#7a5b00;color:#fff}
-.approved{background:#146b35;color:#fff}
-.rejected{background:#8b1e1e;color:#fff}
-.used{background:#555;color:#fff}
-.unused{background:#1769aa;color:#fff}
+/* LOGIN */
+
+.login-box{
+  max-width:450px;
+  margin:70px auto;
+  text-align:center;
+}
+
+/* DASHBOARD */
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-top:18px;
+}
+
+.stat-card{
+  background:#101010;
+  border:1px solid #333;
+  border-radius:13px;
+  padding:18px;
+  text-align:center;
+}
+
+.stat-icon{
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.stat-number{
+  font-size:30px;
+  font-weight:bold;
+  color:#ffd700;
+}
+
+.stat-title{
+  color:#aaa;
+  margin-top:5px;
+  font-size:14px;
+}
+
+/* PRESIDENT */
+
+.president{
+  border:1px solid #ffd700;
+}
+
+.president-title{
+  color:#ffd700;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.president-name{
+  margin-top:10px;
+  font-size:18px;
+}
+
+.score-box{
+  background:#0e0e0e;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:15px;
+  margin-top:15px;
+}
+
+/* TABLE */
 
 .table-wrap{
+  width:100%;
   overflow-x:auto;
+  margin-top:15px;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:950px;
+  min-width:900px;
 }
 
 th,td{
@@ -158,49 +210,108 @@ th,td{
 }
 
 th{
-  background:#1c1c1c;
-  color:#d4af37;
+  background:#222;
+  color:#ffd700;
 }
 
 td{
-  background:#0d0d0d;
+  background:#101010;
 }
 
-.small{
-  color:#aaa;
-  font-size:13px;
+.status{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:15px;
+  font-size:12px;
+  font-weight:bold;
 }
 
-.answer-box{
-  background:#151515;
+.pending{
+  background:#8a6500;
+  color:#fff;
+}
+
+.approved{
+  background:#168f4b;
+  color:#fff;
+}
+
+.rejected{
+  background:#a52222;
+  color:#fff;
+}
+
+.pass{
+  background:#168f4b;
+  color:#fff;
+}
+
+.fail{
+  background:#a52222;
+  color:#fff;
+}
+
+.action-row{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.result-box{
+  background:#101010;
   border:1px solid #333;
   border-radius:10px;
-  padding:12px;
-  margin:8px 0;
-  white-space:pre-wrap;
+  padding:15px;
+  margin-top:10px;
 }
 
-.score-box{
-  background:#191919;
-  border:1px solid #444;
-  border-radius:10px;
+.message{
   padding:12px;
-  margin:8px 0;
+  border-radius:8px;
+  margin-top:10px;
+  background:#202020;
 }
 
-footer{
-  text-align:center;
-  padding:25px;
-  color:#777;
+.success{
+  border:1px solid #20c76a;
+}
+
+.error{
+  border:1px solid #e53935;
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+  .stats-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
 }
 
 @media(max-width:600px){
-  .container{width:96%}
-  .card{padding:14px}
+  .container{
+    width:94%;
+  }
+
+  .stats-grid{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .stat-card{
+    padding:13px 8px;
+  }
+
+  .stat-number{
+    font-size:24px;
+  }
+
+  .logo-title{
+    font-size:22px;
+  }
 
   button{
-    width:100%;
-    margin:4px 0;
+    padding:9px 11px;
   }
 }
 </style>
@@ -208,89 +319,139 @@ footer{
 
 <body>
 
-<header>
-  <h1>👑 Classic Empire Ltd</h1>
-  <p>Administration Control Panel</p>
-</header>
+<div class="container">
 
+<!-- LOGIN -->
 
-<!-- =========================
-     LOGIN
-========================= -->
+<div id="loginSection" class="login-box card">
 
-<div id="loginSection" class="container">
+  <h1>🔐 Admin Login</h1>
 
-  <div class="card login-box">
+  <p class="small" style="margin:12px 0 20px">
+    Classic Empire Ltd Administration
+  </p>
 
-    <h2>🔐 Admin Login</h2>
+  <input
+    type="email"
+    id="loginEmail"
+    placeholder="Admin Email"
+  >
 
-    <input
-      type="email"
-      id="loginEmail"
-      placeholder="Admin Email"
-    >
+  <input
+    type="password"
+    id="loginPassword"
+    placeholder="Password"
+  >
 
-    <input
-      type="password"
-      id="loginPassword"
-      placeholder="Password"
-    >
+  <button class="gold" onclick="login()">
+    Login
+  </button>
 
-    <button
-      class="primary"
-      onclick="adminLogin()"
-    >
-      Login
-    </button>
-
-    <div id="loginMessage"></div>
-
-  </div>
+  <div id="loginMessage"></div>
 
 </div>
 
 
-<!-- =========================
-     ADMIN PANEL
-========================= -->
+<!-- ADMIN -->
 
-<div id="adminPanel" style="display:none">
+<div id="adminSection" class="hidden">
 
-<div class="container">
+<!-- TOP -->
+
+<div class="topbar">
+
+  <div>
+    <div class="logo-title">
+      👑 Classic Empire Ltd
+    </div>
+
+    <div class="small">
+      Administration Control Panel
+      <span class="admin-badge">ADMIN</span>
+    </div>
+  </div>
+
+  <button class="red" onclick="logout()">
+    Logout
+  </button>
+
+</div>
 
 
-<!-- TOP CONTROL -->
+<!-- DASHBOARD -->
 
 <div class="card">
 
-  <h2>⚙️ Admin Control</h2>
+  <h2>📊 Admin Dashboard</h2>
 
-  <p class="small">
-    Classic Empire Ltd Administration System
+  <p class="small" style="margin-top:7px">
+    Live statistics from Classic Empire Ltd database.
   </p>
 
-  <button
-    class="primary"
-    onclick="refreshAll()"
-  >
-    🔄 Refresh All
-  </button>
+  <div class="stats-grid">
+
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <div class="stat-number" id="totalApplications">0</div>
+      <div class="stat-title">Total Applications</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">🟡</div>
+      <div class="stat-number" id="pendingApplications">0</div>
+      <div class="stat-title">Pending Applications</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">🟢</div>
+      <div class="stat-number" id="approvedApplications">0</div>
+      <div class="stat-title">Approved Applications</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">🔴</div>
+      <div class="stat-number" id="rejectedApplications">0</div>
+      <div class="stat-title">Rejected Applications</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">🔑</div>
+      <div class="stat-number" id="totalCodes">0</div>
+      <div class="stat-title">Total Exam Codes</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">📝</div>
+      <div class="stat-number" id="totalSubmissions">0</div>
+      <div class="stat-title">Total Submissions</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">🏆</div>
+      <div class="stat-number" id="passedExams">0</div>
+      <div class="stat-title">Passed</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">❌</div>
+      <div class="stat-number" id="failedExams">0</div>
+      <div class="stat-title">Failed</div>
+    </div>
+
+  </div>
 
   <button
-    class="danger"
-    onclick="logoutAdmin()"
+    class="gold"
+    style="margin-top:18px"
+    onclick="loadAll()"
   >
-    🚪 Logout
+    🔄 Refresh Dashboard
   </button>
-
-  <div id="adminMessage"></div>
 
 </div>
 
 
-<!-- =========================
-     PRESIDENT CONTROL
-========================= -->
+<!-- PRESIDENT CONTROL -->
 
 <div class="card president">
 
@@ -322,279 +483,238 @@ footer{
 </div>
 
 
-<!-- =========================
-     STATISTICS
-========================= -->
-
-<div class="stats">
-
-  <div class="stat">
-    Applications
-    <strong id="applicationCount">0</strong>
-  </div>
-
-  <div class="stat">
-    Pending
-    <strong id="pendingCount">0</strong>
-  </div>
-
-  <div class="stat">
-    Approved
-    <strong id="approvedCount">0</strong>
-  </div>
-
-  <div class="stat">
-    Exam Codes
-    <strong id="codeCount">0</strong>
-  </div>
-
-  <div class="stat">
-    Submissions
-    <strong id="submissionCount">0</strong>
-  </div>
-
-</div>
-
-
-<!-- =========================
-     APPLICATIONS
-========================= -->
+<!-- APPLICATIONS -->
 
 <div class="card">
 
-<h2>📋 Applicant Applications</h2>
+  <h2>📋 Applications</h2>
 
-<div class="table-wrap">
+  <div class="table-wrap">
 
-<table>
+    <table>
 
-<thead>
-<tr>
-<th>ID</th>
-<th>Applicant</th>
-<th>Age</th>
-<th>Class</th>
-<th>Post</th>
-<th>Email</th>
-<th>Contact</th>
-<th>Reason</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
-</thead>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Applicant</th>
+          <th>Age</th>
+          <th>Class</th>
+          <th>Post</th>
+          <th>Email</th>
+          <th>Contact</th>
+          <th>Reason</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
 
-<tbody id="applicationsBody">
+      <tbody id="applicationsBody">
 
-<tr>
-<td colspan="10">Loading...</td>
-</tr>
+        <tr>
+          <td colspan="10">
+            Loading...
+          </td>
+        </tr>
 
-</tbody>
+      </tbody>
 
-</table>
+    </table>
+
+  </div>
 
 </div>
 
-</div>
 
-
-<!-- =========================
-     EXAM CODE GENERATOR
-========================= -->
+<!-- EXAM CODE GENERATOR -->
 
 <div class="card">
 
-<h2>🎟️ Exam Code Generator</h2>
+  <h2>🔑 Exam Code Generator</h2>
 
-<input
-  type="text"
-  id="codeApplicantName"
-  placeholder="Applicant Name"
->
+  <p class="small" style="margin:8px 0">
+    केवल Approved applicant के लिए Exam Code generate करें।
+  </p>
 
-<select id="codePost">
+  <input
+    id="codeApplicantName"
+    placeholder="Applicant Name"
+  >
 
-<option value="">
-Select Post
-</option>
+  <select id="codePost">
 
-<option value="President's Assistant">
-President's Assistant
-</option>
+    <option value="">Select Post</option>
 
-<option value="DM">
-DM
-</option>
+    <option>President's Assistant</option>
+    <option>DM</option>
+    <option>DM's Assistant</option>
+    <option>SDM</option>
+    <option>SP</option>
+    <option>DSP</option>
 
-<option value="DM's Assistant">
-DM's Assistant
-</option>
+  </select>
 
-<option value="SDM">
-SDM
-</option>
+  <button class="gold" onclick="generateCode()">
+    🔑 Generate Exam Code
+  </button>
 
-<option value="SP">
-SP
-</option>
-
-<option value="DSP">
-DSP
-</option>
-
-</select>
-
-<button
-  class="primary"
-  onclick="generateCode()"
->
-🎟️ Generate Exam Code
-</button>
-
-<div id="generatedCode"></div>
+  <div id="codeMessage"></div>
 
 </div>
 
 
-<!-- =========================
-     EXAM CODE HISTORY
-========================= -->
+<!-- CODE HISTORY -->
 
 <div class="card">
 
-<h2>🎫 Exam Code History</h2>
+  <h2>📜 Exam Code History</h2>
 
-<div class="table-wrap">
+  <div class="table-wrap">
 
-<table>
+    <table>
 
-<thead>
-<tr>
-<th>ID</th>
-<th>Code</th>
-<th>Applicant</th>
-<th>Post</th>
-<th>Status</th>
-<th>Created</th>
-</tr>
-</thead>
+      <thead>
 
-<tbody id="codesBody">
+        <tr>
+          <th>ID</th>
+          <th>Code</th>
+          <th>Applicant</th>
+          <th>Post</th>
+          <th>Status</th>
+          <th>Created</th>
+        </tr>
 
-<tr>
-<td colspan="6">Loading...</td>
-</tr>
+      </thead>
 
-</tbody>
+      <tbody id="codesBody">
 
-</table>
+        <tr>
+          <td colspan="6">
+            Loading...
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
 
 </div>
 
-</div>
 
-
-<!-- =========================
-     PRESIDENT SUBJECTIVE CHECKING
-========================= -->
+<!-- PRESIDENT SUBJECTIVE CHECKING -->
 
 <div class="card president">
 
-<h2>✍️ President Subjective Checking</h2>
+  <h2>✍️ President Subjective Checking</h2>
 
-<p class="small">
-Exam देने वाले applicants के subjective answers यहाँ दिखाई देंगे।
-President यहाँ marks देकर result finalize करेगा।
-</p>
+  <p class="small">
 
-<div class="table-wrap">
+    Exam देने वाले applicants के subjective answers यहाँ दिखाई देंगे।
+    President यहाँ marks देकर result finalize करेगा।
 
-<table>
+  </p>
 
-<thead>
-<tr>
-<th>ID</th>
-<th>Applicant</th>
-<th>Post</th>
-<th>Objective</th>
-<th>Subjective Answers</th>
-<th>Subjective Marks</th>
-<th>Total</th>
-<th>Final Result</th>
-<th>Action</th>
-</tr>
-</thead>
+  <div class="table-wrap">
 
-<tbody id="presidentSubmissionsBody">
+    <table>
 
-<tr>
-<td colspan="9">Loading...</td>
-</tr>
+      <thead>
 
-</tbody>
+        <tr>
+          <th>ID</th>
+          <th>Applicant</th>
+          <th>Post</th>
+          <th>Objective</th>
+          <th>Subjective Answers</th>
+          <th>Subjective Marks</th>
+          <th>Total</th>
+          <th>Final Result</th>
+          <th>Action</th>
+        </tr>
 
-</table>
+      </thead>
+
+      <tbody id="presidentSubmissionsBody">
+
+        <tr>
+          <td colspan="9">
+            Loading...
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
 
 </div>
 
-</div>
 
-
-<!-- =========================
-     FULL SUBMISSION HISTORY
-========================= -->
+<!-- ALL SUBMISSIONS -->
 
 <div class="card">
 
-<h2>📝 Exam Submission History</h2>
+  <h2>📊 Full Exam Submission History</h2>
 
-<div class="table-wrap">
+  <div class="table-wrap">
 
-<table>
+    <table>
 
-<thead>
-<tr>
-<th>ID</th>
-<th>Applicant</th>
-<th>Post</th>
-<th>Code</th>
-<th>Objective</th>
-<th>Subjective</th>
-<th>Total</th>
-<th>Result</th>
-<th>Submitted</th>
-</tr>
-</thead>
+      <thead>
 
-<tbody id="submissionsBody">
+        <tr>
+          <th>ID</th>
+          <th>Applicant</th>
+          <th>Post</th>
+          <th>Objective</th>
+          <th>Subjective</th>
+          <th>Total /28</th>
+          <th>Result</th>
+          <th>Submitted</th>
+        </tr>
 
-<tr>
-<td colspan="9">Loading...</td>
-</tr>
+      </thead>
 
-</tbody>
+      <tbody id="submissionsBody">
 
-</table>
+        <tr>
+          <td colspan="8">
+            Loading...
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
+<!-- AUTO REFRESH -->
+
+<div class="card">
+
+  <h3>🔄 Auto Refresh</h3>
+
+  <p class="small" style="margin-top:7px">
+    Dashboard और records हर 30 seconds में automatically refresh होंगे।
+  </p>
+
+  <div id="lastRefresh" class="small" style="margin-top:7px">
+    Last refresh: --
+  </div>
 
 </div>
 
 </div>
-
-
 </div>
-</div>
-
-
-<footer>
-Classic Empire Ltd © 2026
-</footer>
 
 
 <script>
-
-/* =========================
-   SUPABASE
-========================= */
 
 const SUPABASE_URL =
 "https://hjatspkzgoddcpgwfkxo.supabase.co";
@@ -602,64 +722,50 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
-let currentSession = null;
+let accessToken = null;
 
 
 /* =========================
    SUPABASE REQUEST
 ========================= */
 
-async function supabaseRequest(
-  endpoint,
-  options={}
-){
+async function supabaseRPC(functionName, body){
 
-  const response =
-    await fetch(
-      SUPABASE_URL + endpoint,
-      {
-        ...options,
+  const response = await fetch(
+    SUPABASE_URL +
+    "/rest/v1/rpc/" +
+    functionName,
+    {
+      method:"POST",
 
-        headers:{
-          "apikey":SUPABASE_KEY,
+      headers:{
+        "Content-Type":"application/json",
+        "apikey":SUPABASE_KEY,
+        "Authorization":
+          "Bearer " +
+          (accessToken || SUPABASE_KEY)
+      },
 
-          "Authorization":
-            "Bearer " +
-            (
-              currentSession?.access_token ||
-              SUPABASE_KEY
-            ),
+      body:JSON.stringify(body || {})
+    }
+  );
 
-          "Content-Type":
-            "application/json",
-
-          ...(options.headers || {})
-        }
-      }
-    );
-
-  const text =
-    await response.text();
+  const text = await response.text();
 
   let data;
 
   try{
-    data =
-      text ? JSON.parse(text) : null;
-  }
-  catch{
+    data = JSON.parse(text);
+  }catch{
     data = text;
   }
 
   if(!response.ok){
-
     throw new Error(
-      data?.message ||
-      data?.error_description ||
-      data?.error ||
-      "Request failed"
+      typeof data === "string"
+      ? data
+      : JSON.stringify(data)
     );
-
   }
 
   return data;
@@ -667,41 +773,29 @@ async function supabaseRequest(
 
 
 /* =========================
-   ADMIN LOGIN
+   LOGIN
 ========================= */
 
-async function adminLogin(){
+async function login(){
 
   const email =
-    document
-      .getElementById("loginEmail")
-      .value
-      .trim();
+    document.getElementById("loginEmail").value.trim();
 
   const password =
-    document
-      .getElementById("loginPassword")
-      .value;
+    document.getElementById("loginPassword").value;
 
   const message =
-    document.getElementById(
-      "loginMessage"
-    );
+    document.getElementById("loginMessage");
 
   if(!email || !password){
 
     message.innerHTML =
-      '<div class="message">' +
-      'Email और Password भरें।' +
-      '</div>';
+      `<div class="message error">
+        Email और Password भरें।
+      </div>`;
 
     return;
   }
-
-  message.innerHTML =
-    '<div class="message">' +
-    'Login हो रहा है...' +
-    '</div>';
 
   try{
 
@@ -713,9 +807,8 @@ async function adminLogin(){
           method:"POST",
 
           headers:{
-            "apikey":SUPABASE_KEY,
-            "Content-Type":
-              "application/json"
+            "Content-Type":"application/json",
+            "apikey":SUPABASE_KEY
           },
 
           body:JSON.stringify({
@@ -725,8 +818,7 @@ async function adminLogin(){
         }
       );
 
-    const data =
-      await response.json();
+    const data = await response.json();
 
     if(!response.ok){
 
@@ -738,58 +830,49 @@ async function adminLogin(){
 
     }
 
-    currentSession = data;
+    accessToken =
+      data.access_token;
 
-
-    const adminCheck =
-      await supabaseRequest(
-        "/rest/v1/rpc/check_admin",
-        {
-          method:"POST",
-          body:"{}"
-        }
+    const admin =
+      await supabaseRPC(
+        "check_admin",
+        {}
       );
 
-
     if(
-      !adminCheck ||
-      adminCheck.is_admin !== true
+      !admin ||
+      admin.is_admin !== true
     ){
 
-      currentSession = null;
+      accessToken = null;
 
       throw new Error(
-        "यह Account Admin नहीं है।"
+        "यह account Admin नहीं है।"
       );
 
     }
 
+    sessionStorage.setItem(
+      "ce_admin_token",
+      accessToken
+    );
 
     document
-      .getElementById(
-        "loginSection"
-      )
-      .style.display="none";
-
+      .getElementById("loginSection")
+      .classList.add("hidden");
 
     document
-      .getElementById(
-        "adminPanel"
-      )
-      .style.display="block";
+      .getElementById("adminSection")
+      .classList.remove("hidden");
 
+    await loadAll();
 
-    await refreshAll();
-
-  }
-  catch(error){
-
-    currentSession = null;
+  }catch(error){
 
     message.innerHTML =
-      '<div class="message">' +
-      escapeHtml(error.message) +
-      '</div>';
+      `<div class="message error">
+        ${escapeHTML(error.message)}
+      </div>`;
 
   }
 
@@ -800,55 +883,66 @@ async function adminLogin(){
    LOGOUT
 ========================= */
 
-function logoutAdmin(){
+function logout(){
 
-  currentSession = null;
+  accessToken = null;
 
-  document
-    .getElementById(
-      "adminPanel"
-    )
-    .style.display="none";
+  sessionStorage.removeItem(
+    "ce_admin_token"
+  );
 
-  document
-    .getElementById(
-      "loginSection"
-    )
-    .style.display="block";
-
-  document
-    .getElementById(
-      "loginPassword"
-    )
-    .value="";
+  location.reload();
 
 }
 
 
 /* =========================
-   REFRESH ALL
+   CHECK SAVED LOGIN
 ========================= */
 
-async function refreshAll(){
+async function restoreLogin(){
 
-  if(!currentSession){
-    return;
-  }
+  const token =
+    sessionStorage.getItem(
+      "ce_admin_token"
+    );
+
+  if(!token) return;
+
+  accessToken = token;
 
   try{
 
-    await loadApplications();
+    const admin =
+      await supabaseRPC(
+        "check_admin",
+        {}
+      );
 
-    await loadExamCodes();
+    if(
+      admin &&
+      admin.is_admin === true
+    ){
 
-    await loadSubmissions();
+      document
+        .getElementById("loginSection")
+        .classList.add("hidden");
 
-  }
-  catch(error){
+      document
+        .getElementById("adminSection")
+        .classList.remove("hidden");
 
-    showAdminMessage(
-      error.message
-    );
+      await loadAll();
+
+    }else{
+
+      logout();
+
+    }
+
+  }catch{
+
+    logout();
 
   }
 
@@ -859,200 +953,150 @@ async function refreshAll(){
    APPLICATIONS
 ========================= */
 
+let applicationsData = [];
+
 async function loadApplications(){
+
+  try{
+
+    const data =
+      await supabaseRPC(
+        "get_applications",
+        {}
+      );
+
+    applicationsData =
+      Array.isArray(data)
+      ? data
+      : [];
+
+    renderApplications();
+
+  }catch(error){
+
+    document
+      .getElementById("applicationsBody")
+      .innerHTML =
+      `<tr>
+        <td colspan="10">
+          ${escapeHTML(error.message)}
+        </td>
+      </tr>`;
+
+  }
+
+}
+
+
+function renderApplications(){
 
   const body =
     document.getElementById(
       "applicationsBody"
     );
 
-  body.innerHTML =
-    '<tr><td colspan="10">Loading...</td></tr>';
-
-
-  const data =
-    await supabaseRequest(
-      "/rest/v1/rpc/get_applications",
-      {
-        method:"POST",
-        body:"{}"
-      }
-    );
-
-
-  const applications =
-    Array.isArray(data)
-      ? data
-      : [];
-
-
-  document
-    .getElementById(
-      "applicationCount"
-    )
-    .textContent =
-      applications.length;
-
-
-  let pending = 0;
-  let approved = 0;
-
-
-  applications.forEach(
-    app => {
-
-      if(app.status === "Pending"){
-        pending++;
-      }
-
-      if(app.status === "Approved"){
-        approved++;
-      }
-
-    }
-  );
-
-
-  document
-    .getElementById(
-      "pendingCount"
-    )
-    .textContent =
-      pending;
-
-
-  document
-    .getElementById(
-      "approvedCount"
-    )
-    .textContent =
-      approved;
-
-
-  if(applications.length === 0){
+  if(!applicationsData.length){
 
     body.innerHTML =
-      '<tr>' +
-      '<td colspan="10">' +
-      'कोई Application नहीं मिली।' +
-      '</td>' +
-      '</tr>';
+      `<tr>
+        <td colspan="10">
+          No applications found.
+        </td>
+      </tr>`;
 
     return;
+
   }
 
-
   body.innerHTML =
-    applications
-      .map(app => {
+    applicationsData.map(app => {
 
-        let statusClass =
-          "pending";
+      const status =
+        app.status || "Pending";
 
+      let statusClass =
+        "pending";
 
-        if(app.status === "Approved"){
-          statusClass = "approved";
-        }
+      if(status === "Approved")
+        statusClass = "approved";
 
+      if(status === "Rejected")
+        statusClass = "rejected";
 
-        if(app.status === "Rejected"){
-          statusClass = "rejected";
-        }
+      return `
+      <tr>
 
+        <td>${app.id ?? "-"}</td>
 
-        let action = "";
+        <td>
+          ${escapeHTML(app.applicant_name || "-")}
+        </td>
 
+        <td>
+          ${escapeHTML(app.age || "-")}
+        </td>
 
-        if(app.status === "Pending"){
+        <td>
+          ${escapeHTML(app.class || "-")}
+        </td>
 
-          action =
-            '<button class="success" ' +
-            'onclick="changeApplicationStatus(' +
-            app.id +
-            ',\'Approved\')">' +
-            'Approve' +
-            '</button>' +
+        <td>
+          ${escapeHTML(app.post || "-")}
+        </td>
 
-            '<button class="danger" ' +
-            'onclick="changeApplicationStatus(' +
-            app.id +
-            ',\'Rejected\')">' +
-            'Reject' +
-            '</button>';
+        <td>
+          ${escapeHTML(app.applicant_email || "-")}
+        </td>
 
-        }
+        <td>
+          ${escapeHTML(app.contact_number || "-")}
+        </td>
 
+        <td>
+          ${escapeHTML(app.reason || "-")}
+        </td>
 
-        if(app.status === "Approved"){
+        <td>
+          <span class="status ${statusClass}">
+            ${escapeHTML(status)}
+          </span>
+        </td>
 
-          action =
-            '<button class="primary" ' +
-            'onclick="prepareCode(' +
-            escapeJs(app.applicant_name) +
-            ',' +
-            escapeJs(app.post) +
-            ')">' +
-            'Generate Code' +
-            '</button>';
+        <td>
 
-        }
+          <div class="action-row">
 
+            <button
+              class="green"
+              onclick="changeApplicationStatus(
+                ${app.id},
+                'Approved'
+              )"
+            >
+              Approve
+            </button>
 
-        return `
-<tr>
+            <button
+              class="red"
+              onclick="changeApplicationStatus(
+                ${app.id},
+                'Rejected'
+              )"
+            >
+              Reject
+            </button>
 
-<td>${app.id}</td>
+          </div>
 
-<td>
-${escapeHtml(app.applicant_name || "")}
-</td>
+        </td>
 
-<td>
-${escapeHtml(app.age || "")}
-</td>
+      </tr>
+      `;
 
-<td>
-${escapeHtml(app.class || "")}
-</td>
-
-<td>
-${escapeHtml(app.post || "")}
-</td>
-
-<td>
-${escapeHtml(app.applicant_email || "")}
-</td>
-
-<td>
-${escapeHtml(app.contact_number || "")}
-</td>
-
-<td>
-${escapeHtml(app.reason || "")}
-</td>
-
-<td>
-<span class="badge ${statusClass}">
-${escapeHtml(app.status || "")}
-</span>
-</td>
-
-<td>
-${action}
-</td>
-
-</tr>
-`;
-
-      })
-      .join("");
+    }).join("");
 
 }
 
-
-/* =========================
-   CHANGE APPLICATION STATUS
-========================= */
 
 async function changeApplicationStatus(
   id,
@@ -1061,45 +1105,31 @@ async function changeApplicationStatus(
 
   if(
     !confirm(
-      "Application को " +
-      status +
-      " करना है?"
+      `Application को ${status} करना है?`
     )
   ){
     return;
   }
 
-
   try{
 
-    await supabaseRequest(
-      "/rest/v1/rpc/update_application_status",
+    await supabaseRPC(
+      "update_application_status",
       {
-        method:"POST",
-
-        body:JSON.stringify({
-          input_application_id:id,
-          input_status:status
-        })
+        input_application_id:id,
+        input_status:status
       }
     );
 
-
-    showAdminMessage(
-      "Application " +
-      status +
-      " कर दी गई।"
+    alert(
+      "Application status updated."
     );
 
+    await loadAll();
 
-    await loadApplications();
+  }catch(error){
 
-  }
-  catch(error){
-
-    showAdminMessage(
-      error.message
-    );
+    alert(error.message);
 
   }
 
@@ -1107,43 +1137,7 @@ async function changeApplicationStatus(
 
 
 /* =========================
-   PREPARE CODE
-========================= */
-
-function prepareCode(
-  applicantName,
-  post
-){
-
-  document
-    .getElementById(
-      "codeApplicantName"
-    )
-    .value =
-      applicantName;
-
-
-  document
-    .getElementById(
-      "codePost"
-    )
-    .value =
-      post;
-
-
-  document
-    .getElementById(
-      "codeApplicantName"
-    )
-    .scrollIntoView({
-      behavior:"smooth"
-    });
-
-}
-
-
-/* =========================
-   GENERATE EXAM CODE
+   EXAM CODE GENERATOR
 ========================= */
 
 async function generateCode(){
@@ -1156,7 +1150,6 @@ async function generateCode(){
       .value
       .trim();
 
-
   const post =
     document
       .getElementById(
@@ -1164,73 +1157,64 @@ async function generateCode(){
       )
       .value;
 
-
-  const output =
+  const message =
     document.getElementById(
-      "generatedCode"
+      "codeMessage"
     );
-
 
   if(!applicantName || !post){
 
-    output.innerHTML =
-      '<div class="message">' +
-      'Applicant Name और Post चुनें।' +
-      '</div>';
+    message.innerHTML =
+      `<div class="message error">
+        Applicant Name और Post भरें।
+      </div>`;
 
     return;
+
   }
-
-
-  output.innerHTML =
-    '<div class="message">' +
-    'Code generate हो रहा है...' +
-    '</div>';
-
 
   try{
 
     const data =
-      await supabaseRequest(
-        "/rest/v1/rpc/generate_exam_code",
+      await supabaseRPC(
+        "generate_exam_code",
         {
-          method:"POST",
+          input_applicant_name:
+            applicantName,
 
-          body:JSON.stringify({
-            input_applicant_name:
-              applicantName,
-
-            input_post:
-              post
-          })
+          input_post:
+            post
         }
       );
 
+    message.innerHTML =
+      `<div class="message success">
+        🔑 Exam Code:
+        <strong>
+          ${escapeHTML(String(data))}
+        </strong>
+      </div>`;
 
-    const code =
-      typeof data === "string"
-        ? data
-        : data?.code || "";
+    document
+      .getElementById(
+        "codeApplicantName"
+      )
+      .value = "";
 
+    document
+      .getElementById(
+        "codePost"
+      )
+      .value = "";
 
-    output.innerHTML =
-      '<div class="message">' +
-      '<strong>Exam Code:</strong><br><br>' +
-      '<span style="font-size:25px;color:#d4af37">' +
-      escapeHtml(code) +
-      '</span>' +
-      '</div>';
+    await loadAll();
 
+  }catch(error){
 
-    await loadExamCodes();
-
-  }
-  catch(error){
-
-    output.innerHTML =
-      '<div class="message">' +
-      escapeHtml(error.message) +
-      '</div>';
+    message.innerHTML =
+      `<div class="message error">
+        ${escapeHTML(error.message)}
+      </div>`;
 
   }
 
@@ -1241,347 +1225,382 @@ async function generateCode(){
    EXAM CODES
 ========================= */
 
-async function loadExamCodes(){
+async function loadCodes(){
 
-  const body =
-    document.getElementById(
-      "codesBody"
-    );
+  try{
 
+    const data =
+      await supabaseRPC(
+        "get_exam_codes",
+        {}
+      );
 
-  body.innerHTML =
-    '<tr><td colspan="6">Loading...</td></tr>';
-
-
-  const data =
-    await supabaseRequest(
-      "/rest/v1/rpc/get_exam_codes",
-      {
-        method:"POST",
-        body:"{}"
-      }
-    );
-
-
-  const codes =
-    Array.isArray(data)
+    const codes =
+      Array.isArray(data)
       ? data
       : [];
 
+    const body =
+      document.getElementById(
+        "codesBody"
+      );
 
-  document
-    .getElementById(
-      "codeCount"
-    )
-    .textContent =
-      codes.length;
+    if(!codes.length){
 
+      body.innerHTML =
+        `<tr>
+          <td colspan="6">
+            No exam codes found.
+          </td>
+        </tr>`;
 
-  if(codes.length === 0){
+      return;
+
+    }
 
     body.innerHTML =
-      '<tr>' +
-      '<td colspan="6">' +
-      'कोई Exam Code नहीं है।' +
-      '</td>' +
-      '</tr>';
+      codes.map(code => {
 
-    return;
-  }
-
-
-  body.innerHTML =
-    codes
-      .map(code => {
-
-        const status =
-          code.used
-
-          ? '<span class="badge used">Used</span>'
-
-          : '<span class="badge unused">Unused</span>';
-
+        const used =
+          code.used === true;
 
         return `
-<tr>
+        <tr>
 
-<td>${code.id}</td>
+          <td>${code.id ?? "-"}</td>
 
-<td>
-<strong>
-${escapeHtml(code.code || "")}
-</strong>
-</td>
+          <td>
+            <strong>
+              ${escapeHTML(code.code || "-")}
+            </strong>
+          </td>
 
-<td>
-${escapeHtml(code.applicant_name || "")}
-</td>
+          <td>
+            ${escapeHTML(
+              code.applicant_name || "-"
+            )}
+          </td>
 
-<td>
-${escapeHtml(code.post || "")}
-</td>
+          <td>
+            ${escapeHTML(
+              code.post || "-"
+            )}
+          </td>
 
-<td>
-${status}
-</td>
+          <td>
 
-<td>
-${formatDate(code.created_at)}
-</td>
+            <span class="status ${
+              used ? "rejected" : "approved"
+            }">
 
-</tr>
-`;
+              ${
+                used
+                ? "Used"
+                : "Unused"
+              }
 
-      })
-      .join("");
+            </span>
+
+          </td>
+
+          <td>
+            ${
+              code.created_at
+              ? new Date(
+                  code.created_at
+                ).toLocaleString()
+              : "-"
+            }
+          </td>
+
+        </tr>
+        `;
+
+      }).join("");
+
+  }catch(error){
+
+    document
+      .getElementById("codesBody")
+      .innerHTML =
+      `<tr>
+        <td colspan="6">
+          ${escapeHTML(error.message)}
+        </td>
+      </tr>`;
+
+  }
 
 }
 
 
 /* =========================
-   EXAM SUBMISSIONS
+   SUBMISSIONS
 ========================= */
 
+let submissionsData = [];
+
 async function loadSubmissions(){
+
+  try{
+
+    const data =
+      await supabaseRPC(
+        "get_exam_submissions",
+        {}
+      );
+
+    submissionsData =
+      Array.isArray(data)
+      ? data
+      : [];
+
+    renderSubmissions();
+
+  }catch(error){
+
+    document
+      .getElementById(
+        "submissionsBody"
+      )
+      .innerHTML =
+      `<tr>
+        <td colspan="8">
+          ${escapeHTML(error.message)}
+        </td>
+      </tr>`;
+
+  }
+
+}
+
+
+function renderSubmissions(){
 
   const body =
     document.getElementById(
       "submissionsBody"
     );
 
-
   const presidentBody =
     document.getElementById(
       "presidentSubmissionsBody"
     );
 
-
-  body.innerHTML =
-    '<tr><td colspan="9">Loading...</td></tr>';
-
-
-  presidentBody.innerHTML =
-    '<tr><td colspan="9">Loading...</td></tr>';
-
-
-  const data =
-    await supabaseRequest(
-      "/rest/v1/rpc/get_exam_submissions",
-      {
-        method:"POST",
-        body:"{}"
-      }
-    );
-
-
-  const submissions =
-    Array.isArray(data)
-      ? data
-      : [];
-
-
-  document
-    .getElementById(
-      "submissionCount"
-    )
-    .textContent =
-      submissions.length;
-
-
-  if(submissions.length === 0){
+  if(!submissionsData.length){
 
     body.innerHTML =
-      '<tr>' +
-      '<td colspan="9">' +
-      'अभी कोई Exam Submission नहीं है।' +
-      '</td>' +
-      '</tr>';
-
+      `<tr>
+        <td colspan="8">
+          No exam submissions found.
+        </td>
+      </tr>`;
 
     presidentBody.innerHTML =
-      '<tr>' +
-      '<td colspan="9">' +
-      'अभी कोई Subjective Checking नहीं है।' +
-      '</td>' +
-      '</tr>';
-
+      `<tr>
+        <td colspan="9">
+          No exam submissions found.
+        </td>
+      </tr>`;
 
     return;
+
   }
 
 
-  /* FULL HISTORY */
-
   body.innerHTML =
-    submissions
-      .map(sub => {
+    submissionsData.map(row => {
 
-        return `
-<tr>
+      const result =
+        row.final_result || "Pending";
 
-<td>${sub.id}</td>
+      const resultClass =
+        result === "Pass"
+        ? "pass"
+        : result === "Fail"
+          ? "fail"
+          : "pending";
 
-<td>
-${escapeHtml(sub.applicant_name || "")}
-</td>
+      return `
+      <tr>
 
-<td>
-${escapeHtml(sub.post || "")}
-</td>
+        <td>${row.id ?? "-"}</td>
 
-<td>
-${escapeHtml(sub.exam_code || "")}
-</td>
+        <td>
+          ${escapeHTML(
+            row.applicant_name || "-"
+          )}
+        </td>
 
-<td>
-${sub.objective_score ?? 0}/18
-</td>
+        <td>
+          ${escapeHTML(
+            row.post || "-"
+          )}
+        </td>
 
-<td>
-${sub.subjective_marks ?? 0}/10
-</td>
+        <td>
+          ${row.objective_score ?? 0}/18
+        </td>
 
-<td>
-<strong>
-${sub.total_marks ?? 0}/28
-</strong>
-</td>
+        <td>
+          ${row.subjective_marks ?? 0}/10
+        </td>
 
-<td>
-${escapeHtml(sub.final_result || "Pending")}
-</td>
+        <td>
+          <strong>
+            ${row.total_marks ?? 0}/28
+          </strong>
+        </td>
 
-<td>
-${formatDate(sub.submitted_at)}
-</td>
+        <td>
+          <span class="status ${resultClass}">
+            ${escapeHTML(result)}
+          </span>
+        </td>
 
-</tr>
-`;
+        <td>
+          ${
+            row.submitted_at
+            ? new Date(
+                row.submitted_at
+              ).toLocaleString()
+            : "-"
+          }
+        </td>
 
-      })
-      .join("");
+      </tr>
+      `;
 
+    }).join("");
 
-  /* PRESIDENT CHECKING */
 
   presidentBody.innerHTML =
-    submissions
-      .map(sub => {
+    submissionsData.map(row => {
 
-        const answers =
+      return `
+      <tr>
 
-          '<div class="answer-box">' +
+        <td>${row.id ?? "-"}</td>
 
-          '<strong>Q19:</strong><br>' +
+        <td>
+          ${escapeHTML(
+            row.applicant_name || "-"
+          )}
+        </td>
 
-          escapeHtml(
-            sub.subjective_answer_1 || ""
-          ) +
+        <td>
+          ${escapeHTML(
+            row.post || "-"
+          )}
+        </td>
 
-          '</div>' +
+        <td>
+          <strong>
+            ${row.objective_score ?? 0}/18
+          </strong>
+        </td>
 
-          '<div class="answer-box">' +
+        <td>
 
-          '<strong>Q20:</strong><br>' +
+          <div class="result-box">
 
-          escapeHtml(
-            sub.subjective_answer_2 || ""
-          ) +
+            <strong>
+              Answer 1
+            </strong>
 
-          '</div>';
+            <p style="margin-top:7px">
+              ${escapeHTML(
+                row.subjective_answer_1 || "-"
+              )}
+            </p>
 
+            <hr
+              style="
+              margin:12px 0;
+              border-color:#333;
+              "
+            >
 
-        return `
-<tr>
+            <strong>
+              Answer 2
+            </strong>
 
-<td>${sub.id}</td>
+            <p style="margin-top:7px">
+              ${escapeHTML(
+                row.subjective_answer_2 || "-"
+              )}
+            </p>
 
-<td>
-${escapeHtml(sub.applicant_name || "")}
-</td>
+          </div>
 
-<td>
-${escapeHtml(sub.post || "")}
-</td>
+        </td>
 
-<td>
-<strong>
-${sub.objective_score ?? 0}/18
-</strong>
-</td>
+        <td>
+          ${row.subjective_marks ?? 0}/10
+        </td>
 
-<td>
-${answers}
-</td>
+        <td>
+          <strong>
+            ${row.total_marks ?? 0}/28
+          </strong>
+        </td>
 
-<td>
-${sub.subjective_marks ?? 0}/10
-</td>
+        <td>
+          ${escapeHTML(
+            row.final_result || "Pending"
+          )}
+        </td>
 
-<td>
-<strong>
-${sub.total_marks ?? 0}/28
-</strong>
-</td>
+        <td>
 
-<td>
-${escapeHtml(sub.final_result || "Pending")}
-</td>
+          <button
+            class="gold"
+            onclick="openResultEditor(
+              ${row.id},
+              ${Number(row.objective_score || 0)},
+              ${Number(row.subjective_marks || 0)}
+            )"
+          >
+            ✍️ Check
+          </button>
 
-<td>
+        </td>
 
-<button
-class="primary"
-onclick="openResultEditor(
-${sub.id},
-${sub.objective_score || 0},
-${sub.subjective_marks || 0}
-)"
->
-✍️ Check Subjective
-</button>
+      </tr>
+      `;
 
-</td>
-
-</tr>
-`;
-
-      })
-      .join("");
+    }).join("");
 
 }
 
 
 /* =========================
-   PRESIDENT RESULT CHECK
+   PRESIDENT RESULT CHECKING
 ========================= */
 
-function openResultEditor(
+async function openResultEditor(
   id,
   objective,
   currentSubjective
 ){
 
-  const marks =
+  let marks =
     prompt(
-      "President Subjective Marks (0-10):",
-      currentSubjective
+      `Subjective Marks दें (0 से 10):\n\nObjective: ${objective}/18`,
+      String(currentSubjective)
     );
-
 
   if(marks === null){
     return;
   }
 
-
-  const subjectiveMarks =
+  marks =
     Number(marks);
 
-
   if(
-    !Number.isInteger(subjectiveMarks) ||
-    subjectiveMarks < 0 ||
-    subjectiveMarks > 10
+    !Number.isInteger(marks) ||
+    marks < 0 ||
+    marks > 10
   ){
 
     alert(
@@ -1589,111 +1608,175 @@ function openResultEditor(
     );
 
     return;
+
   }
 
-
   const total =
-    objective +
-    subjectiveMarks;
-
-
-  /*
-    Objective pass rule:
-    11/18 or more = Pass
-  */
+    objective + marks;
 
   const finalResult =
     objective >= 11
-      ? "Pass"
-      : "Fail";
-
-
-  const confirmText =
-    "Objective: " +
-    objective +
-    "/18\n" +
-
-    "Subjective: " +
-    subjectiveMarks +
-    "/10\n" +
-
-    "Total: " +
-    total +
-    "/28\n" +
-
-    "Final Result: " +
-    finalResult +
-    "\n\n" +
-
-    "Result Save करें?";
-
+    ? "Pass"
+    : "Fail";
 
   if(
-    !confirm(confirmText)
+    !confirm(
+      `Objective: ${objective}/18\n` +
+      `Subjective: ${marks}/10\n` +
+      `Total: ${total}/28\n` +
+      `Result: ${finalResult}\n\n` +
+      `Result save करें?`
+    )
   ){
     return;
   }
 
-
-  saveResult(
-    id,
-    subjectiveMarks,
-    total,
-    finalResult
-  );
-
-}
-
-
-/* =========================
-   SAVE PRESIDENT RESULT
-========================= */
-
-async function saveResult(
-  id,
-  subjectiveMarks,
-  total,
-  finalResult
-){
-
   try{
 
-    await supabaseRequest(
-      "/rest/v1/rpc/update_exam_result",
+    await supabaseRPC(
+      "update_exam_result",
       {
-        method:"POST",
-
-        body:JSON.stringify({
-
-          input_submission_id:
-            id,
-
-          input_subjective_marks:
-            subjectiveMarks,
-
-          input_total_marks:
-            total,
-
-          input_final_result:
-            finalResult
-
-        })
+        input_submission_id:id,
+        input_subjective_marks:marks,
+        input_total_marks:total,
+        input_final_result:finalResult
       }
     );
 
-
-    showAdminMessage(
-      "President द्वारा Subjective Result save हो गया।"
+    alert(
+      "Result successfully updated."
     );
 
+    await loadAll();
 
-    await loadSubmissions();
+  }catch(error){
+
+    alert(error.message);
 
   }
-  catch(error){
 
-    showAdminMessage(
-      error.message
+}
+
+
+/* =========================
+   DASHBOARD STATISTICS
+========================= */
+
+async function loadDashboardStats(){
+
+  try{
+
+    /*
+      Applications count
+      इन्हीं applications records से
+      live statistics calculate होंगे.
+    */
+
+    const applications =
+      applicationsData || [];
+
+    const total =
+      applications.length;
+
+    const pending =
+      applications.filter(
+        x => (x.status || "Pending")
+          === "Pending"
+      ).length;
+
+    const approved =
+      applications.filter(
+        x => x.status === "Approved"
+      ).length;
+
+    const rejected =
+      applications.filter(
+        x => x.status === "Rejected"
+      ).length;
+
+
+    /*
+      Exam codes
+    */
+
+    let codes = [];
+
+    try{
+
+      const codeData =
+        await supabaseRPC(
+          "get_exam_codes",
+          {}
+        );
+
+      codes =
+        Array.isArray(codeData)
+        ? codeData
+        : [];
+
+    }catch{
+
+      codes = [];
+
+    }
+
+
+    /*
+      Submissions
+    */
+
+    const submissions =
+      submissionsData || [];
+
+    const passed =
+      submissions.filter(
+        x => x.final_result === "Pass"
+      ).length;
+
+    const failed =
+      submissions.filter(
+        x => x.final_result === "Fail"
+      ).length;
+
+
+    document.getElementById(
+      "totalApplications"
+    ).textContent = total;
+
+    document.getElementById(
+      "pendingApplications"
+    ).textContent = pending;
+
+    document.getElementById(
+      "approvedApplications"
+    ).textContent = approved;
+
+    document.getElementById(
+      "rejectedApplications"
+    ).textContent = rejected;
+
+    document.getElementById(
+      "totalCodes"
+    ).textContent = codes.length;
+
+    document.getElementById(
+      "totalSubmissions"
+    ).textContent =
+      submissions.length;
+
+    document.getElementById(
+      "passedExams"
+    ).textContent = passed;
+
+    document.getElementById(
+      "failedExams"
+    ).textContent = failed;
+
+  }catch(error){
+
+    console.error(
+      "Dashboard error:",
+      error
     );
 
   }
@@ -1702,55 +1785,69 @@ async function saveResult(
 
 
 /* =========================
-   ADMIN MESSAGE
+   LOAD EVERYTHING
 ========================= */
 
-function showAdminMessage(
-  message
-){
+async function loadAll(){
 
-  const box =
+  try{
+
+    await loadApplications();
+
+    await loadCodes();
+
+    await loadSubmissions();
+
+    await loadDashboardStats();
+
     document.getElementById(
-      "adminMessage"
-    );
+      "lastRefresh"
+    ).textContent =
+      "Last refresh: " +
+      new Date().toLocaleString();
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+}
 
 
-  box.innerHTML =
-    '<div class="message">' +
-    escapeHtml(message) +
-    '</div>';
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
 
 /* =========================
    AUTO REFRESH
-   EVERY 30 SECONDS
 ========================= */
 
 setInterval(
-  async function(){
+  () => {
 
-    if(!currentSession){
-      return;
-    }
+    if(
+      !document
+        .getElementById(
+          "adminSection"
+        )
+        .classList
+        .contains("hidden")
+    ){
 
-
-    try{
-
-      await loadApplications();
-
-      await loadExamCodes();
-
-      await loadSubmissions();
-
-    }
-    catch(error){
-
-      console.error(
-        "Auto refresh error:",
-        error
-      );
+      loadAll();
 
     }
 
@@ -1760,57 +1857,10 @@ setInterval(
 
 
 /* =========================
-   HTML ESCAPE
+   START
 ========================= */
 
-function escapeHtml(value){
-
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* =========================
-   JAVASCRIPT STRING ESCAPE
-========================= */
-
-function escapeJs(value){
-
-  return JSON.stringify(
-    String(value ?? "")
-  );
-
-}
-
-
-/* =========================
-   DATE FORMAT
-========================= */
-
-function formatDate(value){
-
-  if(!value){
-    return "";
-  }
-
-  try{
-
-    return new Date(value)
-      .toLocaleString("en-IN");
-
-  }
-  catch{
-
-    return value;
-
-  }
-
-}
+restoreLogin();
 
 </script>
 

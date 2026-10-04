@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Classic Empire Ltd - Exam Result</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#080808;
+  color:#fff;
+  min-height:100vh;
+}
+
+.container{
+  width:92%;
+  max-width:700px;
+  margin:40px auto;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.header h1{
+  color:#ffd700;
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.header p{
+  color:#ccc;
+}
+
+.card{
+  background:#111;
+  border:1px solid #333;
+  border-radius:15px;
+  padding:25px;
+  margin-bottom:20px;
+  box-shadow:0 0 20px rgba(255,215,0,.08);
+}
+
+.card h2{
+  color:#ffd700;
+  margin-bottom:18px;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  border-radius:8px;
+  border:1px solid #444;
+  background:#080808;
+  color:#fff;
+  font-size:16px;
+  margin-bottom:15px;
+  text-transform:uppercase;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:8px;
+  background:#ffd700;
+  color:#000;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+.message{
+  margin-top:15px;
+  padding:12px;
+  border-radius:8px;
+  display:none;
+  text-align:center;
+}
+
+.error{
+  background:#3b1111;
+  color:#ff7777;
+}
+
+.success{
+  background:#123b19;
+  color:#75ff8b;
+}
+
+.result{
+  display:none;
+}
+
+.info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:15px;
+}
+
+.info-box{
+  background:#181818;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:15px;
+}
+
+.info-box small{
+  display:block;
+  color:#999;
+  margin-bottom:6px;
+}
+
+.info-box strong{
+  color:#fff;
+  font-size:17px;
+}
+
+.marks{
+  margin-top:20px;
+}
+
+.mark-row{
+  display:flex;
+  justify-content:space-between;
+  padding:15px;
+  margin-bottom:10px;
+  background:#181818;
+  border-radius:10px;
+  border:1px solid #333;
+}
+
+.mark-row span:last-child{
+  color:#ffd700;
+  font-weight:bold;
+}
+
+.total{
+  margin-top:15px;
+  padding:20px;
+  text-align:center;
+  border-radius:12px;
+  background:#1b1b1b;
+  border:1px solid #ffd700;
+}
+
+.total h3{
+  color:#aaa;
+  margin-bottom:8px;
+}
+
+.total strong{
+  color:#ffd700;
+  font-size:30px;
+}
+
+.final-result{
+  margin-top:20px;
+  padding:18px;
+  text-align:center;
+  border-radius:12px;
+  font-size:25px;
+  font-weight:bold;
+}
+
+.pass{
+  background:#123b19;
+  color:#75ff8b;
+  border:1px solid #39ff55;
+}
+
+.fail{
+  background:#3b1111;
+  color:#ff7777;
+  border:1px solid #ff4444;
+}
+
+.back{
+  display:block;
+  text-align:center;
+  margin-top:20px;
+  color:#ffd700;
+  text-decoration:none;
+}
+
+@media(max-width:550px){
+  .info{
+    grid-template-columns:1fr;
+  }
+
+  .header h1{
+    font-size:25px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>Classic Empire Ltd</h1>
+    <p>Official Examination Result</p>
+  </div>
+
+  <div class="card">
+    <h2>📊 Check Exam Result</h2>
+
+    <input
+      id="examCode"
+      type="text"
+      placeholder="Enter Exam Code"
+      autocomplete="off"
+    >
+
+    <button onclick="checkResult()">
+      🔎 Check Result
+    </button>
+
+    <div id="message" class="message"></div>
+  </div>
+
+  <div id="resultBox" class="card result">
+
+    <h2>📋 Examination Result</h2>
+
+    <div class="info">
+
+      <div class="info-box">
+        <small>Applicant Name</small>
+        <strong id="applicantName">-</strong>
+      </div>
+
+      <div class="info-box">
+        <small>Applied Post</small>
+        <strong id="post">-</strong>
+      </div>
+
+    </div>
+
+    <div class="marks">
+
+      <div class="mark-row">
+        <span>Objective</span>
+        <span id="objective">0 / 18</span>
+      </div>
+
+      <div class="mark-row">
+        <span>Subjective</span>
+        <span id="subjective">0 / 10</span>
+      </div>
+
+    </div>
+
+    <div class="total">
+      <h3>Total Marks</h3>
+      <strong id="total">0 / 28</strong>
+    </div>
+
+    <div id="finalResult" class="final-result">
+      -
+    </div>
+
+    <a class="back" href="index.html">
+      ← Back to Classic Empire Ltd
+    </a>
+
+  </div>
+
+</div>
+
+<script>
+
+const SUPABASE_URL =
+"https://hjatspkzgoddcpgwfkxo.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
+
+function showMessage(text,type){
+
+  const box=document.getElementById("message");
+
+  box.textContent=text;
+
+  box.className="message "+type;
+
+  box.style.display="block";
+}
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+async function checkResult(){
+
+  const code=document
+    .getElementById("examCode")
+    .value
+    .trim()
+    .toUpperCase();
+
+  const resultBox=document.getElementById("resultBox");
+
+  resultBox.style.display="none";
+
+  if(!code){
+
+    showMessage(
+      "कृपया Exam Code डालें",
+      "error"
+    );
+
+    return;
+  }
+
+  showMessage(
+    "Result खोजा जा रहा है...",
+    "success"
+  );
+
+  try{
+
+    const response=await fetch(
+      SUPABASE_URL+
+      "/rest/v1/rpc/get_exam_result",
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json",
+          "apikey":SUPABASE_KEY,
+          "Authorization":"Bearer "+SUPABASE_KEY
+        },
+
+        body:JSON.stringify({
+          input_exam_code:code
+        })
+      }
+    );
+
+    const data=await response.json();
+
+    if(!response.ok){
+
+      throw new Error(
+        data.message ||
+        "Result प्राप्त नहीं हुआ"
+      );
+    }
+
+    if(!data.success){
+
+      showMessage(
+        data.message ||
+        "Exam Result नहीं मिला",
+        "error"
+      );
+
+      return;
+    }
+
+    document.getElementById("applicantName")
+      .textContent=data.applicant_name || "-";
+
+    document.getElementById("post")
+      .textContent=data.post || "-";
+
+    document.getElementById("objective")
+      .textContent=
+      (data.objective_score ?? 0)+" / 18";
+
+    document.getElementById("subjective")
+      .textContent=
+      (data.subjective_marks ?? 0)+" / 10";
+
+    document.getElementById("total")
+      .textContent=
+      (data.total_marks ?? 0)+" / 28";
+
+    const resultElement=
+      document.getElementById("finalResult");
+
+    const finalResult=
+      String(data.final_result || "")
+      .toUpperCase();
+
+    resultElement.className="final-result";
+
+    if(finalResult==="PASS"){
+
+      resultElement.classList.add("pass");
+
+      resultElement.textContent=
+        "✅ PASS";
+
+    }else{
+
+      resultElement.classList.add("fail");
+
+      resultElement.textContent=
+        "❌ FAIL";
+    }
+
+    resultBox.style.display="block";
+
+    showMessage(
+      "Result successfully loaded",
+      "success"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "Result प्राप्त करने में समस्या हुई।",
+      "error"
+    );
+  }
+}
+
+document
+.getElementById("examCode")
+.addEventListener("keydown",function(event){
+
+  if(event.key==="Enter"){
+    checkResult();
+  }
+
+});
+
+</script>
+
+</body>
+</html>

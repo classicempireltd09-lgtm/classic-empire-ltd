@@ -3,1910 +3,977 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Classic Empire Ltd</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 body{
-  font-family:Arial,sans-serif;
-  background:#080808;
-  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#090909;
+  color:#f5f5f5;
   line-height:1.6;
 }
-
-.container{
-  width:92%;
-  max-width:1200px;
-  margin:auto;
-}
+a{color:inherit;text-decoration:none}
+.container{width:min(1120px,92%);margin:auto}
 
 header{
-  background:#0b0b0b;
-  border-bottom:1px solid #333;
   position:sticky;
   top:0;
-  z-index:1000;
+  z-index:20;
+  background:rgba(8,8,8,.96);
+  border-bottom:1px solid #3b2b00;
+  backdrop-filter:blur(8px);
 }
-
 .nav{
-  min-height:70px;
+  min-height:68px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:20px;
+  gap:18px;
 }
-
 .brand{
   display:flex;
   align-items:center;
-  gap:10px;
-  font-weight:bold;
-  color:#ffd700;
-  font-size:20px;
+  gap:12px;
+  font-weight:800;
+  color:#ffd54a;
 }
-
 .brand img{
-  width:42px;
-  height:42px;
-  object-fit:contain;
+  width:44px;
+  height:44px;
+  border-radius:10px;
+  object-fit:cover;
+  border:1px solid #6d5200;
 }
-
 nav{
   display:flex;
   flex-wrap:wrap;
-  justify-content:center;
   gap:8px;
+  justify-content:flex-end;
 }
-
 nav a{
-  color:#fff;
-  text-decoration:none;
-  padding:9px 12px;
+  padding:8px 11px;
   border-radius:8px;
+  color:#ddd;
   font-size:14px;
 }
-
 nav a:hover{
-  background:#222;
-  color:#ffd700;
+  background:#171717;
+  color:#ffd54a;
+}
+.points-link{
+  border:1px solid #705500;
+  color:#ffd54a!important;
 }
 
 .hero{
+  padding:75px 0 60px;
   text-align:center;
-  padding:80px 20px;
-  background:radial-gradient(
-    circle at top,
-    #222 0%,
-    #080808 55%
-  );
+  background:radial-gradient(circle at top,#2a2105 0,#111 36%,#090909 70%);
 }
-
+.hero img{
+  width:96px;
+  height:96px;
+  object-fit:cover;
+  border-radius:22px;
+  border:2px solid #c99b19;
+  margin-bottom:18px;
+}
 .hero h1{
-  color:#ffd700;
-  font-size:48px;
-  margin-bottom:15px;
+  font-size:clamp(34px,7vw,62px);
+  color:#ffd54a;
 }
-
 .hero p{
-  max-width:750px;
-  margin:auto;
-  color:#ccc;
+  max-width:760px;
+  margin:12px auto;
+  color:#cfcfcf;
 }
-
 .badge{
   display:inline-block;
-  margin-top:20px;
-  padding:8px 15px;
-  border:1px solid #ffd700;
-  color:#ffd700;
-  border-radius:20px;
+  margin-top:15px;
+  padding:8px 13px;
+  border:1px solid #735700;
+  border-radius:999px;
+  color:#ffd54a;
+  background:#151105;
+  font-size:13px;
 }
 
-section{
-  padding:60px 0;
-}
-
+section{padding:55px 0}
 .section-title{
-  text-align:center;
-  color:#ffd700;
-  font-size:32px;
-  margin-bottom:10px;
+  font-size:30px;
+  color:#ffd54a;
+  margin-bottom:9px;
 }
-
 .section-subtitle{
-  text-align:center;
   color:#aaa;
-  margin-bottom:30px;
+  margin-bottom:25px;
 }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(
-    auto-fit,
-    minmax(230px,1fr)
-  );
-  gap:20px;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
 }
-
 .card{
   background:#111;
-  border:1px solid #333;
-  border-radius:15px;
+  border:1px solid #292929;
+  border-radius:16px;
   padding:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.25);
+  box-shadow:0 8px 30px rgba(0,0,0,.2);
 }
-
-.person{
-  text-align:center;
-}
-
+.person{text-align:center}
 .person img{
-  width:130px;
-  height:130px;
-  object-fit:cover;
+  width:110px;
+  height:110px;
   border-radius:50%;
-  border:3px solid #ffd700;
-  margin-bottom:15px;
+  object-fit:cover;
+  border:2px solid #b88b0c;
+  background:#1b1b1b;
+  margin-bottom:12px;
 }
-
 .person h3{
-  color:#ffd700;
-  margin-bottom:5px;
+  color:#fff;
+  margin-bottom:4px;
 }
-
-.person p{
-  color:#bbb;
+.role{
+  color:#ffd54a;
+  font-weight:700;
+}
+.small{
+  font-size:13px;
+  color:#999;
 }
 
 details{
   background:#111;
-  border:1px solid #333;
-  border-radius:12px;
+  border:1px solid #4b3905;
+  border-radius:15px;
   overflow:hidden;
 }
-
 summary{
   cursor:pointer;
-  padding:18px;
-  color:#ffd700;
-  font-weight:bold;
-  font-size:18px;
+  padding:18px 20px;
+  font-weight:800;
+  color:#ffd54a;
+  list-style:none;
 }
+summary::-webkit-details-marker{display:none}
+summary:after{
+  content:"＋";
+  float:right;
+  font-size:22px;
+}
+details[open] summary:after{content:"−"}
 
 .updates{
-  padding:20px;
+  padding:0 20px 20px;
+  display:grid;
+  gap:12px;
 }
-
 .update{
   padding:15px;
-  border-bottom:1px solid #333;
+  border-left:3px solid #d4a91d;
+  background:#171717;
+  border-radius:8px;
 }
+.update strong{color:#ffd54a}
 
-.update:last-child{
-  border-bottom:none;
+.currency{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:15px;
 }
-
-.update h3{
-  color:#ffd700;
-  margin-bottom:5px;
-}
-
-.currency-box{
-  background:#111;
-  border:1px solid #333;
-  border-radius:15px;
-  padding:30px;
-  max-width:700px;
-  margin:auto;
-  text-align:center;
-}
-
-.currency-box .big{
-  font-size:32px;
-  color:#ffd700;
-  font-weight:bold;
-  margin:10px 0;
+.currency .card{text-align:center}
+.currency .value{
+  font-size:25px;
+  font-weight:800;
+  color:#ffd54a;
+  margin-top:5px;
 }
 
 .table-wrap{
   overflow-x:auto;
+  border:1px solid #2c2c2c;
+  border-radius:14px;
 }
-
 table{
   width:100%;
   border-collapse:collapse;
+  min-width:650px;
   background:#111;
 }
-
-th,
-td{
-  padding:14px;
-  border:1px solid #333;
+th,td{
+  padding:14px 16px;
+  border-bottom:1px solid #292929;
   text-align:left;
 }
-
 th{
-  color:#ffd700;
-  background:#161616;
+  background:#191502;
+  color:#ffd54a;
 }
+tr:last-child td{border-bottom:0}
 
 form{
   background:#111;
   border:1px solid #333;
-  border-radius:15px;
-  padding:25px;
+  border-radius:16px;
+  padding:22px;
 }
-
 .form-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
 }
-
 .field{
   display:flex;
   flex-direction:column;
   gap:7px;
 }
-
-.field.full{
-  grid-column:1/-1;
-}
-
+.field.full{grid-column:1/-1}
 label{
+  font-size:14px;
   color:#ddd;
+  font-weight:700;
 }
-
-input,
-select,
-textarea{
+input,select,textarea{
   width:100%;
-  padding:12px;
-  border-radius:8px;
-  border:1px solid #444;
-  background:#080808;
+  padding:12px 13px;
+  border-radius:9px;
+  border:1px solid #3b3b3b;
+  background:#0b0b0b;
   color:#fff;
+  outline:none;
 }
-
+input:focus,select:focus,textarea:focus{
+  border-color:#c69b16;
+}
 textarea{
-  min-height:120px;
+  min-height:110px;
   resize:vertical;
 }
-
+input[type=file]{padding:10px}
 button{
-  background:#ffd700;
-  color:#000;
-  border:none;
-  padding:13px 22px;
-  border-radius:8px;
-  font-weight:bold;
+  border:0;
+  border-radius:10px;
+  padding:13px 18px;
+  background:#d5aa24;
+  color:#090909;
+  font-weight:800;
   cursor:pointer;
+  font-size:15px;
 }
+button:hover{background:#f0c83f}
 
-button:hover{
-  background:#fff;
-}
-
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-
-.portal-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:10px;
-  margin-top:20px;
-}
-
-.portal-button{
-  display:inline-block;
-  padding:13px 22px;
-  border-radius:8px;
-  font-weight:bold;
-  text-decoration:none;
-  background:#ffd700;
-  color:#000;
-}
-
-.portal-button.status{
-  background:#222;
-  color:#ffd700;
-  border:1px solid #ffd700;
-}
-
-.application-status{
-  display:none;
-  margin-top:18px;
-  padding:20px;
-  border-radius:12px;
-  text-align:center;
-  font-weight:bold;
-  border:1px solid #333;
-}
-
-.application-status.success{
-  display:block;
-  background:#102b18;
-  border-color:#00cc66;
-  color:#8affb0;
-}
-
-.application-status.error{
-  display:block;
-  background:#351414;
-  border-color:#ff4444;
-  color:#ff8888;
-}
-
-.application-status.loading{
-  display:block;
-  background:#171717;
-  border-color:#ffd700;
-  color:#ffd700;
-}
-
-.success-title{
-  font-size:24px;
-  color:#ffd700;
-  margin-bottom:10px;
-}
-
-.success-name{
-  color:#fff;
-  font-size:18px;
-  margin-bottom:6px;
-}
-
-.success-note{
-  color:#aaa;
+.note{
   margin-top:12px;
-  font-size:14px;
+  padding:12px;
+  border-radius:9px;
+  background:#171717;
+  color:#aaa;
+  font-size:13px;
 }
 
 .admin-list{
   display:grid;
-  gap:12px;
-  max-width:800px;
-  margin:auto;
+  gap:10px;
 }
-
 .admin-row{
   display:flex;
   justify-content:space-between;
-  gap:20px;
-  padding:15px 18px;
+  gap:15px;
+  padding:13px 15px;
   background:#111;
-  border:1px solid #333;
+  border:1px solid #292929;
   border-radius:10px;
 }
-
-.admin-row strong{
-  color:#ffd700;
+.admin-row span:last-child{
+  color:#ffd54a;
+  font-weight:700;
+  text-align:right;
 }
 
-.contact-box{
-  max-width:700px;
-  margin:auto;
-  text-align:center;
-  background:#111;
-  border:1px solid #333;
-  border-radius:15px;
-  padding:30px;
-}
-
-.contact-box a{
-  color:#ffd700;
-  text-decoration:none;
-}
-
-.location-box{
-  margin-top:20px;
-  padding:18px;
-  border:1px solid #333;
-  border-radius:12px;
-  background:#0b0b0b;
-}
-
-.location-title{
-  color:#ffd700;
-  font-weight:bold;
-  font-size:18px;
-}
-
-.location-text{
-  color:#ccc;
-  margin-top:8px;
-}
+.contact-box{text-align:center}
 
 footer{
-  text-align:center;
-  padding:30px 15px;
-  background:#050505;
-  border-top:1px solid #333;
+  border-top:1px solid #2d2304;
+  padding:25px 0;
   color:#888;
+  text-align:center;
 }
 
-.hidden-frame{
-  display:none;
-}
-
-.note{
-  color:#aaa;
-  margin-top:10px;
-  font-size:14px;
-}
-
-@media(max-width:800px){
-
+@media(max-width:700px){
   .nav{
+    align-items:flex-start;
     flex-direction:column;
-    padding:15px 0;
+    padding:12px 0;
   }
-
-  nav{
-    width:100%;
-  }
-
-  .hero h1{
-    font-size:36px;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .field.full{
-    grid-column:auto;
-  }
-
-  .admin-row{
-    flex-direction:column;
-    gap:5px;
-  }
-
-  .portal-buttons{
-    flex-direction:column;
-  }
-
-  .portal-button{
-    text-align:center;
-  }
+  nav{justify-content:flex-start}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .admin-row{flex-direction:column}
+  .admin-row span:last-child{text-align:left}
 }
 </style>
 </head>
 
 <body>
 
-<iframe
-  name="formsubmitFrame"
-  id="formsubmitFrame"
-  class="hidden-frame">
-</iframe>
-
-
 <header>
+  <div class="container nav">
 
-<div class="container nav">
+    <a class="brand" href="#home">
+      <img src="classic-empire-logo.png" alt="Classic Empire Ltd Logo">
+      <span>Classic Empire Ltd</span>
+    </a>
 
-<div class="brand">
+    <nav>
+      <a href="#people">People</a>
+      <a href="#updates">Empire Updates</a>
+      <a href="#currency">Currency</a>
+      <a href="#salaries">Salaries</a>
+      <a href="#apply">Apply</a>
 
-<img
-  src="classic-empire-logo.png"
-  alt="Classic Empire Logo"
->
+      <!-- NEW POINTS SYSTEM -->
+      <a href="points.html" class="points-link">
+        🏆 Points System
+      </a>
 
-<span>Classic Empire Ltd</span>
+      <a href="exam.html">Exam</a>
+      <a href="status.html">Status</a>
+      <a href="admin.html">Administration</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
 
-</div>
-
-
-<nav>
-
-<a href="#people">People</a>
-
-<a href="#updates">Empire Updates</a>
-
-<a href="#currency">Currency</a>
-
-<a href="#salaries">Salaries</a>
-
-<a href="#apply">Apply</a>
-
-<a href="exam.html">📝 Exam</a>
-
-<a href="status.html">📋 Status</a>
-
-<a href="#administration">Administration</a>
-
-<a href="#about">About</a>
-
-<a href="#contact">Contact</a>
-
-</nav>
-
-</div>
-
+  </div>
 </header>
 
 
 <main>
 
-
-<!-- ================= HERO ================= -->
-
 <section class="hero" id="home">
+  <div class="container">
 
-<div class="container">
+    <img src="classic-empire-logo.png"
+         alt="Classic Empire Ltd Logo">
 
-<h1>
-Classic Empire Ltd
-</h1>
+    <h1>Classic Empire Ltd</h1>
 
-<p>
-A fictional school-style Empire system with defined
-posts, duties, salaries, currency, applications,
-examinations and administration.
-</p>
+    <p>
+      A fictional school-style Empire system with defined posts,
+      duties, salaries, awards, currency, examinations,
+      points and administration.
+    </p>
 
-<span class="badge">
-Official Empire System
-</span>
+    <span class="badge">
+      Official Empire System
+    </span>
 
-</div>
-
+  </div>
 </section>
 
 
-<!-- ================= PEOPLE ================= -->
+<!-- PEOPLE -->
 
 <section id="people">
+  <div class="container">
 
-<div class="container">
+    <h2 class="section-title">
+      Empire People
+    </h2>
 
-<h2 class="section-title">
-People
-</h2>
+    <p class="section-subtitle">
+      Current office holders of Classic Empire Ltd.
+    </p>
 
-<p class="section-subtitle">
-Current office holders of Classic Empire Ltd
-</p>
+    <div class="grid">
 
+      <div class="card person">
+        <img src="noor-ahmad.png" alt="Noor Ahmad">
+        <h3>Noor Ahmad</h3>
+        <div class="role">President</div>
+      </div>
 
-<div class="grid">
+      <div class="card person">
+        <img src="tabshir-alam.png" alt="Tabshir Alam">
+        <h3>Tabshir Alam</h3>
+        <div class="role">President's Assistant</div>
+      </div>
 
+      <div class="card person">
+        <img src="jakir-hussain.png" alt="Jakir Hussain">
+        <h3>Jakir Hussain</h3>
+        <div class="role">DM</div>
+      </div>
 
-<div class="card person">
+      <div class="card person">
+        <img src="shadat-hussain.png" alt="Shadat Hussain">
+        <h3>Shadat Hussain</h3>
+        <div class="role">DM's Assistant</div>
+      </div>
 
-<img
-src="noor-ahmad.png"
-alt="Noor Ahmad"
->
+      <div class="card person">
+        <img src="aszad-sayeed.png" alt="Aszad Sayeed">
+        <h3>Aszad Sayeed</h3>
+        <div class="role">SDM</div>
+      </div>
 
-<h3>
-Noor Ahmad
-</h3>
+      <div class="card person">
+        <img src="shahnawaz-alam.png" alt="Shahnawaz Alam">
+        <h3>Shahnawaz Alam</h3>
+        <div class="role">SP</div>
+      </div>
 
-<p>
-President
-</p>
+      <div class="card person">
+        <img src="shadab-alam.png" alt="Shadab Alam">
+        <h3>Shadab Alam</h3>
+        <div class="role">DSP</div>
+      </div>
 
-</div>
-
-
-<div class="card person">
-
-<img
-src="tabshir-alam.png"
-alt="Tabshir Alam"
->
-
-<h3>
-Tabshir Alam
-</h3>
-
-<p>
-President's Assistant
-</p>
-
-</div>
-
-
-<div class="card person">
-
-<img
-src="jakir-hussain.png"
-alt="Jakir Hussain"
->
-
-<h3>
-Jakir Hussain
-</h3>
-
-<p>
-DM
-</p>
-
-</div>
-
-
-<div class="card person">
-
-<img
-src="shadat-hussain.png"
-alt="Shadat Hussain"
->
-
-<h3>
-Shadat Hussain
-</h3>
-
-<p>
-DM's Assistant
-</p>
-
-</div>
-
-
-<div class="card person">
-
-<img
-src="aszad-sayeed.png"
-alt="Aszad Sayeed"
->
-
-<h3>
-Aszad Sayeed
-</h3>
-
-<p>
-SDM
-</p>
-
-</div>
-
-
-<div class="card person">
-
-<img
-src="shahnawaz-alam.png"
-alt="Shahnawaz Alam"
->
-
-<h3>
-Shahnawaz Alam
-</h3>
-
-<p>
-SP
-</p>
-
-</div>
-
-
-<div class="card person">
-
-<img
-src="shadab-alam.png"
-alt="Shadab Alam"
->
-
-<h3>
-Shadab Alam
-</h3>
-
-<p>
-DSP
-</p>
-
-</div>
-
-
-</div>
-
-</div>
-
+    </div>
+  </div>
 </section>
 
 
-<!-- ================= UPDATES ================= -->
+<!-- UPDATES -->
 
 <section id="updates">
+  <div class="container">
 
-<div class="container">
+    <h2 class="section-title">
+      Empire Updates
+    </h2>
 
-<h2 class="section-title">
-Empire Updates
-</h2>
+    <p class="section-subtitle">
+      Latest Classic Empire Ltd systems and rules.
+    </p>
 
-<p class="section-subtitle">
-Latest Classic Empire Ltd system updates
-</p>
+    <details>
 
+      <summary>
+        📰 New Empire Changes
+      </summary>
 
-<details>
+      <div class="updates">
 
-<summary>
-📢 New Empire Changes
-</summary>
+        <div class="update">
+          <strong>President System:</strong>
+          The President is the founder and permanent President
+          under the normal system.
+        </div>
 
+        <div class="update">
+          <strong>Administration:</strong>
+          Current posts are President, President's Assistant,
+          DM, DM's Assistant, SDM, SP and DSP.
+        </div>
 
-<div class="updates">
+        <div class="update">
+          <strong>Removed Posts:</strong>
+          PM, Ministers, Management/Founder/Chairman,
+          CID, Bodyguard and Election Department are removed.
+        </div>
 
+        <div class="update">
+          <strong>Currency:</strong>
+          Classic Dinar (CD/CLD).
+        </div>
 
-<div class="update">
+        <div class="update">
+          <strong>Salary:</strong>
+          Official weekly salary is paid every Thursday.
+        </div>
 
-<h3>
-President System
-</h3>
+        <div class="update">
+          <strong>Points System:</strong>
+          School/Madrasa = 1 point,
+          Classic Empire Game Work = 2 points.
+          Daily maximum = 3 points.
+        </div>
 
-<p>
-The President is the founder and permanent President
-of Classic Empire Ltd under the normal system.
-</p>
+        <div class="update">
+          <strong>25-Day Bonus:</strong>
+          Completing 3/3 points for 25 consecutive days
+          gives a +10 bonus.
+        </div>
 
-</div>
+        <div class="update">
+          <strong>Automatic Awards:</strong>
+          75% or higher qualifies for an Award.
+        </div>
 
+      </div>
 
-<div class="update">
+    </details>
 
-<h3>
-Administration
-</h3>
-
-<p>
-The current administration consists of President,
-President's Assistant, DM, DM's Assistant, SDM, SP and DSP.
-</p>
-
-</div>
-
-
-<div class="update">
-
-<h3>
-Exam Portal
-</h3>
-
-<p>
-Eligible candidates can take their examination through
-the Classic Empire Exam Portal using their unique Exam Code.
-</p>
-
-</div>
-
-
-<div class="update">
-
-<h3>
-Application System
-</h3>
-
-<p>
-Candidates can submit applications for eligible posts.
-Applications are reviewed and approved by the Admin.
-</p>
-
-</div>
-
-
-<div class="update">
-
-<h3>
-Application Status
-</h3>
-
-<p>
-Applicants can check their application status and,
-after approval and code generation, their Exam Code.
-</p>
-
-</div>
-
-
-<div class="update">
-
-<h3>
-Result System
-</h3>
-
-<p>
-After examination submission, the result becomes
-available according to the official result waiting period.
-</p>
-
-</div>
-
-
-<div class="update">
-
-<h3>
-Currency System
-</h3>
-
-<p>
-Classic Empire uses Classic Dinar (CLD), also called CD.
-</p>
-
-</div>
-
-
-<div class="update">
-
-<h3>
-Head Office
-</h3>
-
-<p>
-Classic Empire Ltd Head Office is located at
-Chakla Ghat, Kishanganj, Bihar, India.
-</p>
-
-</div>
-
-
-</div>
-
-</details>
-
-</div>
-
+  </div>
 </section>
 
 
-<!-- ================= CURRENCY ================= -->
+<!-- CURRENCY -->
 
 <section id="currency">
+  <div class="container">
 
-<div class="container">
+    <h2 class="section-title">
+      Empire Currency
+    </h2>
 
-<h2 class="section-title">
-Empire Currency
-</h2>
+    <p class="section-subtitle">
+      Official fictional currency information.
+    </p>
 
-<p class="section-subtitle">
-Official currency information
-</p>
+    <div class="currency">
 
+      <div class="card">
+        <div class="small">Currency Name</div>
+        <div class="value">Classic Dinar</div>
+      </div>
 
-<div class="currency-box">
+      <div class="card">
+        <div class="small">Short Name</div>
+        <div class="value">CD</div>
+      </div>
 
-<p>
-Currency Name
-</p>
+      <div class="card">
+        <div class="small">Official Code</div>
+        <div class="value">CLD</div>
+      </div>
 
-<div class="big">
-Classic Dinar
-</div>
+      <div class="card">
+        <div class="small">Symbol</div>
+        <div class="value">د.ك</div>
+      </div>
 
-<p>
-Official Code:
-<strong>CLD</strong>
-</p>
+      <div class="card">
+        <div class="small">Fixed Conversion</div>
+        <div class="value">1 CD = 300 KD</div>
+      </div>
 
-<p>
-Short Name:
-<strong>CD</strong>
-</p>
+      <div class="card">
+        <div class="small">Indian Rupee Value</div>
+        <div class="value">1 CD = ₹93,600</div>
+      </div>
 
-<p>
-Symbol:
-<strong>د.ك</strong>
-</p>
-
-<br>
-
-<p>
-Fixed Conversion
-</p>
-
-<div class="big">
-1 CD = 300 KD
-</div>
-
-<div class="big">
-1 CD = ₹93,600
-</div>
-
-</div>
-
-</div>
-
+    </div>
+  </div>
 </section>
 
 
-<!-- ================= SALARIES ================= -->
+<!-- SALARIES -->
 
 <section id="salaries">
+  <div class="container">
 
-<div class="container">
+    <h2 class="section-title">
+      Official Weekly Salary
+    </h2>
 
-<h2 class="section-title">
-Weekly Salaries
-</h2>
+    <p class="section-subtitle">
+      Salary is paid every Thursday.
+    </p>
 
-<p class="section-subtitle">
-Official salary system — Payment every Thursday
-</p>
+    <div class="table-wrap">
 
+      <table>
 
-<div class="table-wrap">
+        <thead>
+          <tr>
+            <th>Post</th>
+            <th>Person</th>
+            <th>Weekly Salary</th>
+          </tr>
+        </thead>
 
-<table>
+        <tbody>
 
-<thead>
+          <tr>
+            <td>President</td>
+            <td>Noor Ahmad</td>
+            <td>Unlimited</td>
+          </tr>
 
-<tr>
-<th>Post</th>
-<th>Weekly Salary</th>
-</tr>
+          <tr>
+            <td>President's Assistant</td>
+            <td>Tabshir Alam</td>
+            <td>₹1,50,000</td>
+          </tr>
 
-</thead>
+          <tr>
+            <td>DM</td>
+            <td>Jakir Hussain</td>
+            <td>₹2,18,200</td>
+          </tr>
 
-<tbody>
+          <tr>
+            <td>DM's Assistant</td>
+            <td>Shadat Hussain</td>
+            <td>₹1,20,000</td>
+          </tr>
 
-<tr>
-<td>President</td>
-<td>Unlimited</td>
-</tr>
+          <tr>
+            <td>SDM</td>
+            <td>Aszad Sayeed</td>
+            <td>₹1,77,500</td>
+          </tr>
 
-<tr>
-<td>President's Assistant</td>
-<td>₹1,50,000</td>
-</tr>
+          <tr>
+            <td>SP</td>
+            <td>Shahnawaz Alam</td>
+            <td>₹2,15,900</td>
+          </tr>
 
-<tr>
-<td>DM</td>
-<td>₹2,18,200</td>
-</tr>
+          <tr>
+            <td>DSP</td>
+            <td>Shadab Alam</td>
+            <td>₹1,77,500</td>
+          </tr>
 
-<tr>
-<td>DM's Assistant</td>
-<td>₹1,20,000</td>
-</tr>
+        </tbody>
 
-<tr>
-<td>SDM</td>
-<td>₹1,77,500</td>
-</tr>
+      </table>
 
-<tr>
-<td>SP</td>
-<td>₹2,15,900</td>
-</tr>
-
-<tr>
-<td>DSP</td>
-<td>₹1,77,500</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-
-<p class="note">
-💰 Salary payment day: Every Thursday
-</p>
-
-</div>
-
+    </div>
+  </div>
 </section>
 
 
-<!-- ================= APPLY ================= -->
+<!-- APPLY -->
 
 <section id="apply">
+  <div class="container">
+
+    <h2 class="section-title">
+      Apply for a Post
+    </h2>
+
+    <p class="section-subtitle">
+      Submit your application to Classic Empire Ltd.
+    </p>
+
+    <form
+      id="applicationForm"
+      action="https://formsubmit.co/classicempireltd09@gmail.com"
+      method="POST"
+      enctype="multipart/form-data"
+      target="formsubmitFrame"
+    >
+
+      <input
+        type="hidden"
+        name="_subject"
+        value="Classic Empire Ltd Post Application"
+      >
+
+      <input
+        type="hidden"
+        name="_captcha"
+        value="false"
+      >
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label for="applicant_name">
+            Applicant Name *
+          </label>
+
+          <input
+            id="applicant_name"
+            type="text"
+            name="applicant_name"
+            required
+          >
+        </div>
 
-<div class="container">
 
-<h2 class="section-title">
-Apply for a Post
-</h2>
+        <div class="field">
+          <label for="age">
+            Age *
+          </label>
 
-<p class="section-subtitle">
-Submit your application to Classic Empire Ltd
-</p>
+          <input
+            id="age"
+            type="number"
+            name="age"
+            min="1"
+            max="100"
+            required
+          >
+        </div>
 
 
-<form
-id="applicationForm"
-action="https://formsubmit.co/classicempireltd09@gmail.com"
-method="POST"
-enctype="multipart/form-data"
-target="formsubmitFrame"
->
+        <div class="field">
+          <label for="class">
+            Class *
+          </label>
 
+          <input
+            id="class"
+            type="text"
+            name="class"
+            required
+          >
+        </div>
 
-<input
-type="hidden"
-name="_subject"
-value="Classic Empire Ltd - New Post Application"
->
 
-<input
-type="hidden"
-name="_captcha"
-value="false"
->
+        <div class="field">
+          <label for="post">
+            Apply For Post *
+          </label>
 
-<input
-type="hidden"
-name="_template"
-value="table"
->
+          <select
+            id="post"
+            name="post"
+            required
+          >
+            <option value="">
+              Select a post
+            </option>
 
+            <option>
+              President's Assistant
+            </option>
 
-<div class="form-grid">
+            <option>DM</option>
 
+            <option>
+              DM's Assistant
+            </option>
 
-<div class="field">
+            <option>SDM</option>
 
-<label>
-Applicant Name
-</label>
+            <option>SP</option>
 
-<input
-id="applicantName"
-type="text"
-name="Applicant Name"
-required
->
+            <option>DSP</option>
 
-</div>
+          </select>
+        </div>
 
 
-<div class="field">
+        <div class="field full">
 
-<label>
-Age
-</label>
+          <label for="photo">
+            Applicant Photo
+          </label>
 
-<input
-id="age"
-type="number"
-name="Age"
-min="1"
-max="100"
-required
->
+          <input
+            id="photo"
+            type="file"
+            name="photo"
+            accept="image/*"
+          >
 
-</div>
+        </div>
 
 
-<div class="field">
+        <div class="field">
 
-<label>
-Class
-</label>
+          <label for="applicant_email">
+            Applicant Email *
+          </label>
 
-<input
-id="applicantClass"
-type="text"
-name="Class"
-required
->
+          <input
+            id="applicant_email"
+            type="email"
+            name="applicant_email"
+            required
+          >
 
-</div>
+        </div>
 
 
-<div class="field">
+        <div class="field">
 
-<label>
-Apply For Post
-</label>
+          <label for="contact_number">
+            Contact Number
+          </label>
 
-<select
-id="post"
-name="Apply For Post"
-required
->
+          <input
+            id="contact_number"
+            type="tel"
+            name="contact_number"
+          >
 
-<option value="">
-Select Post
-</option>
+        </div>
 
-<option value="President's Assistant">
-President's Assistant
-</option>
 
-<option value="DM">
-DM
-</option>
+        <div class="field full">
 
-<option value="DM's Assistant">
-DM's Assistant
-</option>
+          <label for="reason">
+            Why do you want this post? *
+          </label>
 
-<option value="SDM">
-SDM
-</option>
+          <textarea
+            id="reason"
+            name="reason"
+            required
+          ></textarea>
 
-<option value="SP">
-SP
-</option>
+        </div>
 
-<option value="DSP">
-DSP
-</option>
 
-</select>
+        <div class="field full">
 
-</div>
+          <button type="submit">
+            Submit Application
+          </button>
 
+        </div>
 
-<div class="field">
+      </div>
 
-<label>
-Applicant Photo
-</label>
+      <div class="note">
+        Application will be submitted to Classic Empire Ltd.
+        The selected post is reviewed by the administration.
+      </div>
 
-<input
-id="applicantPhoto"
-type="file"
-name="Applicant Photo"
-accept="image/*"
-required
->
+    </form>
 
-</div>
+    <iframe
+      name="formsubmitFrame"
+      style="display:none"
+    ></iframe>
 
-
-<div class="field">
-
-<label>
-Applicant Email
-</label>
-
-<input
-id="applicantEmail"
-type="email"
-name="Applicant Email"
-required
->
-
-</div>
-
-
-<div class="field">
-
-<label>
-Contact Number
-</label>
-
-<input
-id="contactNumber"
-type="tel"
-name="Contact Number"
-required
->
-
-</div>
-
-
-<div class="field full">
-
-<label>
-Why do you want this post?
-</label>
-
-<textarea
-id="applicationReason"
-name="Why do you want this post?"
-required
-></textarea>
-
-</div>
-
-
-<div class="field full">
-
-<button
-type="submit"
-id="submitApplicationButton"
->
-Submit Application
-</button>
-
-</div>
-
-</div>
-
-
-<div
-id="applicationStatus"
-class="application-status">
-</div>
-
-
-</form>
-
-
-<div
-style="
-text-align:center;
-margin-top:20px;
-"
->
-
-<p
-style="
-color:#aaa;
-margin-bottom:10px;
-"
->
-Already applied?
-</p>
-
-<a
-href="status.html"
-class="portal-button status"
->
-📋 Check Application Status
-</a>
-
-</div>
-
-
-</div>
-
+  </div>
 </section>
 
 
-<!-- ================= EXAM ================= -->
-
-<section id="exam">
-
-<div class="container">
-
-<h2 class="section-title">
-Exam Portal
-</h2>
-
-<p class="section-subtitle">
-Official Classic Empire examination system
-</p>
-
-
-<div
-class="card"
-style="text-align:center;"
->
-
-<h3
-style="
-color:#ffd700;
-margin-bottom:10px;
-"
->
-📝 Classic Empire Exam Portal
-</h3>
-
-<p
-style="
-color:#bbb;
-margin-bottom:5px;
-"
->
-Candidates can enter their examination code
-and take the examination for their selected post.
-</p>
-
-
-<div class="portal-buttons">
-
-<a
-href="exam.html"
-class="portal-button"
->
-📝 Open Exam Portal
-</a>
-
-
-<a
-href="status.html"
-class="portal-button status"
->
-📋 Check Application Status
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ================= ADMINISTRATION ================= -->
+<!-- ADMINISTRATION -->
 
 <section id="administration">
+  <div class="container">
 
-<div class="container">
+    <h2 class="section-title">
+      Administration Structure
+    </h2>
 
-<h2 class="section-title">
-Administration
-</h2>
+    <p class="section-subtitle">
+      Current Classic Empire Ltd administrative posts.
+    </p>
 
-<p class="section-subtitle">
-Current Classic Empire administrative structure
-</p>
+    <div class="admin-list">
 
+      <div class="admin-row">
+        <span>President</span>
+        <span>Noor Ahmad</span>
+      </div>
 
-<div class="admin-list">
+      <div class="admin-row">
+        <span>President's Assistant</span>
+        <span>Tabshir Alam</span>
+      </div>
 
+      <div class="admin-row">
+        <span>DM</span>
+        <span>Jakir Hussain</span>
+      </div>
 
-<div class="admin-row">
-<strong>President</strong>
-<span>Noor Ahmad</span>
-</div>
+      <div class="admin-row">
+        <span>DM's Assistant</span>
+        <span>Shadat Hussain</span>
+      </div>
 
+      <div class="admin-row">
+        <span>SDM</span>
+        <span>Aszad Sayeed</span>
+      </div>
 
-<div class="admin-row">
-<strong>President's Assistant</strong>
-<span>Tabshir Alam</span>
-</div>
+      <div class="admin-row">
+        <span>SP</span>
+        <span>Shahnawaz Alam</span>
+      </div>
 
+      <div class="admin-row">
+        <span>DSP</span>
+        <span>Shadab Alam</span>
+      </div>
 
-<div class="admin-row">
-<strong>DM</strong>
-<span>Jakir Hussain</span>
-</div>
+    </div>
 
-
-<div class="admin-row">
-<strong>DM's Assistant</strong>
-<span>Shadat Hussain</span>
-</div>
-
-
-<div class="admin-row">
-<strong>SDM</strong>
-<span>Aszad Sayeed</span>
-</div>
-
-
-<div class="admin-row">
-<strong>SP</strong>
-<span>Shahnawaz Alam</span>
-</div>
-
-
-<div class="admin-row">
-<strong>DSP</strong>
-<span>Shadab Alam</span>
-</div>
-
-
-</div>
-
-</div>
-
+  </div>
 </section>
 
 
-<!-- ================= ABOUT ================= -->
+<!-- ABOUT -->
 
 <section id="about">
+  <div class="container">
 
-<div class="container">
+    <h2 class="section-title">
+      About Classic Empire Ltd
+    </h2>
 
-<h2 class="section-title">
-About Classic Empire Ltd
-</h2>
+    <div class="card">
 
-<p class="section-subtitle">
-Official Empire information
-</p>
+      <p>
+        The President is the founder of Classic Empire Ltd
+        and is the person who established this Empire.
+        The President is the permanent President of Classic
+        Empire Ltd and the position of President will never
+        change under the normal system.
+      </p>
 
+      <br>
 
-<div class="card">
+      <p>
+        The President can personally appoint or transfer
+        the position of President to another person only by
+        the President's own decision. No other person or
+        authority can change the President.
+      </p>
 
-<p>
-Classic Empire Ltd is a fictional school-style Empire
-system created for role-play, learning and management practice.
-</p>
+    </div>
 
-<br>
-
-<p>
-The Empire contains defined administrative posts,
-examinations, salaries, currency, applications and
-internal rules.
-</p>
-
-<br>
-
-<h3 style="color:#ffd700;">
-Permanent President Rule
-</h3>
-
-<br>
-
-<p>
-The President is the founder of Classic Empire Ltd and is
-the person who established this Empire.
-</p>
-
-<br>
-
-<p>
-The President is the permanent President of Classic Empire Ltd
-and the position of President will never change under the
-normal system.
-</p>
-
-<br>
-
-<p>
-The President can personally appoint or transfer the position
-of President to another person only by the President's own
-decision.
-</p>
-
-<br>
-
-<p>
-No other person or authority can change the President.
-</p>
-
-<br>
-
-<h3 style="color:#ffd700;">
-Head Office
-</h3>
-
-<br>
-
-<p>
-📍 Classic Empire Ltd Head Office
-</p>
-
-<p class="location-text">
-Chakla Ghat, Kishanganj, Bihar, India
-</p>
-
-</div>
-
-</div>
-
+  </div>
 </section>
 
 
-<!-- ================= CONTACT ================= -->
+<!-- CONTACT -->
 
 <section id="contact">
 
-<div class="container">
+  <div class="container">
 
-<h2 class="section-title">
-Contact
-</h2>
+    <div class="card contact-box">
 
-<p class="section-subtitle">
-Official Classic Empire Ltd contact
-</p>
+      <h2 class="section-title">
+        Contact
+      </h2>
 
+      <p class="section-subtitle">
+        Classic Empire Ltd official contact email
+      </p>
 
-<div class="contact-box">
+      <p>
+        <strong style="color:#ffd54a">
+          classicempireltd09@gmail.com
+        </strong>
+      </p>
 
-<h3
-style="
-color:#ffd700;
-margin-bottom:10px;
-"
->
-Classic Empire Ltd
-</h3>
+      <br>
 
+      <p class="small">
+        Head Office:
+        Chakla Ghat, Kishanganj, Bihar, India
+      </p>
 
-<div class="location-box">
+    </div>
 
-<div class="location-title">
-📍 Head Office
-</div>
-
-<p class="location-text">
-Chakla Ghat, Kishanganj,<br>
-Bihar, India
-</p>
-
-</div>
-
-
-<br>
-
-
-<p>
-Official Email:
-</p>
-
-<p style="margin-top:8px;">
-
-<a
-href="mailto:classicempireltd09@gmail.com"
->
-classicempireltd09@gmail.com
-</a>
-
-</p>
-
-</div>
-
-</div>
+  </div>
 
 </section>
-
 
 </main>
 
 
 <footer>
-
-<p>
-© 2026 Classic Empire Ltd. All Rights Reserved.
-</p>
-
-<p style="margin-top:5px;">
-Fictional school-style Empire project.
-</p>
-
+  <div class="container">
+    © Classic Empire Ltd — Fictional Empire System
+  </div>
 </footer>
-
-
-<script>
-
-/* =========================================
-   SUPABASE APPLICATION SYSTEM
-========================================= */
-
-const APPLICATION_SUPABASE_URL =
-"https://hjatspkzgoddcpgwfkxo.supabase.co";
-
-const APPLICATION_SUPABASE_KEY =
-"sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
-
-
-const applicationForm =
-document.getElementById(
-  "applicationForm"
-);
-
-const statusBox =
-document.getElementById(
-  "applicationStatus"
-);
-
-const submitButton =
-document.getElementById(
-  "submitApplicationButton"
-);
-
-
-/* =========================================
-   ESCAPE HTML
-========================================= */
-
-function escapeHTML(value){
-
-  if(
-    value === null ||
-    value === undefined
-  ){
-    return "";
-  }
-
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
-
-
-/* =========================================
-   APPLICATION SUBMIT
-========================================= */
-
-applicationForm.addEventListener(
-"submit",
-async function(event){
-
-  event.preventDefault();
-
-
-  const name =
-    document
-    .getElementById("applicantName")
-    .value
-    .trim();
-
-
-  const age =
-    document
-    .getElementById("age")
-    .value
-    .trim();
-
-
-  const applicantClass =
-    document
-    .getElementById("applicantClass")
-    .value
-    .trim();
-
-
-  const post =
-    document
-    .getElementById("post")
-    .value;
-
-
-  const email =
-    document
-    .getElementById("applicantEmail")
-    .value
-    .trim();
-
-
-  const contact =
-    document
-    .getElementById("contactNumber")
-    .value
-    .trim();
-
-
-  const reason =
-    document
-    .getElementById("applicationReason")
-    .value
-    .trim();
-
-
-  const photo =
-    document
-    .getElementById("applicantPhoto")
-    .files[0];
-
-
-  if(
-    !name ||
-    !age ||
-    !applicantClass ||
-    !post ||
-    !email ||
-    !contact ||
-    !reason ||
-    !photo
-  ){
-
-    statusBox.className =
-      "application-status error";
-
-    statusBox.innerHTML =
-      "❌ कृपया सभी जरूरी जानकारी भरें।";
-
-    return;
-
-  }
-
-
-  submitButton.disabled = true;
-
-  submitButton.innerText =
-    "Saving Application...";
-
-
-  statusBox.className =
-    "application-status loading";
-
-  statusBox.innerHTML =
-    "⏳ आपकी application save हो रही है...";
-
-
-  try{
-
-    /* =====================================
-       SAVE TO SUPABASE
-    ===================================== */
-
-    const response =
-      await fetch(
-
-        APPLICATION_SUPABASE_URL +
-        "/rest/v1/rpc/submit_application",
-
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json",
-
-            "apikey":
-              APPLICATION_SUPABASE_KEY,
-
-            "Authorization":
-              "Bearer " +
-              APPLICATION_SUPABASE_KEY
-          },
-
-          body:JSON.stringify({
-
-            input_applicant_name:
-              name,
-
-            input_age:
-              age,
-
-            input_class:
-              applicantClass,
-
-            input_post:
-              post,
-
-            input_applicant_photo:
-              photo.name,
-
-            input_applicant_email:
-              email,
-
-            input_contact_number:
-              contact,
-
-            input_reason:
-              reason
-
-          })
-
-        }
-
-      );
-
-
-    const result =
-      await response.json();
-
-
-    if(
-      !response.ok ||
-      !result ||
-      result.success !== true
-    ){
-
-      throw new Error(
-        result?.message ||
-        "Application save नहीं हुई।"
-      );
-
-    }
-
-
-    /* =====================================
-       SUCCESS MESSAGE
-    ===================================== */
-
-    statusBox.className =
-      "application-status success";
-
-
-    statusBox.innerHTML = `
-
-      <div class="success-title">
-        ✅ Application Successfully Submitted
-      </div>
-
-      <div class="success-name">
-        Applicant: ${escapeHTML(name)}
-      </div>
-
-      <div>
-        Post: ${escapeHTML(post)}
-      </div>
-
-      <div class="success-note">
-
-        आपकी application Classic Empire Ltd
-        में successfully receive हो गई है।
-
-        <br><br>
-
-        Admin आपकी application check करेगा।
-
-        <br>
-
-        Approved होने पर Exam Code
-        generate किया जाएगा।
-
-        <br><br>
-
-        Application का status देखने के लिए
-        नीचे दिए button का उपयोग करें।
-
-        <br><br>
-
-        <a
-          href="status.html"
-          style="
-            display:inline-block;
-            padding:10px 16px;
-            background:#ffd700;
-            color:#000;
-            border-radius:8px;
-            text-decoration:none;
-            font-weight:bold;
-          "
-        >
-          📋 Check Application Status
-        </a>
-
-      </div>
-
-    `;
-
-
-    submitButton.innerText =
-      "Application Submitted";
-
-
-    /* =====================================
-       SEND ACTUAL FORM + PHOTO
-       THROUGH FORMSUBMIT
-    ===================================== */
-
-    setTimeout(function(){
-
-      HTMLFormElement.prototype.submit.call(
-        applicationForm
-      );
-
-    },500);
-
-
-  }
-  catch(error){
-
-    statusBox.className =
-      "application-status error";
-
-
-    statusBox.innerHTML = `
-
-      ❌ ${escapeHTML(
-        error.message ||
-        "Application submit नहीं हुई।"
-      )}
-
-    `;
-
-
-    submitButton.disabled =
-      false;
-
-
-    submitButton.innerText =
-      "Submit Application";
-
-  }
-
-});
-
-</script>
 
 </body>
 </html>

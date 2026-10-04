@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Classic Empire Ltd - Result</title>
+<title>Classic Empire Ltd - Exam Result</title>
 
 <style>
 *{
@@ -21,104 +21,216 @@ body{
 }
 
 header{
-  text-align:center;
-  padding:25px 15px;
-  border-bottom:2px solid #d4af37;
   background:#111;
+  border-bottom:1px solid #d4af37;
+  padding:18px 20px;
+  text-align:center;
 }
 
 header h1{
   color:#d4af37;
+  font-size:28px;
 }
 
 header p{
   color:#aaa;
-  margin-top:7px;
+  margin-top:6px;
 }
 
 .container{
-  width:94%;
-  max-width:650px;
-  margin:30px auto;
+  width:min(700px,94%);
+  margin:35px auto;
 }
 
 .card{
   background:#111;
   border:1px solid #333;
-  border-radius:14px;
-  padding:22px;
-  margin-bottom:20px;
+  border-radius:16px;
+  padding:25px;
+  box-shadow:0 0 20px rgba(212,175,55,.08);
 }
 
 h2{
   color:#d4af37;
-  margin-bottom:18px;
+  margin-bottom:20px;
+  text-align:center;
+}
+
+label{
+  display:block;
+  margin-bottom:8px;
+  color:#ddd;
 }
 
 input{
   width:100%;
-  padding:13px;
-  background:#1b1b1b;
+  padding:14px;
+  border-radius:10px;
   border:1px solid #444;
-  border-radius:8px;
+  background:#080808;
   color:#fff;
-  margin:8px 0 14px;
+  font-size:16px;
+  outline:none;
+}
+
+input:focus{
+  border-color:#d4af37;
 }
 
 button{
-  padding:12px 18px;
-  border:0;
-  border-radius:8px;
+  width:100%;
+  padding:14px;
+  margin-top:16px;
+  border:none;
+  border-radius:10px;
   background:#d4af37;
   color:#000;
   font-weight:bold;
+  font-size:16px;
   cursor:pointer;
 }
 
+button:hover{
+  opacity:.9;
+}
+
 .message{
-  margin-top:15px;
-  padding:12px;
-  background:#181818;
-  border:1px solid #333;
-  border-radius:8px;
-}
-
-.result{
-  margin-top:20px;
-  background:#111;
-  border:2px solid #d4af37;
-  border-radius:14px;
-  padding:22px;
-}
-
-.row{
-  display:flex;
-  justify-content:space-between;
-  padding:13px 0;
-  border-bottom:1px solid #333;
-}
-
-.row b{
-  color:#d4af37;
-}
-
-.final{
-  text-align:center;
-  font-size:30px;
-  font-weight:bold;
-  margin-top:20px;
+  margin-top:18px;
   padding:15px;
   border-radius:10px;
+  display:none;
+  line-height:1.6;
+}
+
+.info{
+  background:#151515;
+  border:1px solid #555;
+}
+
+.error{
+  background:#210d0d;
+  border:1px solid #a33;
+  color:#ffb0b0;
+}
+
+.success{
+  background:#0d2113;
+  border:1px solid #3a9b52;
+  color:#b8ffc7;
+}
+
+.lock-box{
+  text-align:center;
+  padding:25px 10px;
+}
+
+.lock-icon{
+  font-size:50px;
+  margin-bottom:12px;
+}
+
+.lock-title{
+  color:#d4af37;
+  font-size:24px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.countdown{
+  font-size:32px;
+  font-weight:bold;
+  color:#fff;
+  margin:20px 0;
+  letter-spacing:2px;
+}
+
+.result-box{
+  display:none;
+  margin-top:22px;
+}
+
+.details{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:18px;
+}
+
+.detail{
+  background:#181818;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:15px;
+}
+
+.detail span{
+  display:block;
+  color:#999;
+  font-size:13px;
+  margin-bottom:6px;
+}
+
+.detail strong{
+  font-size:18px;
+}
+
+.total{
+  border-color:#d4af37;
+}
+
+.total strong{
+  color:#d4af37;
+  font-size:24px;
+}
+
+.result-status{
+  text-align:center;
+  margin-top:20px;
+  padding:18px;
+  border-radius:12px;
+  font-size:28px;
+  font-weight:bold;
 }
 
 .pass{
-  background:#123d27;
-  color:#39df82;
+  background:#0d2113;
+  border:1px solid #3a9b52;
+  color:#63e77e;
 }
 
 .fail{
-  background:#421919;
-  color:#ff6262;
+  background:#210d0d;
+  border:1px solid #a33;
+  color:#ff7070;
+}
+
+.small{
+  color:#999;
+  text-align:center;
+  margin-top:16px;
+  font-size:13px;
+}
+
+.hidden{
+  display:none!important;
+}
+
+@media(max-width:600px){
+  header h1{
+    font-size:23px;
+  }
+
+  .card{
+    padding:18px;
+  }
+
+  .details{
+    grid-template-columns:1fr;
+  }
+
+  .countdown{
+    font-size:26px;
+  }
 }
 </style>
 </head>
@@ -134,27 +246,106 @@ button{
 
   <div class="card">
 
-    <h2>📊 Check Exam Result</h2>
+    <h2>📊 Exam Result</h2>
 
-    <input
-      type="text"
-      id="examCode"
-      placeholder="Enter Exam Code"
-      autocomplete="off"
-    >
+    <div id="searchArea">
 
-    <button onclick="checkResult()">
-      🔎 Check Result
-    </button>
+      <label for="examCode">
+        Exam Code
+      </label>
+
+      <input
+        type="text"
+        id="examCode"
+        placeholder="Example: CE-DM-AEDFA"
+        autocomplete="off"
+      >
+
+      <button onclick="checkResult()">
+        🔍 Check Result
+      </button>
+
+    </div>
 
     <div id="message" class="message"></div>
 
+    <!-- 24 HOUR LOCK -->
+    <div id="lockBox" class="lock-box hidden">
+
+      <div class="lock-icon">🔒</div>
+
+      <div class="lock-title">
+        Result अभी Locked है
+      </div>
+
+      <p>
+        आपका Exam successfully submit हो चुका है।
+      </p>
+
+      <p style="margin-top:8px;color:#aaa;">
+        Result submit होने के 24 घंटे बाद उपलब्ध होगा।
+      </p>
+
+      <div id="countdown" class="countdown">
+        24:00:00
+      </div>
+
+      <p style="color:#888;">
+        Result automatically unlock होगा।
+      </p>
+
+    </div>
+
+    <!-- RESULT -->
+    <div id="resultBox" class="result-box">
+
+      <div class="details">
+
+        <div class="detail">
+          <span>Applicant Name</span>
+          <strong id="applicantName">-</strong>
+        </div>
+
+        <div class="detail">
+          <span>Applied Post</span>
+          <strong id="post">-</strong>
+        </div>
+
+        <div class="detail">
+          <span>Objective</span>
+          <strong id="objective">- / 18</strong>
+        </div>
+
+        <div class="detail">
+          <span>Subjective</span>
+          <strong id="subjective">- / 10</strong>
+        </div>
+
+        <div class="detail total">
+          <span>Total Marks</span>
+          <strong id="total">- / 28</strong>
+        </div>
+
+        <div class="detail">
+          <span>Percentage</span>
+          <strong id="percentage">- %</strong>
+        </div>
+
+      </div>
+
+      <div id="resultStatus" class="result-status">
+        -
+      </div>
+
+      <p class="small">
+        Result officially generated by Classic Empire Ltd Exam System.
+      </p>
+
+    </div>
+
   </div>
 
-  <div id="resultBox"></div>
-
 </div>
-
 
 <script>
 
@@ -164,155 +355,8 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
-
-async function checkResult(){
-
-  const code =
-    document
-      .getElementById("examCode")
-      .value
-      .trim()
-      .toUpperCase();
-
-  const message =
-    document.getElementById("message");
-
-  const resultBox =
-    document.getElementById("resultBox");
-
-
-  if(!code){
-
-    message.innerText =
-      "Exam Code डालें।";
-
-    return;
-  }
-
-
-  message.innerText =
-    "Result खोजा जा रहा है...";
-
-  resultBox.innerHTML = "";
-
-
-  try{
-
-    const response =
-      await fetch(
-        `${SUPABASE_URL}/rest/v1/rpc/get_exam_result`,
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":"application/json",
-            "apikey":SUPABASE_KEY,
-            "Authorization":
-              `Bearer ${SUPABASE_KEY}`
-          },
-
-          body:JSON.stringify({
-            input_exam_code:code
-          })
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(!response.ok || !data?.success){
-
-      throw new Error(
-        data?.message ||
-        "Result नहीं मिला।"
-      );
-    }
-
-
-    const objective =
-      Number(data.objective_score || 0);
-
-    const subjective =
-      Number(data.subjective_marks || 0);
-
-    const total =
-      Number(data.total_marks || 0);
-
-    const percentage =
-      ((total / 28) * 100)
-        .toFixed(2);
-
-    const result =
-      data.final_result;
-
-    const resultClass =
-      result === "PASS"
-        ? "pass"
-        : "fail";
-
-
-    resultBox.innerHTML = `
-
-      <div class="result">
-
-        <h2>🎓 Exam Result</h2>
-
-        <div class="row">
-          <span>Applicant</span>
-          <b>
-            ${escapeHtml(data.applicant_name)}
-          </b>
-        </div>
-
-        <div class="row">
-          <span>Post</span>
-          <b>
-            ${escapeHtml(data.post)}
-          </b>
-        </div>
-
-        <div class="row">
-          <span>Objective</span>
-          <b>${objective} / 18</b>
-        </div>
-
-        <div class="row">
-          <span>Subjective</span>
-          <b>${subjective} / 10</b>
-        </div>
-
-        <div class="row">
-          <span>Total</span>
-          <b>${total} / 28</b>
-        </div>
-
-        <div class="row">
-          <span>Percentage</span>
-          <b>${percentage}%</b>
-        </div>
-
-        <div class="final ${resultClass}">
-          ${escapeHtml(result)}
-        </div>
-
-      </div>
-
-    `;
-
-
-    message.innerText =
-      "✅ Result मिल गया।";
-
-
-  }catch(error){
-
-    message.innerText =
-      "❌ " + error.message;
-  }
-}
-
+let countdownTimer = null;
+let currentCode = "";
 
 function escapeHtml(value){
 
@@ -323,6 +367,282 @@ function escapeHtml(value){
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
 }
+
+function showMessage(text,type="info"){
+
+  const box =
+    document.getElementById("message");
+
+  box.className =
+    "message " + type;
+
+  box.innerHTML =
+    escapeHtml(text);
+
+  box.style.display =
+    "block";
+}
+
+function hideMessage(){
+
+  document.getElementById("message")
+    .style.display="none";
+}
+
+function formatCountdown(seconds){
+
+  seconds =
+    Math.max(0,Math.floor(seconds));
+
+  const hours =
+    Math.floor(seconds / 3600);
+
+  const minutes =
+    Math.floor((seconds % 3600) / 60);
+
+  const secs =
+    seconds % 60;
+
+  return String(hours).padStart(2,"0")
+    + ":" +
+    String(minutes).padStart(2,"0")
+    + ":" +
+    String(secs).padStart(2,"0");
+}
+
+function startCountdown(
+  remainingSeconds
+){
+
+  clearInterval(countdownTimer);
+
+  let remaining =
+    Math.max(
+      0,
+      Number(remainingSeconds)
+    );
+
+  const countdown =
+    document.getElementById("countdown");
+
+  countdown.textContent =
+    formatCountdown(remaining);
+
+  countdownTimer =
+    setInterval(async()=>{
+
+      remaining--;
+
+      if(remaining <= 0){
+
+        clearInterval(countdownTimer);
+
+        countdown.textContent =
+          "00:00:00";
+
+        await checkResult(true);
+
+        return;
+      }
+
+      countdown.textContent =
+        formatCountdown(remaining);
+
+    },1000);
+}
+
+async function checkResult(
+  automaticRefresh=false
+){
+
+  const input =
+    document.getElementById("examCode");
+
+  const code =
+    input.value.trim().toUpperCase();
+
+  if(!code && !automaticRefresh){
+
+    showMessage(
+      "कृपया Exam Code डालें।",
+      "error"
+    );
+
+    return;
+  }
+
+  if(code){
+    currentCode = code;
+  }
+
+  if(!currentCode){
+    return;
+  }
+
+  hideMessage();
+
+  try{
+
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/rpc/get_exam_result",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json",
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " + SUPABASE_KEY
+          },
+
+          body:JSON.stringify({
+            input_exam_code:
+              currentCode
+          })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if(!response.ok){
+
+      throw new Error(
+        data.message ||
+        data.error_description ||
+        "Result fetch failed"
+      );
+    }
+
+    if(!data.success){
+
+      document.getElementById("lockBox")
+        .classList.add("hidden");
+
+      document.getElementById("resultBox")
+        .style.display="none";
+
+      showMessage(
+        data.message ||
+        "Exam Result नहीं मिला।",
+        "error"
+      );
+
+      return;
+    }
+
+    /*
+      RESULT LOCKED
+    */
+
+    if(data.result_locked === true){
+
+      document.getElementById("resultBox")
+        .style.display="none";
+
+      document.getElementById("lockBox")
+        .classList.remove("hidden");
+
+      startCountdown(
+        Number(data.remaining_seconds || 0)
+      );
+
+      return;
+    }
+
+    /*
+      RESULT AVAILABLE
+    */
+
+    clearInterval(countdownTimer);
+
+    document.getElementById("lockBox")
+      .classList.add("hidden");
+
+    document.getElementById("resultBox")
+      .style.display="block";
+
+    document.getElementById("applicantName")
+      .textContent =
+        data.applicant_name || "-";
+
+    document.getElementById("post")
+      .textContent =
+        data.post || "-";
+
+    document.getElementById("objective")
+      .textContent =
+        (data.objective_score ?? 0) +
+        " / 18";
+
+    document.getElementById("subjective")
+      .textContent =
+        (data.subjective_marks ?? 0) +
+        " / 10";
+
+    document.getElementById("total")
+      .textContent =
+        (data.total_marks ?? 0) +
+        " / 28";
+
+    document.getElementById("percentage")
+      .textContent =
+        Number(
+          data.percentage ?? 0
+        ).toFixed(2) +
+        " %";
+
+    const status =
+      document.getElementById(
+        "resultStatus"
+      );
+
+    status.textContent =
+      data.final_result || "-";
+
+    status.className =
+      "result-status " +
+      (
+        data.final_result === "PASS"
+          ? "pass"
+          : "fail"
+      );
+
+  }catch(error){
+
+    console.error(error);
+
+    if(!automaticRefresh){
+
+      showMessage(
+        "Result check करने में समस्या हुई। कृपया Exam Code दोबारा जाँचें।",
+        "error"
+      );
+
+    }
+
+  }
+
+}
+
+document
+  .getElementById("examCode")
+  .addEventListener(
+    "keydown",
+    function(event){
+
+      if(event.key === "Enter"){
+        checkResult();
+      }
+
+    }
+  );
 
 </script>
 

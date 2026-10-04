@@ -22,12 +22,12 @@ body{
 }
 
 .container{
-  max-width:1200px;
+  max-width:1250px;
   margin:auto;
 }
 
 header{
-  background:linear-gradient(135deg,#151515,#090909);
+  background:linear-gradient(135deg,#181818,#090909);
   border:1px solid #d4af37;
   border-radius:18px;
   padding:25px;
@@ -42,7 +42,7 @@ header h1{
 }
 
 header p{
-  color:#ccc;
+  color:#aaa;
 }
 
 .panel{
@@ -80,12 +80,12 @@ textarea:focus{
 button{
   border:0;
   border-radius:8px;
-  padding:11px 16px;
+  padding:10px 15px;
   cursor:pointer;
   font-weight:bold;
   background:#d4af37;
   color:#000;
-  margin:5px;
+  margin:4px;
 }
 
 button:hover{
@@ -100,6 +100,21 @@ button:hover{
 .refresh{
   background:#333;
   color:#fff;
+}
+
+.approve{
+  background:#00c853;
+  color:#000;
+}
+
+.reject{
+  background:#d50000;
+  color:#fff;
+}
+
+.generate{
+  background:#d4af37;
+  color:#000;
 }
 
 .hidden{
@@ -124,11 +139,16 @@ button:hover{
   color:#ff5252;
 }
 
+.warning{
+  border-color:#ffd740;
+  color:#ffd740;
+}
+
 table{
   width:100%;
   border-collapse:collapse;
   margin-top:15px;
-  min-width:900px;
+  min-width:1100px;
 }
 
 th,
@@ -152,6 +172,51 @@ td{
   overflow-x:auto;
 }
 
+.status{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.status-pending{
+  color:#ffd740;
+  border:1px solid #ffd740;
+  background:#211e10;
+}
+
+.status-approved{
+  color:#00e676;
+  border:1px solid #00c853;
+  background:#0c2115;
+}
+
+.status-rejected{
+  color:#ff5252;
+  border:1px solid #ff1744;
+  background:#250d10;
+}
+
+.status-pass{
+  color:#00e676;
+  font-weight:bold;
+}
+
+.status-fail{
+  color:#ff5252;
+  font-weight:bold;
+}
+
+.answer-box{
+  background:#171717;
+  border-left:3px solid #d4af37;
+  padding:12px;
+  margin:8px 0;
+  border-radius:5px;
+  white-space:pre-wrap;
+}
+
 .card{
   background:#0d0d0d;
   border:1px solid #333;
@@ -170,13 +235,10 @@ td{
   font-size:13px;
 }
 
-.answer-box{
-  background:#171717;
-  border-left:3px solid #d4af37;
-  padding:12px;
-  margin:8px 0;
-  border-radius:5px;
-  white-space:pre-wrap;
+.result-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:10px;
 }
 
 .result-controls{
@@ -185,24 +247,14 @@ td{
   border-top:1px solid #333;
 }
 
-.result-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:10px;
-}
-
-.status-pass{
-  color:#00e676;
-  font-weight:bold;
-}
-
-.status-fail{
-  color:#ff5252;
-  font-weight:bold;
-}
-
-.status-pending{
-  color:#ffd740;
+.readonly-total{
+  width:100%;
+  padding:12px;
+  margin:7px 0;
+  border-radius:8px;
+  border:1px solid #555;
+  background:#202020;
+  color:#d4af37;
   font-weight:bold;
 }
 
@@ -213,6 +265,7 @@ footer{
 }
 
 @media(max-width:600px){
+
   body{
     padding:10px;
   }
@@ -243,7 +296,8 @@ footer{
 </header>
 
 
-<!-- LOGIN -->
+<!-- ================= LOGIN ================= -->
+
 <div id="loginPanel" class="panel">
 
   <h2>🔐 Admin Login</h2>
@@ -260,14 +314,17 @@ footer{
     placeholder="Password"
   >
 
-  <button onclick="loginAdmin()">Login</button>
+  <button onclick="loginAdmin()">
+    🔐 Login
+  </button>
 
   <div id="loginMessage"></div>
 
 </div>
 
 
-<!-- ADMIN AREA -->
+<!-- ================= ADMIN ================= -->
+
 <div id="adminPanel" class="hidden">
 
   <div class="panel">
@@ -283,7 +340,8 @@ footer{
   </div>
 
 
-  <!-- APPLICATIONS -->
+  <!-- ================= APPLICATIONS ================= -->
+
   <div class="panel">
 
     <h2>📋 Applicant Applications</h2>
@@ -295,7 +353,6 @@ footer{
       <table>
 
         <thead>
-
           <tr>
             <th>ID</th>
             <th>Applicant</th>
@@ -309,7 +366,6 @@ footer{
             <th>Status</th>
             <th>Action</th>
           </tr>
-
         </thead>
 
         <tbody id="applicationsTable"></tbody>
@@ -321,10 +377,15 @@ footer{
   </div>
 
 
-  <!-- EXAM CODE GENERATOR -->
+  <!-- ================= CODE GENERATOR ================= -->
+
   <div class="panel">
 
     <h2>🎟️ Exam Code Generator</h2>
+
+    <p class="small">
+      केवल Approved Application के लिए Exam Code generate करें।
+    </p>
 
     <input
       type="text"
@@ -334,7 +395,9 @@ footer{
 
     <select id="codePost">
 
-      <option value="">-- Post Select करें --</option>
+      <option value="">
+        -- Post Select करें --
+      </option>
 
       <option>President's Assistant</option>
       <option>DM</option>
@@ -345,8 +408,11 @@ footer{
 
     </select>
 
-    <button onclick="generateCode()">
-      Generate Exam Code
+    <button
+      class="generate"
+      onclick="generateCode()"
+    >
+      🎟️ Generate Exam Code
     </button>
 
     <div id="codeMessage"></div>
@@ -354,7 +420,8 @@ footer{
   </div>
 
 
-  <!-- CODE HISTORY -->
+  <!-- ================= CODE HISTORY ================= -->
+
   <div class="panel">
 
     <h2>🎫 Exam Code History</h2>
@@ -385,7 +452,8 @@ footer{
   </div>
 
 
-  <!-- SUBMISSIONS -->
+  <!-- ================= SUBMISSIONS ================= -->
+
   <div class="panel">
 
     <h2>📝 Exam Submission History</h2>
@@ -414,9 +482,12 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
-
 let accessToken = null;
 
+
+/* =========================
+   ESCAPE HTML
+========================= */
 
 function escapeHTML(value){
 
@@ -432,6 +503,10 @@ function escapeHTML(value){
     .replace(/'/g,"&#039;");
 }
 
+
+/* =========================
+   SUPABASE REQUEST
+========================= */
 
 async function supabaseRequest(
   endpoint,
@@ -464,7 +539,8 @@ async function supabaseRequest(
 
   try{
     data = text ? JSON.parse(text) : null;
-  }catch{
+  }
+  catch{
     data = text;
   }
 
@@ -491,13 +567,19 @@ async function supabaseRequest(
 async function loginAdmin(){
 
   const email =
-    document.getElementById("loginEmail").value.trim();
+    document.getElementById(
+      "loginEmail"
+    ).value.trim();
 
   const password =
-    document.getElementById("loginPassword").value;
+    document.getElementById(
+      "loginPassword"
+    ).value;
 
   const message =
-    document.getElementById("loginMessage");
+    document.getElementById(
+      "loginMessage"
+    );
 
   message.innerHTML = "";
 
@@ -511,23 +593,25 @@ async function loginAdmin(){
     return;
   }
 
-
   try{
 
-    const data = await supabaseRequest(
-      "/auth/v1/token?grant_type=password",
-      {
-        method:"POST",
-        headers:{
-          "apikey":SUPABASE_KEY,
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          email:email,
-          password:password
-        })
-      }
-    );
+    const data =
+      await supabaseRequest(
+        "/auth/v1/token?grant_type=password",
+        {
+          method:"POST",
+
+          headers:{
+            "apikey":SUPABASE_KEY,
+            "Content-Type":"application/json"
+          },
+
+          body:JSON.stringify({
+            email:email,
+            password:password
+          })
+        }
+      );
 
 
     accessToken =
@@ -576,8 +660,8 @@ async function loginAdmin(){
 
     await loadAll();
 
-
-  }catch(error){
+  }
+  catch(error){
 
     message.innerHTML =
       `<div class="message error">
@@ -639,6 +723,8 @@ async function loadApplications(){
 
   table.innerHTML = "";
 
+  message.innerHTML = "";
+
   try{
 
     const data =
@@ -669,10 +755,85 @@ async function loadApplications(){
       const tr =
         document.createElement("tr");
 
+      const status =
+        app.status || "Pending";
+
+
+      let statusClass =
+        "status-pending";
+
+      if(status === "Approved"){
+        statusClass = "status-approved";
+      }
+
+      if(status === "Rejected"){
+        statusClass = "status-rejected";
+      }
+
+
+      let actionHTML = "";
+
+
+      if(status === "Pending"){
+
+        actionHTML = `
+
+          <button
+            class="approve"
+            onclick="updateApplicationStatus(
+              ${app.id},
+              'Approved'
+            )"
+          >
+            ✅ Approve
+          </button>
+
+          <button
+            class="reject"
+            onclick="updateApplicationStatus(
+              ${app.id},
+              'Rejected'
+            )"
+          >
+            ❌ Reject
+          </button>
+
+        `;
+
+      }
+      else if(status === "Approved"){
+
+        actionHTML = `
+
+          <button
+            class="generate"
+            onclick='useApplicationForCode(
+              ${JSON.stringify(app.applicant_name)},
+              ${JSON.stringify(app.post)}
+            )'
+          >
+            🎟️ Generate Code
+          </button>
+
+        `;
+
+      }
+      else{
+
+        actionHTML = `
+          <span class="small">
+            Application Rejected
+          </span>
+        `;
+
+      }
+
 
       tr.innerHTML = `
 
-        <td>${escapeHTML(app.id)}</td>
+        <td>
+          ${escapeHTML(app.id)}
+        </td>
 
         <td>
           <strong>
@@ -680,15 +841,25 @@ async function loadApplications(){
           </strong>
         </td>
 
-        <td>${escapeHTML(app.age)}</td>
+        <td>
+          ${escapeHTML(app.age)}
+        </td>
 
-        <td>${escapeHTML(app.class)}</td>
+        <td>
+          ${escapeHTML(app.class)}
+        </td>
 
-        <td>${escapeHTML(app.post)}</td>
+        <td>
+          ${escapeHTML(app.post)}
+        </td>
 
-        <td>${escapeHTML(app.applicant_email)}</td>
+        <td>
+          ${escapeHTML(app.applicant_email)}
+        </td>
 
-        <td>${escapeHTML(app.contact_number)}</td>
+        <td>
+          ${escapeHTML(app.contact_number)}
+        </td>
 
         <td>
           ${escapeHTML(app.applicant_photo)}
@@ -699,20 +870,13 @@ async function loadApplications(){
         </td>
 
         <td>
-          ${escapeHTML(app.status || "Pending")}
+          <span class="status ${statusClass}">
+            ${escapeHTML(status)}
+          </span>
         </td>
 
         <td>
-
-          <button
-            onclick='useApplicationForCode(
-              ${JSON.stringify(app.applicant_name)},
-              ${JSON.stringify(app.post)}
-            )'
-          >
-            🎟️ Generate Code
-          </button>
-
+          ${actionHTML}
         </td>
 
       `;
@@ -721,8 +885,8 @@ async function loadApplications(){
 
     });
 
-
-  }catch(error){
+  }
+  catch(error){
 
     message.innerHTML =
       `<div class="message error">
@@ -735,7 +899,76 @@ async function loadApplications(){
 
 
 /* =========================
-   USE APPLICATION
+   APPROVE / REJECT
+========================= */
+
+async function updateApplicationStatus(
+  id,
+  status
+){
+
+  const action =
+    status === "Approved"
+    ? "Approve"
+    : "Reject";
+
+
+  const confirmed =
+    confirm(
+      `क्या आप इस Application को ${action} करना चाहते हैं?`
+    );
+
+
+  if(!confirmed){
+    return;
+  }
+
+
+  try{
+
+    const result =
+      await supabaseRequest(
+        "/rest/v1/rpc/update_application_status",
+        {
+          method:"POST",
+
+          body:JSON.stringify({
+            input_application_id:id,
+            input_status:status
+          })
+        }
+      );
+
+
+    if(
+      !result ||
+      result.success !== true
+    ){
+
+      throw new Error(
+        result?.message ||
+        "Status update नहीं हुआ"
+      );
+
+    }
+
+
+    await loadApplications();
+
+  }
+  catch(error){
+
+    alert(
+      "❌ " + error.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   USE APPROVED APPLICATION
 ========================= */
 
 function useApplicationForCode(
@@ -745,12 +978,14 @@ function useApplicationForCode(
 
   document.getElementById(
     "codeApplicantName"
-  ).value = applicantName;
+  ).value =
+    applicantName;
 
 
   document.getElementById(
     "codePost"
-  ).value = post;
+  ).value =
+    post;
 
 
   document.getElementById(
@@ -764,7 +999,7 @@ function useApplicationForCode(
 
 
 /* =========================
-   GENERATE CODE
+   GENERATE EXAM CODE
 ========================= */
 
 async function generateCode(){
@@ -809,6 +1044,7 @@ async function generateCode(){
         "/rest/v1/rpc/generate_exam_code",
         {
           method:"POST",
+
           body:JSON.stringify({
             input_applicant_name:name,
             input_post:post
@@ -828,8 +1064,8 @@ async function generateCode(){
 
     await loadCodes();
 
-
-  }catch(error){
+  }
+  catch(error){
 
     message.innerHTML =
       `<div class="message error">
@@ -888,7 +1124,9 @@ async function loadCodes(){
 
       tr.innerHTML = `
 
-        <td>${escapeHTML(code.id)}</td>
+        <td>
+          ${escapeHTML(code.id)}
+        </td>
 
         <td>
           <strong>
@@ -925,8 +1163,8 @@ async function loadCodes(){
 
     });
 
-
-  }catch(error){
+  }
+  catch(error){
 
     table.innerHTML =
       `<tr>
@@ -941,7 +1179,7 @@ async function loadCodes(){
 
 
 /* =========================
-   SUBMISSIONS
+   EXAM SUBMISSIONS
 ========================= */
 
 async function loadSubmissions(){
@@ -957,6 +1195,9 @@ async function loadSubmissions(){
     );
 
   container.innerHTML = "";
+
+  message.innerHTML = "";
+
 
   try{
 
@@ -999,25 +1240,33 @@ async function loadSubmissions(){
 
 
       if(
-        String(result).toLowerCase()
+        String(result)
+        .toLowerCase()
         .includes("pass")
       ){
-
         resultClass =
           "status-pass";
-
       }
 
 
       if(
-        String(result).toLowerCase()
+        String(result)
+        .toLowerCase()
         .includes("fail")
       ){
-
         resultClass =
           "status-fail";
-
       }
+
+
+      const objective =
+        Number(sub.objective_score || 0);
+
+      const subjective =
+        Number(sub.subjective_marks || 0);
+
+      const calculatedTotal =
+        objective + subjective;
 
 
       card.innerHTML = `
@@ -1043,12 +1292,13 @@ async function loadSubmissions(){
 
         <p>
           <strong>Objective Score:</strong>
-          ${escapeHTML(sub.objective_score)}
-          / 18
+          ${escapeHTML(objective)} / 18
         </p>
 
 
-        <h4 style="margin-top:15px;color:#d4af37;">
+        <h4
+          style="margin-top:15px;color:#d4af37;"
+        >
           📖 Subjective Answer 1
         </h4>
 
@@ -1059,7 +1309,9 @@ async function loadSubmissions(){
         </div>
 
 
-        <h4 style="margin-top:15px;color:#d4af37;">
+        <h4
+          style="margin-top:15px;color:#d4af37;"
+        >
           📖 Subjective Answer 2
         </h4>
 
@@ -1079,8 +1331,13 @@ async function loadSubmissions(){
           <div class="result-grid">
 
             <div>
+
               <label>
                 Subjective Marks
+                <br>
+                <span class="small">
+                  0 से 10
+                </span>
               </label>
 
               <input
@@ -1091,34 +1348,37 @@ async function loadSubmissions(){
                 value="${escapeHTML(
                   sub.subjective_marks ?? 0
                 )}"
+                oninput="updateDisplayedTotal(${sub.id},${objective})"
               >
 
             </div>
 
 
             <div>
+
               <label>
                 Total Marks
               </label>
 
-              <input
-                type="number"
-                min="0"
+              <div
+                class="readonly-total"
                 id="total_${sub.id}"
-                value="${escapeHTML(
-                  sub.total_marks ?? sub.objective_score
-                )}"
               >
+                ${calculatedTotal} / 28
+              </div>
 
             </div>
 
 
             <div>
+
               <label>
                 Final Result
               </label>
 
-              <select id="result_${sub.id}">
+              <select
+                id="result_${sub.id}"
+              >
 
                 <option
                   value="Pending"
@@ -1171,8 +1431,8 @@ async function loadSubmissions(){
 
     });
 
-
-  }catch(error){
+  }
+  catch(error){
 
     message.innerHTML =
       `<div class="message error">
@@ -1185,7 +1445,50 @@ async function loadSubmissions(){
 
 
 /* =========================
-   SAVE RESULT
+   LIVE TOTAL
+========================= */
+
+function updateDisplayedTotal(
+  id,
+  objective
+){
+
+  const input =
+    document.getElementById(
+      `subjective_${id}`
+    );
+
+  const display =
+    document.getElementById(
+      `total_${id}`
+    );
+
+
+  let subjective =
+    Number(input.value);
+
+
+  if(
+    Number.isNaN(subjective) ||
+    subjective < 0
+  ){
+    subjective = 0;
+  }
+
+
+  if(subjective > 10){
+    subjective = 10;
+  }
+
+
+  display.innerText =
+    `${objective + subjective} / 28`;
+
+}
+
+
+/* =========================
+   SAVE FINAL RESULT
 ========================= */
 
 async function saveResult(id){
@@ -1198,14 +1501,6 @@ async function saveResult(id){
     );
 
 
-  const total =
-    Number(
-      document.getElementById(
-        `total_${id}`
-      ).value
-    );
-
-
   const result =
     document.getElementById(
       `result_${id}`
@@ -1214,10 +1509,14 @@ async function saveResult(id){
 
   if(
     Number.isNaN(subjective) ||
-    Number.isNaN(total)
+    subjective < 0 ||
+    subjective > 10
   ){
 
-    alert("Marks सही भरें।");
+    alert(
+      "Subjective Marks 0 से 10 के बीच होने चाहिए।"
+    );
+
     return;
 
   }
@@ -1230,17 +1529,29 @@ async function saveResult(id){
         "/rest/v1/rpc/update_exam_result",
         {
           method:"POST",
+
           body:JSON.stringify({
+
             input_submission_id:id,
-            input_subjective_marks:subjective,
-            input_total_marks:total,
-            input_final_result:result
+
+            input_subjective_marks:
+              subjective,
+
+            input_total_marks:
+              0,
+
+            input_final_result:
+              result
+
           })
         }
       );
 
 
-    if(!data || data.success !== true){
+    if(
+      !data ||
+      data.success !== true
+    ){
 
       throw new Error(
         data?.message ||
@@ -1257,8 +1568,8 @@ async function saveResult(id){
 
     await loadSubmissions();
 
-
-  }catch(error){
+  }
+  catch(error){
 
     alert(
       "❌ " + error.message
@@ -1270,7 +1581,7 @@ async function saveResult(id){
 
 
 /* =========================
-   AUTO LOGIN FROM TOKEN
+   RESTORE SESSION
 ========================= */
 
 async function restoreSession(){
@@ -1319,14 +1630,15 @@ async function restoreSession(){
 
       await loadAll();
 
-    }else{
+    }
+    else{
 
       logoutAdmin();
 
     }
 
-
-  }catch(error){
+  }
+  catch(error){
 
     logoutAdmin();
 

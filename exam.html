@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Classic Empire Ltd - Exam Portal</title>
 
@@ -18,115 +18,97 @@ body{
   background:#080808;
   color:#fff;
   min-height:100vh;
-  padding:20px;
+}
+
+header{
+  background:linear-gradient(135deg,#111,#1c1c1c);
+  border-bottom:2px solid #d4af37;
+  padding:22px 15px;
+  text-align:center;
+}
+
+header h1{
+  color:#d4af37;
+  margin-bottom:7px;
+}
+
+header p{
+  color:#aaa;
 }
 
 .container{
-  max-width:850px;
-  margin:auto;
-}
-
-.header{
-  text-align:center;
-  margin-bottom:25px;
-}
-
-.header h1{
-  color:#ffd700;
-  font-size:30px;
-}
-
-.header p{
-  color:#aaa;
-  margin-top:8px;
+  width:95%;
+  max-width:900px;
+  margin:25px auto;
 }
 
 .card{
   background:#111;
   border:1px solid #333;
-  border-radius:15px;
-  padding:25px;
+  border-radius:14px;
+  padding:20px;
   margin-bottom:20px;
 }
 
-label{
-  display:block;
-  color:#ffd700;
-  font-weight:bold;
-  margin-bottom:8px;
+.card h2{
+  color:#d4af37;
+  margin-bottom:18px;
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
   width:100%;
   padding:13px;
-  background:#181818;
-  color:#fff;
+  margin:7px 0 14px;
+  background:#1b1b1b;
   border:1px solid #444;
   border-radius:8px;
-  margin-bottom:15px;
+  color:#fff;
   font-size:15px;
 }
 
 textarea{
-  min-height:150px;
+  min-height:130px;
   resize:vertical;
 }
 
 button{
-  width:100%;
-  padding:14px;
+  padding:12px 18px;
   border:0;
   border-radius:8px;
-  background:#ffd700;
-  color:#000;
-  font-weight:bold;
-  font-size:16px;
   cursor:pointer;
+  font-weight:bold;
+  margin:4px;
+}
+
+.gold{
+  background:#d4af37;
+  color:#000;
+}
+
+.green{
+  background:#159447;
+  color:#fff;
+}
+
+.red{
+  background:#c73535;
+  color:#fff;
+}
+
+.blue{
+  background:#286bd6;
+  color:#fff;
+}
+
+.gray{
+  background:#444;
+  color:#fff;
 }
 
 button:hover{
-  background:#ffea70;
-}
-
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-
-.question{
-  background:#171717;
-  border:1px solid #292929;
-  border-radius:10px;
-  padding:18px;
-  margin-bottom:18px;
-}
-
-.question h3{
-  color:#ffd700;
-  margin-bottom:14px;
-  line-height:1.5;
-}
-
-.option{
-  display:block;
-  padding:11px;
-  margin:8px 0;
-  border:1px solid #333;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-.option:hover{
-  background:#222;
-}
-
-.option input{
-  width:auto;
-  margin:0 8px 0 0;
-}
-
-.subjective{
-  border-left:4px solid #ffd700;
+  opacity:.85;
 }
 
 .hidden{
@@ -134,125 +116,245 @@ button:disabled{
 }
 
 .message{
-  padding:14px;
+  background:#181818;
+  border:1px solid #333;
+  padding:12px;
   border-radius:8px;
-  margin-top:15px;
-  text-align:center;
-}
-
-.error{
-  background:#4b1111;
-  color:#ff9999;
-}
-
-.success{
-  background:#064d28;
-  color:#75ffb3;
+  margin-top:10px;
 }
 
 .info{
-  background:#171717;
-  color:#ccc;
+  color:#aaa;
+  line-height:1.7;
 }
 
-.result{
-  text-align:center;
+.question{
+  background:#161616;
+  border:1px solid #333;
+  border-radius:12px;
+  padding:18px;
+  margin-bottom:16px;
 }
 
-.score{
-  font-size:28px;
-  color:#ffd700;
-  margin:15px 0;
+.question h3{
+  color:#d4af37;
+  margin-bottom:14px;
 }
 
-.pass{
-  color:#54ff9b;
-  font-size:24px;
-  font-weight:bold;
-}
-
-.fail{
-  color:#ff7070;
-  font-size:24px;
-  font-weight:bold;
-}
-
-.back{
+.option{
   display:block;
-  text-align:center;
-  color:#ffd700;
-  text-decoration:none;
+  background:#1c1c1c;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:11px;
+  margin:8px 0;
+  cursor:pointer;
+}
+
+.option:hover{
+  border-color:#d4af37;
+}
+
+.option input{
+  width:auto;
+  margin:0 8px 0 0;
+}
+
+.exam-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  background:#181818;
+  border:1px solid #333;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+}
+
+.exam-top b{
+  color:#d4af37;
+}
+
+.result-card{
+  background:#111;
+  border:2px solid #d4af37;
+  border-radius:15px;
+  padding:22px;
   margin-top:20px;
 }
 
-.small{
+.result-card h2{
+  text-align:center;
+  color:#d4af37;
+  margin-bottom:20px;
+}
+
+.result-row{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:13px 0;
+  border-bottom:1px solid #333;
+}
+
+.result-row b{
+  color:#d4af37;
+}
+
+.final-result{
+  text-align:center;
+  font-size:30px;
+  font-weight:bold;
+  padding:16px;
+  margin-top:20px;
+  border-radius:10px;
+}
+
+.pass{
+  background:#123d27;
+  color:#39df82;
+}
+
+.fail{
+  background:#421919;
+  color:#ff6262;
+}
+
+.rule{
+  text-align:center;
   color:#aaa;
-  font-size:13px;
-  margin-bottom:15px;
+  margin-top:15px;
+  line-height:1.6;
+}
+
+@media(max-width:600px){
+  .result-row{
+    flex-direction:column;
+    gap:5px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<header>
+  <h1>🏛️ Classic Empire Ltd</h1>
+  <p>Official Exam Portal</p>
+</header>
 
-  <div class="header">
-    <h1>🏛️ Classic Empire Ltd</h1>
-    <p>Official Exam Portal</p>
-  </div>
+
+<div class="container">
 
   <!-- LOGIN -->
   <div id="loginCard" class="card">
+
+    <h2>🔐 Exam Login</h2>
+
+    <p class="info">
+      अपना Exam Code और Post डालकर परीक्षा शुरू करें।
+    </p>
 
     <label>Exam Code</label>
 
     <input
       type="text"
       id="examCode"
-      placeholder="जैसे CE-DM-AEDFA"
+      placeholder="Example: CE-DM-XXXXX"
       autocomplete="off"
     >
 
-    <label>Post</label>
+    <label>Apply For Post</label>
 
-    <select id="post">
-      <option value="">-- Post Select करें --</option>
-      <option value="President's Assistant">President's Assistant</option>
-      <option value="DM">DM</option>
-      <option value="DM's Assistant">DM's Assistant</option>
-      <option value="SDM">SDM</option>
-      <option value="SP">SP</option>
-      <option value="DSP">DSP</option>
+    <select id="examPost">
+
+      <option value="">
+        Select Post
+      </option>
+
+      <option>President's Assistant</option>
+      <option>DM</option>
+      <option>DM's Assistant</option>
+      <option>SDM</option>
+      <option>SP</option>
+      <option>DSP</option>
+
     </select>
 
-    <button onclick="startExam()">
-      🔐 Start Exam
+    <button
+      class="gold"
+      onclick="startExam()"
+    >
+      🚀 Start Exam
     </button>
 
-    <div id="loginMessage" class="message hidden"></div>
+    <div
+      id="loginMessage"
+      class="message"
+    ></div>
 
   </div>
 
+
   <!-- EXAM -->
-  <div id="examCard" class="card hidden">
+  <div
+    id="examCard"
+    class="hidden"
+  >
 
-    <h2 style="color:#ffd700;margin-bottom:10px;">
-      📝 Examination
-    </h2>
+    <div class="card">
 
-    <p id="candidateInfo" class="small"></p>
+      <div class="exam-top">
 
-    <div class="message info">
-      कुल 20 प्रश्न — 18 Objective + 2 Subjective<br>
-      Objective: 18 अंक | Subjective: 10 अंक
+        <div>
+          <b>Applicant:</b>
+          <span id="applicantName"></span>
+        </div>
+
+        <div>
+          <b>Post:</b>
+          <span id="applicantPost"></span>
+        </div>
+
+        <div>
+          <b>Total:</b>
+          28 Marks
+        </div>
+
+      </div>
+
+      <h2>📝 Examination</h2>
+
+      <p class="info">
+        Objective: 18 Questions × 1 Mark = 18 Marks
+        <br>
+        Subjective: 2 Questions = 10 Marks
+        <br>
+        PASS: 21/28 या उससे अधिक
+      </p>
+
     </div>
 
-    <form id="examForm">
+
+    <!-- OBJECTIVE QUESTIONS -->
+
+    <div class="card">
+
+      <h2>Part A — Objective</h2>
 
       <div id="objectiveQuestions"></div>
 
-      <div class="question subjective">
+    </div>
+
+
+    <!-- SUBJECTIVE -->
+
+    <div class="card">
+
+      <h2>Part B — Subjective</h2>
+
+      <div class="question">
 
         <h3>
           19. आपके अनुसार एक अच्छे प्रशासनिक अधिकारी में कौन-कौन से प्रमुख गुण होने चाहिए?
@@ -265,7 +367,8 @@ button:disabled{
 
       </div>
 
-      <div class="question subjective">
+
+      <div class="question">
 
         <h3>
           20. यदि आपके सामने कोई कठिन प्रशासनिक परिस्थिति आए, तो आप उसका समाधान किस प्रकार करेंगे?
@@ -278,34 +381,38 @@ button:disabled{
 
       </div>
 
-      <button type="submit">
-        📤 Submit Exam
+
+      <button
+        class="green"
+        onclick="submitExam()"
+      >
+        ✅ Submit Exam
       </button>
 
-    </form>
+      <div
+        id="submitMessage"
+        class="message"
+      ></div>
 
-    <div id="examMessage" class="message hidden"></div>
+    </div>
 
   </div>
+
 
   <!-- RESULT -->
-  <div id="resultCard" class="card result hidden">
-
-    <h2 style="color:#ffd700;">
-      📊 Exam Submitted
-    </h2>
-
-    <div id="resultContent"></div>
-
-  </div>
-
-  <a class="back" href="index.html">
-    ← Back to Classic Empire Ltd
-  </a>
+  <div
+    id="resultBox"
+    class="hidden"
+  ></div>
 
 </div>
 
+
 <script>
+
+/* ==========================================
+   SUPABASE
+========================================== */
 
 const SUPABASE_URL =
 "https://hjatspkzgoddcpgwfkxo.supabase.co";
@@ -313,296 +420,236 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
-let currentApplicantName = "";
-let currentPost = "";
-let currentCode = "";
-let examStarted = false;
+
+/* ==========================================
+   QUESTIONS
+========================================== */
 
 const questions = [
 
-{
-q:"भारत में जिला प्रशासन का प्रमुख अधिकारी सामान्यतः कौन होता है?",
-options:["DM","DSP","SP","SDM"],
-answer:0
-},
+  {
+    q:"भारत में जिला प्रशासन का प्रमुख अधिकारी सामान्यतः कौन होता है?",
+    options:[
+      "DM",
+      "DSP",
+      "SP",
+      "SDM"
+    ],
+    answer:0
+  },
 
-{
-q:"कानून-व्यवस्था बनाए रखने में पुलिस विभाग की प्रमुख भूमिका क्या है?",
-options:["सड़क बनाना","शांति और सुरक्षा बनाए रखना","कर वसूलना","विद्यालय चलाना"],
-answer:1
-},
+  {
+    q:"IPS का पूरा नाम क्या है?",
+    options:[
+      "Indian Police Service",
+      "Indian Public Service",
+      "Indian Protection Service",
+      "Indian Political Service"
+    ],
+    answer:0
+  },
 
-{
-q:"DM के अधीन सामान्यतः कौन-सा अधिकारी कार्य करता है?",
-options:["SDM","राष्ट्रपति","प्रधान न्यायाधीश","राज्यपाल"],
-answer:0
-},
+  {
+    q:"IAS का पूरा नाम क्या है?",
+    options:[
+      "Indian Administrative Service",
+      "Indian Authority Service",
+      "Indian Administration System",
+      "Indian Administrative Security"
+    ],
+    answer:0
+  },
 
-{
-q:"SP का मुख्य कार्य किससे संबंधित है?",
-options:["शिक्षा","स्वास्थ्य","पुलिस प्रशासन","कृषि"],
-answer:2
-},
+  {
+    q:"SP किस प्रशासनिक क्षेत्र से संबंधित पद है?",
+    options:[
+      "Police Administration",
+      "Education",
+      "Health",
+      "Finance"
+    ],
+    answer:0
+  },
 
-{
-q:"SDM का पूरा नाम क्या है?",
-options:[
-"State District Manager",
-"Sub-Divisional Magistrate",
-"Senior District Member",
-"Special Development Manager"
-],
-answer:1
-},
+  {
+    q:"DSP सामान्यतः किसके अधीन कार्य करता है?",
+    options:[
+      "SP",
+      "SDM",
+      "President",
+      "DM's Assistant"
+    ],
+    answer:0
+  },
 
-{
-q:"IPS अधिकारी मुख्य रूप से किस सेवा से संबंधित होता है?",
-options:[
-"पुलिस सेवा",
-"शिक्षा सेवा",
-"डाक सेवा",
-"रेल सेवा"
-],
-answer:0
-},
+  {
+    q:"SDM का पूरा नाम क्या है?",
+    options:[
+      "Sub-Divisional Magistrate",
+      "State District Manager",
+      "Senior District Magistrate",
+      "Special Development Manager"
+    ],
+    answer:0
+  },
 
-{
-q:"IAS का पूरा नाम क्या है?",
-options:[
-"Indian Administrative Service",
-"Indian Army Service",
-"International Administrative Service",
-"Indian Authority System"
-],
-answer:0
-},
+  {
+    q:"भारत में संविधान सर्वोच्च क्या है?",
+    options:[
+      "कानून का आधार",
+      "केवल एक पुस्तक",
+      "एक विभाग",
+      "एक न्यायालय"
+    ],
+    answer:0
+  },
 
-{
-q:"एक अच्छे अधिकारी के लिए सबसे महत्वपूर्ण गुणों में से एक क्या है?",
-options:[
-"लापरवाही",
-"ईमानदारी",
-"पक्षपात",
-"अनुशासनहीनता"
-],
-answer:1
-},
+  {
+    q:"लोकतंत्र में जनता का मुख्य अधिकार क्या है?",
+    options:[
+      "प्रतिनिधि चुनना",
+      "न्यायालय बंद करना",
+      "कानून समाप्त करना",
+      "प्रशासन रोकना"
+    ],
+    answer:0
+  },
 
-{
-q:"लोक प्रशासन का मुख्य उद्देश्य क्या है?",
-options:[
-"जनता की सेवा",
-"व्यक्तिगत लाभ",
-"केवल व्यापार",
-"मनोरंजन"
-],
-answer:0
-},
+  {
+    q:"प्रशासन का मुख्य उद्देश्य क्या होना चाहिए?",
+    options:[
+      "जनसेवा",
+      "व्यक्तिगत लाभ",
+      "शक्ति प्रदर्शन",
+      "केवल धन संग्रह"
+    ],
+    answer:0
+  },
 
-{
-q:"SP के नीचे पुलिस प्रशासन में कौन-सा पद हो सकता है?",
-options:[
-"DM",
-"DSP",
-"President",
-"SDM"
-],
-answer:1
-},
+  {
+    q:"एक अच्छे अधिकारी के लिए सबसे महत्वपूर्ण गुणों में से एक कौन-सा है?",
+    options:[
+      "ईमानदारी",
+      "पक्षपात",
+      "लापरवाही",
+      "अहंकार"
+    ],
+    answer:0
+  },
 
-{
-q:"प्रशासन में निर्णय लेते समय किस बात का ध्यान रखना चाहिए?",
-options:[
-"पक्षपात",
-"न्याय और नियम",
-"व्यक्तिगत पसंद",
-"अफवाह"
-],
-answer:1
-},
+  {
+    q:"किसी अधिकारी को कठिन परिस्थिति में क्या करना चाहिए?",
+    options:[
+      "तथ्यों के आधार पर निर्णय लेना",
+      "बिना सोचे निर्णय लेना",
+      "समस्या को नजरअंदाज करना",
+      "दूसरों को दोष देना"
+    ],
+    answer:0
+  },
 
-{
-q:"भारत में UPSC किस प्रकार की परीक्षाओं के लिए प्रसिद्ध है?",
-options:[
-"सिविल सेवा परीक्षा",
-"केवल खेल परीक्षा",
-"केवल संगीत परीक्षा",
-"केवल ड्राइविंग परीक्षा"
-],
-answer:0
-},
+  {
+    q:"न्यायपूर्ण प्रशासन में क्या आवश्यक है?",
+    options:[
+      "निष्पक्षता",
+      "पक्षपात",
+      "भेदभाव",
+      "लापरवाही"
+    ],
+    answer:0
+  },
 
-{
-q:"DSP का संबंध मुख्य रूप से किस विभाग से है?",
-options:[
-"पुलिस",
-"कृषि",
-"शिक्षा",
-"वित्त"
-],
-answer:0
-},
+  {
+    q:"कानून का पालन किसके लिए आवश्यक है?",
+    options:[
+      "सभी के लिए",
+      "केवल अधिकारियों के लिए",
+      "केवल नागरिकों के लिए",
+      "केवल विद्यार्थियों के लिए"
+    ],
+    answer:0
+  },
 
-{
-q:"जनता की शिकायत सुनना किस प्रशासनिक सिद्धांत को दर्शाता है?",
-options:[
-"जनसेवा",
-"लापरवाही",
-"पक्षपात",
-"गोपनीयता"
-],
-answer:0
-},
+  {
+    q:"प्रशासनिक अधिकारी को जनता की शिकायतों के साथ क्या करना चाहिए?",
+    options:[
+      "उन्हें सुनकर उचित कार्रवाई करनी चाहिए",
+      "उन्हें अनदेखा करना चाहिए",
+      "उन्हें छिपाना चाहिए",
+      "उन्हें रोक देना चाहिए"
+    ],
+    answer:0
+  },
 
-{
-q:"प्रशासनिक अधिकारी को कानून का पालन क्यों करना चाहिए?",
-options:[
-"क्योंकि कानून व्यवस्था बनाए रखता है",
-"केवल प्रसिद्धि के लिए",
-"व्यक्तिगत लाभ के लिए",
-"किसी कारण से नहीं"
-],
-answer:0
-},
+  {
+    q:"एक अधिकारी के निर्णय में क्या होना चाहिए?",
+    options:[
+      "निष्पक्षता और जिम्मेदारी",
+      "व्यक्तिगत बदला",
+      "पक्षपात",
+      "लापरवाही"
+    ],
+    answer:0
+  },
 
-{
-q:"DM और SP के बीच बेहतर प्रशासन के लिए क्या आवश्यक है?",
-options:[
-"आपसी समन्वय",
-"झगड़ा",
-"काम रोकना",
-"सूचना छिपाना"
-],
-answer:0
-},
+  {
+    q:"Teamwork का अर्थ क्या है?",
+    options:[
+      "मिलकर काम करना",
+      "अकेले काम करना",
+      "काम से बचना",
+      "दूसरों को रोकना"
+    ],
+    answer:0
+  },
 
-{
-q:"एक अधिकारी को कठिन परिस्थिति में क्या करना चाहिए?",
-options:[
-"घबरा जाना",
-"नियम और तथ्यों के आधार पर निर्णय लेना",
-"अफवाह फैलाना",
-"काम छोड़ देना"
-],
-answer:1
-},
+  {
+    q:"Leadership में सबसे महत्वपूर्ण बात क्या है?",
+    options:[
+      "सही दिशा देना",
+      "दूसरों को डराना",
+      "जिम्मेदारी से बचना",
+      "नियम तोड़ना"
+    ],
+    answer:0
+  },
 
-{
-q:"निष्पक्ष प्रशासन का अर्थ क्या है?",
-options:[
-"सबके साथ समान और न्यायपूर्ण व्यवहार",
-"केवल मित्रों की सहायता",
-"पक्षपात करना",
-"नियम तोड़ना"
-],
-answer:0
-}
+  {
+    q:"सार्वजनिक पद पर बैठे व्यक्ति को किसके प्रति जिम्मेदार होना चाहिए?",
+    options:[
+      "जनता और कानून के प्रति",
+      "केवल अपने मित्रों के प्रति",
+      "केवल अपने परिवार के प्रति",
+      "किसी के प्रति नहीं"
+    ],
+    answer:0
+  }
 
 ];
 
-function showMessage(id,text,type){
 
-  const box = document.getElementById(id);
+/* ==========================================
+   CURRENT EXAM DATA
+========================================== */
 
-  box.textContent = text;
-  box.className = "message " + type;
-  box.classList.remove("hidden");
+let currentCode = "";
+let currentApplicant = "";
+let currentPost = "";
+let examStarted = false;
 
-}
 
-function renderQuestions(){
+/* ==========================================
+   SUPABASE RPC
+========================================== */
 
-  const box =
-    document.getElementById("objectiveQuestions");
+async function supabaseRPC(
+  functionName,
+  body
+){
 
-  box.innerHTML = "";
-
-  questions.forEach((item,index)=>{
-
-    const number = index + 1;
-
-    const div =
-      document.createElement("div");
-
-    div.className = "question";
-
-    let html =
-      "<h3>" +
-      number +
-      ". " +
-      item.q +
-      "</h3>";
-
-    item.options.forEach((option,optIndex)=>{
-
-      const letter =
-        String.fromCharCode(65 + optIndex);
-
-      html += `
-        <label class="option">
-          <input
-            type="radio"
-            name="q${number}"
-            value="${optIndex}"
-          >
-          <strong>${letter}.</strong>
-          ${option}
-        </label>
-      `;
-
-    });
-
-    div.innerHTML = html;
-
-    box.appendChild(div);
-
-  });
-
-}
-
-async function startExam(){
-
-  const code =
-    document.getElementById("examCode")
-    .value.trim()
-    .toUpperCase();
-
-  const post =
-    document.getElementById("post").value;
-
-  if(!code){
-
-    showMessage(
-      "loginMessage",
-      "कृपया Exam Code डालें।",
-      "error"
-    );
-
-    return;
-  }
-
-  if(!post){
-
-    showMessage(
-      "loginMessage",
-      "कृपया Post select करें।",
-      "error"
-    );
-
-    return;
-  }
-
-  const button =
-    document.querySelector("#loginCard button");
-
-  button.disabled = true;
-  button.textContent = "Checking...";
-
-  try{
-
-    const response = await fetch(
-      SUPABASE_URL +
-      "/rest/v1/rpc/verify_exam_code",
+  const response =
+    await fetch(
+      `${SUPABASE_URL}/rest/v1/rpc/${functionName}`,
       {
         method:"POST",
 
@@ -610,313 +657,557 @@ async function startExam(){
           "Content-Type":"application/json",
           "apikey":SUPABASE_KEY,
           "Authorization":
-            "Bearer " + SUPABASE_KEY
+            `Bearer ${SUPABASE_KEY}`
         },
 
-        body:JSON.stringify({
-          input_code:code,
-          input_post:post
-        })
+        body:JSON.stringify(body)
       }
     );
 
-    const data =
-      await response.json();
 
-    if(!response.ok){
+  const text =
+    await response.text();
+
+  let data;
+
+  try{
+    data =
+      text ? JSON.parse(text) : null;
+  }
+  catch{
+    data = text;
+  }
+
+
+  if(!response.ok){
+
+    throw new Error(
+      data?.message ||
+      data?.error ||
+      text ||
+      "Request failed"
+    );
+  }
+
+
+  return data;
+}
+
+
+/* ==========================================
+   START EXAM
+========================================== */
+
+async function startExam(){
+
+  const code =
+    document
+      .getElementById("examCode")
+      .value
+      .trim()
+      .toUpperCase();
+
+  const post =
+    document
+      .getElementById("examPost")
+      .value;
+
+  const message =
+    document.getElementById(
+      "loginMessage"
+    );
+
+
+  if(!code || !post){
+
+    message.innerText =
+      "Exam Code और Post दोनों चुनें।";
+
+    return;
+  }
+
+
+  message.innerText =
+    "Exam Code verify हो रहा है...";
+
+
+  try{
+
+    const data =
+      await supabaseRPC(
+        "verify_exam_code",
+        {
+          input_code:code,
+          input_post:post
+        }
+      );
+
+
+    if(!data?.success){
 
       throw new Error(
-        data.message ||
-        "Verification failed"
+        data?.message ||
+        "Exam Code invalid है।"
       );
-
     }
 
-    if(!data.success){
 
-      showMessage(
-        "loginMessage",
-        data.message ||
-        "Exam Code invalid है।",
-        "error"
-      );
+    currentCode = code;
 
-      return;
-    }
-
-    currentApplicantName =
+    currentApplicant =
       data.applicant_name;
 
     currentPost =
       data.post;
 
-    currentCode =
-      code;
-
     examStarted = true;
 
+
     document.getElementById(
-      "candidateInfo"
-    ).textContent =
-      "Applicant: " +
-      currentApplicantName +
-      " | Post: " +
+      "applicantName"
+    ).innerText =
+      currentApplicant;
+
+
+    document.getElementById(
+      "applicantPost"
+    ).innerText =
       currentPost;
+
+
+    renderQuestions();
+
 
     document.getElementById(
       "loginCard"
     ).classList.add("hidden");
 
+
     document.getElementById(
       "examCard"
     ).classList.remove("hidden");
 
-    renderQuestions();
+
+    message.innerText = "";
 
     window.scrollTo({
       top:0,
       behavior:"smooth"
     });
 
+
   }catch(error){
 
-    console.error(error);
-
-    showMessage(
-      "loginMessage",
-      "Exam Code verify करते समय समस्या हुई।",
-      "error"
-    );
-
-  }finally{
-
-    button.disabled = false;
-    button.textContent = "🔐 Start Exam";
-
+    message.innerText =
+      "❌ " + error.message;
   }
-
 }
 
-document.getElementById("examForm")
-.addEventListener("submit",async function(event){
 
-  event.preventDefault();
+/* ==========================================
+   RENDER QUESTIONS
+========================================== */
+
+function renderQuestions(){
+
+  const box =
+    document.getElementById(
+      "objectiveQuestions"
+    );
+
+
+  let html = "";
+
+
+  questions.forEach(
+    (item,index) => {
+
+      const number =
+        index + 1;
+
+
+      html += `
+
+        <div class="question">
+
+          <h3>
+            ${number}. ${escapeHtml(item.q)}
+          </h3>
+
+          ${item.options.map(
+            (option,optIndex) => `
+
+              <label class="option">
+
+                <input
+                  type="radio"
+                  name="q${index}"
+                  value="${optIndex}"
+                >
+
+                <b>
+                  ${String.fromCharCode(65 + optIndex)}.
+                </b>
+
+                ${escapeHtml(option)}
+
+              </label>
+
+            `
+          ).join("")}
+
+        </div>
+
+      `;
+    }
+  );
+
+
+  box.innerHTML = html;
+}
+
+
+/* ==========================================
+   OBJECTIVE SCORE
+========================================== */
+
+function calculateObjectiveScore(){
+
+  let score = 0;
+
+
+  questions.forEach(
+    (item,index) => {
+
+      const selected =
+        document.querySelector(
+          `input[name="q${index}"]:checked`
+        );
+
+
+      if(
+        selected &&
+        Number(selected.value) === item.answer
+      ){
+
+        score++;
+      }
+
+    }
+  );
+
+
+  return score;
+}
+
+
+/* ==========================================
+   SUBJECTIVE INITIAL MARKING
+========================================== */
+
+function automaticSubjectiveMarks(
+  answer1,
+  answer2
+){
+
+  function markAnswer(answer){
+
+    const text =
+      String(answer || "").trim();
+
+
+    if(text.length < 20)
+      return 0;
+
+
+    if(text.length < 50)
+      return 2;
+
+
+    if(text.length < 100)
+      return 3;
+
+
+    if(text.length < 180)
+      return 4;
+
+
+    return 5;
+  }
+
+
+  return Math.min(
+    10,
+    markAnswer(answer1) +
+    markAnswer(answer2)
+  );
+}
+
+
+/* ==========================================
+   SUBMIT EXAM
+========================================== */
+
+async function submitExam(){
 
   if(!examStarted){
 
     return;
   }
 
-  const answers = [];
 
-  for(let i=1;i<=18;i++){
+  const answer1 =
+    document
+      .getElementById("subjective1")
+      .value
+      .trim();
 
-    const selected =
-      document.querySelector(
-        `input[name="q${i}"]:checked`
-      );
 
-    if(!selected){
+  const answer2 =
+    document
+      .getElementById("subjective2")
+      .value
+      .trim();
 
-      showMessage(
-        "examMessage",
-        "कृपया Objective के सभी 18 प्रश्नों के उत्तर दें। प्रश्न " +
-        i +
-        " बाकी है।",
-        "error"
-      );
 
-      return;
-    }
-
-    answers.push(
-      Number(selected.value)
+  const message =
+    document.getElementById(
+      "submitMessage"
     );
 
-  }
 
-  const subjective1 =
-    document.getElementById(
-      "subjective1"
-    ).value.trim();
+  if(!answer1 || !answer2){
 
-  const subjective2 =
-    document.getElementById(
-      "subjective2"
-    ).value.trim();
-
-  if(!subjective1 || !subjective2){
-
-    showMessage(
-      "examMessage",
-      "दोनों Subjective प्रश्नों के उत्तर देना जरूरी है।",
-      "error"
-    );
+    message.innerText =
+      "दोनों Subjective answers लिखना जरूरी है।";
 
     return;
   }
 
-  let objectiveScore = 0;
 
-  answers.forEach((answer,index)=>{
+  const objectiveMarks =
+    calculateObjectiveScore();
 
-    if(answer === questions[index].answer){
 
-      objectiveScore++;
-
-    }
-
-  });
-
-  const percentage =
-    (objectiveScore / 18) * 100;
-
-  const finalResult =
-    percentage >= 60
-    ? "Pass"
-    : "Fail";
-
-  const submitButton =
-    document.querySelector(
-      "#examForm button[type='submit']"
+  const subjectiveMarks =
+    automaticSubjectiveMarks(
+      answer1,
+      answer2
     );
 
-  submitButton.disabled = true;
-  submitButton.textContent =
-    "Submitting...";
+
+  const totalMarks =
+    objectiveMarks +
+    subjectiveMarks;
+
+
+  const finalResult =
+    totalMarks >= 21
+      ? "PASS"
+      : "FAIL";
+
+
+  message.innerText =
+    "Exam submit हो रहा है...";
+
 
   try{
 
-    const response = await fetch(
-      SUPABASE_URL +
-      "/rest/v1/rpc/submit_complete_exam",
-      {
-        method:"POST",
-
-        headers:{
-          "Content-Type":"application/json",
-          "apikey":SUPABASE_KEY,
-          "Authorization":
-            "Bearer " + SUPABASE_KEY
-        },
-
-        body:JSON.stringify({
+    const data =
+      await supabaseRPC(
+        "submit_complete_exam",
+        {
 
           input_code:
             currentCode,
 
           input_applicant_name:
-            currentApplicantName,
+            currentApplicant,
 
           input_post:
             currentPost,
 
           input_objective_score:
-            objectiveScore,
+            objectiveMarks,
 
           input_subjective_answer_1:
-            subjective1,
+            answer1,
 
           input_subjective_answer_2:
-            subjective2,
+            answer2,
 
           input_subjective_marks:
-            0,
+            subjectiveMarks,
 
           input_total_marks:
-            objectiveScore,
+            totalMarks,
 
           input_final_result:
             finalResult
+        }
+      );
 
-        })
-      }
-    );
 
-    const data =
-      await response.json();
-
-    if(!response.ok){
+    if(!data?.success){
 
       throw new Error(
-        data.message ||
-        "Submission failed"
+        data?.message ||
+        "Exam submission failed."
       );
-
     }
 
-    if(!data.success){
 
-      showMessage(
-        "examMessage",
-        data.message ||
-        "Exam submit नहीं हुआ।",
-        "error"
+    message.innerText =
+      "✅ Exam successfully submitted.";
+
+
+    showResult(
+      objectiveMarks,
+      subjectiveMarks,
+      totalMarks,
+      finalResult
+    );
+
+
+    /*
+      Exam दोबारा submit न हो।
+    */
+
+    document
+      .querySelectorAll(
+        "#examCard input,#examCard textarea,#examCard button"
+      )
+      .forEach(
+        element => {
+          element.disabled = true;
+        }
       );
 
-      return;
-    }
 
-    document.getElementById(
-      "examCard"
-    ).classList.add("hidden");
+    examStarted = false;
 
-    document.getElementById(
-      "resultCard"
-    ).classList.remove("hidden");
-
-    document.getElementById(
-      "resultContent"
-    ).innerHTML = `
-
-      <div class="score">
-        Objective Score:
-        ${objectiveScore}/18
-      </div>
-
-      <p style="margin-bottom:15px;">
-        Percentage:
-        ${percentage.toFixed(2)}%
-      </p>
-
-      <div class="${finalResult === "Pass" ? "pass" : "fail"}">
-        ${finalResult === "Pass" ? "✅ PASS" : "❌ FAIL"}
-      </div>
-
-      <div class="message info" style="margin-top:20px;">
-        आपके 2 Subjective answers Admin manual checking के लिए save कर दिए गए हैं।
-      </div>
-
-      <div class="message info">
-        Exam Code अब दोबारा इस्तेमाल नहीं किया जा सकता।
-      </div>
-
-    `;
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
 
   }catch(error){
 
-    console.error(error);
+    message.innerText =
+      "❌ " + error.message;
+  }
+}
 
-    showMessage(
-      "examMessage",
-      "Exam submit करते समय समस्या हुई। कृपया दोबारा submit न करें और Admin से संपर्क करें।",
-      "error"
+
+/* ==========================================
+   SHOW RESULT ON SAME PAGE
+========================================== */
+
+function showResult(
+  objectiveMarks,
+  subjectiveMarks,
+  totalMarks,
+  finalResult
+){
+
+  const percentage =
+    ((totalMarks / 28) * 100)
+      .toFixed(2);
+
+
+  const resultClass =
+    finalResult === "PASS"
+      ? "pass"
+      : "fail";
+
+
+  const resultBox =
+    document.getElementById(
+      "resultBox"
     );
 
-  }finally{
 
-    submitButton.disabled = false;
-    submitButton.textContent =
-      "📤 Submit Exam";
+  resultBox.innerHTML = `
 
-  }
+    <div class="result-card">
 
-});
+      <h2>🎓 Exam Result</h2>
+
+      <div class="result-row">
+        <span>Applicant</span>
+        <b>${escapeHtml(currentApplicant)}</b>
+      </div>
+
+      <div class="result-row">
+        <span>Post</span>
+        <b>${escapeHtml(currentPost)}</b>
+      </div>
+
+      <div class="result-row">
+        <span>Objective</span>
+        <b>${objectiveMarks} / 18</b>
+      </div>
+
+      <div class="result-row">
+        <span>Subjective</span>
+        <b>${subjectiveMarks} / 10</b>
+      </div>
+
+      <div class="result-row">
+        <span>Total</span>
+        <b>${totalMarks} / 28</b>
+      </div>
+
+      <div class="result-row">
+        <span>Percentage</span>
+        <b>${percentage}%</b>
+      </div>
+
+      <div class="final-result ${resultClass}">
+        ${finalResult}
+      </div>
+
+      <div class="rule">
+
+        PASS Rule:
+        <b>21 / 28</b> या उससे अधिक = PASS
+
+        <br>
+
+        20 / 28 या उससे कम = FAIL
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  resultBox.classList.remove(
+    "hidden"
+  );
+
+
+  setTimeout(() => {
+
+    resultBox.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+  },200);
+}
+
+
+/* ==========================================
+   ESCAPE HTML
+========================================== */
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
 </script>
 

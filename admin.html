@@ -7,7 +7,6 @@
 <title>Classic Empire Ltd - Admin Panel</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -118,7 +117,8 @@ button:hover{
 }
 
 #generatorPanel,
-#historyPanel{
+#historyPanel,
+#submissionPanel{
   display:none;
 }
 
@@ -145,15 +145,18 @@ button:hover{
   word-break:break-all;
 }
 
-.history-card{
+.history-card,
+.submission-card{
   background:#050505;
   border:1px solid #333;
   border-radius:10px;
   padding:15px;
   margin-top:12px;
+  word-break:break-word;
 }
 
-.history-card strong{
+.history-card strong,
+.submission-card strong{
   color:#d4af37;
 }
 
@@ -165,6 +168,25 @@ button:hover{
 .status-unused{
   color:#66ff99;
   font-weight:bold;
+}
+
+.result-pass{
+  color:#66ff99;
+  font-weight:bold;
+}
+
+.result-fail{
+  color:#ff7777;
+  font-weight:bold;
+}
+
+.answer-box{
+  background:#111;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:10px;
+  margin-top:8px;
+  white-space:pre-wrap;
 }
 
 .back{
@@ -187,7 +209,6 @@ button:hover{
   padding-bottom:25px;
   font-size:13px;
 }
-
 </style>
 </head>
 
@@ -229,10 +250,7 @@ button:hover{
     🔐 Login
   </button>
 
-  <div
-    id="loginMessage"
-    class="message"
-  ></div>
+  <div id="loginMessage" class="message"></div>
 
 </div>
 
@@ -255,9 +273,7 @@ button:hover{
 
   <select id="post">
 
-    <option value="">
-      -- Post चुनें --
-    </option>
+    <option value="">-- Post चुनें --</option>
 
     <option value="President's Assistant">
       President's Assistant
@@ -289,26 +305,15 @@ button:hover{
     Generate Exam Code
   </button>
 
-  <div
-    id="generatorMessage"
-    class="message"
-  ></div>
+  <div id="generatorMessage" class="message"></div>
 
-
-  <div
-    class="code-box"
-    id="codeBox"
-    style="display:none;"
-  >
+  <div class="code-box" id="codeBox" style="display:none;">
 
     <div class="code-label">
       Generated Exam Code
     </div>
 
-    <div
-      class="exam-code"
-      id="generatedCode"
-    ></div>
+    <div class="exam-code" id="generatedCode"></div>
 
     <button onclick="copyCode()">
       📋 Copy Exam Code
@@ -316,18 +321,14 @@ button:hover{
 
   </div>
 
-
-  <button
-    class="logout"
-    onclick="logout()"
-  >
+  <button class="logout" onclick="logout()">
     Logout
   </button>
 
 </div>
 
 
-<!-- HISTORY -->
+<!-- CODE HISTORY -->
 
 <div class="panel" id="historyPanel">
 
@@ -337,20 +338,31 @@ button:hover{
     🔄 Refresh History
   </button>
 
-  <div
-    id="historyMessage"
-    class="message"
-  ></div>
+  <div id="historyMessage" class="message"></div>
 
   <div id="historyList"></div>
 
 </div>
 
 
-<a
-  href="index.html"
-  class="back"
->
+<!-- SUBMISSION HISTORY -->
+
+<div class="panel" id="submissionPanel">
+
+  <h2>Exam Submission History</h2>
+
+  <button onclick="loadExamSubmissions()">
+    🔄 Refresh Submissions
+  </button>
+
+  <div id="submissionMessage" class="message"></div>
+
+  <div id="submissionList"></div>
+
+</div>
+
+
+<a href="index.html" class="back">
   ← Back to Home
 </a>
 
@@ -366,12 +378,7 @@ button:hover{
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <script>
-
-/* =========================
-   SUPABASE
-========================= */
 
 const SUPABASE_URL =
 "https://hjatspkzgoddcpgwfkxo.supabase.co";
@@ -386,10 +393,6 @@ window.supabase.createClient(
 );
 
 
-/* =========================
-   ADMIN UID
-========================= */
-
 const ADMIN_UID =
 "8820968d-c20b-4892-b38b-395083efd026";
 
@@ -401,12 +404,10 @@ const ADMIN_UID =
 async function adminLogin(){
 
   const email =
-  document.getElementById("email")
-  .value.trim();
+  document.getElementById("email").value.trim();
 
   const password =
-  document.getElementById("password")
-  .value;
+  document.getElementById("password").value;
 
   const message =
   document.getElementById("loginMessage");
@@ -452,7 +453,6 @@ async function adminLogin(){
       return;
     }
 
-
     if(data.user.id !== ADMIN_UID){
 
       await supabaseClient.auth.signOut();
@@ -466,10 +466,11 @@ async function adminLogin(){
       return;
     }
 
-
-    const {data:adminData,error:adminError} =
+    const {
+      data:adminData,
+      error:adminError
+    } =
     await supabaseClient.rpc("check_admin");
-
 
     if(
       adminError ||
@@ -487,7 +488,6 @@ async function adminLogin(){
 
       return;
     }
-
 
     showAdminPanel();
 
@@ -507,7 +507,7 @@ async function adminLogin(){
 
 
 /* =========================
-   SHOW ADMIN
+   SHOW ADMIN PANEL
 ========================= */
 
 function showAdminPanel(){
@@ -524,7 +524,12 @@ function showAdminPanel(){
     "historyPanel"
   ).style.display="block";
 
+  document.getElementById(
+    "submissionPanel"
+  ).style.display="block";
+
   loadCodeHistory();
+  loadExamSubmissions();
 
 }
 
@@ -540,8 +545,7 @@ async function generateCode(){
   .value.trim();
 
   const post =
-  document.getElementById("post")
-  .value;
+  document.getElementById("post").value;
 
   const message =
   document.getElementById("generatorMessage");
@@ -551,7 +555,6 @@ async function generateCode(){
 
   const generatedCode =
   document.getElementById("generatedCode");
-
 
   if(!name){
 
@@ -564,7 +567,6 @@ async function generateCode(){
     return;
   }
 
-
   if(!post){
 
     showMessage(
@@ -576,14 +578,12 @@ async function generateCode(){
     return;
   }
 
-
   try{
 
     const {
       data:sessionData
     } =
     await supabaseClient.auth.getSession();
-
 
     if(!sessionData.session){
 
@@ -596,7 +596,6 @@ async function generateCode(){
       return;
     }
 
-
     const {
       data,
       error
@@ -608,7 +607,6 @@ async function generateCode(){
         input_post:post
       }
     );
-
 
     if(error){
 
@@ -623,11 +621,9 @@ async function generateCode(){
       return;
     }
 
-
     generatedCode.textContent=data;
 
     codeBox.style.display="block";
-
 
     showMessage(
       message,
@@ -635,9 +631,7 @@ async function generateCode(){
       "success"
     );
 
-
     loadCodeHistory();
-
 
   }catch(error){
 
@@ -678,7 +672,6 @@ async function loadCodeHistory(){
       "get_exam_codes"
     );
 
-
     if(error){
 
       console.error(error);
@@ -692,7 +685,6 @@ async function loadCodeHistory(){
       return;
     }
 
-
     if(!data || data.length===0){
 
       list.innerHTML =
@@ -701,7 +693,6 @@ async function loadCodeHistory(){
       return;
     }
 
-
     data.forEach(item => {
 
       const card =
@@ -709,18 +700,15 @@ async function loadCodeHistory(){
 
       card.className="history-card";
 
-
       const status =
       item.used
       ? "<span class='status-used'>Used</span>"
       : "<span class='status-unused'>Unused</span>";
 
-
       const date =
       new Date(
         item.created_at
       ).toLocaleString("en-IN");
-
 
       card.innerHTML = `
 
@@ -752,11 +740,9 @@ async function loadCodeHistory(){
 
       `;
 
-
       list.appendChild(card);
 
     });
-
 
   }catch(error){
 
@@ -774,7 +760,167 @@ async function loadCodeHistory(){
 
 
 /* =========================
-   COPY
+   SUBMISSION HISTORY
+========================= */
+
+async function loadExamSubmissions(){
+
+  const list =
+  document.getElementById("submissionList");
+
+  const message =
+  document.getElementById("submissionMessage");
+
+  list.innerHTML="";
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+    await supabaseClient.rpc(
+      "get_exam_submissions"
+    );
+
+    if(error){
+
+      console.error(error);
+
+      showMessage(
+        message,
+        "Submission History load नहीं हुई।",
+        "error"
+      );
+
+      return;
+    }
+
+    if(!data || data.length===0){
+
+      list.innerHTML =
+      "<p style='color:#999;text-align:center;margin-top:15px;'>अभी कोई Exam Submission नहीं है।</p>";
+
+      return;
+    }
+
+    data.forEach(item => {
+
+      const card =
+      document.createElement("div");
+
+      card.className="submission-card";
+
+      const result =
+      String(item.final_result || "").toLowerCase();
+
+      let resultHtml="";
+
+      if(result.includes("pass")){
+
+        resultHtml =
+        "<span class='result-pass'>PASS</span>";
+
+      }else if(result.includes("fail")){
+
+        resultHtml =
+        "<span class='result-fail'>FAIL</span>";
+
+      }else{
+
+        resultHtml =
+        escapeHtml(item.final_result || "Pending");
+
+      }
+
+      const date =
+      new Date(
+        item.submitted_at
+      ).toLocaleString("en-IN");
+
+      card.innerHTML = `
+
+        <div>
+          <strong>Applicant:</strong>
+          ${escapeHtml(item.applicant_name || "")}
+        </div>
+
+        <div style="margin-top:6px;">
+          <strong>Post:</strong>
+          ${escapeHtml(item.post || "")}
+        </div>
+
+        <div style="margin-top:6px;">
+          <strong>Exam Code:</strong>
+          <span style="color:#d4af37;">
+            ${escapeHtml(item.exam_code || "")}
+          </span>
+        </div>
+
+        <div style="margin-top:6px;">
+          <strong>Objective Score:</strong>
+          ${escapeHtml(item.objective_score ?? 0)} / 18
+        </div>
+
+        <div style="margin-top:6px;">
+          <strong>Subjective Marks:</strong>
+          ${escapeHtml(item.subjective_marks ?? 0)}
+        </div>
+
+        <div style="margin-top:6px;">
+          <strong>Total Marks:</strong>
+          ${escapeHtml(item.total_marks ?? 0)}
+        </div>
+
+        <div style="margin-top:6px;">
+          <strong>Result:</strong>
+          ${resultHtml}
+        </div>
+
+        <div style="margin-top:12px;">
+          <strong>Subjective Answer 1:</strong>
+
+          <div class="answer-box">
+            ${escapeHtml(item.subjective_answer_1 || "कोई उत्तर नहीं")}
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <strong>Subjective Answer 2:</strong>
+
+          <div class="answer-box">
+            ${escapeHtml(item.subjective_answer_2 || "कोई उत्तर नहीं")}
+          </div>
+        </div>
+
+        <div style="margin-top:10px;color:#777;">
+          Submitted:
+          ${date}
+        </div>
+
+      `;
+
+      list.appendChild(card);
+
+    });
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      message,
+      "Submission History load करने में समस्या हुई।",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   COPY CODE
 ========================= */
 
 async function copyCode(){
@@ -813,6 +959,10 @@ async function logout(){
 
   document.getElementById(
     "historyPanel"
+  ).style.display="none";
+
+  document.getElementById(
+    "submissionPanel"
   ).style.display="none";
 
   document.getElementById(
@@ -871,12 +1021,9 @@ async function checkExistingSession(){
     } =
     await supabaseClient.auth.getSession();
 
-
     if(!data.session){
-
       return;
     }
-
 
     if(
       data.session.user.id !== ADMIN_UID
@@ -887,7 +1034,6 @@ async function checkExistingSession(){
       return;
     }
 
-
     const {
       data:adminData,
       error
@@ -895,7 +1041,6 @@ async function checkExistingSession(){
     await supabaseClient.rpc(
       "check_admin"
     );
-
 
     if(
       !error &&

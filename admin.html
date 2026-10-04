@@ -23,7 +23,7 @@ body{
 
 .container{
   width:100%;
-  max-width:500px;
+  max-width:700px;
   margin:auto;
   padding:25px 18px;
 }
@@ -117,7 +117,8 @@ button:hover{
   color:#9f9;
 }
 
-#generatorPanel{
+#generatorPanel,
+#historyPanel{
   display:none;
 }
 
@@ -142,6 +143,28 @@ button:hover{
   letter-spacing:2px;
   margin-top:8px;
   word-break:break-all;
+}
+
+.history-card{
+  background:#050505;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:15px;
+  margin-top:12px;
+}
+
+.history-card strong{
+  color:#d4af37;
+}
+
+.status-used{
+  color:#ff7777;
+  font-weight:bold;
+}
+
+.status-unused{
+  color:#66ff99;
+  font-weight:bold;
 }
 
 .back{
@@ -172,147 +195,169 @@ button:hover{
 
 <div class="container">
 
-  <div class="header">
-    <h1>Classic Empire Ltd</h1>
-    <p>🔐 Official Admin Panel</p>
-  </div>
+<div class="header">
+  <h1>Classic Empire Ltd</h1>
+  <p>🔐 Official Admin Panel</p>
+</div>
 
 
-  <!-- ADMIN LOGIN -->
+<!-- LOGIN -->
 
-  <div class="panel" id="loginPanel">
+<div class="panel" id="loginPanel">
 
-    <h2>Admin Login</h2>
+  <h2>Admin Login</h2>
 
-    <label>Email</label>
+  <label>Email</label>
 
-    <input
-      type="email"
-      id="email"
-      placeholder="Admin Email"
-      autocomplete="email"
-    >
+  <input
+    type="email"
+    id="email"
+    placeholder="Admin Email"
+    autocomplete="email"
+  >
 
-    <label>Password</label>
+  <label>Password</label>
 
-    <input
-      type="password"
-      id="password"
-      placeholder="Admin Password"
-      autocomplete="current-password"
-    >
+  <input
+    type="password"
+    id="password"
+    placeholder="Admin Password"
+    autocomplete="current-password"
+  >
 
-    <button onclick="adminLogin()">
-      🔐 Login
-    </button>
+  <button onclick="adminLogin()">
+    🔐 Login
+  </button>
 
-    <div
-      id="loginMessage"
-      class="message"
-    ></div>
+  <div
+    id="loginMessage"
+    class="message"
+  ></div>
 
-  </div>
+</div>
 
 
-  <!-- EXAM CODE GENERATOR -->
+<!-- GENERATOR -->
 
-  <div class="panel" id="generatorPanel">
+<div class="panel" id="generatorPanel">
 
-    <h2>Exam Code Generator</h2>
+  <h2>Exam Code Generator</h2>
 
-    <label>Applicant Name</label>
+  <label>Applicant Name</label>
 
-    <input
-      type="text"
-      id="applicantName"
-      placeholder="Applicant का नाम"
-    >
+  <input
+    type="text"
+    id="applicantName"
+    placeholder="Applicant का नाम"
+  >
 
-    <label>Post</label>
+  <label>Post</label>
 
-    <select id="post">
+  <select id="post">
 
-      <option value="">
-        -- Post चुनें --
-      </option>
+    <option value="">
+      -- Post चुनें --
+    </option>
 
-      <option value="President's Assistant">
-        President's Assistant
-      </option>
+    <option value="President's Assistant">
+      President's Assistant
+    </option>
 
-      <option value="DM">
-        DM
-      </option>
+    <option value="DM">
+      DM
+    </option>
 
-      <option value="DM's Assistant">
-        DM's Assistant
-      </option>
+    <option value="DM's Assistant">
+      DM's Assistant
+    </option>
 
-      <option value="SDM">
-        SDM
-      </option>
+    <option value="SDM">
+      SDM
+    </option>
 
-      <option value="SP">
-        SP
-      </option>
+    <option value="SP">
+      SP
+    </option>
 
-      <option value="DSP">
-        DSP
-      </option>
+    <option value="DSP">
+      DSP
+    </option>
 
-    </select>
+  </select>
 
-    <button onclick="generateCode()">
-      Generate Exam Code
-    </button>
+  <button onclick="generateCode()">
+    Generate Exam Code
+  </button>
 
-    <div
-      id="generatorMessage"
-      class="message"
-    ></div>
+  <div
+    id="generatorMessage"
+    class="message"
+  ></div>
 
-    <div
-      class="code-box"
-      id="codeBox"
-      style="display:none;"
-    >
 
-      <div class="code-label">
-        Generated Exam Code
-      </div>
+  <div
+    class="code-box"
+    id="codeBox"
+    style="display:none;"
+  >
 
-      <div
-        class="exam-code"
-        id="generatedCode"
-      ></div>
-
-      <button onclick="copyCode()">
-        📋 Copy Exam Code
-      </button>
-
+    <div class="code-label">
+      Generated Exam Code
     </div>
 
-    <button
-      class="logout"
-      onclick="logout()"
-    >
-      Logout
+    <div
+      class="exam-code"
+      id="generatedCode"
+    ></div>
+
+    <button onclick="copyCode()">
+      📋 Copy Exam Code
     </button>
 
   </div>
 
 
-  <a
-    href="index.html"
-    class="back"
+  <button
+    class="logout"
+    onclick="logout()"
   >
-    ← Back to Home
-  </a>
+    Logout
+  </button>
+
+</div>
 
 
-  <div class="footer">
-    © 2026 Classic Empire Ltd
-  </div>
+<!-- HISTORY -->
+
+<div class="panel" id="historyPanel">
+
+  <h2>Exam Code History</h2>
+
+  <button onclick="loadCodeHistory()">
+    🔄 Refresh History
+  </button>
+
+  <div
+    id="historyMessage"
+    class="message"
+  ></div>
+
+  <div id="historyList"></div>
+
+</div>
+
+
+<a
+  href="index.html"
+  class="back"
+>
+  ← Back to Home
+</a>
+
+
+<div class="footer">
+  © 2026 Classic Empire Ltd
+</div>
 
 </div>
 
@@ -335,10 +380,10 @@ const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
 const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 
 /* =========================
@@ -356,15 +401,15 @@ const ADMIN_UID =
 async function adminLogin(){
 
   const email =
-    document.getElementById("email")
-    .value.trim();
+  document.getElementById("email")
+  .value.trim();
 
   const password =
-    document.getElementById("password")
-    .value;
+  document.getElementById("password")
+  .value;
 
   const message =
-    document.getElementById("loginMessage");
+  document.getElementById("loginMessage");
 
   if(!email || !password){
 
@@ -379,11 +424,11 @@ async function adminLogin(){
 
   try{
 
-    const { data, error } =
-      await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
+    const {data,error} =
+    await supabaseClient.auth.signInWithPassword({
+      email:email,
+      password:password
+    });
 
     if(error){
 
@@ -408,8 +453,6 @@ async function adminLogin(){
     }
 
 
-    /* ADMIN UID CHECK */
-
     if(data.user.id !== ADMIN_UID){
 
       await supabaseClient.auth.signOut();
@@ -424,26 +467,12 @@ async function adminLogin(){
     }
 
 
-    /* DATABASE ADMIN CHECK */
-
-    const { data: adminData, error: adminError } =
-      await supabaseClient.rpc("check_admin");
-
-    if(adminError){
-
-      await supabaseClient.auth.signOut();
-
-      showMessage(
-        message,
-        "Admin verification में समस्या हुई",
-        "error"
-      );
-
-      return;
-    }
+    const {data:adminData,error:adminError} =
+    await supabaseClient.rpc("check_admin");
 
 
     if(
+      adminError ||
       !adminData ||
       adminData.is_admin !== true
     ){
@@ -452,7 +481,7 @@ async function adminLogin(){
 
       showMessage(
         message,
-        "आपके Account को Admin permission नहीं है",
+        "Admin verification failed",
         "error"
       );
 
@@ -460,18 +489,11 @@ async function adminLogin(){
     }
 
 
-    /* SUCCESS */
-
-    document.getElementById(
-      "loginPanel"
-    ).style.display = "none";
-
-    document.getElementById(
-      "generatorPanel"
-    ).style.display = "block";
-
+    showAdminPanel();
 
   }catch(error){
+
+    console.error(error);
 
     showMessage(
       message,
@@ -485,26 +507,50 @@ async function adminLogin(){
 
 
 /* =========================
-   GENERATE EXAM CODE
+   SHOW ADMIN
+========================= */
+
+function showAdminPanel(){
+
+  document.getElementById(
+    "loginPanel"
+  ).style.display="none";
+
+  document.getElementById(
+    "generatorPanel"
+  ).style.display="block";
+
+  document.getElementById(
+    "historyPanel"
+  ).style.display="block";
+
+  loadCodeHistory();
+
+}
+
+
+/* =========================
+   GENERATE CODE
 ========================= */
 
 async function generateCode(){
 
   const name =
-    document.getElementById("applicantName")
-    .value.trim();
+  document.getElementById("applicantName")
+  .value.trim();
 
   const post =
-    document.getElementById("post").value;
+  document.getElementById("post")
+  .value;
 
   const message =
-    document.getElementById("generatorMessage");
+  document.getElementById("generatorMessage");
 
   const codeBox =
-    document.getElementById("codeBox");
+  document.getElementById("codeBox");
 
   const generatedCode =
-    document.getElementById("generatedCode");
+  document.getElementById("generatedCode");
 
 
   if(!name){
@@ -534,59 +580,34 @@ async function generateCode(){
   try{
 
     const {
-      data: sessionData,
-      error: sessionError
+      data:sessionData
     } =
-      await supabaseClient.auth.getSession();
+    await supabaseClient.auth.getSession();
 
 
-    if(sessionError || !sessionData.session){
+    if(!sessionData.session){
 
       showMessage(
         message,
-        "Admin Login समाप्त हो गया। दोबारा Login करें।",
+        "Login session समाप्त हो गया।",
         "error"
       );
 
       return;
     }
 
-
-    /* ADMIN CHECK AGAIN */
-
-    const { data: adminData, error: adminError } =
-      await supabaseClient.rpc("check_admin");
-
-
-    if(
-      adminError ||
-      !adminData ||
-      adminData.is_admin !== true
-    ){
-
-      showMessage(
-        message,
-        "Admin permission नहीं है।",
-        "error"
-      );
-
-      return;
-    }
-
-
-    /* GENERATE CODE */
 
     const {
       data,
       error
     } =
-      await supabaseClient.rpc(
-        "generate_exam_code",
-        {
-          input_applicant_name:name,
-          input_post:post
-        }
-      );
+    await supabaseClient.rpc(
+      "generate_exam_code",
+      {
+        input_applicant_name:name,
+        input_post:post
+      }
+    );
 
 
     if(error){
@@ -603,9 +624,9 @@ async function generateCode(){
     }
 
 
-    generatedCode.textContent = data;
+    generatedCode.textContent=data;
 
-    codeBox.style.display = "block";
+    codeBox.style.display="block";
 
 
     showMessage(
@@ -613,6 +634,9 @@ async function generateCode(){
       "Exam Code successfully generate हो गया।",
       "success"
     );
+
+
+    loadCodeHistory();
 
 
   }catch(error){
@@ -631,15 +655,134 @@ async function generateCode(){
 
 
 /* =========================
-   COPY CODE
+   CODE HISTORY
+========================= */
+
+async function loadCodeHistory(){
+
+  const list =
+  document.getElementById("historyList");
+
+  const message =
+  document.getElementById("historyMessage");
+
+  list.innerHTML="";
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+    await supabaseClient.rpc(
+      "get_exam_codes"
+    );
+
+
+    if(error){
+
+      console.error(error);
+
+      showMessage(
+        message,
+        "Code History load नहीं हुई।",
+        "error"
+      );
+
+      return;
+    }
+
+
+    if(!data || data.length===0){
+
+      list.innerHTML =
+      "<p style='color:#999;text-align:center;margin-top:15px;'>अभी कोई Exam Code नहीं है।</p>";
+
+      return;
+    }
+
+
+    data.forEach(item => {
+
+      const card =
+      document.createElement("div");
+
+      card.className="history-card";
+
+
+      const status =
+      item.used
+      ? "<span class='status-used'>Used</span>"
+      : "<span class='status-unused'>Unused</span>";
+
+
+      const date =
+      new Date(
+        item.created_at
+      ).toLocaleString("en-IN");
+
+
+      card.innerHTML = `
+
+        <div>
+          <strong>Applicant:</strong>
+          ${escapeHtml(item.applicant_name || "")}
+        </div>
+
+        <div style="margin-top:6px;">
+          <strong>Post:</strong>
+          ${escapeHtml(item.post || "")}
+        </div>
+
+        <div style="margin-top:6px;">
+          <strong>Code:</strong>
+          <span style="color:#d4af37;">
+            ${escapeHtml(item.code || "")}
+          </span>
+        </div>
+
+        <div style="margin-top:6px;">
+          <strong>Status:</strong>
+          ${status}
+        </div>
+
+        <div style="margin-top:6px;color:#777;">
+          ${date}
+        </div>
+
+      `;
+
+
+      list.appendChild(card);
+
+    });
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      message,
+      "History load करने में समस्या हुई।",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   COPY
 ========================= */
 
 async function copyCode(){
 
   const code =
-    document.getElementById(
-      "generatedCode"
-    ).textContent;
+  document.getElementById(
+    "generatedCode"
+  ).textContent;
 
   try{
 
@@ -650,6 +793,7 @@ async function copyCode(){
   }catch(error){
 
     alert("Code copy नहीं हुआ।");
+
   }
 
 }
@@ -665,14 +809,15 @@ async function logout(){
 
   document.getElementById(
     "generatorPanel"
-  ).style.display = "none";
+  ).style.display="none";
+
+  document.getElementById(
+    "historyPanel"
+  ).style.display="none";
 
   document.getElementById(
     "loginPanel"
-  ).style.display = "block";
-
-  document.getElementById("email").value = "";
-  document.getElementById("password").value = "";
+  ).style.display="block";
 
 }
 
@@ -687,19 +832,34 @@ function showMessage(
   type
 ){
 
-  element.textContent = text;
+  element.textContent=text;
 
-  element.className =
-    "message " + type;
+  element.className=
+  "message "+type;
 
-  element.style.display =
-    "block";
+  element.style.display="block";
 
 }
 
 
 /* =========================
-   CHECK EXISTING SESSION
+   HTML ESCAPE
+========================= */
+
+function escapeHtml(value){
+
+  return String(value)
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   EXISTING SESSION
 ========================= */
 
 async function checkExistingSession(){
@@ -707,23 +867,20 @@ async function checkExistingSession(){
   try{
 
     const {
-      data,
-      error
+      data
     } =
-      await supabaseClient.auth.getSession();
+    await supabaseClient.auth.getSession();
 
 
-    if(error || !data.session){
+    if(!data.session){
 
       return;
     }
 
 
-    const user =
-      data.session.user;
-
-
-    if(user.id !== ADMIN_UID){
+    if(
+      data.session.user.id !== ADMIN_UID
+    ){
 
       await supabaseClient.auth.signOut();
 
@@ -733,24 +890,20 @@ async function checkExistingSession(){
 
     const {
       data:adminData,
-      error:adminError
+      error
     } =
-      await supabaseClient.rpc("check_admin");
+    await supabaseClient.rpc(
+      "check_admin"
+    );
 
 
     if(
-      !adminError &&
+      !error &&
       adminData &&
-      adminData.is_admin === true
+      adminData.is_admin===true
     ){
 
-      document.getElementById(
-        "loginPanel"
-      ).style.display = "none";
-
-      document.getElementById(
-        "generatorPanel"
-      ).style.display = "block";
+      showAdminPanel();
 
     }else{
 
@@ -766,10 +919,6 @@ async function checkExistingSession(){
 
 }
 
-
-/* =========================
-   PAGE LOAD
-========================= */
 
 window.addEventListener(
   "load",

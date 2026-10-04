@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Classic Empire Ltd — Examination Portal</title>
+
+<title>Classic Empire Ltd - Exam Portal</title>
 
 <style>
 *{
@@ -13,198 +14,163 @@
 }
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:Arial,sans-serif;
   background:#080808;
   color:#fff;
-  line-height:1.6;
+  min-height:100vh;
+  padding:20px;
 }
 
 .container{
-  width:min(900px,92%);
+  width:92%;
+  max-width:850px;
   margin:30px auto;
 }
 
-.box{
+.card{
   background:#111;
-  border:1px solid #3b3b3b;
-  border-radius:16px;
+  border:1px solid #333;
+  border-radius:15px;
   padding:25px;
   margin-bottom:20px;
 }
 
-h1,h2{
-  color:#ffd54a;
+h1,h2,h3{
+  color:#ffd700;
+}
+
+h1{
   text-align:center;
+  margin-bottom:10px;
 }
 
 .subtitle{
-  color:#aaa;
   text-align:center;
-  margin:8px 0 25px;
+  color:#aaa;
+  margin-bottom:25px;
 }
 
 label{
   display:block;
-  margin-top:12px;
+  color:#ffd700;
+  font-weight:bold;
+  margin-bottom:8px;
 }
 
-input,select,textarea,button{
+input,select{
   width:100%;
   padding:13px;
-  margin-top:10px;
-  border-radius:9px;
-}
-
-input,select,textarea{
-  background:#090909;
+  background:#080808;
   color:#fff;
   border:1px solid #444;
+  border-radius:8px;
+  font-size:16px;
+  margin-bottom:15px;
 }
 
 button{
-  background:#d5aa24;
-  color:#000;
+  width:100%;
+  padding:14px;
   border:0;
+  border-radius:8px;
+  background:#ffd700;
+  color:#000;
+  font-size:17px;
   font-weight:bold;
   cursor:pointer;
 }
 
 button:hover{
-  background:#f0c83f;
+  background:#fff;
 }
 
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
+.message{
+  text-align:center;
+  margin-top:15px;
+  color:#ff7777;
+}
+
+#examSection{
+  display:none;
 }
 
 .question{
-  background:#171717;
-  border:1px solid #303030;
+  background:#161616;
+  border:1px solid #333;
   border-radius:12px;
   padding:18px;
-  margin:16px 0;
+  margin-bottom:18px;
 }
 
-.question-number{
-  color:#ffd54a;
+.question-title{
+  color:#fff;
   font-weight:bold;
-  margin-bottom:8px;
-}
-
-.type{
-  display:inline-block;
-  font-size:12px;
-  color:#ffd54a;
-  border:1px solid #5b4707;
-  padding:3px 8px;
-  border-radius:20px;
-  margin-bottom:10px;
+  margin-bottom:12px;
+  line-height:1.6;
 }
 
 .option{
   display:block;
-  padding:8px;
-  margin:5px 0;
-  border-radius:7px;
+  background:#0c0c0c;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:11px;
+  margin:8px 0;
   cursor:pointer;
+  color:#ddd;
 }
 
 .option:hover{
-  background:#222;
+  border-color:#ffd700;
 }
 
 .option input{
   width:auto;
-  margin-right:8px;
+  margin:0 8px 0 0;
 }
 
-textarea{
-  min-height:120px;
+.subjective{
+  min-height:130px;
   resize:vertical;
 }
 
-.info{
-  background:#191919;
-  padding:14px;
-  border-radius:10px;
-  text-align:center;
-  margin-bottom:20px;
-}
-
-.info strong{
-  color:#ffd54a;
-}
-
-#examArea,
-#result{
+.result{
   display:none;
+  text-align:center;
+  padding:25px;
+  border:1px solid #ffd700;
+  border-radius:12px;
+  margin-top:20px;
 }
 
-#loginMessage{
-  text-align:center;
-  margin-top:12px;
+.score{
+  font-size:30px;
+  color:#ffd700;
   font-weight:bold;
-}
-
-.pass{
-  color:#5cff75;
-  font-size:24px;
-  font-weight:bold;
-  text-align:center;
-}
-
-.fail{
-  color:#ff6464;
-  font-size:24px;
-  font-weight:bold;
-  text-align:center;
-}
-
-.warning{
-  color:#ffcc55;
-  text-align:center;
-}
-
-hr{
-  border:0;
-  border-top:1px solid #333;
-  margin:20px 0;
+  margin:15px 0;
 }
 
 .back{
   display:block;
   text-align:center;
-  color:#ffd54a;
+  color:#ffd700;
   text-decoration:none;
-  margin-top:15px;
+  margin-top:20px;
 }
 
-.small{
-  color:#888;
-  font-size:13px;
+.info{
   text-align:center;
-  margin-top:10px;
-}
-
-.loading{
-  color:#ffd54a;
-  text-align:center;
-  margin-top:12px;
+  color:#aaa;
+  margin-bottom:20px;
 }
 
 @media(max-width:600px){
   .container{
-    width:94%;
-    margin:15px auto;
+    width:100%;
   }
 
-  .box{
+  .card{
     padding:18px;
-  }
-
-  h1{
-    font-size:28px;
   }
 }
 </style>
@@ -214,40 +180,33 @@ hr{
 
 <div class="container">
 
-<!-- LOGIN -->
-
-<div class="box" id="loginBox">
+<div class="card" id="loginSection">
 
 <h1>Classic Empire Ltd</h1>
 
-<p class="subtitle">
-Official Examination Portal
-</p>
+<div class="subtitle">
+📝 Official Examination Portal
+</div>
 
-<hr>
-
-<label>Candidate Name</label>
-
-<input
-  type="text"
-  id="candidateName"
-  placeholder="उम्मीदवार का नाम दर्ज करें"
->
-
-<label>Exam Code</label>
+<label for="examCode">
+Exam Code
+</label>
 
 <input
   type="text"
   id="examCode"
-  placeholder="प्राप्त Examination Code दर्ज करें"
+  placeholder="अपना Exam Code डालें"
+  autocomplete="off"
 >
 
-<label>Select Post</label>
+<label for="post">
+Post
+</label>
 
-<select id="postSelect">
+<select id="post">
 
 <option value="">
-Select Examination Post
+-- Post चुनें --
 </option>
 
 <option value="President's Assistant">
@@ -276,69 +235,52 @@ DSP
 
 </select>
 
-<button type="button" id="startButton" onclick="startExam()">
-Start Examination
+<button onclick="startExam()">
+परीक्षा शुरू करें
 </button>
 
-<p id="loginMessage"></p>
+<div id="loginMessage" class="message"></div>
 
-<a class="back" href="index.html">
-← Back to Classic Empire Website
+<a href="index.html" class="back">
+← Classic Empire Ltd Home
 </a>
 
 </div>
 
 
-<!-- EXAM -->
+<div class="card" id="examSection">
 
-<div class="box" id="examArea">
+<h1 id="examTitle">
+Classic Empire Examination
+</h1>
 
-<h1>Examination</h1>
+<div id="candidateInfo" class="info"></div>
 
-<div class="info">
+<form id="examForm">
 
-उम्मीदवार:
-<strong id="showName"></strong>
+<div id="objectiveQuestions"></div>
 
-<br>
+<h2 style="margin:30px 0 15px;">
+वर्णनात्मक प्रश्न
+</h2>
 
-Post:
-<strong id="showPost"></strong>
+<div id="subjectiveQuestions"></div>
 
-</div>
-
-<div id="questions"></div>
-
-<button type="button" id="submitButton" onclick="submitExam()">
-Submit Examination
+<button type="submit">
+परीक्षा जमा करें
 </button>
 
+</form>
+
+<div id="result" class="result">
+
+<h2>परीक्षा परिणाम</h2>
+
+<div id="score" class="score"></div>
+
+<div id="resultMessage"></div>
+
 </div>
-
-
-<!-- RESULT -->
-
-<div class="box" id="result">
-
-<h1>Examination Result</h1>
-
-<hr>
-
-<div id="resultText"></div>
-
-<br>
-
-<div id="scoreText"></div>
-
-<br>
-
-<p class="warning">
-वर्णनात्मक उत्तरों का मूल्यांकन प्रशासन द्वारा मैन्युअल रूप से किया जाएगा।
-</p>
-
-<a class="back" href="index.html">
-← Back to Classic Empire Website
-</a>
 
 </div>
 
@@ -347,10 +289,6 @@ Submit Examination
 
 <script>
 
-/* ==============================
-   SUPABASE CONNECTION
-================================ */
-
 const SUPABASE_URL =
 "https://hjatspkzgoddcpgwfkxo.supabase.co";
 
@@ -358,1328 +296,1168 @@ const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
 
-/* ==============================
-   EXAM DATA
-================================ */
+let verifiedCode = "";
+let currentPost = "";
+let currentCandidate = "";
 
-const examData = {
 
-"President's Assistant":[
+/* =========================
+   EXAM QUESTIONS
+========================= */
+
+const exams = {
+
+"President's Assistant": {
+
+objective:[
 
 {
-type:"MCQ",
-question:"President's Assistant की मुख्य जिम्मेदारी क्या है?",
-options:[
-"राष्ट्रपति के आधिकारिक कार्यों में सहायता और समन्वय करना",
-"आपराधिक मुकदमों का फैसला करना",
-"स्कूल की फीस जमा करना",
-"पुलिस थाने का संचालन करना"
+q:"President's Assistant का मुख्य कार्य क्या होना चाहिए?",
+o:[
+"President के प्रशासनिक कार्यों में सहायता करना",
+"सिर्फ वेतन लेना",
+"सिर्फ खेल प्रतियोगिता आयोजित करना",
+"सिर्फ वेबसाइट बनाना"
 ],
-answer:0
+a:0
 },
 
 {
-type:"MCQ",
-question:"यदि President's Assistant को राष्ट्रपति के लिए कोई महत्वपूर्ण आधिकारिक संदेश मिले, तो सबसे पहले क्या करना चाहिए?",
-options:[
-"उसे अनदेखा करना",
-"उसे उचित तरीके से राष्ट्रपति तक पहुँचाना",
-"उसे मिटा देना",
-"उसे सार्वजनिक रूप से प्रकाशित करना"
+q:"यदि President कोई महत्वपूर्ण प्रशासनिक निर्देश दें, तो Assistant को क्या करना चाहिए?",
+o:[
+"निर्देश को अनदेखा करना",
+"निर्देश को सही तरीके से लागू कराने में सहायता करना",
+"निर्देश को बदल देना",
+"किसी को न बताना"
 ],
-answer:1
+a:1
 },
 
 {
-type:"TRUE",
-question:"आधिकारिक जानकारी को संभालते समय गोपनीयता बनाए रखना आवश्यक है।",
-options:[
-"सही",
-"गलत",
-"केवल रविवार को",
-"कभी नहीं"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"प्रशासनिक समन्वय के लिए कौन-सा कौशल सबसे उपयोगी है?",
-options:[
-"संचार कौशल",
-"अनुमान लगाना",
+q:"एक अच्छे प्रशासनिक Assistant की सबसे महत्वपूर्ण विशेषता क्या है?",
+o:[
 "लापरवाही",
-"काम से बचना"
+"अनुशासन और जिम्मेदारी",
+"देरी करना",
+"नियम तोड़ना"
 ],
-answer:0
+a:1
 },
 
 {
-type:"MCQ",
-question:"यदि दो विभागों को राष्ट्रपति के साथ बैठक करनी हो, तो President's Assistant किस कार्य में सहायता कर सकता है?",
-options:[
-"समय और बैठक का समन्वय",
-"कानून बदलना",
-"न्यायालय का फैसला सुनाना",
-"पुलिस गिरफ्तारी करना"
+q:"President's Assistant किसके साथ सीधे प्रशासनिक समन्वय करता है?",
+o:[
+"President",
+"किसी बाहरी व्यक्ति",
+"किसी छात्र से ही",
+"किसी खिलाड़ी से"
 ],
-answer:0
+a:0
 },
 
 {
-type:"MCQ",
-question:"गोपनीयता का सही अर्थ क्या है?",
-options:[
-"हर जानकारी इंटरनेट पर डालना",
-"अधिकृत जानकारी को सुरक्षित और निजी रखना",
-"हर दस्तावेज़ मिटा देना",
-"किसी से कभी बात न करना"
+q:"गोपनीय प्रशासनिक जानकारी मिलने पर Assistant को क्या करना चाहिए?",
+o:[
+"उसे सार्वजनिक कर देना",
+"सोशल मीडिया पर डालना",
+"गोपनीय रखना",
+"सबको भेज देना"
 ],
-answer:1
+a:2
 },
 
 {
-type:"MCQ",
-question:"किसी आधिकारिक दस्तावेज़ को सामान्यतः कैसे संभालना चाहिए?",
-options:[
-"लापरवाही से",
-"जिम्मेदारी से",
-"अधिकृत अधिकारियों से भी छिपाकर",
-"बिना पढ़े"
+q:"यदि दो प्रशासनिक विभागों के बीच मतभेद हो, तो Assistant को क्या करना चाहिए?",
+o:[
+"मतभेद बढ़ाना",
+"निष्पक्ष समन्वय में सहायता करना",
+"किसी एक पक्ष को बिना कारण चुनना",
+"काम बंद कर देना"
 ],
-answer:1
+a:1
 },
 
 {
-type:"TRUE",
-question:"सही रिकॉर्ड रखना प्रशासन को व्यवस्थित रखने में सहायता करता है।",
-options:[
-"सही",
-"गलत",
-"कभी नहीं",
-"केवल छुट्टी के दिन"
+q:"President's Assistant के लिए समय की पाबंदी क्यों महत्वपूर्ण है?",
+o:[
+"क्योंकि प्रशासनिक कार्य समय पर पूरे होने चाहिए",
+"क्योंकि इससे वेतन बढ़ता है",
+"क्योंकि इससे परीक्षा आसान होती है",
+"क्योंकि इससे छुट्टी मिलती है"
 ],
-answer:0
+a:0
 },
 
 {
-type:"MCQ",
-question:"समन्वय का उदाहरण कौन-सा है?",
-options:[
-"दो विभागों को आधिकारिक बैठक के लिए जोड़ना",
-"विवाद शुरू करना",
-"रिकॉर्ड मिटाना",
-"निर्देशों को अनदेखा करना"
+q:"किसी आदेश को लागू करने से पहले Assistant को क्या सुनिश्चित करना चाहिए?",
+o:[
+"आदेश स्पष्ट और वैध है",
+"आदेश मजेदार है",
+"आदेश कठिन है",
+"आदेश लंबा है"
 ],
-answer:0
+a:0
 },
 
 {
-type:"MCQ",
-question:"आधिकारिक कार्यक्रम बनाने का मुख्य उद्देश्य क्या है?",
-options:[
-"भ्रम पैदा करना",
-"कार्य और बैठकों को व्यवस्थित करना",
-"जानकारी छिपाना",
-"सारा काम रद्द करना"
+q:"प्रशासनिक रिपोर्ट का उद्देश्य क्या है?",
+o:[
+"मनोरंजन करना",
+"कार्य की स्थिति और जानकारी प्रस्तुत करना",
+"व्यक्तिगत कहानी लिखना",
+"विज्ञापन करना"
 ],
-answer:1
+a:1
 },
 
 {
-type:"SUBJECTIVE",
-question:"स्थिति: राष्ट्रपति के एक ही दिन में तीन महत्वपूर्ण बैठकें हैं। President's Assistant के रूप में आप उनका कार्यक्रम कैसे व्यवस्थित करेंगे?"
-},
-
-{
-type:"SUBJECTIVE",
-question:"प्रशासनिक कार्यालय में गोपनीयता और जिम्मेदारी के महत्व पर संक्षिप्त टिप्पणी लिखिए।"
+q:"एक जिम्मेदार Assistant को समस्या मिलने पर क्या करना चाहिए?",
+o:[
+"समस्या छिपानी चाहिए",
+"समस्या की जानकारी देकर समाधान में सहायता करनी चाहिए",
+"समस्या बढ़ानी चाहिए",
+"काम छोड़ देना चाहिए"
+],
+a:1
 }
 
 ],
 
-
-"DM":[
-
-{
-type:"MCQ",
-question:"इस काल्पनिक प्रशासनिक व्यवस्था में DM का एक प्रमुख कार्य क्या है?",
-options:[
-"जिला स्तर के प्रशासन का समन्वय करना",
-"फिल्म की पटकथा लिखना",
-"रेस्तरां चलाना",
-"खेल टीम का प्रबंधन करना"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"यदि दो स्थानीय विभाग किसी प्रशासनिक विषय पर असहमत हों, तो DM को सबसे पहले क्या करना चाहिए?",
-options:[
-"विवाद बढ़ाना",
-"मामले की समीक्षा करके समन्वय करना",
-"दोनों विभागों को अनदेखा करना",
-"दोनों विभागों को तुरंत बंद करना"
-],
-answer:1
-},
-
-{
-type:"TRUE",
-question:"किसी महत्वपूर्ण प्रशासनिक निर्णय का उचित रिकॉर्ड रखना आवश्यक है।",
-options:[
-"सही",
-"गलत",
-"केवल छुट्टी में",
-"कभी नहीं"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"जिला प्रशासन के लिए कौन-सा गुण महत्वपूर्ण है?",
-options:[
-"निष्पक्ष समन्वय",
-"लापरवाही",
-"बिना जानकारी निर्णय लेना",
-"जानकारी से बचना"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"DM को अधीनस्थ अधिकारियों से रिपोर्ट मिलने पर क्या करना चाहिए?",
-options:[
-"प्रासंगिक जानकारी की समीक्षा करना",
-"रिपोर्ट नष्ट करना",
-"हर रिपोर्ट को अनदेखा करना",
-"निजी जानकारी सार्वजनिक करना"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"अच्छे प्रशासन के लिए सामान्यतः क्या आवश्यक है?",
-options:[
-"योजना और समन्वय",
-"भ्रम",
-"रिकॉर्ड न रखना",
-"संचार न करना"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"यदि कोई तत्काल प्रशासनिक समस्या सामने आए, तो पहला उपयोगी कदम क्या होना चाहिए?",
-options:[
-"तथ्यों को समझना",
-"तथ्यों का अनुमान लगाना",
-"समस्या को अनदेखा करना",
-"रिपोर्ट मिटा देना"
-],
-answer:0
-},
-
-{
-type:"TRUE",
-question:"प्रशासनिक अधिकारियों के बीच अच्छा संचार समन्वय को बेहतर कर सकता है।",
-options:[
-"सही",
-"गलत",
-"कभी नहीं",
-"केवल रात में"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"जिला प्रशासन की रिपोर्ट में सामान्यतः क्या होना चाहिए?",
-options:[
-"प्रासंगिक तथ्य और जानकारी",
-"सिर्फ मजाक",
-"केवल अपुष्ट अफवाहें",
-"कोई विवरण नहीं"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"प्रशासनिक विवाद को सुलझाने के लिए कौन-सा तरीका उचित है?",
-options:[
-"तथ्यों की समीक्षा करके संबंधित अधिकारियों से समन्वय करना",
-"तुरंत सभी को दोष देना",
-"मामले को अनदेखा करना",
-"रिकॉर्ड नष्ट करना"
-],
-answer:0
-},
-
-{
-type:"SUBJECTIVE",
-question:"स्थिति: दो प्रशासनिक विभाग एक ही घटना के बारे में अलग-अलग रिपोर्ट देते हैं। DM के रूप में आप कौन-कौन से कदम उठाएँगे?"
-},
-
-{
-type:"SUBJECTIVE",
-question:"जिला प्रशासन में समन्वय क्यों महत्वपूर्ण है? समझाइए।"
-}
-
-],
-
-
-"DM's Assistant":[
-
-{
-type:"MCQ",
-question:"DM's Assistant मुख्य रूप से किसके प्रशासनिक कार्य में सहायता करता है?",
-options:[
-"DM के",
-"सिनेमा हॉल के",
-"खेल क्लब के",
-"रेस्तरां के"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"आधिकारिक फाइल प्राप्त होने पर महत्वपूर्ण कार्य क्या है?",
-options:[
-"उसे व्यवस्थित करके सही अधिकारी तक पहुँचाना",
-"उसे फेंक देना",
-"उसे छिपाना",
-"उसकी सामग्री बदल देना"
-],
-answer:0
-},
-
-{
-type:"TRUE",
-question:"Assistant को अधिकृत प्रशासनिक निर्देशों का पालन करना चाहिए।",
-options:[
-"सही",
-"गलत",
-"कभी नहीं",
-"केवल कभी-कभी"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"कई प्रशासनिक कार्यों को संभालने में कौन-सा कौशल मदद करता है?",
-options:[
-"व्यवस्थित कार्य करना",
-"लापरवाही",
-"भ्रम",
-"जानबूझकर देरी"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"किसी बैठक की सूचना में क्या होना चाहिए?",
-options:[
-"बैठक से संबंधित आवश्यक जानकारी",
-"यादृच्छिक जानकारी",
-"निजी पासवर्ड",
-"कोई उपयोगी जानकारी नहीं"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"यदि किसी फाइल को अत्यावश्यक बताया गया हो, तो Assistant को क्या करना चाहिए?",
-options:[
-"अधिकृत प्राथमिकता के अनुसार उसे संभालना",
-"उसे अनदेखा करना",
-"उसे मिटा देना",
-"उसे छिपा देना"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"सही दस्तावेजीकरण से कार्यालय को क्या लाभ होता है?",
-options:[
-"रिकॉर्ड व्यवस्थित रहते हैं",
-"भ्रम बढ़ता है",
-"जवाबदेही खत्म होती है",
-"जानकारी नष्ट होती है"
-],
-answer:0
-},
-
-{
-type:"TRUE",
-question:"सही समन्वय से प्रशासनिक देरी को कम करने में सहायता मिल सकती है।",
-options:[
-"सही",
-"गलत",
-"कभी नहीं",
-"इनमें से कोई नहीं"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"यदि कोई प्रशासनिक निर्देश स्पष्ट न हो, तो सबसे उचित कदम क्या है?",
-options:[
-"अधिकृत अधिकारी से स्पष्टीकरण लेना",
-"अनुमान लगाना",
-"उसे अनदेखा करना",
-"निर्देश बदल देना"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"अच्छे कार्यालय प्रबंधन का उदाहरण कौन-सा है?",
-options:[
-"रिकॉर्ड को व्यवस्थित रखना",
-"दस्तावेज़ खो देना",
-"समय-सीमा को अनदेखा करना",
-"गोपनीय फाइलें सार्वजनिक करना"
-],
-answer:0
-},
-
-{
-type:"SUBJECTIVE",
-question:"स्थिति: आपके पास पाँच अत्यावश्यक फाइलें हैं। DM के सामने प्रस्तुत करने से पहले आप उन्हें किस प्रकार व्यवस्थित करेंगे?"
-},
-
-{
-type:"SUBJECTIVE",
-question:"सही प्रशासनिक रिकॉर्ड बनाए रखने में Assistant की भूमिका समझाइए।"
-}
-
-],
-
-
-"SDM":[
-
-{
-type:"MCQ",
-question:"SDM का पूरा नाम क्या है?",
-options:[
-"Sub-Divisional Magistrate",
-"Senior Department Manager",
-"State District Member",
-"Special Development Minister"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"इस काल्पनिक प्रशासनिक व्यवस्था में SDM किसके अधीन कार्य करता है?",
-options:[
-"DM",
-"DSP",
-"केवल SP",
-"केवल President's Assistant"
-],
-answer:0
-},
-
-{
-type:"TRUE",
-question:"SDM उप-विभागीय प्रशासन के समन्वय में सहायता कर सकता है।",
-options:[
-"सही",
-"गलत",
-"कभी नहीं",
-"इनमें से कोई नहीं"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"SDM के लिए कौन-सा गुण उपयोगी है?",
-options:[
-"जिम्मेदारी से निर्णय लेना",
-"लापरवाही",
-"बिना जानकारी अनुमान लगाना",
-"खराब संचार"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"किसी प्रशासनिक शिकायत को संभालते समय SDM को सबसे पहले क्या करना चाहिए?",
-options:[
-"प्रासंगिक तथ्यों की समीक्षा करना",
-"शिकायत को अनदेखा करना",
-"शिकायत मिटा देना",
-"तुरंत किसी को दोष देना"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"आधिकारिक रिकॉर्ड कैसे होने चाहिए?",
-options:[
-"सटीक और व्यवस्थित",
-"नष्ट किए हुए",
-"यादृच्छिक",
-"अधिकृत अधिकारियों से छिपे हुए"
-],
-answer:0
-},
-
-{
-type:"TRUE",
-question:"उच्च प्रशासनिक अधिकारियों के साथ समन्वय स्थानीय समस्याओं को सुलझाने में सहायता कर सकता है।",
-options:[
-"सही",
-"गलत",
-"कभी नहीं",
-"इनमें से कोई नहीं"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"SDM को महत्वपूर्ण प्रशासनिक घटनाओं की जानकारी किसे देनी चाहिए?",
-options:[
-"संबंधित वरिष्ठ अधिकारी को",
-"किसी को नहीं",
-"यादृच्छिक लोगों को",
-"सबसे पहले सोशल मीडिया पर"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"प्रशासनिक रिपोर्ट बनाते समय क्या महत्वपूर्ण है?",
-options:[
-"तथ्य और स्पष्टता",
-"अफवाहें",
-"अपमानजनक बातें",
-"अनुमान"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"जिम्मेदार अधिकारी को निर्णय किस आधार पर लेना चाहिए?",
-options:[
-"प्रासंगिक जानकारी और नियम",
-"अफवाहें",
-"व्यक्तिगत मजाक",
-"बिना आधार अनुमान"
-],
-answer:0
-},
-
-{
-type:"SUBJECTIVE",
-question:"स्थिति: किसी स्थानीय प्रशासनिक समस्या पर तुरंत ध्यान देना आवश्यक है, लेकिन पूरी जानकारी अभी उपलब्ध नहीं है। SDM के रूप में आपका तरीका क्या होगा?"
-},
-
-{
-type:"SUBJECTIVE",
-question:"SDM की दो महत्वपूर्ण जिम्मेदारियाँ लिखिए।"
-}
-
-],
-
-
-"SP":[
-
-{
-type:"MCQ",
-question:"SP का पूरा नाम क्या है?",
-options:[
-"Superintendent of Police",
-"Senior President",
-"Special Prosecutor",
-"State Planner"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"SP मुख्य रूप से किस क्षेत्र से संबंधित है?",
-options:[
-"पुलिस प्रशासन",
-"स्कूल परीक्षा",
-"मुद्रा छपाई",
-"वेबसाइट डिजाइन"
-],
-answer:0
-},
-
-{
-type:"TRUE",
-question:"SP इस काल्पनिक व्यवस्था में पुलिस प्रशासन का समन्वय कर सकता है।",
-options:[
-"सही",
-"गलत",
-"कभी नहीं",
-"इनमें से कोई नहीं"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"SP को मिलने वाली पुलिस रिपोर्ट में क्या होना चाहिए?",
-options:[
-"प्रासंगिक तथ्य",
-"यादृच्छिक अफवाहें",
-"मजाक",
-"कोई जानकारी नहीं"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"पुलिस प्रशासन में कौन-सा गुण महत्वपूर्ण है?",
-options:[
-"अनुशासन",
-"लापरवाही",
-"भ्रम",
-"बेईमानी"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"यदि कोई अत्यावश्यक पुलिस मामला सामने आए, तो SP को क्या करना चाहिए?",
-options:[
-"स्थिति की समीक्षा करके उचित कार्रवाई का समन्वय करना",
-"उसे अनदेखा करना",
-"रिपोर्ट मिटा देना",
-"गोपनीय जानकारी सार्वजनिक करना"
-],
-answer:0
-},
-
-{
-type:"TRUE",
-question:"पुलिस अधिकारियों के बीच उचित संचार से समन्वय बेहतर हो सकता है।",
-options:[
-"सही",
-"गलत",
-"कभी नहीं",
-"इनमें से कोई नहीं"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"SP पुलिस प्रशासन की निगरानी करता है और किसके साथ समन्वय कर सकता है?",
-options:[
-"अधीनस्थ पुलिस अधिकारियों के साथ",
-"किसी के साथ नहीं",
-"केवल यादृच्छिक नागरिकों के साथ",
-"केवल वेबसाइट डेवलपर के साथ"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"आधिकारिक पुलिस रिपोर्ट कैसी होनी चाहिए?",
-options:[
-"स्पष्ट और प्रासंगिक जानकारी पर आधारित",
-"केवल अफवाहों पर आधारित",
-"खाली",
-"मजाक से भरी हुई"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"अच्छे पुलिस प्रशासन के लिए क्या आवश्यक है?",
-options:[
-"अनुशासन, संचार और सही रिकॉर्ड",
-"भ्रम",
-"रिपोर्टिंग न करना",
-"निगरानी न करना"
-],
-answer:0
-},
-
-{
-type:"SUBJECTIVE",
-question:"स्थिति: DSP किसी घटना के बारे में दो अलग-अलग रिपोर्ट भेजता है। प्रशासनिक निर्णय लेने से पहले SP को क्या करना चाहिए?"
-},
-
-{
-type:"SUBJECTIVE",
-question:"पुलिस प्रशासन में अनुशासन और संचार के महत्व को समझाइए।"
-}
-
-],
-
-
-"DSP":[
-
-{
-type:"MCQ",
-question:"इस काल्पनिक व्यवस्था में DSP किसके अधीन कार्य करता है?",
-options:[
-"SP",
-"केवल SDM",
-"President's Assistant",
-"DM's Assistant"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"DSP को कोई महत्वपूर्ण पुलिस रिपोर्ट मिलने पर क्या करना चाहिए?",
-options:[
-"उसकी समीक्षा करके उचित माध्यम से रिपोर्ट करना",
-"उसे मिटा देना",
-"उसे अनदेखा करना",
-"उसे सार्वजनिक रूप से पोस्ट करना"
-],
-answer:0
-},
-
-{
-type:"TRUE",
-question:"DSP को SP के साथ उचित संचार बनाए रखना चाहिए।",
-options:[
-"सही",
-"गलत",
-"कभी नहीं",
-"इनमें से कोई नहीं"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"DSP के लिए कौन-सा गुण महत्वपूर्ण है?",
-options:[
-"अनुशासन",
-"लापरवाही",
-"भ्रम",
-"उपेक्षा"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"यदि किसी पुलिस टीम को प्रशासनिक मार्गदर्शन की आवश्यकता हो, तो DSP को क्या करना चाहिए?",
-options:[
-"उचित पदानुक्रम के अनुसार समन्वय करना",
-"उसे अनदेखा करना",
-"रिपोर्ट मिटा देना",
-"निजी जानकारी सार्वजनिक करना"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"एक अच्छी पुलिस रिपोर्ट कैसी होनी चाहिए?",
-options:[
-"सटीक और स्पष्ट",
-"केवल अफवाहों पर आधारित",
-"खाली",
-"अव्यवस्थित"
-],
-answer:0
-},
-
-{
-type:"TRUE",
-question:"उचित पदानुक्रम का पालन करने से प्रशासनिक समन्वय बेहतर होता है।",
-options:[
-"सही",
-"गलत",
-"कभी नहीं",
-"इनमें से कोई नहीं"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"किसी अत्यावश्यक मामले की सूचना मिलने पर DSP को क्या करना चाहिए?",
-options:[
-"जानकारी का आकलन करके उचित तरीके से सूचना देना",
-"उसे अनदेखा करना",
-"उसे नष्ट करना",
-"बिना कारण प्रतीक्षा करना"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"पुलिस कार्य की निगरानी करते समय क्या महत्वपूर्ण है?",
-options:[
-"स्पष्ट निर्देश और सही रिपोर्टिंग",
-"कोई संचार नहीं",
-"यादृच्छिक निर्णय",
-"खराब रिकॉर्ड"
-],
-answer:0
-},
-
-{
-type:"MCQ",
-question:"DSP को सामान्यतः SP को किसकी जानकारी देनी चाहिए?",
-options:[
-"महत्वपूर्ण घटनाक्रम की",
-"व्यक्तिगत मजाक की",
-"असंबंधित मनोरंजन की",
-"किसी भी बात की नहीं"
-],
-answer:0
-},
-
-{
-type:"SUBJECTIVE",
-question:"स्थिति: पुलिस टीम DSP को किसी अत्यावश्यक स्थिति की सूचना देती है। उचित पदानुक्रम बनाए रखते हुए DSP को कौन-कौन से कदम उठाने चाहिए?"
-},
-
-{
-type:"SUBJECTIVE",
-question:"पुलिस प्रशासन में सही और सटीक रिपोर्टिंग क्यों महत्वपूर्ण है? समझाइए।"
-}
-
+subjective:[
+"President's Assistant की तीन प्रमुख जिम्मेदारियाँ लिखिए।",
+"यदि प्रशासन में कोई गंभीर समस्या उत्पन्न हो जाए, तो आप उसे कैसे संभालेंगे?"
 ]
+
+},
+
+
+"DM": {
+
+objective:[
+
+{
+q:"DM का प्रमुख प्रशासनिक दायित्व क्या है?",
+o:[
+"जिले के प्रशासन का समन्वय करना",
+"केवल खेल आयोजित करना",
+"केवल परीक्षा लेना",
+"केवल वेतन बांटना"
+],
+a:0
+},
+
+{
+q:"DM को प्रशासनिक रिपोर्ट किस उद्देश्य से तैयार करनी चाहिए?",
+o:[
+"स्थिति की सही जानकारी देने के लिए",
+"मनोरंजन के लिए",
+"व्यक्तिगत उपयोग के लिए",
+"रिकॉर्ड मिटाने के लिए"
+],
+a:0
+},
+
+{
+q:"किसी क्षेत्र में गंभीर प्रशासनिक समस्या हो तो DM को क्या करना चाहिए?",
+o:[
+"उसे नजरअंदाज करना",
+"स्थिति का मूल्यांकन करके उचित कार्रवाई करना",
+"काम रोक देना",
+"समस्या छिपाना"
+],
+a:1
+},
+
+{
+q:"DM और SDM के संबंध को कैसे समझा जा सकता है?",
+o:[
+"SDM प्रशासनिक कार्यों में DM के अधीन काम करता है",
+"DM SDM के अधीन होता है",
+"दोनों का कोई संबंध नहीं",
+"SDM केवल वेबसाइट देखता है"
+],
+a:0
+},
+
+{
+q:"DM के लिए सबसे महत्वपूर्ण गुण कौन-सा है?",
+o:[
+"लापरवाही",
+"पक्षपात",
+"निर्णय क्षमता और जिम्मेदारी",
+"अनुशासनहीनता"
+],
+a:2
+},
+
+{
+q:"प्रशासनिक निर्णय लेते समय DM को क्या ध्यान रखना चाहिए?",
+o:[
+"नियम और निष्पक्षता",
+"व्यक्तिगत पसंद",
+"अफवाह",
+"दबाव"
+],
+a:0
+},
+
+{
+q:"DM को अधीनस्थ अधिकारियों से क्या अपेक्षा करनी चाहिए?",
+o:[
+"अनुशासन और जिम्मेदार कार्य",
+"नियम तोड़ना",
+"रिपोर्ट छिपाना",
+"देरी करना"
+],
+a:0
+},
+
+{
+q:"किसी आपात स्थिति में DM की पहली प्राथमिकता क्या होनी चाहिए?",
+o:[
+"स्थिति को नजरअंदाज करना",
+"सुरक्षा और प्रभावी प्रशासन",
+"केवल प्रचार करना",
+"काम स्थगित करना"
+],
+a:1
+},
+
+{
+q:"DM द्वारा निरीक्षण का मुख्य उद्देश्य क्या है?",
+o:[
+"कमियाँ पहचानना और व्यवस्था सुधारना",
+"समय बिताना",
+"लोगों को परेशान करना",
+"केवल फोटो लेना"
+],
+a:0
+},
+
+{
+q:"एक अच्छे DM को शिकायत मिलने पर क्या करना चाहिए?",
+o:[
+"बिना जांच के फैसला करना",
+"शिकायत की जांच करके उचित कार्रवाई करना",
+"शिकायत छिपाना",
+"शिकायतकर्ता को नजरअंदाज करना"
+],
+a:1
+}
+
+],
+
+subjective:[
+"DM की पाँच प्रमुख प्रशासनिक जिम्मेदारियाँ लिखिए।",
+"यदि किसी जिले में अचानक गंभीर समस्या उत्पन्न हो जाए, तो DM के रूप में आपकी कार्ययोजना क्या होगी?"
+]
+
+},
+
+
+"DM's Assistant": {
+
+objective:[
+
+{
+q:"DM's Assistant का मुख्य कार्य क्या है?",
+o:[
+"DM के प्रशासनिक कार्यों में सहायता करना",
+"DM के आदेशों को बदलना",
+"सिर्फ वेतन देखना",
+"सिर्फ खेल कराना"
+],
+a:0
+},
+
+{
+q:"DM's Assistant को रिपोर्ट तैयार करते समय क्या करना चाहिए?",
+o:[
+"गलत जानकारी लिखना",
+"सही और स्पष्ट जानकारी देना",
+"जानकारी छिपाना",
+"अनुमान लगाना"
+],
+a:1
+},
+
+{
+q:"DM के निर्देश मिलने पर Assistant को क्या करना चाहिए?",
+o:[
+"निर्देश समझकर उचित सहायता करनी चाहिए",
+"निर्देश को अनदेखा करना चाहिए",
+"निर्देश बदल देना चाहिए",
+"काम छोड़ देना चाहिए"
+],
+a:0
+},
+
+{
+q:"प्रशासनिक रिकॉर्ड क्यों महत्वपूर्ण होते हैं?",
+o:[
+"सही जानकारी और भविष्य के संदर्भ के लिए",
+"सिर्फ सजावट के लिए",
+"मनोरंजन के लिए",
+"उन्हें मिटाने के लिए"
+],
+a:0
+},
+
+{
+q:"Assistant को गोपनीय जानकारी कैसे संभालनी चाहिए?",
+o:[
+"सार्वजनिक करके",
+"सुरक्षित और गोपनीय रखकर",
+"सबको भेजकर",
+"सोशल मीडिया पर डालकर"
+],
+a:1
+},
+
+{
+q:"यदि DM उपलब्ध न हों और कोई जरूरी संदेश आए, तो Assistant को क्या करना चाहिए?",
+o:[
+"संदेश नष्ट करना",
+"उचित प्रक्रिया के अनुसार जानकारी सुरक्षित रखना और वरिष्ठ को सूचित करना",
+"संदेश छिपाना",
+"अफवाह फैलाना"
+],
+a:1
+},
+
+{
+q:"DM's Assistant के लिए कौन-सा गुण सबसे आवश्यक है?",
+o:[
+"लापरवाही",
+"जिम्मेदारी",
+"अव्यवस्था",
+"देरी"
+],
+a:1
+},
+
+{
+q:"एक अच्छी प्रशासनिक रिपोर्ट कैसी होनी चाहिए?",
+o:[
+"अस्पष्ट",
+"बहुत छोटी और अधूरी",
+"सटीक और व्यवस्थित",
+"बिना तथ्यों की"
+],
+a:2
+},
+
+{
+q:"Assistant को विभागों के बीच समन्वय क्यों करना चाहिए?",
+o:[
+"काम को व्यवस्थित रखने के लिए",
+"काम रोकने के लिए",
+"विवाद बढ़ाने के लिए",
+"नियम तोड़ने के लिए"
+],
+a:0
+},
+
+{
+q:"किसी प्रशासनिक गलती का पता चले तो Assistant को क्या करना चाहिए?",
+o:[
+"उसे छिपाना",
+"गलती की जानकारी देना और सुधार में सहायता करना",
+"दोष किसी और पर डालना",
+"रिकॉर्ड मिटाना"
+],
+a:1
+}
+
+],
+
+subjective:[
+"DM's Assistant के चार प्रमुख कार्य लिखिए।",
+"यदि आपको कोई महत्वपूर्ण प्रशासनिक सूचना मिले, तो आप उसे किस प्रकार सुरक्षित रखेंगे और आगे भेजेंगे?"
+]
+
+},
+
+
+"SDM": {
+
+objective:[
+
+{
+q:"SDM का मुख्य कार्य किससे संबंधित है?",
+o:[
+"उपखंड स्तर के प्रशासन से",
+"केवल खेल से",
+"केवल वेतन से",
+"केवल वेबसाइट से"
+],
+a:0
+},
+
+{
+q:"SDM किसके प्रशासनिक निर्देशों के अनुसार कार्य करता है?",
+o:[
+"DM",
+"किसी खिलाड़ी",
+"किसी बाहरी व्यक्ति",
+"किसी विज्ञापनदाता"
+],
+a:0
+},
+
+{
+q:"SDM को क्षेत्रीय समस्या मिलने पर क्या करना चाहिए?",
+o:[
+"समस्या को अनदेखा करना",
+"स्थिति की जांच करके उचित प्रशासनिक कदम उठाना",
+"समस्या छिपाना",
+"काम बंद करना"
+],
+a:1
+},
+
+{
+q:"SDM के लिए रिपोर्टिंग क्यों आवश्यक है?",
+o:[
+"वरिष्ठ अधिकारी को सही जानकारी देने के लिए",
+"मनोरंजन के लिए",
+"समय बिताने के लिए",
+"वेतन बढ़ाने के लिए"
+],
+a:0
+},
+
+{
+q:"SDM को जनता की शिकायतों के साथ कैसा व्यवहार करना चाहिए?",
+o:[
+"निष्पक्ष और जिम्मेदारी से",
+"लापरवाही से",
+"पक्षपात से",
+"गुस्से से"
+],
+a:0
+},
+
+{
+q:"प्रशासनिक निरीक्षण का उद्देश्य क्या है?",
+o:[
+"व्यवस्था की स्थिति समझना और सुधार करना",
+"केवल फोटो लेना",
+"समय बिताना",
+"नियम तोड़ना"
+],
+a:0
+},
+
+{
+q:"यदि किसी क्षेत्र में व्यवस्था खराब हो रही हो तो SDM को क्या करना चाहिए?",
+o:[
+"उसे नजरअंदाज करना",
+"स्थिति का मूल्यांकन करके सुधारात्मक कार्रवाई करना",
+"काम बंद करना",
+"समस्या बढ़ाना"
+],
+a:1
+},
+
+{
+q:"SDM के लिए निष्पक्षता क्यों जरूरी है?",
+o:[
+"क्योंकि प्रशासन में समान और उचित निर्णय आवश्यक हैं",
+"क्योंकि इससे छुट्टी मिलती है",
+"क्योंकि इससे वेतन दोगुना होता है",
+"क्योंकि इससे परीक्षा आसान होती है"
+],
+a:0
+},
+
+{
+q:"SDM को अपने अधीन कर्मचारियों से क्या अपेक्षा करनी चाहिए?",
+o:[
+"अनुशासन और जिम्मेदारी",
+"लापरवाही",
+"देरी",
+"नियम तोड़ना"
+],
+a:0
+},
+
+{
+q:"किसी गंभीर घटना के बाद SDM को क्या करना चाहिए?",
+o:[
+"घटना छिपाना",
+"तथ्य जुटाकर वरिष्ठ अधिकारी को रिपोर्ट करना",
+"रिकॉर्ड मिटाना",
+"अफवाह फैलाना"
+],
+a:1
+}
+
+],
+
+subjective:[
+"SDM की पाँच प्रमुख जिम्मेदारियाँ लिखिए।",
+"यदि आपके क्षेत्र में कोई गंभीर प्रशासनिक समस्या उत्पन्न हो, तो आप उसे कैसे नियंत्रित करेंगे?"
+]
+
+},
+
+
+"SP": {
+
+objective:[
+
+{
+q:"SP का मुख्य क्षेत्र किससे संबंधित है?",
+o:[
+"पुलिस और कानून-व्यवस्था",
+"केवल शिक्षा",
+"केवल वेतन",
+"केवल वेबसाइट"
+],
+a:0
+},
+
+{
+q:"SP का प्रमुख उद्देश्य क्या होना चाहिए?",
+o:[
+"कानून-व्यवस्था बनाए रखना",
+"लोगों को परेशान करना",
+"रिकॉर्ड छिपाना",
+"काम रोकना"
+],
+a:0
+},
+
+{
+q:"SP को पुलिस अधिकारियों से क्या अपेक्षा करनी चाहिए?",
+o:[
+"अनुशासन और कानून के अनुसार कार्य",
+"मनमानी",
+"लापरवाही",
+"नियमों की अनदेखी"
+],
+a:0
+},
+
+{
+q:"किसी गंभीर कानून-व्यवस्था की समस्या में SP को क्या करना चाहिए?",
+o:[
+"स्थिति की अनदेखी",
+"स्थिति का मूल्यांकन करके उचित पुलिस कार्रवाई का समन्वय",
+"अफवाह फैलाना",
+"रिकॉर्ड मिटाना"
+],
+a:1
+},
+
+{
+q:"SP के लिए निष्पक्षता क्यों आवश्यक है?",
+o:[
+"कानून सभी के लिए उचित रूप से लागू होना चाहिए",
+"क्योंकि इससे छुट्टी मिलती है",
+"क्योंकि इससे वेतन बढ़ता है",
+"क्योंकि इससे परीक्षा आसान होती है"
+],
+a:0
+},
+
+{
+q:"SP को पुलिस विभाग की कार्यप्रणाली की समीक्षा क्यों करनी चाहिए?",
+o:[
+"व्यवस्था और कार्यक्षमता सुधारने के लिए",
+"समय बिताने के लिए",
+"केवल फोटो लेने के लिए",
+"काम रोकने के लिए"
+],
+a:0
+},
+
+{
+q:"SP को शिकायत मिलने पर क्या करना चाहिए?",
+o:[
+"बिना जांच के फैसला करना",
+"उचित जांच और प्रक्रिया सुनिश्चित करना",
+"शिकायत छिपाना",
+"शिकायतकर्ता को धमकाना"
+],
+a:1
+},
+
+{
+q:"SP के अधीन DSP की भूमिका क्या हो सकती है?",
+o:[
+"SP के निर्देशों के अनुसार पुलिस प्रशासन में सहायता करना",
+"SP को हटाना",
+"केवल वेतन लेना",
+"कोई कार्य न करना"
+],
+a:0
+},
+
+{
+q:"पुलिस प्रशासन में रिकॉर्ड क्यों महत्वपूर्ण हैं?",
+o:[
+"घटनाओं और कार्रवाई का सही विवरण रखने के लिए",
+"रिकॉर्ड मिटाने के लिए",
+"मनोरंजन के लिए",
+"विज्ञापन के लिए"
+],
+a:0
+},
+
+{
+q:"SP को किसी अधिकारी की गलती मिलने पर क्या करना चाहिए?",
+o:[
+"गलती छिपानी चाहिए",
+"नियमों के अनुसार उचित कार्रवाई करनी चाहिए",
+"रिकॉर्ड मिटाना चाहिए",
+"बिना जांच के दोषी घोषित करना चाहिए"
+],
+a:1
+}
+
+],
+
+subjective:[
+"SP की पाँच प्रमुख जिम्मेदारियाँ लिखिए।",
+"किसी गंभीर कानून-व्यवस्था की स्थिति में SP के रूप में आपकी कार्ययोजना क्या होगी?"
+]
+
+},
+
+
+"DSP": {
+
+objective:[
+
+{
+q:"DSP का मुख्य कार्य किससे जुड़ा है?",
+o:[
+"पुलिस प्रशासन और कानून-व्यवस्था में सहायता",
+"केवल वेतन",
+"केवल शिक्षा",
+"केवल वेबसाइट"
+],
+a:0
+},
+
+{
+q:"DSP किसके निर्देशों के अनुसार अपने क्षेत्र में कार्य करता है?",
+o:[
+"SP",
+"किसी खिलाड़ी",
+"किसी बाहरी व्यक्ति",
+"किसी विज्ञापनदाता"
+],
+a:0
+},
+
+{
+q:"DSP को पुलिस कर्मचारियों के कार्य की निगरानी क्यों करनी चाहिए?",
+o:[
+"अनुशासन और कार्यक्षमता बनाए रखने के लिए",
+"मनोरंजन के लिए",
+"काम रोकने के लिए",
+"रिकॉर्ड मिटाने के लिए"
+],
+a:0
+},
+
+{
+q:"किसी गंभीर घटना की सूचना मिलने पर DSP को क्या करना चाहिए?",
+o:[
+"घटना को अनदेखा करना",
+"स्थिति का मूल्यांकन करके उचित कार्रवाई और वरिष्ठ को रिपोर्ट करना",
+"अफवाह फैलाना",
+"रिकॉर्ड छिपाना"
+],
+a:1
+},
+
+{
+q:"DSP के लिए कानून का पालन क्यों जरूरी है?",
+o:[
+"क्योंकि पुलिस कार्य नियम और कानून के अनुसार होना चाहिए",
+"क्योंकि इससे छुट्टी मिलती है",
+"क्योंकि इससे वेतन बढ़ता है",
+"क्योंकि इससे परीक्षा आसान होती है"
+],
+a:0
+},
+
+{
+q:"DSP को अधीनस्थ अधिकारियों से क्या अपेक्षा करनी चाहिए?",
+o:[
+"अनुशासन और जिम्मेदारी",
+"लापरवाही",
+"मनमानी",
+"देरी"
+],
+a:0
+},
+
+{
+q:"यदि किसी पुलिस कर्मचारी के विरुद्ध शिकायत मिले तो DSP को क्या करना चाहिए?",
+o:[
+"शिकायत छिपाना",
+"उचित प्रक्रिया के अनुसार जांच कराना",
+"बिना जांच के दोषी घोषित करना",
+"शिकायतकर्ता को रोकना"
+],
+a:1
+},
+
+{
+q:"DSP को वरिष्ठ अधिकारी को रिपोर्ट कब देनी चाहिए?",
+o:[
+"महत्वपूर्ण घटनाओं और आवश्यक प्रशासनिक मामलों में",
+"कभी नहीं",
+"सिर्फ छुट्टी के समय",
+"सिर्फ वेतन के समय"
+],
+a:0
+},
+
+{
+q:"DSP की निगरानी व्यवस्था का उद्देश्य क्या है?",
+o:[
+"पुलिस कार्य को व्यवस्थित और प्रभावी बनाना",
+"काम रोकना",
+"विवाद बढ़ाना",
+"रिकॉर्ड हटाना"
+],
+a:0
+},
+
+{
+q:"एक जिम्मेदार DSP को किसी विवाद की स्थिति में क्या करना चाहिए?",
+o:[
+"विवाद बढ़ाना",
+"नियमों के अनुसार निष्पक्ष कार्रवाई करना",
+"किसी पक्ष का बिना कारण समर्थन करना",
+"समस्या छिपाना"
+],
+a:1
+}
+
+],
+
+subjective:[
+"DSP की पाँच प्रमुख जिम्मेदारियाँ लिखिए।",
+"यदि आपके क्षेत्र में कानून-व्यवस्था की गंभीर समस्या हो, तो आप वरिष्ठ अधिकारी के साथ मिलकर क्या कदम उठाएँगे?"
+]
+
+}
 
 };
 
 
-/* ==============================
-   GLOBAL VARIABLES
-================================ */
-
-let verifiedCode = "";
-let verifiedPost = "";
-let verifiedApplicantName = "";
-let examSubmitted = false;
-
-
-/* ==============================
+/* =========================
    START EXAM
-================================ */
+========================= */
 
 async function startExam(){
 
-const name =
-document.getElementById("candidateName").value.trim();
-
 const code =
-document.getElementById("examCode").value.trim().toUpperCase();
+document.getElementById("examCode")
+.value
+.trim()
+.toUpperCase();
 
 const post =
-document.getElementById("postSelect").value;
+document.getElementById("post")
+.value;
 
 const message =
 document.getElementById("loginMessage");
 
-const button =
-document.getElementById("startButton");
+if(!code){
 
-
-message.textContent = "";
-
-
-if(name===""){
-
-message.style.color="#ff6464";
-message.textContent="कृपया उम्मीदवार का नाम दर्ज करें।";
+message.textContent =
+"कृपया Exam Code डालें।";
 
 return;
-
 }
 
+if(!post){
 
-if(code===""){
-
-message.style.color="#ff6464";
-message.textContent="कृपया Exam Code दर्ज करें।";
+message.textContent =
+"कृपया Post चुनें।";
 
 return;
-
 }
 
-
-if(post===""){
-
-message.style.color="#ff6464";
-message.textContent="कृपया Examination Post चुनें।";
-
-return;
-
-}
-
-
-button.disabled=true;
-
-button.textContent="Code जाँच हो रही है...";
-
+message.textContent =
+"Exam Code सत्यापित किया जा रहा है...";
 
 try{
 
 const response = await fetch(
-SUPABASE_URL + "/rest/v1/rpc/verify_exam_code",
+SUPABASE_URL +
+"/rest/v1/rpc/verify_exam_code",
 {
 method:"POST",
 
 headers:{
 "Content-Type":"application/json",
 "apikey":SUPABASE_KEY,
-"Authorization":"Bearer " + SUPABASE_KEY
+"Authorization":
+"Bearer " + SUPABASE_KEY
 },
 
 body:JSON.stringify({
 input_code:code,
 input_post:post
 })
+}
+);
 
-});
-
-
-const data = await response.json();
-
+const data =
+await response.json();
 
 if(!response.ok){
 
 throw new Error(
-data.message || "Supabase verification failed"
+"Verification failed"
 );
 
 }
 
-
 if(!data.success){
-
-message.style.color="#ff6464";
 
 message.textContent =
 data.message ||
-"गलत, अमान्य या पहले इस्तेमाल किया गया Exam Code";
-
-button.disabled=false;
-button.textContent="Start Examination";
+"Exam Code अमान्य है।";
 
 return;
-
 }
-
-
-/*
-  Database में दर्ज applicant name
-  को सुरक्षित रूप से इस्तेमाल किया जा रहा है।
-*/
 
 verifiedCode = code;
-verifiedPost = post;
-verifiedApplicantName =
-data.applicant_name || name;
+currentPost = post;
+currentCandidate =
+data.applicant_name || "Candidate";
 
+document.getElementById(
+"loginSection"
+).style.display="none";
 
-/*
-  Candidate द्वारा डाला गया नाम
-  database वाले नाम से मिलना चाहिए।
-*/
+document.getElementById(
+"examSection"
+).style.display="block";
 
-if(
-name.trim().toLowerCase() !==
-verifiedApplicantName.trim().toLowerCase()
-){
+document.getElementById(
+"examTitle"
+).textContent =
+"Classic Empire - " + post + " Examination";
 
-message.style.color="#ff6464";
+document.getElementById(
+"candidateInfo"
+).textContent =
+"Applicant: " +
+currentCandidate +
+" | Post: " +
+post;
 
-message.textContent =
-"Candidate Name और Exam Code के नाम में मिलान नहीं है।";
+loadQuestions(post);
 
-button.disabled=false;
-button.textContent="Start Examination";
-
-return;
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 
 }
 
-
-document.getElementById("loginBox").style.display="none";
-
-document.getElementById("examArea").style.display="block";
-
-document.getElementById("showName").textContent=
-verifiedApplicantName;
-
-document.getElementById("showPost").textContent=
-verifiedPost;
-
-loadQuestions(verifiedPost);
-
-window.scrollTo(0,0);
-
-
-}catch(error){
+catch(error){
 
 console.error(error);
 
-message.style.color="#ff6464";
-
 message.textContent =
-"Exam Code जाँचने में समस्या हुई। कृपया बाद में फिर प्रयास करें।";
-
-button.disabled=false;
-button.textContent="Start Examination";
+"Exam Code verify नहीं हुआ। कृपया Code और Post जाँचें।";
 
 }
 
 }
 
 
-/* ==============================
+/* =========================
    LOAD QUESTIONS
-================================ */
+========================= */
 
 function loadQuestions(post){
 
-const area =
-document.getElementById("questions");
+const exam =
+exams[post];
 
-area.innerHTML="";
+const objective =
+document.getElementById(
+"objectiveQuestions"
+);
 
-const paper =
-examData[post];
+const subjective =
+document.getElementById(
+"subjectiveQuestions"
+);
 
-
-paper.forEach((item,index)=>{
-
-let html="";
-
-html+=`
-<div class="question">
-
-<div class="question-number">
-प्रश्न ${index+1}
-</div>
-
-<div class="type">
-${item.type==="MCQ" ? "बहुविकल्पीय प्रश्न" :
-  item.type==="TRUE" ? "सही / गलत" :
-  "वर्णनात्मक प्रश्न"}
-</div>
-
-<p>
-${escapeHTML(item.question)}
-</p>
-`;
+objective.innerHTML="";
+subjective.innerHTML="";
 
 
-if(item.type==="SUBJECTIVE"){
+exam.objective.forEach(
+(item,index)=>{
 
-html+=`
+const box =
+document.createElement("div");
 
-<textarea
-id="subjective${index}"
-placeholder="अपना उत्तर यहाँ लिखें..."
-></textarea>
+box.className="question";
 
-`;
+let html =
+`<div class="question-title">
+प्रश्न ${index+1}. ${item.q}
+</div>`;
 
-}else{
-
-item.options.forEach((option,optIndex)=>{
+item.o.forEach(
+(option,optIndex)=>{
 
 const letter =
-String.fromCharCode(65+optIndex);
+["A","B","C","D"][optIndex];
 
-html+=`
-
+html += `
 <label class="option">
-
 <input
 type="radio"
 name="q${index}"
 value="${optIndex}"
+required
 >
-
-${letter}. ${escapeHTML(option)}
-
+<strong>${letter}.</strong>
+${option}
 </label>
-
 `;
 
 });
 
-}
+box.innerHTML=html;
 
-html+=`
+objective.appendChild(box);
+
+});
+
+
+exam.subjective.forEach(
+(item,index)=>{
+
+const box =
+document.createElement("div");
+
+box.className="question";
+
+box.innerHTML=`
+<div class="question-title">
+प्रश्न ${index+11}. ${item}
 </div>
+
+<textarea
+class="subjective"
+name="subjective${index}"
+placeholder="अपना उत्तर यहाँ लिखें..."
+required
+></textarea>
 `;
 
-area.innerHTML += html;
+subjective.appendChild(box);
 
 });
 
 }
 
 
-/* ==============================
+/* =========================
    SUBMIT EXAM
-================================ */
+========================= */
 
-async function submitExam(){
+document.getElementById(
+"examForm"
+).addEventListener(
+"submit",
+async function(event){
 
-if(examSubmitted){
-return;
-}
+event.preventDefault();
 
+const exam =
+exams[currentPost];
 
-const post =
-document.getElementById("showPost").textContent;
+let score = 0;
 
-const paper =
-examData[post];
-
-let score=0;
-
-let unanswered=0;
-
-let subjective=0;
-
-
-paper.forEach((item,index)=>{
-
-if(item.type==="SUBJECTIVE"){
-
-subjective++;
-
-return;
-
-}
-
+exam.objective.forEach(
+(item,index)=>{
 
 const selected =
 document.querySelector(
-'input[name="q'+index+'"]:checked'
+`input[name="q${index}"]:checked`
 );
 
-
-if(!selected){
-
-unanswered++;
-
-return;
-
-}
-
-
 if(
-Number(selected.value) ===
-item.answer
+selected &&
+Number(selected.value) === item.a
 ){
-
 score++;
-
 }
 
 });
 
-
-const totalObjective =
-paper.length - subjective;
+const total =
+exam.objective.length;
 
 const percentage =
-Math.round(
-(score / totalObjective) * 100
-);
+(score / total) * 100;
 
 const passed =
 percentage >= 60;
 
 
-/*
-  पहले Supabase में code को
-  used करने की कोशिश होगी।
-*/
+if(!passed){
 
-const submitButton =
-document.getElementById("submitButton");
+showResult(
+score,
+total,
+percentage,
+false
+);
 
-submitButton.disabled=true;
+return;
 
-submitButton.textContent=
-"Exam जमा हो रहा है...";
+}
 
+
+/* Code is marked used only after successful submission */
 
 try{
 
 const response = await fetch(
-SUPABASE_URL + "/rest/v1/rpc/submit_exam_code",
+SUPABASE_URL +
+"/rest/v1/rpc/submit_exam_code",
 {
 method:"POST",
 
 headers:{
 "Content-Type":"application/json",
 "apikey":SUPABASE_KEY,
-"Authorization":"Bearer " + SUPABASE_KEY
+"Authorization":
+"Bearer " + SUPABASE_KEY
 },
 
 body:JSON.stringify({
 input_code:verifiedCode
 })
-
-});
-
+}
+);
 
 const data =
 await response.json();
 
-
 if(!response.ok || !data.success){
 
-throw new Error(
-data.message ||
-"Exam submission failed"
+alert(
+"Exam submit नहीं हुआ। कृपया दोबारा प्रयास करें।"
+);
+
+return;
+
+}
+
+showResult(
+score,
+total,
+percentage,
+true
 );
 
 }
-
-
-examSubmitted=true;
-
-
-/*
-  Code successfully used होने के बाद
-  result दिखाया जाएगा।
-*/
-
-document.getElementById("examArea").style.display="none";
-
-document.getElementById("result").style.display="block";
-
-
-const resultText =
-document.getElementById("resultText");
-
-const scoreText =
-document.getElementById("scoreText");
-
-
-if(passed){
-
-resultText.className="pass";
-
-resultText.textContent=
-"PASS — Objective Section";
-
-}else{
-
-resultText.className="fail";
-
-resultText.textContent=
-"FAIL — Objective Section";
-
-}
-
-
-scoreText.innerHTML=`
-
-<p style="text-align:center;font-size:20px;">
-
-<strong>Objective Score:</strong>
-${score} / ${totalObjective}
-
-<br>
-
-<strong>Percentage:</strong>
-${percentage}%
-
-<br>
-
-<strong>Unanswered:</strong>
-${unanswered}
-
-<br>
-
-<strong>Subjective Questions:</strong>
-${subjective}
-
-</p>
-
-<hr>
-
-<p style="text-align:center;color:#aaa;">
-
-उत्तीर्ण सीमा:
-स्वचालित Objective Section में 60%।
-
-</p>
-
-`;
-
-window.scrollTo(0,0);
-
-
-}catch(error){
+catch(error){
 
 console.error(error);
 
-submitButton.disabled=false;
-
-submitButton.textContent=
-"Submit Examination";
-
 alert(
-"Exam जमा नहीं हुआ। आपका Exam Code अभी इस्तेमाल नहीं हुआ है। कृपया फिर से Submit करें।"
+"Server से संपर्क नहीं हो पाया।"
 );
 
 }
 
+});
+
+
+/* =========================
+   RESULT
+========================= */
+
+function showResult(
+score,
+total,
+percentage,
+passed
+){
+
+document.getElementById(
+"examForm"
+).style.display="none";
+
+const result =
+document.getElementById("result");
+
+result.style.display="block";
+
+document.getElementById(
+"score"
+).textContent =
+score + " / " + total +
+" — " +
+percentage.toFixed(0) +
+"%";
+
+if(passed){
+
+document.getElementById(
+"resultMessage"
+).innerHTML =
+`
+<h3 style="color:#55ff88;">
+PASS
+</h3>
+
+<p style="margin-top:10px;color:#bbb;">
+आपने Objective Examination में आवश्यक अंक प्राप्त कर लिए हैं।
+</p>
+
+<p style="margin-top:10px;color:#bbb;">
+आपके वर्णनात्मक उत्तरों का मूल्यांकन प्रशासन द्वारा किया जाएगा।
+</p>
+
+<p style="margin-top:10px;color:#ffd700;">
+Exam Code अब इस्तेमाल हो चुका है।
+</p>
+`;
+
+}else{
+
+document.getElementById(
+"resultMessage"
+).innerHTML =
+`
+<h3 style="color:#ff5555;">
+FAIL
+</h3>
+
+<p style="margin-top:10px;color:#bbb;">
+पास होने के लिए कम से कम 60% अंक आवश्यक हैं।
+</p>
+
+<p style="margin-top:10px;color:#ffd700;">
+आपका Exam Code अभी इस्तेमाल नहीं हुआ है।
+</p>
+`;
+
 }
-
-
-/* ==============================
-   HTML SECURITY
-================================ */
-
-function escapeHTML(value){
-
-return String(value)
-
-.replace(/&/g,"&amp;")
-
-.replace(/</g,"&lt;")
-
-.replace(/>/g,"&gt;")
-
-.replace(/"/g,"&quot;")
-
-.replace(/'/g,"&#039;");
 
 }
 

@@ -204,6 +204,65 @@ button:hover{
   color:#ff7070;
 }
 
+/* ===============================
+   INTERVIEW NOTICE
+================================ */
+
+.interview-box{
+  display:none;
+  margin-top:22px;
+  padding:22px;
+  border-radius:14px;
+  background:#15110a;
+  border:2px solid #d4af37;
+  text-align:center;
+}
+
+.interview-title{
+  color:#d4af37;
+  font-size:24px;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.interview-subtitle{
+  color:#fff;
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+.interview-text{
+  color:#ccc;
+  line-height:1.7;
+}
+
+.interview-location{
+  margin-top:18px;
+  padding:16px;
+  border-radius:10px;
+  background:#0b0b0b;
+  border:1px solid #444;
+}
+
+.interview-location-title{
+  color:#d4af37;
+  font-weight:bold;
+  font-size:18px;
+  margin-bottom:8px;
+}
+
+.interview-address{
+  color:#fff;
+  line-height:1.7;
+}
+
+.interview-note{
+  color:#999;
+  font-size:13px;
+  margin-top:15px;
+}
+
 .small{
   color:#999;
   text-align:center;
@@ -216,6 +275,7 @@ button:hover{
 }
 
 @media(max-width:600px){
+
   header h1{
     font-size:23px;
   }
@@ -231,6 +291,11 @@ button:hover{
   .countdown{
     font-size:26px;
   }
+
+  .interview-title{
+    font-size:21px;
+  }
+
 }
 </style>
 </head>
@@ -238,15 +303,26 @@ button:hover{
 <body>
 
 <header>
-  <h1>🏛️ Classic Empire Ltd</h1>
-  <p>Exam Result Portal</p>
+
+  <h1>
+    🏛️ Classic Empire Ltd
+  </h1>
+
+  <p>
+    Exam Result Portal
+  </p>
+
 </header>
+
 
 <div class="container">
 
   <div class="card">
 
-    <h2>📊 Exam Result</h2>
+    <h2>
+      📊 Exam Result
+    </h2>
+
 
     <div id="searchArea">
 
@@ -267,12 +343,24 @@ button:hover{
 
     </div>
 
-    <div id="message" class="message"></div>
 
-    <!-- 24 HOUR LOCK -->
-    <div id="lockBox" class="lock-box hidden">
+    <div
+      id="message"
+      class="message">
+    </div>
 
-      <div class="lock-icon">🔒</div>
+
+    <!-- =========================
+         24 HOUR LOCK
+    ========================== -->
+
+    <div
+      id="lockBox"
+      class="lock-box hidden">
+
+      <div class="lock-icon">
+        🔒
+      </div>
 
       <div class="lock-title">
         Result अभी Locked है
@@ -282,12 +370,21 @@ button:hover{
         आपका Exam successfully submit हो चुका है।
       </p>
 
-      <p style="margin-top:8px;color:#aaa;">
+      <p
+        style="
+          margin-top:8px;
+          color:#aaa;
+        "
+      >
         Result submit होने के 24 घंटे बाद उपलब्ध होगा।
       </p>
 
-      <div id="countdown" class="countdown">
+      <div
+        id="countdown"
+        class="countdown">
+
         24:00:00
+
       </div>
 
       <p style="color:#888;">
@@ -296,50 +393,181 @@ button:hover{
 
     </div>
 
-    <!-- RESULT -->
-    <div id="resultBox" class="result-box">
+
+    <!-- =========================
+         RESULT
+    ========================== -->
+
+    <div
+      id="resultBox"
+      class="result-box">
+
 
       <div class="details">
 
-        <div class="detail">
-          <span>Applicant Name</span>
-          <strong id="applicantName">-</strong>
-        </div>
 
         <div class="detail">
-          <span>Applied Post</span>
-          <strong id="post">-</strong>
+
+          <span>
+            Applicant Name
+          </span>
+
+          <strong id="applicantName">
+            -
+          </strong>
+
         </div>
 
-        <div class="detail">
-          <span>Objective</span>
-          <strong id="objective">- / 18</strong>
-        </div>
 
         <div class="detail">
-          <span>Subjective</span>
-          <strong id="subjective">- / 10</strong>
+
+          <span>
+            Applied Post
+          </span>
+
+          <strong id="post">
+            -
+          </strong>
+
         </div>
+
+
+        <div class="detail">
+
+          <span>
+            Objective
+          </span>
+
+          <strong id="objective">
+            - / 18
+          </strong>
+
+        </div>
+
+
+        <div class="detail">
+
+          <span>
+            Subjective
+          </span>
+
+          <strong id="subjective">
+            - / 10
+          </strong>
+
+        </div>
+
 
         <div class="detail total">
-          <span>Total Marks</span>
-          <strong id="total">- / 28</strong>
+
+          <span>
+            Total Marks
+          </span>
+
+          <strong id="total">
+            - / 28
+          </strong>
+
         </div>
+
 
         <div class="detail">
-          <span>Percentage</span>
-          <strong id="percentage">- %</strong>
+
+          <span>
+            Percentage
+          </span>
+
+          <strong id="percentage">
+            - %
+          </strong>
+
+        </div>
+
+
+      </div>
+
+
+      <div
+        id="resultStatus"
+        class="result-status">
+
+        -
+
+      </div>
+
+
+      <!-- =========================
+           INTERVIEW NOTICE
+           PASS ONLY
+      ========================== -->
+
+      <div
+        id="interviewBox"
+        class="interview-box">
+
+        <div class="interview-title">
+          🎉 Congratulations!
+        </div>
+
+        <div class="interview-subtitle">
+          📋 Interview Required
+        </div>
+
+        <div class="interview-text">
+
+          आप Classic Empire Ltd का Exam
+          <strong>PASS</strong> कर चुके हैं।
+
+          <br><br>
+
+          अब आपको Interview के लिए
+          Classic Empire Ltd Head Office में
+          उपस्थित होना होगा।
+
+        </div>
+
+
+        <div class="interview-location">
+
+          <div class="interview-location-title">
+            📍 Interview Location
+          </div>
+
+          <div class="interview-address">
+
+            <strong>
+              Classic Empire Ltd Head Office
+            </strong>
+
+            <br>
+
+            Chakla Ghat,
+            Kishanganj,
+            Bihar, India
+
+          </div>
+
+        </div>
+
+
+        <div class="interview-note">
+
+          Interview की आगे की जानकारी
+          Classic Empire Ltd Administration
+          द्वारा दी जाएगी।
+
         </div>
 
       </div>
 
-      <div id="resultStatus" class="result-status">
-        -
-      </div>
 
       <p class="small">
-        Result officially generated by Classic Empire Ltd Exam System.
+
+        Result officially generated by
+        Classic Empire Ltd Exam System.
+
       </p>
+
 
     </div>
 
@@ -347,7 +575,12 @@ button:hover{
 
 </div>
 
+
 <script>
+
+/* =========================================
+   SUPABASE
+========================================= */
 
 const SUPABASE_URL =
 "https://hjatspkzgoddcpgwfkxo.supabase.co";
@@ -355,8 +588,15 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
+
 let countdownTimer = null;
+
 let currentCode = "";
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
 
 function escapeHtml(value){
 
@@ -366,12 +606,23 @@ function escapeHtml(value){
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
+
 }
 
-function showMessage(text,type="info"){
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+function showMessage(
+  text,
+  type="info"
+){
 
   const box =
-    document.getElementById("message");
+    document.getElementById(
+      "message"
+    );
 
   box.className =
     "message " + type;
@@ -381,40 +632,77 @@ function showMessage(text,type="info"){
 
   box.style.display =
     "block";
+
 }
+
 
 function hideMessage(){
 
-  document.getElementById("message")
-    .style.display="none";
+  document
+    .getElementById("message")
+    .style.display =
+    "none";
+
 }
+
+
+/* =========================================
+   COUNTDOWN FORMAT
+========================================= */
 
 function formatCountdown(seconds){
 
   seconds =
-    Math.max(0,Math.floor(seconds));
+    Math.max(
+      0,
+      Math.floor(seconds)
+    );
+
 
   const hours =
-    Math.floor(seconds / 3600);
+    Math.floor(
+      seconds / 3600
+    );
+
 
   const minutes =
-    Math.floor((seconds % 3600) / 60);
+    Math.floor(
+      (seconds % 3600) / 60
+    );
+
 
   const secs =
     seconds % 60;
 
-  return String(hours).padStart(2,"0")
+
+  return String(hours)
+    .padStart(2,"0")
+
     + ":" +
-    String(minutes).padStart(2,"0")
+
+    String(minutes)
+    .padStart(2,"0")
+
     + ":" +
-    String(secs).padStart(2,"0");
+
+    String(secs)
+    .padStart(2,"0");
+
 }
+
+
+/* =========================================
+   START COUNTDOWN
+========================================= */
 
 function startCountdown(
   remainingSeconds
 ){
 
-  clearInterval(countdownTimer);
+  clearInterval(
+    countdownTimer
+  );
+
 
   let remaining =
     Math.max(
@@ -422,46 +710,83 @@ function startCountdown(
       Number(remainingSeconds)
     );
 
+
   const countdown =
-    document.getElementById("countdown");
+    document.getElementById(
+      "countdown"
+    );
+
 
   countdown.textContent =
-    formatCountdown(remaining);
+    formatCountdown(
+      remaining
+    );
+
 
   countdownTimer =
-    setInterval(async()=>{
+    setInterval(
+      async()=>{
 
-      remaining--;
+        remaining--;
 
-      if(remaining <= 0){
 
-        clearInterval(countdownTimer);
+        if(remaining <= 0){
+
+          clearInterval(
+            countdownTimer
+          );
+
+
+          countdown.textContent =
+            "00:00:00";
+
+
+          await checkResult(
+            true
+          );
+
+
+          return;
+
+        }
+
 
         countdown.textContent =
-          "00:00:00";
+          formatCountdown(
+            remaining
+          );
 
-        await checkResult(true);
+      },
+      1000
+    );
 
-        return;
-      }
-
-      countdown.textContent =
-        formatCountdown(remaining);
-
-    },1000);
 }
+
+
+/* =========================================
+   CHECK RESULT
+========================================= */
 
 async function checkResult(
   automaticRefresh=false
 ){
 
   const input =
-    document.getElementById("examCode");
+    document.getElementById(
+      "examCode"
+    );
+
 
   const code =
-    input.value.trim().toUpperCase();
+    input.value
+      .trim()
+      .toUpperCase();
 
-  if(!code && !automaticRefresh){
+
+  if(
+    !code &&
+    !automaticRefresh
+  ){
 
     showMessage(
       "कृपया Exam Code डालें।",
@@ -469,28 +794,42 @@ async function checkResult(
     );
 
     return;
+
   }
+
 
   if(code){
-    currentCode = code;
+
+    currentCode =
+      code;
+
   }
+
 
   if(!currentCode){
+
     return;
+
   }
 
+
   hideMessage();
+
 
   try{
 
     const response =
       await fetch(
+
         SUPABASE_URL +
         "/rest/v1/rpc/get_exam_result",
+
         {
+
           method:"POST",
 
           headers:{
+
             "Content-Type":
               "application/json",
 
@@ -498,131 +837,248 @@ async function checkResult(
               SUPABASE_KEY,
 
             "Authorization":
-              "Bearer " + SUPABASE_KEY
+              "Bearer " +
+              SUPABASE_KEY
+
           },
 
           body:JSON.stringify({
+
             input_exam_code:
               currentCode
+
           })
+
         }
+
       );
+
 
     const data =
       await response.json();
 
+
     if(!response.ok){
 
       throw new Error(
+
         data.message ||
+
         data.error_description ||
+
         "Result fetch failed"
+
       );
+
     }
+
 
     if(!data.success){
 
-      document.getElementById("lockBox")
-        .classList.add("hidden");
+      document
+        .getElementById("lockBox")
+        .classList
+        .add("hidden");
 
-      document.getElementById("resultBox")
-        .style.display="none";
+
+      document
+        .getElementById("resultBox")
+        .style.display =
+        "none";
+
+
+      document
+        .getElementById("interviewBox")
+        .style.display =
+        "none";
+
 
       showMessage(
+
         data.message ||
+
         "Exam Result नहीं मिला।",
+
         "error"
+
       );
 
+
       return;
+
     }
 
-    /*
-      RESULT LOCKED
-    */
 
-    if(data.result_locked === true){
+    /* ===============================
+       RESULT LOCKED
+    ================================ */
 
-      document.getElementById("resultBox")
-        .style.display="none";
+    if(
+      data.result_locked === true
+    ){
 
-      document.getElementById("lockBox")
-        .classList.remove("hidden");
+      document
+        .getElementById("resultBox")
+        .style.display =
+        "none";
+
+
+      document
+        .getElementById("interviewBox")
+        .style.display =
+        "none";
+
+
+      document
+        .getElementById("lockBox")
+        .classList
+        .remove("hidden");
+
 
       startCountdown(
-        Number(data.remaining_seconds || 0)
+
+        Number(
+          data.remaining_seconds || 0
+        )
+
       );
 
+
       return;
+
     }
 
-    /*
-      RESULT AVAILABLE
-    */
 
-    clearInterval(countdownTimer);
+    /* ===============================
+       RESULT AVAILABLE
+    ================================ */
 
-    document.getElementById("lockBox")
-      .classList.add("hidden");
+    clearInterval(
+      countdownTimer
+    );
 
-    document.getElementById("resultBox")
-      .style.display="block";
 
-    document.getElementById("applicantName")
+    document
+      .getElementById("lockBox")
+      .classList
+      .add("hidden");
+
+
+    document
+      .getElementById("resultBox")
+      .style.display =
+      "block";
+
+
+    document
+      .getElementById("applicantName")
       .textContent =
-        data.applicant_name || "-";
+      data.applicant_name || "-";
 
-    document.getElementById("post")
-      .textContent =
-        data.post || "-";
 
-    document.getElementById("objective")
+    document
+      .getElementById("post")
       .textContent =
-        (data.objective_score ?? 0) +
-        " / 18";
+      data.post || "-";
 
-    document.getElementById("subjective")
-      .textContent =
-        (data.subjective_marks ?? 0) +
-        " / 10";
 
-    document.getElementById("total")
+    document
+      .getElementById("objective")
       .textContent =
-        (data.total_marks ?? 0) +
-        " / 28";
+      (data.objective_score ?? 0)
+      + " / 18";
 
-    document.getElementById("percentage")
+
+    document
+      .getElementById("subjective")
       .textContent =
-        Number(
-          data.percentage ?? 0
-        ).toFixed(2) +
-        " %";
+      (data.subjective_marks ?? 0)
+      + " / 10";
+
+
+    document
+      .getElementById("total")
+      .textContent =
+      (data.total_marks ?? 0)
+      + " / 28";
+
+
+    document
+      .getElementById("percentage")
+      .textContent =
+      Number(
+        data.percentage ?? 0
+      ).toFixed(2)
+      + " %";
+
 
     const status =
       document.getElementById(
         "resultStatus"
       );
 
+
     status.textContent =
       data.final_result || "-";
 
+
     status.className =
       "result-status " +
+
       (
         data.final_result === "PASS"
+
           ? "pass"
+
           : "fail"
       );
 
-  }catch(error){
 
-    console.error(error);
+    /* ===============================
+       INTERVIEW NOTICE
+       ONLY FOR PASS
+    ================================ */
 
-    if(!automaticRefresh){
+    const interviewBox =
+      document.getElementById(
+        "interviewBox"
+      );
+
+
+    if(
+      data.final_result === "PASS"
+    ){
+
+      interviewBox.style.display =
+        "block";
+
+    }
+    else{
+
+      interviewBox.style.display =
+        "none";
+
+    }
+
+
+  }
+  catch(error){
+
+    console.error(
+      error
+    );
+
+
+    if(
+      !automaticRefresh
+    ){
 
       showMessage(
+
         "Result check करने में समस्या हुई। कृपया Exam Code दोबारा जाँचें।",
+
         "error"
+
       );
 
     }
@@ -631,14 +1087,23 @@ async function checkResult(
 
 }
 
+
+/* =========================================
+   ENTER KEY
+========================================= */
+
 document
   .getElementById("examCode")
   .addEventListener(
     "keydown",
     function(event){
 
-      if(event.key === "Enter"){
+      if(
+        event.key === "Enter"
+      ){
+
         checkResult();
+
       }
 
     }

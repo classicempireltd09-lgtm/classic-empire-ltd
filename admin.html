@@ -178,21 +178,19 @@ button:hover{
   </div>
 
 
-  <!-- =========================
-       ADMIN LOGIN
-  ========================== -->
+  <!-- ADMIN LOGIN -->
 
   <div class="panel" id="loginPanel">
 
     <h2>Admin Login</h2>
 
-    <label>Username</label>
+    <label>Email</label>
 
     <input
-      type="text"
-      id="username"
-      placeholder="Admin Username"
-      autocomplete="username"
+      type="email"
+      id="email"
+      placeholder="Admin Email"
+      autocomplete="email"
     >
 
     <label>Password</label>
@@ -216,9 +214,7 @@ button:hover{
   </div>
 
 
-  <!-- =========================
-       EXAM CODE GENERATOR
-  ========================== -->
+  <!-- EXAM CODE GENERATOR -->
 
   <div class="panel" id="generatorPanel">
 
@@ -275,7 +271,6 @@ button:hover{
       class="message"
     ></div>
 
-
     <div
       class="code-box"
       id="codeBox"
@@ -296,7 +291,6 @@ button:hover{
       </button>
 
     </div>
-
 
     <button
       class="logout"
@@ -323,6 +317,11 @@ button:hover{
 </div>
 
 
+<!-- SUPABASE JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
 <script>
 
 /* =========================
@@ -335,6 +334,20 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* =========================
+   ADMIN UID
+========================= */
+
+const ADMIN_UID =
+"8820968d-c20b-4892-b38b-395083efd026";
+
 
 /* =========================
    ADMIN LOGIN
@@ -342,20 +355,22 @@ const SUPABASE_KEY =
 
 async function adminLogin(){
 
-  const username =
-    document.getElementById("username").value.trim();
+  const email =
+    document.getElementById("email")
+    .value.trim();
 
   const password =
-    document.getElementById("password").value;
+    document.getElementById("password")
+    .value;
 
   const message =
     document.getElementById("loginMessage");
 
-  if(!username || !password){
+  if(!email || !password){
 
     showMessage(
       message,
-      "Username और Password दोनों डालें",
+      "Email और Password दोनों डालें",
       "error"
     );
 
@@ -364,56 +379,103 @@ async function adminLogin(){
 
   try{
 
-    const response = await fetch(
-      SUPABASE_URL + "/rest/v1/rpc/admin_login",
-      {
-        method:"POST",
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
 
-        headers:{
-          "Content-Type":"application/json",
-          "apikey":SUPABASE_KEY,
-          "Authorization":"Bearer " + SUPABASE_KEY
-        },
-
-        body:JSON.stringify({
-          input_username:username,
-          input_password:password
-        })
-      }
-    );
-
-    const data = await response.json();
-
-    if(data.success === true){
-
-      sessionStorage.setItem(
-        "classic_empire_admin",
-        "logged_in"
-      );
-
-      document.getElementById(
-        "loginPanel"
-      ).style.display = "none";
-
-      document.getElementById(
-        "generatorPanel"
-      ).style.display = "block";
-
-    }else{
+    if(error){
 
       showMessage(
         message,
-        data.message || "गलत Username या Password",
+        "गलत Email या Password",
         "error"
       );
 
+      return;
     }
+
+    if(!data.user){
+
+      showMessage(
+        message,
+        "Login सफल नहीं हुआ",
+        "error"
+      );
+
+      return;
+    }
+
+
+    /* ADMIN UID CHECK */
+
+    if(data.user.id !== ADMIN_UID){
+
+      await supabaseClient.auth.signOut();
+
+      showMessage(
+        message,
+        "यह Account Admin नहीं है",
+        "error"
+      );
+
+      return;
+    }
+
+
+    /* DATABASE ADMIN CHECK */
+
+    const { data: adminData, error: adminError } =
+      await supabaseClient.rpc("check_admin");
+
+    if(adminError){
+
+      await supabaseClient.auth.signOut();
+
+      showMessage(
+        message,
+        "Admin verification में समस्या हुई",
+        "error"
+      );
+
+      return;
+    }
+
+
+    if(
+      !adminData ||
+      adminData.is_admin !== true
+    ){
+
+      await supabaseClient.auth.signOut();
+
+      showMessage(
+        message,
+        "आपके Account को Admin permission नहीं है",
+        "error"
+      );
+
+      return;
+    }
+
+
+    /* SUCCESS */
+
+    document.getElementById(
+      "loginPanel"
+    ).style.display = "none";
+
+    document.getElementById(
+      "generatorPanel"
+    ).style.display = "block";
+
 
   }catch(error){
 
     showMessage(
       message,
-      "Login में समस्या हुई। Supabase connection check करें।",
+      "Login में समस्या हुई।",
       "error"
     );
 
@@ -471,29 +533,65 @@ async function generateCode(){
 
   try{
 
-    const response = await fetch(
-      SUPABASE_URL + "/rest/v1/rpc/generate_exam_code",
-      {
-        method:"POST",
+    const {
+      data: sessionData,
+      error: sessionError
+    } =
+      await supabaseClient.auth.getSession();
 
-        headers:{
-          "Content-Type":"application/json",
-          "apikey":SUPABASE_KEY,
-          "Authorization":"Bearer " + SUPABASE_KEY
-        },
 
-        body:JSON.stringify({
+    if(sessionError || !sessionData.session){
+
+      showMessage(
+        message,
+        "Admin Login समाप्त हो गया। दोबारा Login करें।",
+        "error"
+      );
+
+      return;
+    }
+
+
+    /* ADMIN CHECK AGAIN */
+
+    const { data: adminData, error: adminError } =
+      await supabaseClient.rpc("check_admin");
+
+
+    if(
+      adminError ||
+      !adminData ||
+      adminData.is_admin !== true
+    ){
+
+      showMessage(
+        message,
+        "Admin permission नहीं है।",
+        "error"
+      );
+
+      return;
+    }
+
+
+    /* GENERATE CODE */
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.rpc(
+        "generate_exam_code",
+        {
           input_applicant_name:name,
           input_post:post
-        })
-      }
-    );
+        }
+      );
 
 
-    const data = await response.json();
+    if(error){
 
-
-    if(!response.ok){
+      console.error(error);
 
       showMessage(
         message,
@@ -509,6 +607,7 @@ async function generateCode(){
 
     codeBox.style.display = "block";
 
+
     showMessage(
       message,
       "Exam Code successfully generate हो गया।",
@@ -517,6 +616,8 @@ async function generateCode(){
 
 
   }catch(error){
+
+    console.error(error);
 
     showMessage(
       message,
@@ -533,16 +634,24 @@ async function generateCode(){
    COPY CODE
 ========================= */
 
-function copyCode(){
+async function copyCode(){
 
   const code =
     document.getElementById(
       "generatedCode"
     ).textContent;
 
-  navigator.clipboard.writeText(code);
+  try{
 
-  alert("Exam Code copied!");
+    await navigator.clipboard.writeText(code);
+
+    alert("Exam Code copied!");
+
+  }catch(error){
+
+    alert("Code copy नहीं हुआ।");
+  }
+
 }
 
 
@@ -550,13 +659,20 @@ function copyCode(){
    LOGOUT
 ========================= */
 
-function logout(){
+async function logout(){
 
-  sessionStorage.removeItem(
-    "classic_empire_admin"
-  );
+  await supabaseClient.auth.signOut();
 
-  location.reload();
+  document.getElementById(
+    "generatorPanel"
+  ).style.display = "none";
+
+  document.getElementById(
+    "loginPanel"
+  ).style.display = "block";
+
+  document.getElementById("email").value = "";
+  document.getElementById("password").value = "";
 
 }
 
@@ -583,29 +699,82 @@ function showMessage(
 
 
 /* =========================
-   SESSION CHECK
+   CHECK EXISTING SESSION
 ========================= */
 
-window.onload = function(){
+async function checkExistingSession(){
 
-  const loggedIn =
-    sessionStorage.getItem(
-      "classic_empire_admin"
-    );
+  try{
 
-  if(loggedIn === "logged_in"){
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.auth.getSession();
 
-    document.getElementById(
-      "loginPanel"
-    ).style.display = "none";
 
-    document.getElementById(
-      "generatorPanel"
-    ).style.display = "block";
+    if(error || !data.session){
+
+      return;
+    }
+
+
+    const user =
+      data.session.user;
+
+
+    if(user.id !== ADMIN_UID){
+
+      await supabaseClient.auth.signOut();
+
+      return;
+    }
+
+
+    const {
+      data:adminData,
+      error:adminError
+    } =
+      await supabaseClient.rpc("check_admin");
+
+
+    if(
+      !adminError &&
+      adminData &&
+      adminData.is_admin === true
+    ){
+
+      document.getElementById(
+        "loginPanel"
+      ).style.display = "none";
+
+      document.getElementById(
+        "generatorPanel"
+      ).style.display = "block";
+
+    }else{
+
+      await supabaseClient.auth.signOut();
+
+    }
+
+  }catch(error){
+
+    console.error(error);
 
   }
 
-};
+}
+
+
+/* =========================
+   PAGE LOAD
+========================= */
+
+window.addEventListener(
+  "load",
+  checkExistingSession
+);
 
 </script>
 

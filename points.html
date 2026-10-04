@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Classic Empire Ltd - Points</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#080808;
+  color:#fff;
+  min-height:100vh;
+}
+
+header{
+  background:#111;
+  border-bottom:2px solid #d4af37;
+  padding:18px;
+  text-align:center;
+}
+
+header h1{
+  color:#d4af37;
+  font-size:25px;
+}
+
+header p{
+  margin-top:6px;
+  color:#ccc;
+}
+
+.container{
+  width:95%;
+  max-width:1200px;
+  margin:25px auto;
+}
+
+.card{
+  background:#111;
+  border:1px solid #333;
+  border-radius:14px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 0 15px rgba(212,175,55,.08);
+}
+
+.card h2{
+  color:#d4af37;
+  margin-bottom:15px;
+}
+
+.login-box{
+  max-width:500px;
+  margin:30px auto;
+}
+
+input,select,button{
+  width:100%;
+  padding:12px;
+  margin-top:8px;
+  border-radius:8px;
+  border:1px solid #444;
+  background:#080808;
+  color:#fff;
+  font-size:15px;
+}
+
+button{
+  background:#d4af37;
+  color:#000;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+.logout{
+  background:#b3261e;
+  color:#fff;
+}
+
+.message{
+  margin-top:12px;
+  padding:12px;
+  border-radius:8px;
+  background:#181818;
+  display:none;
+}
+
+.editor-box{
+  display:none;
+}
+
+.member-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:15px;
+}
+
+.member{
+  background:#0d0d0d;
+  border:1px solid #333;
+  border-radius:12px;
+  padding:18px;
+}
+
+.member h3{
+  color:#d4af37;
+  margin-bottom:12px;
+}
+
+.stat{
+  display:flex;
+  justify-content:space-between;
+  padding:7px 0;
+  border-bottom:1px solid #222;
+}
+
+.stat:last-child{
+  border-bottom:none;
+}
+
+.award{
+  margin-top:12px;
+  padding:12px;
+  border-radius:10px;
+  text-align:center;
+  background:#171717;
+  border:1px solid #444;
+  font-weight:bold;
+}
+
+.award-big{
+  font-size:25px;
+  margin-bottom:5px;
+}
+
+.points-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+  font-size:14px;
+}
+
+.points-table th,
+.points-table td{
+  border:1px solid #333;
+  padding:9px;
+  text-align:center;
+}
+
+.points-table th{
+  background:#191919;
+  color:#d4af37;
+}
+
+.small{
+  color:#aaa;
+  font-size:13px;
+  margin-top:8px;
+}
+
+.hidden{
+  display:none;
+}
+
+.top-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.top-actions button{
+  width:auto;
+  padding:10px 18px;
+}
+
+.loading{
+  text-align:center;
+  color:#aaa;
+  padding:20px;
+}
+
+@media(max-width:600px){
+  header h1{
+    font-size:21px;
+  }
+
+  .card{
+    padding:15px;
+  }
+
+  .points-table{
+    font-size:12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🏛️ Classic Empire Ltd</h1>
+  <p>Daily Points & Automatic Awards</p>
+</header>
+
+<div class="container">
+
+  <!-- PUBLIC VIEW -->
+  <div class="card">
+    <h2>🏆 Points Ranking</h2>
+
+    <p class="small">
+      सभी Members यहाँ Points, Percentage और Award देख सकते हैं।
+      Edit केवल President और President Assistant कर सकते हैं।
+    </p>
+
+    <div id="publicLoading" class="loading">
+      Points loading...
+    </div>
+
+    <div id="memberGrid" class="member-grid"></div>
+  </div>
+
+
+  <!-- EDITOR LOGIN -->
+  <div class="card login-box" id="loginBox">
+
+    <h2>🔐 Editor Login</h2>
+
+    <p class="small">
+      केवल President और President Assistant के लिए।
+    </p>
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Email"
+    >
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+    >
+
+    <button onclick="login()">
+      Login
+    </button>
+
+    <div id="loginMessage" class="message"></div>
+
+  </div>
+
+
+  <!-- EDITOR PANEL -->
+  <div class="card editor-box" id="editorBox">
+
+    <h2>✏️ Points Management</h2>
+
+    <p id="editorRole" class="small"></p>
+
+    <div class="top-actions">
+      <button onclick="loadEditorMembers()">
+        🔄 Refresh
+      </button>
+
+      <button class="logout" onclick="logout()">
+        Logout
+      </button>
+    </div>
+
+    <br>
+
+    <label>Select Date</label>
+    <input
+      type="date"
+      id="pointDate"
+    >
+
+    <div id="editorMembers" style="margin-top:20px;"></div>
+
+  </div>
+
+
+  <!-- AWARD CHART -->
+  <div class="card">
+
+    <h2>🏅 Automatic Award Chart</h2>
+
+    <table class="points-table">
+
+      <thead>
+        <tr>
+          <th>Percentage</th>
+          <th>Award</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>95–100%</td>
+          <td>🌟 Empire Honor Award</td>
+        </tr>
+
+        <tr>
+          <td>90–94%</td>
+          <td>💎 Empire Gold Award</td>
+        </tr>
+
+        <tr>
+          <td>85–89%</td>
+          <td>👑 Royal Leadership Award</td>
+        </tr>
+
+        <tr>
+          <td>82–84%</td>
+          <td>🏆 Classic Excellence Award</td>
+        </tr>
+
+        <tr>
+          <td>79–81%</td>
+          <td>🥇 Empire Achievement Award</td>
+        </tr>
+
+        <tr>
+          <td>77–78%</td>
+          <td>🏅 Classic Service Award</td>
+        </tr>
+
+        <tr>
+          <td>75–76%</td>
+          <td>⭐ Classic Star Award</td>
+        </tr>
+
+        <tr>
+          <td>0–74%</td>
+          <td>❌ कोई Award नहीं</td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://hjatspkzgoddcpgwfkxo.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
+
+const supabaseClient =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+let allMembers = [];
+let publicPoints = {};
+let publicAwards = {};
+
+
+// ================================
+// DATE
+// ================================
+
+const today =
+new Date().toISOString().split("T")[0];
+
+document.getElementById("pointDate").value =
+today;
+
+
+// ================================
+// MESSAGE
+// ================================
+
+function showMessage(id,text){
+
+  const box =
+    document.getElementById(id);
+
+  box.innerText = text;
+  box.style.display = "block";
+}
+
+
+// ================================
+// PUBLIC POINTS
+// ================================
+
+async function loadPublicPoints(){
+
+  const loading =
+    document.getElementById("publicLoading");
+
+  try{
+
+    const {data,error} =
+      await supabaseClient.rpc(
+        "get_public_points"
+      );
+
+    if(error){
+      throw error;
+    }
+
+    publicPoints = {};
+
+    const members =
+      data?.members || [];
+
+    members.forEach(member => {
+
+      publicPoints[member.member_id] =
+        member.daily_points || [];
+
+    });
+
+    await loadPublicAwards(members);
+
+    renderPublicMembers(members);
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    loading.innerText =
+      "Points load नहीं हो सके।";
+
+  }
+}
+
+
+// ================================
+// PUBLIC AWARDS
+// ================================
+
+async function loadPublicAwards(members){
+
+  const {data,error} =
+    await supabaseClient.rpc(
+      "get_public_awards"
+    );
+
+  if(error){
+
+    console.error(error);
+    return;
+
+  }
+
+  publicAwards = {};
+
+  const awards =
+    data?.awards || [];
+
+  awards.forEach(award => {
+
+    publicAwards[award.member_id] =
+      award;
+
+  });
+}
+
+
+// ================================
+// CALCULATE DISPLAY
+// ================================
+
+function calculateStats(records){
+
+  let total = 0;
+
+  records.forEach(record => {
+
+    total +=
+      Number(record.school_madrasa_point || 0) +
+      Number(record.game_work_point || 0);
+
+  });
+
+  const max =
+    records.length * 3;
+
+  let percentage = 0;
+
+  if(max > 0){
+
+    percentage =
+      (total / max) * 100;
+
+  }
+
+  return {
+    total,
+    max,
+    percentage
+  };
+}
+
+
+// ================================
+// PUBLIC MEMBER CARDS
+// ================================
+
+function renderPublicMembers(members){
+
+  const loading =
+    document.getElementById("publicLoading");
+
+  const grid =
+    document.getElementById("memberGrid");
+
+  loading.style.display = "none";
+
+  grid.innerHTML = "";
+
+  if(members.length === 0){
+
+    grid.innerHTML =
+      "<p>No members found.</p>";
+
+    return;
+
+  }
+
+  members.forEach(member => {
+
+    const records =
+      publicPoints[member.member_id] || [];
+
+    const stats =
+      calculateStats(records);
+
+    const award =
+      publicAwards[member.member_id];
+
+    const percentage =
+      award
+      ? Number(award.percentage).toFixed(2)
+      : stats.percentage.toFixed(2);
+
+    const awardName =
+      award
+      ? award.award_name
+      : "अभी कोई Award नहीं";
+
+    const awardEmoji =
+      award
+      ? award.award_emoji
+      : "—";
+
+    const card =
+      document.createElement("div");
+
+    card.className = "member";
+
+    card.innerHTML = `
+
+      <h3>${escapeHtml(member.member_name)}</h3>
+
+      <div class="stat">
+        <span>Total Points</span>
+        <strong>${stats.total}</strong>
+      </div>
+
+      <div class="stat">
+        <span>Maximum</span>
+        <strong>${stats.max}</strong>
+      </div>
+
+      <div class="stat">
+        <span>Percentage</span>
+        <strong>${percentage}%</strong>
+      </div>
+
+      <div class="award">
+
+        <div class="award-big">
+          ${awardEmoji}
+        </div>
+
+        ${escapeHtml(awardName)}
+
+      </div>
+
+    `;
+
+    grid.appendChild(card);
+
+  });
+
+}
+
+
+// ================================
+// LOGIN
+// ================================
+
+async function login(){
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  if(!email || !password){
+
+    showMessage(
+      "loginMessage",
+      "Email और Password डालिए।"
+    );
+
+    return;
+
+  }
+
+  try{
+
+    const {data,error} =
+      await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+
+    if(error){
+      throw error;
+    }
+
+    const {data:permission,error:permissionError} =
+      await supabaseClient.rpc(
+        "check_points_manager"
+      );
+
+    let authorized = false;
+    let role = "";
+
+    if(!permissionError && permission){
+
+      authorized =
+        permission.authorized === true;
+
+      role =
+        permission.role || "";
+
+    }
+
+
+    // President is also an editor
+    if(!authorized){
+
+      const {data:adminCheck} =
+        await supabaseClient.rpc(
+          "check_admin"
+        );
+
+      if(
+        adminCheck &&
+        adminCheck.is_admin === true
+      ){
+
+        authorized = true;
+        role = "PRESIDENT";
+
+      }
+
+    }
+
+
+    if(!authorized){
+
+      await supabaseClient.auth.signOut();
+
+      showMessage(
+        "loginMessage",
+        "इस Account को Points Edit करने की अनुमति नहीं है।"
+      );
+
+      return;
+
+    }
+
+
+    document.getElementById("loginBox")
+      .style.display = "none";
+
+    document.getElementById("editorBox")
+      .style.display = "block";
+
+    document.getElementById("editorRole")
+      .innerText =
+      "Logged in as: " +
+      (role || "Authorized Editor");
+
+    await loadEditorMembers();
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "loginMessage",
+      error.message || "Login failed."
+    );
+
+  }
+
+}
+
+
+// ================================
+// LOAD EDITOR MEMBERS
+// ================================
+
+async function loadEditorMembers(){
+
+  const container =
+    document.getElementById("editorMembers");
+
+  container.innerHTML =
+    "<div class='loading'>Loading members...</div>";
+
+  try{
+
+    const {data,error} =
+      await supabaseClient.rpc(
+        "get_points_dashboard"
+      );
+
+    if(error){
+      throw error;
+    }
+
+    allMembers =
+      data?.members || [];
+
+    renderEditorMembers();
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    container.innerHTML =
+      "<p>Members load नहीं हो सके।</p>";
+
+  }
+
+}
+
+
+// ================================
+// RENDER EDITOR
+// ================================
+
+function renderEditorMembers(){
+
+  const container =
+    document.getElementById("editorMembers");
+
+  container.innerHTML = "";
+
+  allMembers.forEach(member => {
+
+    const box =
+      document.createElement("div");
+
+    box.className = "member";
+
+    box.style.marginBottom = "15px";
+
+    box.innerHTML = `
+
+      <h3>
+        ${escapeHtml(member.member_name)}
+      </h3>
+
+      <label>
+        School / Madrasa
+      </label>
+
+      <select
+        id="school_${member.member_id}"
+      >
+        <option value="0">0 Point</option>
+        <option value="1">1 Point</option>
+      </select>
+
+      <label>
+        Classic Empire Game Work
+      </label>
+
+      <select
+        id="game_${member.member_id}"
+      >
+        <option value="0">0 Point</option>
+        <option value="1">1 Point</option>
+        <option value="2">2 Points</option>
+      </select>
+
+      <button
+        onclick="savePoints(${member.member_id})"
+      >
+        💾 Save Points
+      </button>
+
+      <p
+        id="save_${member.member_id}"
+        class="small"
+      ></p>
+
+    `;
+
+    container.appendChild(box);
+
+  });
+
+}
+
+
+// ================================
+// SAVE POINTS
+// ================================
+
+async function savePoints(memberId){
+
+  const date =
+    document.getElementById("pointDate").value;
+
+  const school =
+    Number(
+      document.getElementById(
+        "school_" + memberId
+      ).value
+    );
+
+  const game =
+    Number(
+      document.getElementById(
+        "game_" + memberId
+      ).value
+    );
+
+  const status =
+    document.getElementById(
+      "save_" + memberId
+    );
+
+  status.innerText =
+    "Saving...";
+
+  try{
+
+    const {data,error} =
+      await supabaseClient.rpc(
+        "save_daily_points",
+        {
+          input_member_id: memberId,
+          input_point_date: date,
+          input_school_point: school,
+          input_game_point: game
+        }
+      );
+
+    if(error){
+      throw error;
+    }
+
+    if(!data || data.success !== true){
+
+      throw new Error(
+        data?.message ||
+        "Points save नहीं हुए।"
+      );
+
+    }
+
+    status.innerText =
+      "✅ Points saved successfully.";
+
+    await loadPublicPoints();
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    status.innerText =
+      "❌ " +
+      (error.message || "Save failed.");
+
+  }
+
+}
+
+
+// ================================
+// LOGOUT
+// ================================
+
+async function logout(){
+
+  await supabaseClient.auth.signOut();
+
+  document.getElementById("editorBox")
+    .style.display = "none";
+
+  document.getElementById("loginBox")
+    .style.display = "block";
+
+  document.getElementById("email").value = "";
+  document.getElementById("password").value = "";
+
+}
+
+
+// ================================
+// HTML SECURITY
+// ================================
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+// ================================
+// START
+// ================================
+
+loadPublicPoints();
+
+
+// Refresh public data every 30 seconds
+
+setInterval(
+  loadPublicPoints,
+  30000
+);
+
+</script>
+
+</body>
+</html>

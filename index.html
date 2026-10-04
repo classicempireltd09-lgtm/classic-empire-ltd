@@ -6,29 +6,15 @@
 <title>Classic Empire Ltd</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 body{
   font-family:Arial,sans-serif;
   background:#080808;
   color:#fff;
   line-height:1.6;
 }
-
-.container{
-  width:92%;
-  max-width:1200px;
-  margin:auto;
-}
-
+.container{width:92%;max-width:1200px;margin:auto}
 header{
   background:#0b0b0b;
   border-bottom:1px solid #333;
@@ -36,7 +22,6 @@ header{
   top:0;
   z-index:1000;
 }
-
 .nav{
   min-height:70px;
   display:flex;
@@ -44,7 +29,6 @@ header{
   justify-content:space-between;
   gap:20px;
 }
-
 .brand{
   display:flex;
   align-items:center;
@@ -53,20 +37,17 @@ header{
   color:#ffd700;
   font-size:20px;
 }
-
 .brand img{
   width:42px;
   height:42px;
   object-fit:contain;
 }
-
 nav{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
   gap:8px;
 }
-
 nav a{
   color:#fff;
   text-decoration:none;
@@ -74,30 +55,23 @@ nav a{
   border-radius:8px;
   font-size:14px;
 }
-
-nav a:hover{
-  background:#222;
-  color:#ffd700;
-}
+nav a:hover{background:#222;color:#ffd700}
 
 .hero{
   text-align:center;
   padding:80px 20px;
   background:radial-gradient(circle at top,#222 0%,#080808 55%);
 }
-
 .hero h1{
   color:#ffd700;
   font-size:48px;
   margin-bottom:15px;
 }
-
 .hero p{
   max-width:750px;
   margin:auto;
   color:#ccc;
 }
-
 .badge{
   display:inline-block;
   margin-top:20px;
@@ -107,17 +81,13 @@ nav a:hover{
   border-radius:20px;
 }
 
-section{
-  padding:60px 0;
-}
-
+section{padding:60px 0}
 .section-title{
   text-align:center;
   color:#ffd700;
   font-size:32px;
   margin-bottom:10px;
 }
-
 .section-subtitle{
   text-align:center;
   color:#aaa;
@@ -129,7 +99,6 @@ section{
   grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
   gap:20px;
 }
-
 .card{
   background:#111;
   border:1px solid #333;
@@ -137,11 +106,7 @@ section{
   padding:20px;
   box-shadow:0 5px 20px rgba(0,0,0,.25);
 }
-
-.person{
-  text-align:center;
-}
-
+.person{text-align:center}
 .person img{
   width:130px;
   height:130px;
@@ -150,15 +115,11 @@ section{
   border:3px solid #ffd700;
   margin-bottom:15px;
 }
-
 .person h3{
   color:#ffd700;
   margin-bottom:5px;
 }
-
-.person p{
-  color:#bbb;
-}
+.person p{color:#bbb}
 
 details{
   background:#111;
@@ -166,7 +127,6 @@ details{
   border-radius:12px;
   overflow:hidden;
 }
-
 summary{
   cursor:pointer;
   padding:18px;
@@ -174,20 +134,12 @@ summary{
   font-weight:bold;
   font-size:18px;
 }
-
-.updates{
-  padding:20px;
-}
-
+.updates{padding:20px}
 .update{
   padding:15px;
   border-bottom:1px solid #333;
 }
-
-.update:last-child{
-  border-bottom:none;
-}
-
+.update:last-child{border-bottom:none}
 .update h3{
   color:#ffd700;
   margin-bottom:5px;
@@ -202,7 +154,6 @@ summary{
   margin:auto;
   text-align:center;
 }
-
 .currency-box .big{
   font-size:32px;
   color:#ffd700;
@@ -210,22 +161,17 @@ summary{
   margin:10px 0;
 }
 
-.table-wrap{
-  overflow-x:auto;
-}
-
+.table-wrap{overflow-x:auto}
 table{
   width:100%;
   border-collapse:collapse;
   background:#111;
 }
-
 th,td{
   padding:14px;
   border:1px solid #333;
   text-align:left;
 }
-
 th{
   color:#ffd700;
   background:#161616;
@@ -237,26 +183,18 @@ form{
   border-radius:15px;
   padding:25px;
 }
-
 .form-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:18px;
 }
-
 .field{
   display:flex;
   flex-direction:column;
   gap:7px;
 }
-
-.field.full{
-  grid-column:1/-1;
-}
-
-label{
-  color:#ddd;
-}
+.field.full{grid-column:1/-1}
+label{color:#ddd}
 
 input,select,textarea{
   width:100%;
@@ -266,12 +204,10 @@ input,select,textarea{
   background:#080808;
   color:#fff;
 }
-
 textarea{
   min-height:120px;
   resize:vertical;
 }
-
 button{
   background:#ffd700;
   color:#000;
@@ -281,15 +217,21 @@ button{
   font-weight:bold;
   cursor:pointer;
 }
-
-button:hover{
-  background:#fff;
-}
+button:hover{background:#fff}
 
 .note{
   color:#aaa;
   margin-top:10px;
   font-size:14px;
+}
+
+.application-status{
+  display:none;
+  margin-top:15px;
+  padding:14px;
+  border-radius:8px;
+  text-align:center;
+  font-weight:bold;
 }
 
 .admin-list{
@@ -298,7 +240,6 @@ button:hover{
   max-width:800px;
   margin:auto;
 }
-
 .admin-row{
   display:flex;
   justify-content:space-between;
@@ -308,10 +249,7 @@ button:hover{
   border:1px solid #333;
   border-radius:10px;
 }
-
-.admin-row strong{
-  color:#ffd700;
-}
+.admin-row strong{color:#ffd700}
 
 .contact-box{
   max-width:700px;
@@ -322,7 +260,6 @@ button:hover{
   border-radius:15px;
   padding:30px;
 }
-
 .contact-box a{
   color:#ffd700;
   text-decoration:none;
@@ -337,28 +274,14 @@ footer{
 }
 
 @media(max-width:800px){
-
   .nav{
     flex-direction:column;
     padding:15px 0;
   }
-
-  nav{
-    width:100%;
-  }
-
-  .hero h1{
-    font-size:36px;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .field.full{
-    grid-column:auto;
-  }
-
+  nav{width:100%}
+  .hero h1{font-size:36px}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
   .admin-row{
     flex-direction:column;
     gap:5px;
@@ -370,7 +293,6 @@ footer{
 <body>
 
 <header>
-
 <div class="container nav">
 
 <div class="brand">
@@ -391,18 +313,13 @@ footer{
 </nav>
 
 </div>
-
 </header>
-
 
 <main>
 
 <!-- HERO -->
-
 <section class="hero" id="home">
-
 <div class="container">
-
 <h1>Classic Empire Ltd</h1>
 
 <p>
@@ -411,16 +328,12 @@ duties, salaries, awards, currency and administration.
 </p>
 
 <span class="badge">Official Empire System</span>
-
 </div>
-
 </section>
 
 
 <!-- PEOPLE -->
-
 <section id="people">
-
 <div class="container">
 
 <h2 class="section-title">People</h2>
@@ -431,95 +344,55 @@ Current office holders of Classic Empire Ltd
 
 <div class="grid">
 
-
 <div class="card person">
-
 <img src="noor-ahmad.png" alt="Noor Ahmad">
-
 <h3>Noor Ahmad</h3>
-
 <p>President</p>
-
 </div>
 
-
 <div class="card person">
-
 <img src="tabshir-alam.png" alt="Tabshir Alam">
-
 <h3>Tabshir Alam</h3>
-
 <p>President's Assistant</p>
-
 </div>
 
-
 <div class="card person">
-
 <img src="jakir-hussain.png" alt="Jakir Hussain">
-
 <h3>Jakir Hussain</h3>
-
 <p>DM</p>
-
 </div>
 
-
 <div class="card person">
-
 <img src="shadat-hussain.png" alt="Shadat Hussain">
-
 <h3>Shadat Hussain</h3>
-
 <p>DM's Assistant</p>
-
 </div>
 
-
 <div class="card person">
-
 <img src="aszad-sayeed.png" alt="Aszad Sayeed">
-
 <h3>Aszad Sayeed</h3>
-
 <p>SDM</p>
-
 </div>
 
-
 <div class="card person">
-
 <img src="shahnawaz-alam.png" alt="Shahnawaz Alam">
-
 <h3>Shahnawaz Alam</h3>
-
 <p>SP</p>
-
 </div>
-
 
 <div class="card person">
-
 <img src="shadab-alam.png" alt="Shadab Alam">
-
 <h3>Shadab Alam</h3>
-
 <p>DSP</p>
-
-</div>
-
-
 </div>
 
 </div>
-
+</div>
 </section>
 
 
 <!-- EMPIRE UPDATES -->
-
 <section id="updates">
-
 <div class="container">
 
 <h2 class="section-title">Empire Updates</h2>
@@ -529,84 +402,58 @@ Click below to view the latest Empire changes
 </p>
 
 <details>
-
 <summary>📢 New Empire Changes</summary>
 
 <div class="updates">
 
-
 <div class="update">
-
 <h3>President System</h3>
-
 <p>
 The President is the founder and permanent President
 of Classic Empire Ltd under the normal system.
 </p>
-
 </div>
 
-
 <div class="update">
-
 <h3>Administration Update</h3>
-
 <p>
 The current administration consists of President,
 President's Assistant, DM, DM's Assistant, SDM, SP and DSP.
 </p>
-
 </div>
 
-
 <div class="update">
-
 <h3>Exam Portal</h3>
-
 <p>
 Every eligible post can have an examination through
 the Classic Empire Exam Portal.
 </p>
-
 </div>
 
-
 <div class="update">
-
 <h3>Salary System</h3>
-
 <p>
 Weekly salaries are paid every Thursday according
 to the official Empire salary table.
 </p>
-
 </div>
 
-
 <div class="update">
-
 <h3>Currency System</h3>
-
 <p>
 Classic Empire uses Classic Dinar (CLD), also called CD.
 </p>
-
 </div>
 
-
 </div>
-
 </details>
 
 </div>
-
 </section>
 
 
 <!-- CURRENCY -->
-
 <section id="currency">
-
 <div class="container">
 
 <h2 class="section-title">Empire Currency</h2>
@@ -622,9 +469,7 @@ Official currency information
 <div class="big">Classic Dinar</div>
 
 <p>Official Code: <strong>CLD</strong></p>
-
 <p>Short Name: <strong>CD</strong></p>
-
 <p>Symbol: <strong>د.ك</strong></p>
 
 <br>
@@ -640,16 +485,12 @@ Official currency information
 </div>
 
 </div>
-
 </div>
-
 </section>
 
 
 <!-- SALARIES -->
-
 <section id="salaries">
-
 <div class="container">
 
 <h2 class="section-title">Weekly Salaries</h2>
@@ -663,12 +504,10 @@ Official salary system — Payment every Thursday
 <table>
 
 <thead>
-
 <tr>
 <th>Post</th>
 <th>Weekly Salary</th>
 </tr>
-
 </thead>
 
 <tbody>
@@ -709,7 +548,6 @@ Official salary system — Payment every Thursday
 </tr>
 
 </tbody>
-
 </table>
 
 </div>
@@ -719,14 +557,11 @@ Official salary system — Payment every Thursday
 </p>
 
 </div>
-
 </section>
 
 
 <!-- APPLY -->
-
 <section id="apply">
-
 <div class="container">
 
 <h2 class="section-title">Apply for a Post</h2>
@@ -763,12 +598,12 @@ value="table"
 
 <div class="form-grid">
 
-
 <div class="field">
 
 <label>Applicant Name</label>
 
 <input
+id="applicantName"
 type="text"
 name="Applicant Name"
 required
@@ -782,6 +617,7 @@ required
 <label>Age</label>
 
 <input
+id="age"
 type="number"
 name="Age"
 min="1"
@@ -797,6 +633,7 @@ required
 <label>Class</label>
 
 <input
+id="applicantClass"
 type="text"
 name="Class"
 required
@@ -810,6 +647,7 @@ required
 <label>Apply For Post</label>
 
 <select
+id="post"
 name="Apply For Post"
 required
 >
@@ -852,6 +690,7 @@ DSP
 <label>Applicant Photo</label>
 
 <input
+id="applicantPhoto"
 type="file"
 name="Applicant Photo"
 accept="image/*"
@@ -866,6 +705,7 @@ required
 <label>Applicant Email</label>
 
 <input
+id="applicantEmail"
 type="email"
 name="Applicant Email"
 required
@@ -879,6 +719,7 @@ required
 <label>Contact Number</label>
 
 <input
+id="contactNumber"
 type="tel"
 name="Contact Number"
 required
@@ -894,6 +735,7 @@ Why do you want this post?
 </label>
 
 <textarea
+id="applicationReason"
 name="Why do you want this post?"
 required
 ></textarea>
@@ -903,24 +745,26 @@ required
 
 <div class="field full">
 
-<button type="submit">
+<button type="submit" id="submitApplicationButton">
 Submit Application
 </button>
 
 </div>
 
-
 </div>
+
+<div
+id="applicationStatus"
+class="application-status"
+></div>
 
 </form>
 
 </div>
-
 </section>
 
 
 <!-- EXAM PORTAL -->
-
 <section id="exam">
 
 <div class="container">
@@ -931,20 +775,13 @@ Submit Application
 Official Classic Empire examination system
 </p>
 
-<div
-class="card"
-style="text-align:center;"
->
+<div class="card" style="text-align:center;">
 
-<h3
-style="color:#ffd700;margin-bottom:10px;"
->
+<h3 style="color:#ffd700;margin-bottom:10px;">
 📝 Classic Empire Exam Portal
 </h3>
 
-<p
-style="color:#bbb;margin-bottom:20px;"
->
+<p style="color:#bbb;margin-bottom:20px;">
 Candidates can enter their examination code
 and take the examination for their selected post.
 </p>
@@ -965,16 +802,12 @@ Open Exam Portal
 </a>
 
 </div>
-
 </div>
-
 </section>
 
 
 <!-- ADMINISTRATION -->
-
 <section id="administration">
-
 <div class="container">
 
 <h2 class="section-title">Administration</h2>
@@ -985,81 +818,48 @@ Current Classic Empire administrative structure
 
 <div class="admin-list">
 
-
 <div class="admin-row">
-
 <strong>President</strong>
-
 <span>Noor Ahmad</span>
-
 </div>
 
-
 <div class="admin-row">
-
 <strong>President's Assistant</strong>
-
 <span>Tabshir Alam</span>
-
 </div>
 
-
 <div class="admin-row">
-
 <strong>DM</strong>
-
 <span>Jakir Hussain</span>
-
 </div>
 
-
 <div class="admin-row">
-
 <strong>DM's Assistant</strong>
-
 <span>Shadat Hussain</span>
-
 </div>
 
-
 <div class="admin-row">
-
 <strong>SDM</strong>
-
 <span>Aszad Sayeed</span>
-
 </div>
 
-
 <div class="admin-row">
-
 <strong>SP</strong>
-
 <span>Shahnawaz Alam</span>
-
 </div>
-
 
 <div class="admin-row">
-
 <strong>DSP</strong>
-
 <span>Shadab Alam</span>
-
-</div>
-
-
 </div>
 
 </div>
-
+</div>
 </section>
 
 
 <!-- ABOUT -->
-
 <section id="about">
-
 <div class="container">
 
 <h2 class="section-title">
@@ -1121,16 +921,12 @@ No other person or authority can change the President.
 </p>
 
 </div>
-
 </div>
-
 </section>
 
 
 <!-- CONTACT -->
-
 <section id="contact">
-
 <div class="container">
 
 <h2 class="section-title">Contact</h2>
@@ -1145,22 +941,16 @@ Official Classic Empire Ltd contact
 Classic Empire Ltd
 </h3>
 
-<p>
-Official Email:
-</p>
+<p>Official Email:</p>
 
 <p style="margin-top:8px;">
-
 <a href="mailto:classicempireltd09@gmail.com">
 classicempireltd09@gmail.com
 </a>
-
 </p>
 
 </div>
-
 </div>
-
 </section>
 
 </main>
@@ -1177,6 +967,191 @@ Fictional school-style Empire project.
 </p>
 
 </footer>
+
+
+<script>
+
+/* ================================
+   SUPABASE APPLICATION SYSTEM
+================================ */
+
+const APPLICATION_SUPABASE_URL =
+"https://hjatspkzgoddcpgwfkxo.supabase.co";
+
+const APPLICATION_SUPABASE_KEY =
+"sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
+
+
+const applicationForm =
+document.getElementById("applicationForm");
+
+const statusBox =
+document.getElementById("applicationStatus");
+
+const submitButton =
+document.getElementById("submitApplicationButton");
+
+
+applicationForm.addEventListener("submit", async function(e){
+
+  e.preventDefault();
+
+  const name =
+  document.getElementById("applicantName").value.trim();
+
+  const age =
+  document.getElementById("age").value.trim();
+
+  const applicantClass =
+  document.getElementById("applicantClass").value.trim();
+
+  const post =
+  document.getElementById("post").value;
+
+  const email =
+  document.getElementById("applicantEmail").value.trim();
+
+  const contact =
+  document.getElementById("contactNumber").value.trim();
+
+  const reason =
+  document.getElementById("applicationReason").value.trim();
+
+  const photo =
+  document.getElementById("applicantPhoto").files[0];
+
+
+  if(
+    !name ||
+    !age ||
+    !applicantClass ||
+    !post ||
+    !email ||
+    !contact ||
+    !reason ||
+    !photo
+  ){
+
+    alert("Please fill all required fields.");
+
+    return;
+  }
+
+
+  submitButton.disabled = true;
+
+  submitButton.innerText =
+  "Saving Application...";
+
+
+  statusBox.style.display = "block";
+
+  statusBox.style.background = "#171717";
+
+  statusBox.style.color = "#ffd700";
+
+  statusBox.innerText =
+  "Application save हो रही है...";
+
+
+  try{
+
+    const response = await fetch(
+      APPLICATION_SUPABASE_URL +
+      "/rest/v1/rpc/submit_application",
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json",
+          "apikey":APPLICATION_SUPABASE_KEY,
+          "Authorization":
+          "Bearer " + APPLICATION_SUPABASE_KEY
+        },
+
+        body:JSON.stringify({
+
+          input_applicant_name:name,
+
+          input_age:age,
+
+          input_class:applicantClass,
+
+          input_post:post,
+
+          input_applicant_photo:photo.name,
+
+          input_applicant_email:email,
+
+          input_contact_number:contact,
+
+          input_reason:reason
+
+        })
+      }
+    );
+
+
+    const result =
+    await response.json();
+
+
+    if(
+      !response.ok ||
+      result.success === false
+    ){
+
+      throw new Error(
+        result.message ||
+        "Application save नहीं हुई"
+      );
+
+    }
+
+
+    statusBox.style.background =
+    "#123d1c";
+
+    statusBox.style.color =
+    "#7cff91";
+
+    statusBox.innerText =
+    "Application saved successfully. Email भेजा जा रहा है...";
+
+
+    /*
+      Supabase में save होने के बाद
+      FormSubmit को normal तरीके से submit करेंगे।
+    */
+
+    applicationForm.submit();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    statusBox.style.background =
+    "#3d1212";
+
+    statusBox.style.color =
+    "#ff7777";
+
+    statusBox.innerText =
+    "Application save नहीं हुई: " +
+    error.message;
+
+
+    submitButton.disabled = false;
+
+    submitButton.innerText =
+    "Submit Application";
+
+  }
+
+});
+
+</script>
 
 </body>
 </html>

@@ -6,7 +6,11 @@
 <title>Classic Empire Ltd - Exam Portal</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0
+}
 
 body{
   font-family:Arial,sans-serif;
@@ -22,8 +26,14 @@ header{
   text-align:center;
 }
 
-header h1{color:#d4af37;margin-bottom:7px}
-header p{color:#aaa}
+header h1{
+  color:#d4af37;
+  margin-bottom:7px
+}
+
+header p{
+  color:#aaa
+}
 
 .container{
   width:94%;
@@ -94,6 +104,7 @@ button:disabled{
   border-radius:8px;
   background:#181818;
   border:1px solid #333;
+  line-height:1.6;
 }
 
 .question{
@@ -128,48 +139,15 @@ button:disabled{
   margin-right:8px;
 }
 
-.result{
-  border:2px solid #d4af37;
-  border-radius:14px;
-  padding:22px;
-  background:#111;
+.hidden{
+  display:none
 }
-
-.result-row{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  padding:13px 0;
-  border-bottom:1px solid #333;
-}
-
-.result-row b{color:#d4af37}
-
-.final-result{
-  text-align:center;
-  font-size:30px;
-  font-weight:bold;
-  margin-top:20px;
-  padding:15px;
-  border-radius:10px;
-}
-
-.pass{
-  background:#123d27;
-  color:#39df82;
-}
-
-.fail{
-  background:#421919;
-  color:#ff6262;
-}
-
-.hidden{display:none}
 
 .small{
   color:#aaa;
   font-size:13px;
   margin-top:7px;
+  line-height:1.5;
 }
 
 .score-box{
@@ -185,12 +163,133 @@ button:disabled{
   color:#eee;
 }
 
+
+/* =========================
+   TIMER
+========================= */
+
+.exam-topbar{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:#0d0d0d;
+  border:2px solid #d4af37;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:20px;
+  text-align:center;
+}
+
+.timer-label{
+  color:#aaa;
+  font-size:14px;
+}
+
+.timer{
+  color:#d4af37;
+  font-size:32px;
+  font-weight:bold;
+  margin-top:5px;
+  letter-spacing:2px;
+}
+
+.timer-danger{
+  color:#ff5555;
+}
+
+.violation-box{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:rgba(0,0,0,.92);
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.violation-card{
+  width:100%;
+  max-width:500px;
+  background:#151515;
+  border:2px solid #d4af37;
+  border-radius:15px;
+  padding:25px;
+  text-align:center;
+}
+
+.violation-card h2{
+  color:#d4af37;
+}
+
+.violation-card p{
+  color:#ddd;
+  line-height:1.7;
+  margin-top:10px;
+}
+
+.dismissed-card{
+  border-color:#ff5555;
+}
+
+.dismissed-card h2{
+  color:#ff5555;
+}
+
+.warning-count{
+  color:#d4af37;
+  font-weight:bold;
+  margin-top:15px;
+}
+
+
+/* =========================
+   SUBMITTED
+========================= */
+
+.submitted-box{
+  background:#101f15;
+  border:2px solid #2e9b55;
+  border-radius:14px;
+  padding:25px;
+  text-align:center;
+  margin-top:20px;
+}
+
+.submitted-box h2{
+  color:#4fd47a;
+}
+
+.wait-text{
+  margin-top:15px;
+  color:#ddd;
+  line-height:1.7;
+}
+
+.result-time{
+  margin-top:15px;
+  padding:12px;
+  background:#171717;
+  border-radius:8px;
+  color:#d4af37;
+  font-weight:bold;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:600px){
-  .card{padding:16px}
-  .result-row{
-    flex-direction:column;
-    gap:5px;
+
+  .card{
+    padding:16px
   }
+
+  .timer{
+    font-size:28px
+  }
+
 }
 </style>
 </head>
@@ -204,39 +303,61 @@ button:disabled{
 
 <div class="container">
 
+
 <!-- IMPORTANT NOTICE -->
-<div class="card notice">
+
+<div id="noticeCard" class="card notice">
 
   <h2>⚠️ Important Notice</h2>
 
   <p>
-    Exam submit करने के बाद दिखाई गई
-    <b>Objective Marks, Subjective Marks,
-    Total Marks और PASS/FAIL Result</b>
-    system द्वारा automatically calculate किए जाते हैं।
+    इस परीक्षा का कुल समय
+    <b>30 मिनट</b> है।
+  </p>
+
+  <br>
+
+  <p>
+    पहली बार Exam से बाहर जाने या दूसरे tab में जाने पर
+    <b>Warning</b> मिलेगी।
+  </p>
+
+  <br>
+
+  <p>
+    दूसरी violation पर
+    <b>Exam Dismissed</b> कर दिया जाएगा।
+  </p>
+
+  <br>
+
+  <p>
+    Exam submit करने के बाद
+    <b>तुरंत Result नहीं दिखाया जाएगा।</b>
+  </p>
+
+  <br>
+
+  <p>
+    Result को
+    <b>24 घंटे बाद</b>
+    उपलब्ध कराया जाएगा।
   </p>
 
   <br>
 
   <p>
     <b style="color:#d4af37;">
-      Admin/President आवश्यकता होने पर बाद में
-      Objective Marks, Subjective Marks,
-      Total Marks और Final Result को बदल सकते हैं।
+      Final marks और Final Result को Admin/President
+      system में बाद में निर्धारित या बदल सकते हैं।
     </b>
-  </p>
-
-  <br>
-
-  <p>
-    Final system record में किया गया updated result
-    ही मान्य होगा।
   </p>
 
 </div>
 
 
 <!-- LOGIN -->
+
 <div id="loginCard" class="card">
 
   <h2>🔐 Exam Login</h2>
@@ -265,7 +386,10 @@ button:disabled{
 
   </select>
 
-  <button onclick="startExam()">
+  <button
+    id="startExamButton"
+    onclick="startExam()"
+  >
     🚀 Start Exam
   </button>
 
@@ -275,20 +399,50 @@ button:disabled{
 
 
 <!-- EXAM -->
+
 <div id="examCard" class="hidden">
+
+
+  <!-- TIMER -->
+
+  <div class="exam-topbar">
+
+    <div class="timer-label">
+      ⏱️ Remaining Exam Time
+    </div>
+
+    <div
+      id="examTimer"
+      class="timer"
+    >
+      30:00
+    </div>
+
+    <div class="small">
+      पहली violation = Warning |
+      दूसरी violation = Dismiss
+    </div>
+
+  </div>
+
+
+  <!-- OBJECTIVE -->
 
   <div class="card">
 
     <h2>📝 Objective Section</h2>
 
     <p class="small">
-      कुल 18 Objective Questions — प्रत्येक 1 अंक
+      कुल 18 Objective Questions —
+      प्रत्येक 1 अंक
     </p>
 
     <div id="objectiveQuestions"></div>
 
   </div>
 
+
+  <!-- SUBJECTIVE -->
 
   <div class="card">
 
@@ -320,7 +474,10 @@ button:disabled{
 
       <b>Automatic Subjective Evaluation:</b>
 
-      <div id="subjectivePreview">
+      <div
+        id="subjectivePreview"
+        class="small"
+      >
         उत्तर जमा करने के बाद system marks calculate करेगा।
       </div>
 
@@ -328,65 +485,106 @@ button:disabled{
 
     <button
       id="submitExamButton"
-      onclick="submitExam()"
+      onclick="submitExam(false)"
     >
       📤 Submit Exam
     </button>
 
-    <div id="submitMessage" class="message"></div>
+    <div
+      id="submitMessage"
+      class="message"
+    ></div>
 
   </div>
 
 </div>
 
 
-<!-- RESULT -->
-<div id="resultCard" class="hidden">
+<!-- 24 HOUR SUBMITTED MESSAGE -->
 
-  <div class="result">
+<div
+  id="submittedCard"
+  class="hidden"
+>
 
-    <h2>🎓 Exam Result</h2>
+  <div class="submitted-box">
 
-    <div class="result-row">
-      <span>Applicant</span>
-      <b id="resultApplicant"></b>
+    <h2>✅ Exam Successfully Submitted</h2>
+
+    <p class="wait-text">
+      आपका exam successfully submit हो गया है।
+      <br><br>
+      <b>आपको अभी Result नहीं दिखाया जाएगा।</b>
+      <br><br>
+      आपका Result Exam submit होने के
+      <b>24 घंटे बाद</b> उपलब्ध होगा।
+    </p>
+
+    <div
+      id="resultAvailableTime"
+      class="result-time"
+    >
+      Result availability time calculating...
     </div>
 
-    <div class="result-row">
-      <span>Post</span>
-      <b id="resultPost"></b>
-    </div>
-
-    <div class="result-row">
-      <span>Objective</span>
-      <b id="resultObjective"></b>
-    </div>
-
-    <div class="result-row">
-      <span>Subjective</span>
-      <b id="resultSubjective"></b>
-    </div>
-
-    <div class="result-row">
-      <span>Total</span>
-      <b id="resultTotal"></b>
-    </div>
-
-    <div class="result-row">
-      <span>Percentage</span>
-      <b id="resultPercentage"></b>
-    </div>
-
-    <div id="finalResult" class="final-result"></div>
+    <p class="small">
+      Result बाद में Exam Code / Application Status
+      के माध्यम से देखा जा सकेगा।
+    </p>
 
   </div>
 
 </div>
+
+
+</div>
+
+
+<!-- VIOLATION MODAL -->
+
+<div
+  id="violationOverlay"
+  class="violation-box"
+>
+
+  <div
+    id="violationCard"
+    class="violation-card"
+  >
+
+    <h2 id="violationTitle">
+      ⚠️ Warning
+    </h2>
+
+    <p id="violationText">
+      Exam window छोड़ने की कोशिश detect हुई है।
+    </p>
+
+    <div
+      id="violationCount"
+      class="warning-count"
+    >
+      Warning 1 / 2
+    </div>
+
+    <button
+      id="violationButton"
+      onclick="closeViolation()"
+    >
+      वापस Exam में जाएँ
+    </button>
+
+  </div>
 
 </div>
 
 
 <script>
+
+
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
 "https://hjatspkzgoddcpgwfkxo.supabase.co";
@@ -394,10 +592,33 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
-let verifiedExam=false;
-let verifiedApplicant="";
-let verifiedPost="";
 
+/* =====================================================
+   GLOBAL STATE
+===================================================== */
+
+let verifiedExam = false;
+
+let verifiedApplicant = "";
+
+let verifiedPost = "";
+
+let activeExamCode = "";
+
+let examExpiresAt = null;
+
+let timerInterval = null;
+
+let violationBusy = false;
+
+let examSubmitted = false;
+
+let examDismissed = false;
+
+
+/* =====================================================
+   QUESTIONS
+===================================================== */
 
 const questions=[
 
@@ -597,133 +818,697 @@ answer:3
 ];
 
 
+/* =====================================================
+   LOAD QUESTIONS
+===================================================== */
+
 function loadQuestions(){
 
-  const box=
-    document.getElementById("objectiveQuestions");
+  const box =
+    document.getElementById(
+      "objectiveQuestions"
+    );
 
-  box.innerHTML="";
+  box.innerHTML = "";
 
-  questions.forEach((question,index)=>{
+  questions.forEach(
+    (question,index)=>{
 
-    let html=`
-      <div class="question">
+      let html = `
+        <div class="question">
 
-        <div class="question-title">
-          ${index+1}. ${escapeHtml(question.q)}
-        </div>
-    `;
-
-    question.options.forEach((option,optIndex)=>{
-
-      const letter=
-        String.fromCharCode(65+optIndex);
-
-      html+=`
-        <label class="option">
-
-          <input
-            type="radio"
-            name="q${index}"
-            value="${optIndex}"
-          >
-
-          <b>${letter}.</b>
-          ${escapeHtml(option)}
-
-        </label>
+          <div class="question-title">
+            ${index+1}.
+            ${escapeHtml(question.q)}
+          </div>
       `;
 
-    });
+      question.options.forEach(
+        (option,optIndex)=>{
 
-    html+=`</div>`;
+          const letter =
+            String.fromCharCode(
+              65 + optIndex
+            );
 
-    box.innerHTML+=html;
+          html += `
+            <label class="option">
 
-  });
+              <input
+                type="radio"
+                name="q${index}"
+                value="${optIndex}"
+              >
+
+              <b>${letter}.</b>
+              ${escapeHtml(option)}
+
+            </label>
+          `;
+
+        }
+      );
+
+      html += `</div>`;
+
+      box.innerHTML += html;
+
+    }
+  );
 
 }
 
 
+/* =====================================================
+   START EXAM
+===================================================== */
+
 async function startExam(){
 
-  const code=
-    document.getElementById("examCode")
-    .value.trim().toUpperCase();
+  const code =
+    document
+      .getElementById("examCode")
+      .value
+      .trim()
+      .toUpperCase();
 
-  const post=
-    document.getElementById("examPost").value;
+  const post =
+    document
+      .getElementById("examPost")
+      .value;
 
-  const message=
-    document.getElementById("loginMessage");
+  const message =
+    document
+      .getElementById("loginMessage");
+
+  const startButton =
+    document
+      .getElementById("startExamButton");
+
 
   if(!code || !post){
 
-    message.innerText=
+    message.innerText =
       "Exam Code और Post दोनों भरें।";
 
     return;
+
   }
 
-  message.innerText=
-    "Exam Code verify हो रहा है...";
+
+  startButton.disabled = true;
+
+  message.innerText =
+    "Exam Session verify हो रहा है...";
+
 
   try{
 
-    const response=
+    const response =
       await fetch(
         `${SUPABASE_URL}/rest/v1/rpc/verify_exam_code`,
         {
           method:"POST",
+
           headers:{
-            "Content-Type":"application/json",
-            "apikey":SUPABASE_KEY,
+            "Content-Type":
+              "application/json",
+
+            "apikey":
+              SUPABASE_KEY,
+
             "Authorization":
               `Bearer ${SUPABASE_KEY}`
           },
+
           body:JSON.stringify({
+
             input_code:code,
+
             input_post:post
+
           })
         }
       );
 
-    const data=await response.json();
 
-    if(!response.ok || !data?.success){
+    const data =
+      await response.json();
+
+
+    if(
+      !response.ok ||
+      !data?.success
+    ){
 
       throw new Error(
         data?.message ||
         "Exam Code invalid है।"
       );
+
     }
 
-    verifiedExam=true;
-    verifiedApplicant=
+
+    verifiedExam = true;
+
+    verifiedApplicant =
       data.applicant_name || "";
 
-    verifiedPost=
+    verifiedPost =
       data.post || post;
+
+    activeExamCode = code;
+
+    examExpiresAt =
+      data.expires_at;
+
+
+    if(!examExpiresAt){
+
+      throw new Error(
+        "Exam timer session नहीं मिला।"
+      );
+
+    }
+
 
     document
       .getElementById("loginCard")
       .classList.add("hidden");
 
+
+    document
+      .getElementById("noticeCard")
+      .classList.add("hidden");
+
+
     document
       .getElementById("examCard")
       .classList.remove("hidden");
 
+
     loadQuestions();
+
+    startTimer();
+
+    setupAntiCheating();
+
+
+    /*
+      Fullscreen की कोशिश।
+      Browser अनुमति न दे तो exam फिर भी चलेगा।
+    */
+
+    try{
+
+      if(
+        document.documentElement.requestFullscreen
+      ){
+
+        await document
+          .documentElement
+          .requestFullscreen();
+
+      }
+
+    }catch(e){}
+
 
   }catch(error){
 
-    message.innerText=
-      "❌ "+error.message;
+    message.innerText =
+      "❌ " +
+      error.message;
+
+    startButton.disabled = false;
 
   }
 
 }
 
+
+/* =====================================================
+   30 MINUTE SERVER TIMER
+===================================================== */
+
+function startTimer(){
+
+  if(timerInterval){
+
+    clearInterval(timerInterval);
+
+  }
+
+
+  function updateTimer(){
+
+    if(!verifiedExam || examSubmitted || examDismissed){
+
+      return;
+
+    }
+
+
+    const remaining =
+      new Date(examExpiresAt).getTime()
+      - Date.now();
+
+
+    if(remaining <= 0){
+
+      clearInterval(timerInterval);
+
+      document
+        .getElementById("examTimer")
+        .innerText = "00:00";
+
+      submitExam(true);
+
+      return;
+
+    }
+
+
+    const totalSeconds =
+      Math.floor(
+        remaining / 1000
+      );
+
+
+    const minutes =
+      Math.floor(
+        totalSeconds / 60
+      );
+
+
+    const seconds =
+      totalSeconds % 60;
+
+
+    const timer =
+      document
+        .getElementById("examTimer");
+
+
+    timer.innerText =
+      String(minutes).padStart(2,"0")
+      + ":" +
+      String(seconds).padStart(2,"0");
+
+
+    if(totalSeconds <= 300){
+
+      timer.classList.add(
+        "timer-danger"
+      );
+
+    }else{
+
+      timer.classList.remove(
+        "timer-danger"
+      );
+
+    }
+
+  }
+
+
+  updateTimer();
+
+  timerInterval =
+    setInterval(
+      updateTimer,
+      1000
+    );
+
+}
+
+
+/* =====================================================
+   ANTI CHEATING
+===================================================== */
+
+function setupAntiCheating(){
+
+  /*
+    पहली/दूसरी violation के लिए
+    एक event को एक ही बार count करें।
+  */
+
+  document.addEventListener(
+    "visibilitychange",
+    handleVisibilityChange
+  );
+
+
+  document.addEventListener(
+    "fullscreenchange",
+    handleFullscreenChange
+  );
+
+}
+
+
+function handleVisibilityChange(){
+
+  if(
+    !verifiedExam ||
+    examSubmitted ||
+    examDismissed
+  ){
+
+    return;
+
+  }
+
+
+  /*
+    Page hidden होने पर violation।
+    Browser बंद होने पर event हमेशा
+    guarantee नहीं होता।
+  */
+
+  if(document.hidden){
+
+    recordViolation();
+
+  }
+
+}
+
+
+function handleFullscreenChange(){
+
+  if(
+    !verifiedExam ||
+    examSubmitted ||
+    examDismissed
+  ){
+
+    return;
+
+  }
+
+
+  /*
+    Fullscreen से बाहर आने पर violation।
+  */
+
+  if(!document.fullscreenElement){
+
+    recordViolation();
+
+  }
+
+}
+
+
+/* =====================================================
+   RECORD VIOLATION
+===================================================== */
+
+async function recordViolation(){
+
+  if(
+    violationBusy ||
+    !activeExamCode ||
+    examSubmitted ||
+    examDismissed
+  ){
+
+    return;
+
+  }
+
+
+  violationBusy = true;
+
+
+  try{
+
+    const response =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/rpc/record_exam_violation`,
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json",
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              `Bearer ${SUPABASE_KEY}`
+          },
+
+          body:JSON.stringify({
+
+            input_code:
+              activeExamCode
+
+          }),
+
+          keepalive:true
+
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(
+      data?.dismissed
+    ){
+
+      dismissExam(
+        data.message ||
+        "Exam Dismissed."
+      );
+
+      return;
+
+    }
+
+
+    if(
+      data?.warning
+    ){
+
+      showWarning(
+        data.message ||
+        "पहली violation detect हुई है।"
+      );
+
+    }
+
+  }catch(error){
+
+    /*
+      Network error होने पर local warning नहीं
+      दिखाएँगे; server record को authoritative
+      माना जाएगा।
+    */
+
+  }finally{
+
+    violationBusy = false;
+
+  }
+
+}
+
+
+/* =====================================================
+   WARNING
+===================================================== */
+
+function showWarning(message){
+
+  const overlay =
+    document
+      .getElementById("violationOverlay");
+
+  const card =
+    document
+      .getElementById("violationCard");
+
+  const title =
+    document
+      .getElementById("violationTitle");
+
+  const text =
+    document
+      .getElementById("violationText");
+
+  const count =
+    document
+      .getElementById("violationCount");
+
+  const button =
+    document
+      .getElementById("violationButton");
+
+
+  card.className =
+    "violation-card";
+
+
+  title.innerText =
+    "⚠️ Warning";
+
+
+  text.innerText =
+    message;
+
+
+  count.innerText =
+    "Warning 1 / 2";
+
+
+  button.innerText =
+    "वापस Exam में जाएँ";
+
+
+  overlay.style.display =
+    "flex";
+
+}
+
+
+function closeViolation(){
+
+  const overlay =
+    document
+      .getElementById("violationOverlay");
+
+  overlay.style.display =
+    "none";
+
+
+  /*
+    वापस fullscreen की कोशिश।
+  */
+
+  try{
+
+    if(
+      !document.fullscreenElement &&
+      document.documentElement.requestFullscreen
+    ){
+
+      document
+        .documentElement
+        .requestFullscreen()
+        .catch(()=>{});
+
+    }
+
+  }catch(e){}
+
+}
+
+
+/* =====================================================
+   DISMISS EXAM
+===================================================== */
+
+function dismissExam(message){
+
+  if(examDismissed) return;
+
+  examDismissed = true;
+
+  verifiedExam = false;
+
+
+  if(timerInterval){
+
+    clearInterval(timerInterval);
+
+  }
+
+
+  const overlay =
+    document
+      .getElementById("violationOverlay");
+
+  const card =
+    document
+      .getElementById("violationCard");
+
+  const title =
+    document
+      .getElementById("violationTitle");
+
+  const text =
+    document
+      .getElementById("violationText");
+
+  const count =
+    document
+      .getElementById("violationCount");
+
+  const button =
+    document
+      .getElementById("violationButton");
+
+
+  card.className =
+    "violation-card dismissed-card";
+
+
+  title.innerText =
+    "❌ Exam Dismissed";
+
+
+  text.innerText =
+    message ||
+    "दूसरी violation के कारण आपका exam dismiss कर दिया गया है।";
+
+
+  count.innerText =
+    "Exam Status: DISMISSED";
+
+
+  button.innerText =
+    "Close";
+
+
+  button.onclick =
+    function(){
+
+      overlay.style.display =
+        "none";
+
+      document
+        .getElementById("examCard")
+        .classList.add("hidden");
+
+      document
+        .getElementById("noticeCard")
+        .classList.remove("hidden");
+
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
+
+    };
+
+
+  overlay.style.display =
+    "flex";
+
+}
+
+
+/* =====================================================
+   AUTOMATIC SUBJECTIVE MARKING
+===================================================== */
 
 function automaticSubjectiveMarks(
   answer1,
@@ -732,19 +1517,31 @@ function automaticSubjectiveMarks(
 
   function markAnswer(answer){
 
-    const text=
-      String(answer || "").trim();
+    const text =
+      String(answer || "")
+      .trim();
 
-    if(text.length<20) return 0;
-    if(text.length<50) return 2;
-    if(text.length<100) return 3;
-    if(text.length<180) return 4;
+
+    if(text.length < 20)
+      return 0;
+
+    if(text.length < 50)
+      return 2;
+
+    if(text.length < 100)
+      return 3;
+
+    if(text.length < 180)
+      return 4;
 
     return 5;
+
   }
 
+
   return Math.min(
-    markAnswer(answer1)+
+    markAnswer(answer1)
+    +
     markAnswer(answer2),
     10
   );
@@ -752,97 +1549,152 @@ function automaticSubjectiveMarks(
 }
 
 
+/* =====================================================
+   OBJECTIVE MARKING
+===================================================== */
+
 function calculateObjective(){
 
-  let score=0;
+  let score = 0;
 
-  questions.forEach((question,index)=>{
 
-    const selected=
-      document.querySelector(
-        `input[name="q${index}"]:checked`
-      );
+  questions.forEach(
+    (question,index)=>{
 
-    if(
-      selected &&
-      Number(selected.value)===
-      question.answer
-    ){
-      score++;
+      const selected =
+        document.querySelector(
+          `input[name="q${index}"]:checked`
+        );
+
+
+      if(
+        selected &&
+        Number(selected.value) ===
+        question.answer
+      ){
+
+        score++;
+
+      }
+
     }
+  );
 
-  });
 
   return score;
 
 }
 
 
-async function submitExam(){
+/* =====================================================
+   SUBMIT EXAM
+===================================================== */
 
-  if(!verifiedExam) return;
+async function submitExam(autoSubmit=false){
 
-  const button=
-    document.getElementById(
-      "submitExamButton"
-    );
+  if(
+    !verifiedExam ||
+    examSubmitted ||
+    examDismissed
+  ){
 
-  const message=
-    document.getElementById(
-      "submitMessage"
-    );
+    return;
 
-  const answer1=
-    document.getElementById(
-      "subjective1"
-    ).value.trim();
+  }
 
-  const answer2=
-    document.getElementById(
-      "subjective2"
-    ).value.trim();
 
-  const objective=
+  const button =
+    document
+      .getElementById(
+        "submitExamButton"
+      );
+
+
+  const message =
+    document
+      .getElementById(
+        "submitMessage"
+      );
+
+
+  const answer1 =
+    document
+      .getElementById(
+        "subjective1"
+      )
+      .value
+      .trim();
+
+
+  const answer2 =
+    document
+      .getElementById(
+        "subjective2"
+      )
+      .value
+      .trim();
+
+
+  const objective =
     calculateObjective();
 
-  const subjective=
+
+  const subjective =
     automaticSubjectiveMarks(
       answer1,
       answer2
     );
 
-  const total=
-    objective+subjective;
 
-  const finalResult=
-    total>=21 ? "PASS" : "FAIL";
+  const total =
+    objective + subjective;
 
-  button.disabled=true;
 
-  message.innerText=
-    "Exam submit हो रहा है...";
+  const finalResult =
+    total >= 21
+    ? "PASS"
+    : "FAIL";
+
+
+  button.disabled = true;
+
+
+  if(autoSubmit){
+
+    message.innerText =
+      "⏰ 30 मिनट पूरे हो गए। Exam automatically submit हो रहा है...";
+
+  }else{
+
+    message.innerText =
+      "Exam submit हो रहा है...";
+
+  }
+
 
   try{
 
-    const code=
-      document.getElementById(
-        "examCode"
-      ).value.trim().toUpperCase();
-
-    const response=
+    const response =
       await fetch(
         `${SUPABASE_URL}/rest/v1/rpc/submit_complete_exam`,
         {
           method:"POST",
+
           headers:{
-            "Content-Type":"application/json",
-            "apikey":SUPABASE_KEY,
+            "Content-Type":
+              "application/json",
+
+            "apikey":
+              SUPABASE_KEY,
+
             "Authorization":
               `Bearer ${SUPABASE_KEY}`
           },
+
           body:JSON.stringify({
 
-            input_code:code,
+            input_code:
+              activeExamCode,
 
             input_applicant_name:
               verifiedApplicant,
@@ -872,10 +1724,15 @@ async function submitExam(){
         }
       );
 
-    const data=
+
+    const data =
       await response.json();
 
-    if(!response.ok || !data?.success){
+
+    if(
+      !response.ok ||
+      !data?.success
+    ){
 
       throw new Error(
         data?.message ||
@@ -884,122 +1741,78 @@ async function submitExam(){
 
     }
 
-    showResult({
 
-      applicant_name:
-        verifiedApplicant,
+    examSubmitted = true;
 
-      post:
-        verifiedPost,
+    verifiedExam = false;
 
-      objective_marks:
-        data.objective_marks ??
-        objective,
 
-      subjective_marks:
-        data.subjective_marks ??
-        subjective,
+    if(timerInterval){
 
-      total_marks:
-        data.total_marks ??
-        total,
+      clearInterval(timerInterval);
 
-      final_result:
-        data.final_result ??
-        finalResult
+    }
 
-    });
+
+    /*
+      IMPORTANT:
+      यहाँ Result/Marks नहीं दिखाए जाते।
+      केवल 24-hour waiting message।
+    */
 
     document
       .getElementById("examCard")
       .classList.add("hidden");
 
-    message.innerText=
-      "✅ Exam successfully submitted.";
+
+    document
+      .getElementById("submittedCard")
+      .classList.remove("hidden");
+
+
+    document
+      .getElementById("resultAvailableTime")
+      .innerText =
+        "Result 24 घंटे बाद उपलब्ध होगा।";
+
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+
+    /*
+      Fullscreen बंद करने की कोशिश।
+    */
+
+    try{
+
+      if(document.fullscreenElement){
+
+        await document.exitFullscreen();
+
+      }
+
+    }catch(e){}
+
 
   }catch(error){
 
-    button.disabled=false;
+    button.disabled = false;
 
-    message.innerText=
-      "❌ "+error.message;
+    message.innerText =
+      "❌ " +
+      error.message;
 
   }
 
 }
 
 
-function showResult(data){
-
-  const objective=
-    Number(data.objective_marks || 0);
-
-  const subjective=
-    Number(data.subjective_marks || 0);
-
-  const total=
-    Number(data.total_marks || 0);
-
-  const percentage=
-    ((total/28)*100).toFixed(2);
-
-  document.getElementById(
-    "resultApplicant"
-  ).innerText=
-    data.applicant_name || "";
-
-  document.getElementById(
-    "resultPost"
-  ).innerText=
-    data.post || "";
-
-  document.getElementById(
-    "resultObjective"
-  ).innerText=
-    `${objective} / 18`;
-
-  document.getElementById(
-    "resultSubjective"
-  ).innerText=
-    `${subjective} / 10`;
-
-  document.getElementById(
-    "resultTotal"
-  ).innerText=
-    `${total} / 28`;
-
-  document.getElementById(
-    "resultPercentage"
-  ).innerText=
-    `${percentage}%`;
-
-  const finalBox=
-    document.getElementById(
-      "finalResult"
-    );
-
-  finalBox.innerText=
-    data.final_result;
-
-  finalBox.className=
-    "final-result "+
-    (
-      data.final_result==="PASS"
-      ? "pass"
-      : "fail"
-    );
-
-  document
-    .getElementById("resultCard")
-    .classList.remove("hidden");
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
 function escapeHtml(value){
 
@@ -1011,6 +1824,30 @@ function escapeHtml(value){
     .replace(/'/g,"&#039;");
 
 }
+
+
+/* =====================================================
+   PAGE PROTECTION
+===================================================== */
+
+window.addEventListener(
+  "beforeunload",
+  function(event){
+
+    if(
+      verifiedExam &&
+      !examSubmitted &&
+      !examDismissed
+    ){
+
+      event.preventDefault();
+
+      event.returnValue = "";
+
+    }
+
+  }
+);
 
 </script>
 

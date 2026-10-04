@@ -26,158 +26,199 @@ body{
   margin:auto;
 }
 
-h1{
+header{
+  background:linear-gradient(135deg,#151515,#090909);
+  border:1px solid #d4af37;
+  border-radius:18px;
+  padding:25px;
   text-align:center;
-  color:#ffd700;
-  margin-bottom:25px;
+  margin-bottom:20px;
 }
 
-h2{
-  color:#ffd700;
-  margin-bottom:18px;
+header h1{
+  color:#d4af37;
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+header p{
+  color:#ccc;
 }
 
 .panel{
   background:#111;
   border:1px solid #333;
-  border-radius:15px;
+  border-radius:16px;
   padding:20px;
-  margin-bottom:25px;
-  box-shadow:0 0 15px rgba(255,215,0,.08);
+  margin-bottom:20px;
 }
 
-input,select,textarea{
+.panel h2{
+  color:#d4af37;
+  margin-bottom:18px;
+}
+
+input,
+select,
+textarea{
   width:100%;
   padding:12px;
-  margin:8px 0;
+  margin:7px 0;
   border-radius:8px;
   border:1px solid #555;
-  background:#1b1b1b;
+  background:#181818;
   color:#fff;
+  outline:none;
 }
 
-textarea{
-  min-height:90px;
-  resize:vertical;
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#d4af37;
 }
 
 button{
-  padding:11px 18px;
-  border:none;
+  border:0;
   border-radius:8px;
-  background:#ffd700;
-  color:#000;
-  font-weight:bold;
+  padding:11px 16px;
   cursor:pointer;
+  font-weight:bold;
+  background:#d4af37;
+  color:#000;
   margin:5px;
 }
 
 button:hover{
-  background:#fff;
+  opacity:.85;
 }
 
-.danger{
-  background:#d33;
+.logout{
+  background:#b00020;
   color:#fff;
 }
 
-.success{
-  color:#00ff88;
-}
-
-.error{
-  color:#ff5555;
-}
-
-.message{
-  margin:10px 0;
-  padding:10px;
-  border-radius:8px;
-}
-
-.login-box{
-  max-width:450px;
-  margin:70px auto;
+.refresh{
+  background:#333;
+  color:#fff;
 }
 
 .hidden{
   display:none;
 }
 
+.message{
+  padding:12px;
+  border-radius:8px;
+  margin:10px 0;
+  background:#191919;
+  border:1px solid #444;
+}
+
+.success{
+  border-color:#00c853;
+  color:#00e676;
+}
+
+.error{
+  border-color:#ff1744;
+  color:#ff5252;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+  min-width:900px;
+}
+
+th,
+td{
+  border:1px solid #333;
+  padding:10px;
+  text-align:left;
+  vertical-align:top;
+}
+
+th{
+  background:#1b1b1b;
+  color:#d4af37;
+}
+
+td{
+  background:#101010;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
 .card{
-  background:#181818;
+  background:#0d0d0d;
   border:1px solid #333;
   border-radius:12px;
   padding:16px;
   margin:12px 0;
 }
 
-.card strong{
-  color:#ffd700;
-}
-
-.badge{
-  display:inline-block;
-  padding:5px 10px;
-  border-radius:20px;
-  background:#333;
-  margin-top:8px;
-  font-size:13px;
-}
-
-.pending{
-  color:#ffd700;
-}
-
-.approved{
-  color:#00ff88;
-}
-
-.rejected{
-  color:#ff5555;
-}
-
-.code{
-  font-size:20px;
-  color:#ffd700;
-  font-weight:bold;
-  letter-spacing:2px;
+.card h3{
+  color:#d4af37;
+  margin-bottom:10px;
 }
 
 .small{
   color:#aaa;
   font-size:13px;
-  margin-top:6px;
 }
 
-pre{
+.answer-box{
+  background:#171717;
+  border-left:3px solid #d4af37;
+  padding:12px;
+  margin:8px 0;
+  border-radius:5px;
   white-space:pre-wrap;
-  word-break:break-word;
-  color:#ddd;
-  background:#0d0d0d;
-  padding:10px;
-  border-radius:8px;
-  margin-top:8px;
 }
 
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.result-controls{
+  margin-top:15px;
+  padding-top:15px;
+  border-top:1px solid #333;
+}
+
+.result-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:20px;
 }
 
-.empty{
-  color:#888;
+.status-pass{
+  color:#00e676;
+  font-weight:bold;
+}
+
+.status-fail{
+  color:#ff5252;
+  font-weight:bold;
+}
+
+.status-pending{
+  color:#ffd740;
+  font-weight:bold;
+}
+
+footer{
   text-align:center;
+  color:#777;
   padding:20px;
 }
 
 @media(max-width:600px){
   body{
     padding:10px;
+  }
+
+  header h1{
+    font-size:23px;
   }
 
   .panel{
@@ -196,58 +237,86 @@ pre{
 
 <div class="container">
 
-<!-- LOGIN -->
-<div id="loginPanel" class="login-box panel">
+<header>
+  <h1>🏛️ Classic Empire Ltd</h1>
+  <p>Admin Control Panel</p>
+</header>
 
-  <h1>Classic Empire Ltd</h1>
+
+<!-- LOGIN -->
+<div id="loginPanel" class="panel">
 
   <h2>🔐 Admin Login</h2>
 
   <input
     type="email"
-    id="email"
+    id="loginEmail"
     placeholder="Admin Email"
   >
 
   <input
     type="password"
-    id="password"
+    id="loginPassword"
     placeholder="Password"
   >
 
-  <button onclick="adminLogin()">
-    Login
-  </button>
+  <button onclick="loginAdmin()">Login</button>
 
-  <div id="loginMessage" class="message"></div>
+  <div id="loginMessage"></div>
 
 </div>
 
 
-<!-- ADMIN -->
+<!-- ADMIN AREA -->
 <div id="adminPanel" class="hidden">
 
-  <div class="topbar">
-    <h1>👑 Classic Empire Ltd — Admin Panel</h1>
+  <div class="panel">
 
-    <button class="danger" onclick="logout()">
+    <button class="logout" onclick="logoutAdmin()">
       🚪 Logout
     </button>
+
+    <button class="refresh" onclick="loadAll()">
+      🔄 Refresh All
+    </button>
+
   </div>
 
 
   <!-- APPLICATIONS -->
   <div class="panel">
 
-    <h2>📝 Applicant Applications</h2>
+    <h2>📋 Applicant Applications</h2>
 
-    <button onclick="loadApplications()">
-      🔄 Refresh Applications
-    </button>
+    <div id="applicationsMessage"></div>
 
-    <div id="applicationMessage" class="message"></div>
+    <div class="table-wrap">
 
-    <div id="applicationList"></div>
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>ID</th>
+            <th>Applicant</th>
+            <th>Age</th>
+            <th>Class</th>
+            <th>Post</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Photo</th>
+            <th>Reason</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="applicationsTable"></tbody>
+
+      </table>
+
+    </div>
 
   </div>
 
@@ -265,9 +334,7 @@ pre{
 
     <select id="codePost">
 
-      <option value="">
-        Select Post
-      </option>
+      <option value="">-- Post Select करें --</option>
 
       <option>President's Assistant</option>
       <option>DM</option>
@@ -282,7 +349,7 @@ pre{
       Generate Exam Code
     </button>
 
-    <div id="codeMessage" class="message"></div>
+    <div id="codeMessage"></div>
 
   </div>
 
@@ -290,40 +357,54 @@ pre{
   <!-- CODE HISTORY -->
   <div class="panel">
 
-    <h2>📋 Exam Code History</h2>
+    <h2>🎫 Exam Code History</h2>
 
-    <button onclick="loadExamCodes()">
-      🔄 Refresh Codes
-    </button>
+    <div class="table-wrap">
 
-    <div id="codeHistoryMessage" class="message"></div>
+      <table>
 
-    <div id="codeList"></div>
+        <thead>
+
+          <tr>
+            <th>ID</th>
+            <th>Code</th>
+            <th>Applicant</th>
+            <th>Post</th>
+            <th>Used</th>
+            <th>Created</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="codesTable"></tbody>
+
+      </table>
+
+    </div>
 
   </div>
 
 
   <!-- SUBMISSIONS -->
-  <div class="panel" id="submissionPanel">
+  <div class="panel">
 
-    <h2>📊 Exam Submission History</h2>
+    <h2>📝 Exam Submission History</h2>
 
-    <button onclick="loadExamSubmissions()">
-      🔄 Refresh Submissions
-    </button>
+    <div id="submissionMessage"></div>
 
-    <div id="submissionMessage" class="message"></div>
-
-    <div id="submissionList"></div>
+    <div id="submissionsContainer"></div>
 
   </div>
 
 </div>
 
+
+<footer>
+  Classic Empire Ltd © 2026
+</footer>
+
 </div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
@@ -333,16 +414,9 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
-const supabaseClient =
-supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
 
+let accessToken = null;
 
-// ===============================
-// HTML ESCAPE
-// ===============================
 
 function escapeHTML(value){
 
@@ -359,17 +433,68 @@ function escapeHTML(value){
 }
 
 
-// ===============================
-// LOGIN
-// ===============================
+async function supabaseRequest(
+  endpoint,
+  options={}
+){
 
-async function adminLogin(){
+  const response = await fetch(
+    SUPABASE_URL + endpoint,
+    {
+      ...options,
+
+      headers:{
+        "apikey":SUPABASE_KEY,
+
+        "Authorization":
+          "Bearer " +
+          (accessToken || SUPABASE_KEY),
+
+        "Content-Type":
+          "application/json",
+
+        ...(options.headers || {})
+      }
+    }
+  );
+
+  const text = await response.text();
+
+  let data;
+
+  try{
+    data = text ? JSON.parse(text) : null;
+  }catch{
+    data = text;
+  }
+
+  if(!response.ok){
+
+    throw new Error(
+      data?.message ||
+      data?.error_description ||
+      data?.error ||
+      text ||
+      "Request failed"
+    );
+
+  }
+
+  return data;
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+async function loginAdmin(){
 
   const email =
-    document.getElementById("email").value.trim();
+    document.getElementById("loginEmail").value.trim();
 
   const password =
-    document.getElementById("password").value;
+    document.getElementById("loginPassword").value;
 
   const message =
     document.getElementById("loginMessage");
@@ -379,537 +504,838 @@ async function adminLogin(){
   if(!email || !password){
 
     message.innerHTML =
-      "<span class='error'>Email और Password भरें।</span>";
+      `<div class="message error">
+        Email और Password भरें।
+      </div>`;
 
     return;
   }
 
-  const {error} =
-    await supabaseClient.auth.signInWithPassword({
-      email:email,
-      password:password
-    });
 
-  if(error){
+  try{
+
+    const data = await supabaseRequest(
+      "/auth/v1/token?grant_type=password",
+      {
+        method:"POST",
+        headers:{
+          "apikey":SUPABASE_KEY,
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          email:email,
+          password:password
+        })
+      }
+    );
+
+
+    accessToken =
+      data.access_token;
+
+
+    const check =
+      await supabaseRequest(
+        "/rest/v1/rpc/check_admin",
+        {
+          method:"POST",
+          body:"{}"
+        }
+      );
+
+
+    if(
+      !check ||
+      check.is_admin !== true
+    ){
+
+      accessToken = null;
+
+      throw new Error(
+        "यह Account Admin नहीं है।"
+      );
+
+    }
+
+
+    localStorage.setItem(
+      "ce_admin_token",
+      accessToken
+    );
+
+
+    document.getElementById(
+      "loginPanel"
+    ).classList.add("hidden");
+
+
+    document.getElementById(
+      "adminPanel"
+    ).classList.remove("hidden");
+
+
+    await loadAll();
+
+
+  }catch(error){
 
     message.innerHTML =
-      "<span class='error'>" +
-      escapeHTML(error.message) +
-      "</span>";
-
-    return;
-  }
-
-  await verifyAdmin();
-
-}
-
-
-// ===============================
-// VERIFY ADMIN
-// ===============================
-
-async function verifyAdmin(){
-
-  const {data,error} =
-    await supabaseClient.rpc("check_admin");
-
-  if(error){
-
-    alert("Admin verification failed");
-
-    await supabaseClient.auth.signOut();
-
-    return;
-  }
-
-  if(!data || data.is_admin !== true){
-
-    alert("यह Account Admin नहीं है।");
-
-    await supabaseClient.auth.signOut();
-
-    return;
-  }
-
-  document
-    .getElementById("loginPanel")
-    .classList.add("hidden");
-
-  document
-    .getElementById("adminPanel")
-    .classList.remove("hidden");
-
-  loadApplications();
-  loadExamCodes();
-  loadExamSubmissions();
-
-}
-
-
-// ===============================
-// SESSION CHECK
-// ===============================
-
-async function checkSession(){
-
-  const {data} =
-    await supabaseClient.auth.getSession();
-
-  if(data.session){
-
-    await verifyAdmin();
+      `<div class="message error">
+        ❌ ${escapeHTML(error.message)}
+      </div>`;
 
   }
 
 }
 
-checkSession();
 
+/* =========================
+   LOGOUT
+========================= */
 
-// ===============================
-// LOGOUT
-// ===============================
+function logoutAdmin(){
 
-async function logout(){
+  accessToken = null;
 
-  await supabaseClient.auth.signOut();
+  localStorage.removeItem(
+    "ce_admin_token"
+  );
 
   location.reload();
 
 }
 
 
-// ===============================
-// APPLICATIONS
-// ===============================
+/* =========================
+   LOAD ALL
+========================= */
 
-async function loadApplications(){
+async function loadAll(){
 
-  const list =
-    document.getElementById("applicationList");
-
-  const message =
-    document.getElementById("applicationMessage");
-
-  list.innerHTML = "";
-  message.innerHTML = "Loading...";
-
-  const {data,error} =
-    await supabaseClient.rpc("get_applications");
-
-  if(error){
-
-    message.innerHTML =
-      "<span class='error'>" +
-      escapeHTML(error.message) +
-      "</span>";
-
-    return;
-  }
-
-  message.innerHTML = "";
-
-  if(!data || data.length === 0){
-
-    list.innerHTML =
-      "<div class='empty'>अभी कोई application नहीं है।</div>";
-
-    return;
-  }
-
-  data.forEach(app => {
-
-    let statusClass = "pending";
-
-    if(app.status === "Approved"){
-      statusClass = "approved";
-    }
-
-    if(app.status === "Rejected"){
-      statusClass = "rejected";
-    }
-
-    const card =
-      document.createElement("div");
-
-    card.className = "card";
-
-    card.innerHTML = `
-
-      <div>
-        <strong>Applicant Name:</strong>
-        ${escapeHTML(app.applicant_name)}
-      </div>
-
-      <div>
-        <strong>Age:</strong>
-        ${escapeHTML(app.age)}
-      </div>
-
-      <div>
-        <strong>Class:</strong>
-        ${escapeHTML(app.class)}
-      </div>
-
-      <div>
-        <strong>Post:</strong>
-        ${escapeHTML(app.post)}
-      </div>
-
-      <div>
-        <strong>Email:</strong>
-        ${escapeHTML(app.applicant_email)}
-      </div>
-
-      <div>
-        <strong>Contact:</strong>
-        ${escapeHTML(app.contact_number)}
-      </div>
-
-      <div>
-        <strong>Photo:</strong>
-        ${escapeHTML(app.applicant_photo)}
-      </div>
-
-      <div>
-        <strong>Reason:</strong>
-
-        <pre>${escapeHTML(app.reason)}</pre>
-
-      </div>
-
-      <div>
-        <strong>Status:</strong>
-
-        <span class="badge ${statusClass}">
-          ${escapeHTML(app.status || "Pending")}
-        </span>
-
-      </div>
-
-      <div class="small">
-        Applied:
-        ${escapeHTML(
-          new Date(app.created_at).toLocaleString()
-        )}
-      </div>
-
-      <hr style="margin:15px 0;border-color:#333">
-
-      <button
-        onclick="generateApplicantCode(
-          '${escapeHTML(app.applicant_name).replace(/'/g,"\\'")}',
-          '${escapeHTML(app.post).replace(/'/g,"\\'")}'
-        )"
-      >
-        🎟️ Generate Exam Code
-      </button>
-
-    `;
-
-    list.appendChild(card);
-
-  });
+  await Promise.all([
+    loadApplications(),
+    loadCodes(),
+    loadSubmissions()
+  ]);
 
 }
 
 
-// ===============================
-// GENERATE CODE FROM APPLICATION
-// ===============================
+/* =========================
+   APPLICATIONS
+========================= */
 
-async function generateApplicantCode(
+async function loadApplications(){
+
+  const table =
+    document.getElementById(
+      "applicationsTable"
+    );
+
+  const message =
+    document.getElementById(
+      "applicationsMessage"
+    );
+
+  table.innerHTML = "";
+
+  try{
+
+    const data =
+      await supabaseRequest(
+        "/rest/v1/rpc/get_applications",
+        {
+          method:"POST",
+          body:"{}"
+        }
+      );
+
+
+    if(!data || data.length === 0){
+
+      table.innerHTML =
+        `<tr>
+          <td colspan="11">
+            कोई application नहीं मिली।
+          </td>
+        </tr>`;
+
+      return;
+    }
+
+
+    data.forEach(app => {
+
+      const tr =
+        document.createElement("tr");
+
+
+      tr.innerHTML = `
+
+        <td>${escapeHTML(app.id)}</td>
+
+        <td>
+          <strong>
+            ${escapeHTML(app.applicant_name)}
+          </strong>
+        </td>
+
+        <td>${escapeHTML(app.age)}</td>
+
+        <td>${escapeHTML(app.class)}</td>
+
+        <td>${escapeHTML(app.post)}</td>
+
+        <td>${escapeHTML(app.applicant_email)}</td>
+
+        <td>${escapeHTML(app.contact_number)}</td>
+
+        <td>
+          ${escapeHTML(app.applicant_photo)}
+        </td>
+
+        <td>
+          ${escapeHTML(app.reason)}
+        </td>
+
+        <td>
+          ${escapeHTML(app.status || "Pending")}
+        </td>
+
+        <td>
+
+          <button
+            onclick='useApplicationForCode(
+              ${JSON.stringify(app.applicant_name)},
+              ${JSON.stringify(app.post)}
+            )'
+          >
+            🎟️ Generate Code
+          </button>
+
+        </td>
+
+      `;
+
+      table.appendChild(tr);
+
+    });
+
+
+  }catch(error){
+
+    message.innerHTML =
+      `<div class="message error">
+        ❌ ${escapeHTML(error.message)}
+      </div>`;
+
+  }
+
+}
+
+
+/* =========================
+   USE APPLICATION
+========================= */
+
+function useApplicationForCode(
   applicantName,
   post
 ){
 
-  document
-    .getElementById("codeApplicantName")
-    .value = applicantName;
+  document.getElementById(
+    "codeApplicantName"
+  ).value = applicantName;
 
-  document
-    .getElementById("codePost")
-    .value = post;
 
-  await generateCode();
+  document.getElementById(
+    "codePost"
+  ).value = post;
+
+
+  document.getElementById(
+    "codeApplicantName"
+  ).scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
 
 }
 
 
-// ===============================
-// GENERATE EXAM CODE
-// ===============================
+/* =========================
+   GENERATE CODE
+========================= */
 
 async function generateCode(){
 
-  const applicantName =
-    document
-      .getElementById("codeApplicantName")
-      .value
-      .trim();
+  const name =
+    document.getElementById(
+      "codeApplicantName"
+    ).value.trim();
+
 
   const post =
-    document
-      .getElementById("codePost")
-      .value;
+    document.getElementById(
+      "codePost"
+    ).value;
+
 
   const message =
-    document.getElementById("codeMessage");
+    document.getElementById(
+      "codeMessage"
+    );
+
 
   message.innerHTML = "";
 
-  if(!applicantName || !post){
+
+  if(!name || !post){
 
     message.innerHTML =
-      "<span class='error'>" +
-      "Applicant Name और Post चुनें।" +
-      "</span>";
+      `<div class="message error">
+        Applicant Name और Post भरें।
+      </div>`;
 
     return;
+
   }
 
-  message.innerHTML = "Generating...";
 
-  const {data,error} =
-    await supabaseClient.rpc(
-      "generate_exam_code",
-      {
-        input_applicant_name: applicantName,
-        input_post: post
+  try{
+
+    const result =
+      await supabaseRequest(
+        "/rest/v1/rpc/generate_exam_code",
+        {
+          method:"POST",
+          body:JSON.stringify({
+            input_applicant_name:name,
+            input_post:post
+          })
+        }
+      );
+
+
+    message.innerHTML =
+      `<div class="message success">
+        ✅ Exam Code Generated:
+        <strong>
+          ${escapeHTML(result)}
+        </strong>
+      </div>`;
+
+
+    await loadCodes();
+
+
+  }catch(error){
+
+    message.innerHTML =
+      `<div class="message error">
+        ❌ ${escapeHTML(error.message)}
+      </div>`;
+
+  }
+
+}
+
+
+/* =========================
+   CODE HISTORY
+========================= */
+
+async function loadCodes(){
+
+  const table =
+    document.getElementById(
+      "codesTable"
+    );
+
+  table.innerHTML = "";
+
+  try{
+
+    const data =
+      await supabaseRequest(
+        "/rest/v1/rpc/get_exam_codes",
+        {
+          method:"POST",
+          body:"{}"
+        }
+      );
+
+
+    if(!data || data.length === 0){
+
+      table.innerHTML =
+        `<tr>
+          <td colspan="6">
+            कोई Exam Code नहीं है।
+          </td>
+        </tr>`;
+
+      return;
+
+    }
+
+
+    data.forEach(code => {
+
+      const tr =
+        document.createElement("tr");
+
+
+      tr.innerHTML = `
+
+        <td>${escapeHTML(code.id)}</td>
+
+        <td>
+          <strong>
+            ${escapeHTML(code.code)}
+          </strong>
+        </td>
+
+        <td>
+          ${escapeHTML(code.applicant_name)}
+        </td>
+
+        <td>
+          ${escapeHTML(code.post)}
+        </td>
+
+        <td>
+          ${
+            code.used
+            ? '<span class="status-fail">Used</span>'
+            : '<span class="status-pass">Unused</span>'
+          }
+        </td>
+
+        <td>
+          ${escapeHTML(
+            new Date(code.created_at)
+            .toLocaleString("en-IN")
+          )}
+        </td>
+
+      `;
+
+      table.appendChild(tr);
+
+    });
+
+
+  }catch(error){
+
+    table.innerHTML =
+      `<tr>
+        <td colspan="6">
+          ❌ ${escapeHTML(error.message)}
+        </td>
+      </tr>`;
+
+  }
+
+}
+
+
+/* =========================
+   SUBMISSIONS
+========================= */
+
+async function loadSubmissions(){
+
+  const container =
+    document.getElementById(
+      "submissionsContainer"
+    );
+
+  const message =
+    document.getElementById(
+      "submissionMessage"
+    );
+
+  container.innerHTML = "";
+
+  try{
+
+    const data =
+      await supabaseRequest(
+        "/rest/v1/rpc/get_exam_submissions",
+        {
+          method:"POST",
+          body:"{}"
+        }
+      );
+
+
+    if(!data || data.length === 0){
+
+      container.innerHTML =
+        `<div class="message">
+          अभी कोई Exam Submission नहीं है।
+        </div>`;
+
+      return;
+
+    }
+
+
+    data.forEach(sub => {
+
+      const card =
+        document.createElement("div");
+
+      card.className = "card";
+
+
+      const result =
+        sub.final_result || "Pending";
+
+
+      let resultClass =
+        "status-pending";
+
+
+      if(
+        String(result).toLowerCase()
+        .includes("pass")
+      ){
+
+        resultClass =
+          "status-pass";
+
       }
-    );
 
-  if(error){
+
+      if(
+        String(result).toLowerCase()
+        .includes("fail")
+      ){
+
+        resultClass =
+          "status-fail";
+
+      }
+
+
+      card.innerHTML = `
+
+        <h3>
+          👤 ${escapeHTML(sub.applicant_name)}
+        </h3>
+
+        <p class="small">
+          Submission ID:
+          ${escapeHTML(sub.id)}
+        </p>
+
+        <p>
+          <strong>Post:</strong>
+          ${escapeHTML(sub.post)}
+        </p>
+
+        <p>
+          <strong>Exam Code:</strong>
+          ${escapeHTML(sub.exam_code)}
+        </p>
+
+        <p>
+          <strong>Objective Score:</strong>
+          ${escapeHTML(sub.objective_score)}
+          / 18
+        </p>
+
+
+        <h4 style="margin-top:15px;color:#d4af37;">
+          📖 Subjective Answer 1
+        </h4>
+
+        <div class="answer-box">
+          ${escapeHTML(
+            sub.subjective_answer_1
+          )}
+        </div>
+
+
+        <h4 style="margin-top:15px;color:#d4af37;">
+          📖 Subjective Answer 2
+        </h4>
+
+        <div class="answer-box">
+          ${escapeHTML(
+            sub.subjective_answer_2
+          )}
+        </div>
+
+
+        <div class="result-controls">
+
+          <h4 style="color:#d4af37;">
+            🧑‍⚖️ Admin Checking
+          </h4>
+
+          <div class="result-grid">
+
+            <div>
+              <label>
+                Subjective Marks
+              </label>
+
+              <input
+                type="number"
+                min="0"
+                max="10"
+                id="subjective_${sub.id}"
+                value="${escapeHTML(
+                  sub.subjective_marks ?? 0
+                )}"
+              >
+
+            </div>
+
+
+            <div>
+              <label>
+                Total Marks
+              </label>
+
+              <input
+                type="number"
+                min="0"
+                id="total_${sub.id}"
+                value="${escapeHTML(
+                  sub.total_marks ?? sub.objective_score
+                )}"
+              >
+
+            </div>
+
+
+            <div>
+              <label>
+                Final Result
+              </label>
+
+              <select id="result_${sub.id}">
+
+                <option
+                  value="Pending"
+                  ${result === "Pending" ? "selected" : ""}
+                >
+                  Pending
+                </option>
+
+                <option
+                  value="Pass"
+                  ${result === "Pass" ? "selected" : ""}
+                >
+                  Pass
+                </option>
+
+                <option
+                  value="Fail"
+                  ${result === "Fail" ? "selected" : ""}
+                >
+                  Fail
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <button
+            onclick="saveResult(${sub.id})"
+          >
+            💾 Save Final Result
+          </button>
+
+
+          <p style="margin-top:10px;">
+            Current Result:
+            <span class="${resultClass}">
+              ${escapeHTML(result)}
+            </span>
+          </p>
+
+        </div>
+
+      `;
+
+
+      container.appendChild(card);
+
+    });
+
+
+  }catch(error){
 
     message.innerHTML =
-      "<span class='error'>" +
-      escapeHTML(error.message) +
-      "</span>";
+      `<div class="message error">
+        ❌ ${escapeHTML(error.message)}
+      </div>`;
 
-    return;
   }
-
-  message.innerHTML =
-    "<span class='success'>" +
-    "Exam Code Generated: " +
-    "<span class='code'>" +
-    escapeHTML(data) +
-    "</span>" +
-    "</span>";
-
-  loadExamCodes();
 
 }
 
 
-// ===============================
-// EXAM CODE HISTORY
-// ===============================
+/* =========================
+   SAVE RESULT
+========================= */
 
-async function loadExamCodes(){
+async function saveResult(id){
 
-  const list =
-    document.getElementById("codeList");
-
-  const message =
-    document.getElementById("codeHistoryMessage");
-
-  list.innerHTML = "";
-  message.innerHTML = "Loading...";
-
-  const {data,error} =
-    await supabaseClient.rpc(
-      "get_exam_codes"
+  const subjective =
+    Number(
+      document.getElementById(
+        `subjective_${id}`
+      ).value
     );
 
-  if(error){
 
-    message.innerHTML =
-      "<span class='error'>" +
-      escapeHTML(error.message) +
-      "</span>";
+  const total =
+    Number(
+      document.getElementById(
+        `total_${id}`
+      ).value
+    );
 
+
+  const result =
+    document.getElementById(
+      `result_${id}`
+    ).value;
+
+
+  if(
+    Number.isNaN(subjective) ||
+    Number.isNaN(total)
+  ){
+
+    alert("Marks सही भरें।");
     return;
+
   }
 
-  message.innerHTML = "";
 
-  if(!data || data.length === 0){
+  try{
 
-    list.innerHTML =
-      "<div class='empty'>अभी कोई Exam Code नहीं है।</div>";
+    const data =
+      await supabaseRequest(
+        "/rest/v1/rpc/update_exam_result",
+        {
+          method:"POST",
+          body:JSON.stringify({
+            input_submission_id:id,
+            input_subjective_marks:subjective,
+            input_total_marks:total,
+            input_final_result:result
+          })
+        }
+      );
 
-    return;
+
+    if(!data || data.success !== true){
+
+      throw new Error(
+        data?.message ||
+        "Result update नहीं हुआ"
+      );
+
+    }
+
+
+    alert(
+      "✅ Final Result Successfully Updated"
+    );
+
+
+    await loadSubmissions();
+
+
+  }catch(error){
+
+    alert(
+      "❌ " + error.message
+    );
+
   }
-
-  data.forEach(row => {
-
-    const card =
-      document.createElement("div");
-
-    card.className = "card";
-
-    const status =
-      row.used
-        ? "<span class='rejected'>Used</span>"
-        : "<span class='approved'>Unused</span>";
-
-    card.innerHTML = `
-
-      <div class="code">
-        ${escapeHTML(row.code)}
-      </div>
-
-      <div>
-        <strong>Applicant:</strong>
-        ${escapeHTML(row.applicant_name)}
-      </div>
-
-      <div>
-        <strong>Post:</strong>
-        ${escapeHTML(row.post)}
-      </div>
-
-      <div>
-        <strong>Status:</strong>
-        ${status}
-      </div>
-
-      <div class="small">
-        Created:
-        ${escapeHTML(
-          new Date(row.created_at).toLocaleString()
-        )}
-      </div>
-
-    `;
-
-    list.appendChild(card);
-
-  });
 
 }
 
 
-// ===============================
-// EXAM SUBMISSIONS
-// ===============================
+/* =========================
+   AUTO LOGIN FROM TOKEN
+========================= */
 
-async function loadExamSubmissions(){
+async function restoreSession(){
 
-  const list =
-    document.getElementById("submissionList");
-
-  const message =
-    document.getElementById("submissionMessage");
-
-  list.innerHTML = "";
-  message.innerHTML = "Loading...";
-
-  const {data,error} =
-    await supabaseClient.rpc(
-      "get_exam_submissions"
+  const savedToken =
+    localStorage.getItem(
+      "ce_admin_token"
     );
 
-  if(error){
 
-    message.innerHTML =
-      "<span class='error'>" +
-      escapeHTML(error.message) +
-      "</span>";
-
+  if(!savedToken){
     return;
   }
 
-  message.innerHTML = "";
 
-  if(!data || data.length === 0){
+  accessToken =
+    savedToken;
 
-    list.innerHTML =
-      "<div class='empty'>अभी कोई exam submission नहीं है।</div>";
 
-    return;
+  try{
+
+    const check =
+      await supabaseRequest(
+        "/rest/v1/rpc/check_admin",
+        {
+          method:"POST",
+          body:"{}"
+        }
+      );
+
+
+    if(
+      check &&
+      check.is_admin === true
+    ){
+
+      document.getElementById(
+        "loginPanel"
+      ).classList.add("hidden");
+
+
+      document.getElementById(
+        "adminPanel"
+      ).classList.remove("hidden");
+
+
+      await loadAll();
+
+    }else{
+
+      logoutAdmin();
+
+    }
+
+
+  }catch(error){
+
+    logoutAdmin();
+
   }
-
-  data.forEach(row => {
-
-    const card =
-      document.createElement("div");
-
-    card.className = "card";
-
-    card.innerHTML = `
-
-      <div>
-        <strong>Applicant:</strong>
-        ${escapeHTML(row.applicant_name)}
-      </div>
-
-      <div>
-        <strong>Post:</strong>
-        ${escapeHTML(row.post)}
-      </div>
-
-      <div>
-        <strong>Exam Code:</strong>
-        <span class="code">
-          ${escapeHTML(row.exam_code)}
-        </span>
-      </div>
-
-      <div>
-        <strong>Objective Score:</strong>
-        ${escapeHTML(row.objective_score)} / 18
-      </div>
-
-      <div>
-        <strong>Subjective Marks:</strong>
-        ${escapeHTML(row.subjective_marks)}
-      </div>
-
-      <div>
-        <strong>Total Marks:</strong>
-        ${escapeHTML(row.total_marks)}
-      </div>
-
-      <div>
-        <strong>Final Result:</strong>
-        ${escapeHTML(row.final_result)}
-      </div>
-
-      <div>
-        <strong>Subjective Answer 1:</strong>
-
-        <pre>${escapeHTML(
-          row.subjective_answer_1
-        )}</pre>
-
-      </div>
-
-      <div>
-        <strong>Subjective Answer 2:</strong>
-
-        <pre>${escapeHTML(
-          row.subjective_answer_2
-        )}</pre>
-
-      </div>
-
-      <div class="small">
-        Submitted:
-        ${escapeHTML(
-          new Date(row.submitted_at).toLocaleString()
-        )}
-      </div>
-
-    `;
-
-    list.appendChild(card);
-
-  });
 
 }
+
+
+restoreSession();
 
 </script>
 

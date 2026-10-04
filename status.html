@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Classic Empire Ltd - Application Status</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#080808;
+  color:#fff;
+  min-height:100vh;
+  padding:20px;
+}
+
+.container{
+  max-width:650px;
+  margin:auto;
+}
+
+header{
+  text-align:center;
+  padding:25px;
+  background:linear-gradient(135deg,#181818,#090909);
+  border:1px solid #d4af37;
+  border-radius:18px;
+  margin-bottom:20px;
+}
+
+header h1{
+  color:#d4af37;
+  margin-bottom:8px;
+}
+
+header p{
+  color:#aaa;
+}
+
+.panel{
+  background:#111;
+  border:1px solid #333;
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:20px;
+}
+
+.panel h2{
+  color:#d4af37;
+  margin-bottom:15px;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  border-radius:8px;
+  border:1px solid #555;
+  background:#181818;
+  color:#fff;
+  outline:none;
+}
+
+input:focus{
+  border-color:#d4af37;
+}
+
+button{
+  width:100%;
+  padding:13px;
+  margin-top:8px;
+  border:0;
+  border-radius:8px;
+  background:#d4af37;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.85;
+}
+
+.exam-button{
+  background:#00c853;
+  color:#000;
+  margin-top:15px;
+}
+
+.message{
+  padding:12px;
+  border-radius:8px;
+  margin-top:12px;
+  border:1px solid #444;
+  background:#191919;
+}
+
+.error{
+  color:#ff5252;
+  border-color:#ff1744;
+}
+
+.success{
+  color:#00e676;
+  border-color:#00c853;
+}
+
+.warning{
+  color:#ffd740;
+  border-color:#ffd740;
+}
+
+.info-card{
+  background:#0d0d0d;
+  border:1px solid #333;
+  border-radius:12px;
+  padding:18px;
+  margin-top:15px;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:11px 0;
+  border-bottom:1px solid #292929;
+}
+
+.row:last-child{
+  border-bottom:0;
+}
+
+.label{
+  color:#aaa;
+}
+
+.value{
+  text-align:right;
+  font-weight:bold;
+}
+
+.pending{
+  color:#ffd740;
+}
+
+.approved{
+  color:#00e676;
+}
+
+.rejected{
+  color:#ff5252;
+}
+
+.code-box{
+  margin-top:15px;
+  padding:18px;
+  text-align:center;
+  background:#171717;
+  border:1px solid #d4af37;
+  border-radius:10px;
+}
+
+.code-box small{
+  color:#aaa;
+}
+
+.code{
+  display:block;
+  margin-top:8px;
+  color:#d4af37;
+  font-size:25px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+footer{
+  text-align:center;
+  color:#666;
+  padding:20px;
+}
+
+.hidden{
+  display:none;
+}
+
+@media(max-width:500px){
+
+  body{
+    padding:10px;
+  }
+
+  .row{
+    flex-direction:column;
+    gap:4px;
+  }
+
+  .value{
+    text-align:left;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+  <h1>🏛️ Classic Empire Ltd</h1>
+  <p>Application Status Portal</p>
+</header>
+
+
+<div class="panel">
+
+  <h2>📋 Check Application Status</h2>
+
+  <p style="color:#aaa;margin-bottom:12px;">
+    वही Email डालें जो Application में दिया था।
+  </p>
+
+  <input
+    type="email"
+    id="email"
+    placeholder="Applicant Email"
+  >
+
+  <button onclick="checkStatus()">
+    🔎 Check Status
+  </button>
+
+  <div id="message"></div>
+
+</div>
+
+
+<div
+  id="resultPanel"
+  class="panel hidden"
+>
+
+  <h2>📄 Application Details</h2>
+
+  <div
+    id="result"
+    class="info-card"
+  ></div>
+
+</div>
+
+
+<footer>
+  Classic Empire Ltd © 2026
+</footer>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://hjatspkzgoddcpgwfkxo.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
+
+
+function escapeHTML(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+async function checkStatus(){
+
+  const email =
+    document
+      .getElementById("email")
+      .value
+      .trim();
+
+
+  const message =
+    document.getElementById(
+      "message"
+    );
+
+
+  const resultPanel =
+    document.getElementById(
+      "resultPanel"
+    );
+
+
+  const result =
+    document.getElementById(
+      "result"
+    );
+
+
+  message.innerHTML = "";
+
+  result.innerHTML = "";
+
+  resultPanel.classList.add(
+    "hidden"
+  );
+
+
+  if(!email){
+
+    message.innerHTML =
+      `<div class="message error">
+        कृपया Email डालें।
+      </div>`;
+
+    return;
+  }
+
+
+  try{
+
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/rpc/get_application_status",
+        {
+          method:"POST",
+
+          headers:{
+            "apikey":SUPABASE_KEY,
+            "Authorization":
+              "Bearer " + SUPABASE_KEY,
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+            input_applicant_email:
+              email
+          })
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(!response.ok){
+
+      throw new Error(
+        data?.message ||
+        "Status check failed"
+      );
+
+    }
+
+
+    if(
+      !data ||
+      data.success !== true
+    ){
+
+      message.innerHTML =
+        `<div class="message error">
+          ❌ ${
+            escapeHTML(
+              data?.message ||
+              "Application नहीं मिली"
+            )
+          }
+        </div>`;
+
+      return;
+
+    }
+
+
+    let statusClass =
+      "pending";
+
+
+    if(data.status === "Approved"){
+      statusClass = "approved";
+    }
+
+    if(data.status === "Rejected"){
+      statusClass = "rejected";
+    }
+
+
+    let extraHTML = "";
+
+
+    if(data.status === "Approved"){
+
+      if(data.exam_code){
+
+        extraHTML = `
+
+          <div class="code-box">
+
+            <small>
+              🎟️ Your Exam Code
+            </small>
+
+            <span class="code">
+              ${escapeHTML(
+                data.exam_code
+              )}
+            </span>
+
+            <p
+              style="
+                color:#aaa;
+                margin-top:10px;
+                font-size:13px;
+              "
+            >
+              यह Code Exam Portal में इस्तेमाल करें।
+            </p>
+
+            ${
+              data.code_used
+              ?
+              `<p
+                style="
+                  color:#ff5252;
+                  margin-top:10px;
+                "
+              >
+                🔒 यह Code पहले ही इस्तेमाल हो चुका है।
+              </p>`
+              :
+              `<button
+                class="exam-button"
+                onclick="openExam()"
+              >
+                📝 Open Exam Portal
+              </button>`
+            }
+
+          </div>
+
+        `;
+
+      }
+      else{
+
+        extraHTML = `
+
+          <div class="message warning">
+            ✅ Application Approved है।
+            <br>
+            Exam Code अभी generate नहीं हुआ है।
+          </div>
+
+        `;
+
+      }
+
+    }
+
+
+    if(data.status === "Pending"){
+
+      extraHTML = `
+
+        <div class="message warning">
+          ⏳ आपकी Application अभी Admin
+          द्वारा review की जा रही है।
+        </div>
+
+      `;
+
+    }
+
+
+    if(data.status === "Rejected"){
+
+      extraHTML = `
+
+        <div class="message error">
+          ❌ आपकी Application Rejected है।
+        </div>
+
+      `;
+
+    }
+
+
+    result.innerHTML = `
+
+      <div class="row">
+
+        <span class="label">
+          Applicant Name
+        </span>
+
+        <span class="value">
+          ${escapeHTML(
+            data.applicant_name
+          )}
+        </span>
+
+      </div>
+
+
+      <div class="row">
+
+        <span class="label">
+          Applied Post
+        </span>
+
+        <span class="value">
+          ${escapeHTML(
+            data.post
+          )}
+        </span>
+
+      </div>
+
+
+      <div class="row">
+
+        <span class="label">
+          Application Status
+        </span>
+
+        <span class="value ${statusClass}">
+          ${escapeHTML(
+            data.status
+          )}
+        </span>
+
+      </div>
+
+
+      ${extraHTML}
+
+    `;
+
+
+    resultPanel.classList.remove(
+      "hidden"
+    );
+
+  }
+  catch(error){
+
+    message.innerHTML =
+      `<div class="message error">
+        ❌ ${escapeHTML(
+          error.message
+        )}
+      </div>`;
+
+  }
+
+}
+
+
+function openExam(){
+
+  window.location.href =
+    "exam.html";
+
+}
+
+</script>
+
+</body>
+</html>

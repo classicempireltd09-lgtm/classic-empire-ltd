@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Classic Empire Ltd - Points</title>
+<title>Classic Empire Ltd - Points Editor</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -19,29 +19,32 @@ body{
   font-family:Arial,sans-serif;
   background:#080808;
   color:#fff;
-}
-
-header{
-  background:linear-gradient(135deg,#111,#1b1400);
-  border-bottom:2px solid #d4af37;
-  padding:25px 15px;
-  text-align:center;
-}
-
-header h1{
-  color:#d4af37;
-  font-size:29px;
-}
-
-header p{
-  color:#bbb;
-  margin-top:7px;
+  min-height:100vh;
 }
 
 .container{
   width:95%;
   max-width:1200px;
-  margin:25px auto;
+  margin:auto;
+  padding:25px 0 50px;
+}
+
+.header{
+  text-align:center;
+  padding:25px 15px;
+  border:1px solid #c9a227;
+  border-radius:15px;
+  background:#111;
+  margin-bottom:20px;
+}
+
+.header h1{
+  color:#ffd84d;
+  margin-bottom:8px;
+}
+
+.header p{
+  color:#ccc;
 }
 
 .card{
@@ -53,87 +56,72 @@ header p{
 }
 
 h2{
-  color:#d4af37;
+  color:#ffd84d;
   margin-bottom:15px;
-}
-
-.info{
-  color:#bbb;
-  font-size:14px;
-  line-height:1.6;
-}
-
-.controls{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  align-items:end;
-}
-
-.field{
-  flex:1;
-  min-width:200px;
 }
 
 label{
   display:block;
-  margin-bottom:6px;
-  color:#ccc;
+  margin:12px 0 6px;
+  color:#ddd;
 }
 
-input,select{
+input{
   width:100%;
   padding:12px;
-  background:#080808;
-  border:1px solid #555;
-  color:#fff;
   border-radius:8px;
+  border:1px solid #555;
+  background:#080808;
+  color:#fff;
+  font-size:16px;
 }
 
 button{
-  padding:12px 18px;
-  border:0;
+  border:none;
   border-radius:8px;
-  font-weight:bold;
+  padding:12px 18px;
+  margin-top:15px;
   cursor:pointer;
+  font-weight:bold;
+  font-size:15px;
 }
 
-.gold{
+.login-btn,
+.save-btn{
   background:#d4af37;
   color:#000;
 }
 
-.red{
+.logout-btn{
   background:#b22222;
   color:#fff;
 }
 
-.green{
-  background:#176b35;
+.view-btn{
+  background:#333;
   color:#fff;
+  margin-left:8px;
 }
 
-.login-box{
-  display:none;
-}
-
-.status{
+.message{
   margin-top:12px;
-  padding:11px;
+  padding:10px;
   border-radius:8px;
   display:none;
 }
 
 .success{
-  display:block;
-  background:#123b20;
-  color:#8ff0a4;
+  background:#123d1c;
+  color:#72ff8a;
 }
 
 .error{
-  display:block;
-  background:#421515;
-  color:#ff9999;
+  background:#451414;
+  color:#ff7777;
+}
+
+#editorArea{
+  display:none;
 }
 
 .table-wrap{
@@ -143,74 +131,78 @@ button{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:850px;
+  min-width:750px;
 }
 
 th,td{
-  border:1px solid #333;
-  padding:11px 8px;
+  border:1px solid #444;
+  padding:10px;
   text-align:center;
 }
 
 th{
-  background:#1c1604;
-  color:#d4af37;
+  background:#1d1d1d;
+  color:#ffd84d;
 }
 
 td{
-  background:#0d0d0d;
+  background:#101010;
 }
 
-.name{
-  text-align:left;
-  font-weight:bold;
+.point-input{
+  width:80px;
+  text-align:center;
+  padding:8px;
 }
 
 .total{
-  color:#d4af37;
+  color:#ffd84d;
   font-weight:bold;
-}
-
-.award{
-  font-weight:bold;
-}
-
-.badge{
-  padding:5px 9px;
-  border-radius:15px;
-  background:#191919;
-  display:inline-block;
-}
-
-.edit-area{
-  display:none;
 }
 
 .small{
-  color:#888;
-  font-size:12px;
-}
-
-.loading{
-  text-align:center;
-  padding:25px;
-  color:#d4af37;
-}
-
-.footer{
-  text-align:center;
-  color:#777;
-  padding:30px;
+  color:#aaa;
   font-size:13px;
+  margin-top:8px;
 }
 
-@media(max-width:650px){
-  header h1{
-    font-size:23px;
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.date-row{
+  display:flex;
+  gap:10px;
+  align-items:end;
+  flex-wrap:wrap;
+}
+
+.date-box{
+  flex:1;
+  min-width:200px;
+}
+
+.status{
+  color:#72ff8a;
+  font-weight:bold;
+}
+
+@media(max-width:600px){
+  .container{
+    width:94%;
   }
 
-  .container{
-    width:97%;
+  button{
+    width:100%;
+    margin-left:0;
+  }
+
+  .view-btn{
+    margin-left:0;
   }
 }
 </style>
@@ -218,204 +210,136 @@ td{
 
 <body>
 
-<header>
-  <h1>Classic Empire Ltd</h1>
-  <p>Points & Awards</p>
-</header>
-
-
 <div class="container">
 
-
-  <!-- PUBLIC VIEW -->
-
-  <div class="card">
-
-    <h2>All Members Points</h2>
-
-    <p class="info">
-      सभी members के points और awards यहाँ देखे जा सकते हैं।
-      Points edit करने का अधिकार केवल President और President Assistant को है।
+  <div class="header">
+    <h1>Classic Empire Ltd</h1>
+    <p>Points Editor</p>
+    <p class="small">
+      केवल President और President Assistant Daily Points edit कर सकते हैं।
     </p>
-
   </div>
-
-
-  <!-- DATE -->
-
-  <div class="card">
-
-    <h2>Select Date</h2>
-
-    <div class="controls">
-
-      <div class="field">
-
-        <label>Point Date</label>
-
-        <input
-          type="date"
-          id="viewDate"
-        >
-
-      </div>
-
-      <button
-        class="gold"
-        onclick="loadPublicPoints()"
-      >
-        View Points
-      </button>
-
-    </div>
-
-    <div
-      id="viewStatus"
-      class="status"
-    ></div>
-
-  </div>
-
-
-  <!-- PUBLIC TABLE -->
-
-  <div class="card">
-
-    <div id="publicArea">
-
-      <div class="loading">
-        Loading points...
-      </div>
-
-    </div>
-
-  </div>
-
 
   <!-- LOGIN -->
-
-  <div class="card">
+  <div class="card" id="loginCard">
 
     <h2>Points Editor Login</h2>
 
-    <p class="info">
-      Only President and President's Assistant can edit points.
-    </p>
+    <label>Email</label>
+    <input
+      type="email"
+      id="email"
+      placeholder="Email"
+      autocomplete="username"
+    >
 
-    <div class="controls">
+    <label>Password</label>
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+      autocomplete="current-password"
+    >
 
-      <div class="field">
+    <button class="login-btn" onclick="login()">
+      Login
+    </button>
 
-        <label>Email</label>
-
-        <input
-          type="email"
-          id="email"
-          placeholder="Email"
-        >
-
-      </div>
-
-      <div class="field">
-
-        <label>Password</label>
-
-        <input
-          type="password"
-          id="password"
-          placeholder="Password"
-        >
-
-      </div>
-
-      <button
-        class="gold"
-        onclick="login()"
-      >
-        Login
-      </button>
-
-    </div>
-
-    <div
-      id="loginStatus"
-      class="status"
-    ></div>
+    <div id="loginMessage" class="message"></div>
 
   </div>
 
 
   <!-- EDITOR -->
+  <div id="editorArea">
 
-  <div
-    id="editorArea"
-    class="card edit-area"
-  >
+    <div class="card">
 
-    <div class="controls">
+      <div class="topbar">
+        <div>
+          <h2>Points Management</h2>
+          <div>
+            Logged in as:
+            <span id="loggedUser" class="status"></span>
+          </div>
+        </div>
 
-      <div class="field">
-
-        <h2>Points Management</h2>
-
-        <p
-          id="loggedUser"
-          class="small"
-        ></p>
-
+        <button class="logout-btn" onclick="logout()">
+          Logout
+        </button>
       </div>
-
-      <button
-        class="red"
-        onclick="logout()"
-      >
-        Logout
-      </button>
 
     </div>
 
 
-    <div class="controls">
+    <div class="card">
 
-      <div class="field">
+      <h2>Select Date</h2>
 
-        <label>Editing Date</label>
+      <div class="date-row">
 
-        <input
-          type="date"
-          id="editDate"
-        >
+        <div class="date-box">
+          <label>Point Date</label>
+
+          <input
+            type="date"
+            id="pointDate"
+          >
+        </div>
+
+        <button class="view-btn" onclick="loadPoints()">
+          Load Points
+        </button>
 
       </div>
 
-      <button
-        class="gold"
-        onclick="loadEditor()"
-      >
-        Load Editing
-      </button>
+      <div id="editorMessage" class="message"></div>
 
     </div>
 
 
-    <div
-      id="editStatus"
-      class="status"
-    ></div>
+    <div class="card">
 
+      <h2>Daily Points</h2>
 
-    <div
-      id="editorTable"
-      style="margin-top:20px"
-    ></div>
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Member</th>
+              <th>School / Madrasa</th>
+              <th>Game Work</th>
+              <th>Total</th>
+              <th>Save</th>
+            </tr>
+          </thead>
+
+          <tbody id="pointsBody">
+
+            <tr>
+              <td colspan="5">
+                Select a date and load points.
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+      <p class="small">
+        School / Madrasa = 0–1 point &nbsp; | &nbsp;
+        Game Work = 0–2 points &nbsp; | &nbsp;
+        Daily Maximum = 3 points
+      </p>
+
+    </div>
 
   </div>
 
-</div>
-
-
-<div class="footer">
-Classic Empire Ltd • Chakla Ghat, Kishanganj, Bihar, India
 </div>
 
 
@@ -427,143 +351,247 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
+const ADMIN_UID =
+"8820968d-c20b-4892-b38b-395083efd026";
+
+const PRESIDENT_ASSISTANT_UID =
+"b4903f62-1728-438b-8da6-537f9d5d8019";
+
 const supabaseClient =
-supabase.createClient(
+window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
 
 
-let dashboardData = [];
-let currentUser = null;
+document.getElementById("pointDate").value =
+new Date().toISOString().split("T")[0];
 
 
-/* DATE */
+function showMessage(id,text,type){
 
-function today(){
+  const box = document.getElementById(id);
 
-  const d = new Date();
+  box.textContent = text;
+  box.className = "message " + type;
+  box.style.display = "block";
 
-  return d.getFullYear() +
-    "-" +
-    String(d.getMonth()+1).padStart(2,"0") +
-    "-" +
-    String(d.getDate()).padStart(2,"0");
 }
 
 
-/* STATUS */
+function hideMessage(id){
 
-function status(id,msg,type){
+  const box = document.getElementById(id);
 
-  const e =
-    document.getElementById(id);
+  box.style.display = "none";
 
-  e.textContent = msg;
-
-  e.className =
-    "status " + type;
 }
 
 
-/* PUBLIC POINTS */
+async function login(){
 
-async function loadPublicPoints(){
+  hideMessage("loginMessage");
 
-  const date =
-    document.getElementById("viewDate").value;
+  const email =
+    document.getElementById("email").value.trim();
 
-  if(!date){
+  const password =
+    document.getElementById("password").value;
+
+  if(!email || !password){
+
+    showMessage(
+      "loginMessage",
+      "Email और Password डालें।",
+      "error"
+    );
+
     return;
   }
 
-  document.getElementById(
-    "publicArea"
-  ).innerHTML =
-  '<div class="loading">Loading...</div>';
+
+  const { data, error } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
 
 
-  /*
-    IMPORTANT:
-    Public dashboard uses get_public_points()
-    instead of direct daily_points query.
-  */
+  if(error){
+
+    showMessage(
+      "loginMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+
+  const user = data.user;
+
+  if(!user){
+
+    await supabaseClient.auth.signOut();
+
+    showMessage(
+      "loginMessage",
+      "Login user नहीं मिला।",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const isPresident =
+    user.id === ADMIN_UID;
+
+  const isPresidentAssistant =
+    user.id === PRESIDENT_ASSISTANT_UID;
+
+
+  if(!isPresident && !isPresidentAssistant){
+
+    await supabaseClient.auth.signOut();
+
+    showMessage(
+      "loginMessage",
+      "यह account Points Editor के लिए authorized नहीं है।",
+      "error"
+    );
+
+    return;
+  }
+
+
+  document.getElementById("loginCard").style.display =
+    "none";
+
+  document.getElementById("editorArea").style.display =
+    "block";
+
+  document.getElementById("loggedUser").textContent =
+    isPresident
+      ? "President"
+      : "President Assistant";
+
+
+  await loadPoints();
+}
+
+
+async function logout(){
+
+  await supabaseClient.auth.signOut();
+
+  document.getElementById("editorArea").style.display =
+    "none";
+
+  document.getElementById("loginCard").style.display =
+    "block";
+
+  document.getElementById("pointsBody").innerHTML =
+    `<tr>
+      <td colspan="5">
+        Select a date and load points.
+      </td>
+    </tr>`;
+
+}
+
+
+async function loadPoints(){
+
+  hideMessage("editorMessage");
+
+  const date =
+    document.getElementById("pointDate").value;
+
+  if(!date){
+
+    showMessage(
+      "editorMessage",
+      "Point Date select करें।",
+      "error"
+    );
+
+    return;
+  }
+
 
   const {
     data,
     error
-  } =
-  await supabaseClient.rpc(
-    "get_public_points"
+  } = await supabaseClient.rpc(
+    "get_points_dashboard",
+    {
+      input_date: date
+    }
   );
 
 
   if(error){
 
-    document.getElementById(
-      "publicArea"
-    ).innerHTML =
-    "<p>Points loading error: " +
-    escapeHtml(error.message) +
-    "</p>";
+    console.error(error);
+
+    showMessage(
+      "editorMessage",
+      error.message,
+      "error"
+    );
 
     return;
   }
 
 
-  let rows =
-    Array.isArray(data)
-      ? data
-      : [];
+  let rows = data;
 
+  if(typeof rows === "string"){
 
-  renderPublic(rows,date);
-
-}
-
-
-/* PUBLIC TABLE */
-
-function renderPublic(rows,date){
-
-  let html = `
-
-  <div class="table-wrap">
-
-  <table>
-
-  <thead>
-
-  <tr>
-    <th>Member</th>
-    <th>School / Madrasa</th>
-    <th>Game Work</th>
-    <th>Total</th>
-    <th>Percentage</th>
-    <th>Award</th>
-    <th>Bonus</th>
-  </tr>
-
-  </thead>
-
-  <tbody>
-  `;
-
-
-  if(rows.length === 0){
-
-    html += `
-      <tr>
-        <td colspan="7">
-          No points available.
-        </td>
-      </tr>
-    `;
+    try{
+      rows = JSON.parse(rows);
+    }catch(e){
+      rows = [];
+    }
 
   }
 
 
-  rows.forEach(row=>{
+  if(!Array.isArray(rows) || rows.length === 0){
+
+    document.getElementById("pointsBody").innerHTML =
+      `<tr>
+        <td colspan="5">
+          No members available.
+        </td>
+      </tr>`;
+
+    return;
+  }
+
+
+  renderRows(rows);
+
+}
+
+
+function renderRows(rows){
+
+  const body =
+    document.getElementById("pointsBody");
+
+  body.innerHTML = "";
+
+
+  rows.forEach(row => {
+
+    const memberId =
+      row.id ?? row.member_id;
+
+    const name =
+      row.member_name ?? "Unknown";
 
     const school =
       Number(
@@ -580,414 +608,127 @@ function renderPublic(rows,date){
       );
 
     const total =
-      Number(
-        row.total_points ??
-        row.daily_total ??
-        school + game
-      );
+      school + game;
 
 
-    html += `
+    const tr =
+      document.createElement("tr");
 
-    <tr>
 
-      <td class="name">
-        ${escapeHtml(
-          row.member_name || ""
-        )}
-      </td>
-
-      <td>${school}</td>
-
-      <td>${game}</td>
-
-      <td class="total">
-        ${total}
-      </td>
+    tr.innerHTML = `
 
       <td>
-        ${row.percentage ?? "—"}%
-      </td>
-
-      <td class="award">
-        ${row.award_emoji ?? ""}
-        ${escapeHtml(
-          row.award_name || "—"
-        )}
-      </td>
-
-      <td>
-        <span class="badge">
-          ${row.bonus_points ?? 0}
-        </span>
-      </td>
-
-    </tr>
-
-    `;
-
-  });
-
-
-  html += `
-  </tbody>
-  </table>
-  </div>
-  `;
-
-
-  document.getElementById(
-    "publicArea"
-  ).innerHTML = html;
-
-}
-
-
-/* LOGIN */
-
-async function login(){
-
-  const email =
-    document.getElementById(
-      "email"
-    ).value.trim();
-
-  const password =
-    document.getElementById(
-      "password"
-    ).value;
-
-
-  if(!email || !password){
-
-    status(
-      "loginStatus",
-      "Email और Password required है।",
-      "error"
-    );
-
-    return;
-  }
-
-
-  const {
-    data,
-    error
-  } =
-  await supabaseClient.auth
-    .signInWithPassword({
-      email,
-      password
-    });
-
-
-  if(error){
-
-    status(
-      "loginStatus",
-      error.message,
-      "error"
-    );
-
-    return;
-  }
-
-
-  currentUser =
-    data.user;
-
-
-  const {
-    data: editor,
-    error: editorError
-  } =
-  await supabaseClient.rpc(
-    "is_points_editor"
-  );
-
-
-  if(editorError || editor !== true){
-
-    await supabaseClient.auth.signOut();
-
-    status(
-      "loginStatus",
-      "यह account Points Editor नहीं है।",
-      "error"
-    );
-
-    return;
-  }
-
-
-  document.getElementById(
-    "editorArea"
-  ).style.display = "block";
-
-
-  document.getElementById(
-    "loggedUser"
-  ).textContent =
-    "Logged in: " +
-    currentUser.email;
-
-
-  document.getElementById(
-    "editDate"
-  ).value = today();
-
-
-  status(
-    "loginStatus",
-    "Login successful.",
-    "success"
-  );
-
-
-  await loadEditor();
-
-}
-
-
-/* EDITOR */
-
-async function loadEditor(){
-
-  const date =
-    document.getElementById(
-      "editDate"
-    ).value;
-
-
-  const {
-    data,
-    error
-  } =
-  await supabaseClient.rpc(
-    "get_points_dashboard",
-    {
-      input_date: date
-    }
-  );
-
-
-  if(error){
-
-    status(
-      "editStatus",
-      error.message,
-      "error"
-    );
-
-    return;
-  }
-
-
-  dashboardData =
-    Array.isArray(data)
-      ? data
-      : [];
-
-
-  renderEditor();
-
-}
-
-
-/* EDITOR TABLE */
-
-function renderEditor(){
-
-  let html = `
-
-  <div class="table-wrap">
-
-  <table>
-
-  <thead>
-
-  <tr>
-    <th>Member</th>
-    <th>School / Madrasa</th>
-    <th>Game Work</th>
-    <th>Total</th>
-    <th>Save</th>
-  </tr>
-
-  </thead>
-
-  <tbody>
-  `;
-
-
-  dashboardData.forEach(
-    (row,index)=>{
-
-      const school =
-        Number(
-          row.school_points || 0
-        );
-
-      const game =
-        Number(
-          row.game_points || 0
-        );
-
-
-      html += `
-
-      <tr>
-
-      <td class="name">
-        ${escapeHtml(
-          row.member_name
-        )}
+        <strong>${escapeHtml(name)}</strong>
       </td>
 
       <td>
         <input
-          id="school_${index}"
+          class="point-input"
           type="number"
           min="0"
           max="1"
+          step="1"
           value="${school}"
-          style="width:70px"
+          id="school-${memberId}"
+          onchange="updateTotal(${memberId})"
         >
       </td>
 
       <td>
         <input
-          id="game_${index}"
+          class="point-input"
           type="number"
           min="0"
           max="2"
+          step="1"
           value="${game}"
-          style="width:70px"
+          id="game-${memberId}"
+          onchange="updateTotal(${memberId})"
         >
       </td>
 
       <td
-        id="total_${index}"
         class="total"
+        id="total-${memberId}"
       >
-        ${school+game}/3
+        ${total}/3
       </td>
 
       <td>
-
         <button
-          class="green"
-          onclick="saveRow(${index})"
+          class="save-btn"
+          onclick="savePoints(${memberId})"
         >
           Save
         </button>
-
       </td>
 
-      </tr>
-
-      `;
-
-    }
-  );
+    `;
 
 
-  html += `
-  </tbody>
-  </table>
-  </div>
-  `;
+    body.appendChild(tr);
 
-
-  document.getElementById(
-    "editorTable"
-  ).innerHTML = html;
-
-
-  dashboardData.forEach(
-    (_,index)=>{
-
-      document.getElementById(
-        "school_"+index
-      ).oninput =
-      ()=>updateTotal(index);
-
-      document.getElementById(
-        "game_"+index
-      ).oninput =
-      ()=>updateTotal(index);
-
-    }
-  );
+  });
 
 }
 
 
-/* TOTAL */
-
-function updateTotal(index){
+function updateTotal(memberId){
 
   const school =
     Number(
       document.getElementById(
-        "school_"+index
-      ).value || 0
-    );
+        "school-" + memberId
+      ).value
+    ) || 0;
 
   const game =
     Number(
       document.getElementById(
-        "game_"+index
-      ).value || 0
-    );
-
+        "game-" + memberId
+      ).value
+    ) || 0;
 
   document.getElementById(
-    "total_"+index
+    "total-" + memberId
   ).textContent =
-    `${school+game}/3`;
+    (school + game) + "/3";
 
 }
 
 
-/* SAVE */
+async function savePoints(memberId){
 
-async function saveRow(index){
-
-  const row =
-    dashboardData[index];
+  hideMessage("editorMessage");
 
 
   const date =
-    document.getElementById(
-      "editDate"
-    ).value;
+    document.getElementById("pointDate").value;
 
 
   const school =
     Number(
       document.getElementById(
-        "school_"+index
+        "school-" + memberId
       ).value
     );
+
 
   const game =
     Number(
       document.getElementById(
-        "game_"+index
+        "game-" + memberId
       ).value
     );
 
 
-  if(
-    !Number.isInteger(school) ||
-    school < 0 ||
-    school > 1
-  ){
+  if(!Number.isInteger(school) ||
+     school < 0 ||
+     school > 1){
 
-    status(
-      "editStatus",
-      "School/Madrasa 0 या 1 होना चाहिए।",
+    showMessage(
+      "editorMessage",
+      "School / Madrasa point केवल 0 या 1 हो सकता है।",
       "error"
     );
 
@@ -995,15 +736,13 @@ async function saveRow(index){
   }
 
 
-  if(
-    !Number.isInteger(game) ||
-    game < 0 ||
-    game > 2
-  ){
+  if(!Number.isInteger(game) ||
+     game < 0 ||
+     game > 2){
 
-    status(
-      "editStatus",
-      "Game Work 0 से 2 होना चाहिए।",
+    showMessage(
+      "editorMessage",
+      "Game Work point केवल 0 से 2 हो सकता है।",
       "error"
     );
 
@@ -1014,29 +753,23 @@ async function saveRow(index){
   const {
     data,
     error
-  } =
-  await supabaseClient.rpc(
+  } = await supabaseClient.rpc(
     "save_daily_points",
     {
-      input_member_id:
-        row.id,
-
-      input_point_date:
-        date,
-
-      input_school_point:
-        school,
-
-      input_game_point:
-        game
+      input_member_id: memberId,
+      input_point_date: date,
+      input_school_point: school,
+      input_game_point: game
     }
   );
 
 
   if(error){
 
-    status(
-      "editStatus",
+    console.error(error);
+
+    showMessage(
+      "editorMessage",
       error.message,
       "error"
     );
@@ -1045,62 +778,86 @@ async function saveRow(index){
   }
 
 
-  status(
-    "editStatus",
-    row.member_name +
-    " के points saved successfully.",
+  if(data && data.success === false){
+
+    showMessage(
+      "editorMessage",
+      data.message || "Save failed.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  showMessage(
+    "editorMessage",
+    "Points successfully saved.",
     "success"
   );
 
 
-  await loadEditor();
-
-  await loadPublicPoints();
+  await loadPoints();
 
 }
 
-
-/* LOGOUT */
-
-async function logout(){
-
-  await supabaseClient.auth.signOut();
-
-  currentUser = null;
-
-  document.getElementById(
-    "editorArea"
-  ).style.display = "none";
-
-  document.getElementById(
-    "password"
-  ).value = "";
-
-}
-
-
-/* ESCAPE */
 
 function escapeHtml(value){
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
 
-/* START */
+/* Restore session */
+(async function(){
 
-document.getElementById(
-  "viewDate"
-).value = today();
+  const {
+    data
+  } = await supabaseClient.auth.getSession();
+
+  if(!data.session) return;
 
 
-loadPublicPoints();
+  const user =
+    data.session.user;
+
+
+  const isPresident =
+    user.id === ADMIN_UID;
+
+  const isPresidentAssistant =
+    user.id === PRESIDENT_ASSISTANT_UID;
+
+
+  if(!isPresident && !isPresidentAssistant){
+
+    await supabaseClient.auth.signOut();
+
+    return;
+  }
+
+
+  document.getElementById("loginCard").style.display =
+    "none";
+
+  document.getElementById("editorArea").style.display =
+    "block";
+
+  document.getElementById("loggedUser").textContent =
+    isPresident
+      ? "President"
+      : "President Assistant";
+
+
+  await loadPoints();
+
+})();
 
 </script>
 

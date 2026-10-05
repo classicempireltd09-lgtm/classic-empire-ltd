@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Classic Empire Ltd - Points Editor</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f4f6f8;
+  color:#222;
+}
+
+header{
+  background:#111827;
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+
+header h1{
+  font-size:25px;
+}
+
+header p{
+  margin-top:6px;
+  opacity:.85;
+}
+
+.container{
+  width:min(1100px,94%);
+  margin:25px auto;
+}
+
+.card{
+  background:white;
+  border-radius:14px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+h2{
+  margin-bottom:15px;
+}
+
+input,button,select{
+  width:100%;
+  padding:12px;
+  margin-top:9px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:15px;
+}
+
+button{
+  border:0;
+  background:#111827;
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+.logout{
+  background:#dc2626;
+  margin-top:12px;
+}
+
+.hidden{
+  display:none;
+}
+
+.info{
+  background:#eef2ff;
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:15px;
+}
+
+.error{
+  color:#b91c1c;
+  margin-top:10px;
+}
+
+.success{
+  color:#15803d;
+  margin-top:10px;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:750px;
+}
+
+th,td{
+  border:1px solid #ddd;
+  padding:10px;
+  text-align:center;
+}
+
+th{
+  background:#111827;
+  color:white;
+}
+
+td input{
+  margin:0;
+  width:80px;
+  text-align:center;
+}
+
+.save-btn{
+  background:#166534;
+  width:auto;
+  padding:9px 15px;
+  margin:0;
+}
+
+.total{
+  font-weight:bold;
+}
+
+.badge{
+  display:inline-block;
+  background:#e5e7eb;
+  padding:6px 10px;
+  border-radius:20px;
+  margin-top:8px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Classic Empire Ltd</h1>
+  <p>Daily Points Editor</p>
+</header>
+
+<div class="container">
+
+  <!-- LOGIN -->
+  <div id="loginBox" class="card">
+    <h2>Points Editor Login</h2>
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Email"
+      autocomplete="username"
+    >
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+      autocomplete="current-password"
+    >
+
+    <button onclick="login()">Login</button>
+
+    <div id="loginMessage"></div>
+  </div>
+
+  <!-- EDITOR -->
+  <div id="editorBox" class="hidden">
+
+    <div class="card">
+      <h2>Points Management</h2>
+
+      <div class="info">
+        Logged in:
+        <strong id="loggedEmail"></strong>
+        <br>
+        Role:
+        <strong id="loggedRole"></strong>
+      </div>
+
+      <label><strong>Select Date</strong></label>
+      <input id="pointDate" type="date">
+
+      <button onclick="loadPoints()">Load Points</button>
+
+      <button class="logout" onclick="logout()">Logout</button>
+
+      <div id="message"></div>
+    </div>
+
+    <div class="card">
+      <h2>Daily Points</h2>
+
+      <div class="info">
+        School / Madrasa: <strong>0–1 Point</strong><br>
+        Classic Empire Game Work: <strong>0–2 Points</strong><br>
+        Daily Maximum: <strong>3 Points</strong>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Member</th>
+              <th>School / Madrasa</th>
+              <th>Game Work</th>
+              <th>Total</th>
+              <th>Save</th>
+            </tr>
+          </thead>
+
+          <tbody id="pointsBody">
+            <tr>
+              <td colspan="5">Select a date and load points.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+const SUPABASE_URL =
+"https://hjatspkzgoddcpgwfkxo.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
+
+const supabaseClient =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const ADMIN_UID =
+"8820968d-c20b-4892-b38b-395083efd026";
+
+const PRESIDENT_ASSISTANT_UID =
+"b4903f62-1728-438b-8da6-537f9d5d8019";
+
+
+function todayDate(){
+
+  const d = new Date();
+
+  const year = d.getFullYear();
+
+  const month =
+    String(d.getMonth()+1).padStart(2,"0");
+
+  const day =
+    String(d.getDate()).padStart(2,"0");
+
+  return `${year}-${month}-${day}`;
+}
+
+
+document.getElementById("pointDate").value =
+todayDate();
+
+
+async function login(){
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const message =
+    document.getElementById("loginMessage");
+
+  message.className = "";
+  message.textContent = "";
+
+  if(!email || !password){
+
+    message.className = "error";
+    message.textContent =
+      "Email और Password दोनों डालें।";
+
+    return;
+  }
+
+  const { data, error } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+  if(error){
+
+    message.className = "error";
+    message.textContent = error.message;
+
+    return;
+  }
+
+  await checkEditorAccess();
+}
+
+
+async function checkEditorAccess(){
+
+  const {
+    data: { user }
+  } =
+    await supabaseClient.auth.getUser();
+
+  if(!user){
+
+    showLogin();
+
+    return;
+  }
+
+  let role = "";
+
+  if(user.id === ADMIN_UID){
+
+    role = "President";
+
+  }else if(user.id === PRESIDENT_ASSISTANT_UID){
+
+    role = "President Assistant";
+
+  }else{
+
+    await supabaseClient.auth.signOut();
+
+    document.getElementById("loginMessage").className =
+      "error";
+
+    document.getElementById("loginMessage").textContent =
+      "इस account को Points Editor access नहीं है।";
+
+    showLogin();
+
+    return;
+  }
+
+  document.getElementById("loggedEmail").textContent =
+    user.email || "";
+
+  document.getElementById("loggedRole").textContent =
+    role;
+
+  document.getElementById("loginBox")
+    .classList.add("hidden");
+
+  document.getElementById("editorBox")
+    .classList.remove("hidden");
+
+  await loadPoints();
+}
+
+
+async function loadPoints(){
+
+  const date =
+    document.getElementById("pointDate").value;
+
+  const body =
+    document.getElementById("pointsBody");
+
+  const message =
+    document.getElementById("message");
+
+  if(!date){
+
+    message.className = "error";
+    message.textContent =
+      "पहले date select करें।";
+
+    return;
+  }
+
+  body.innerHTML =
+    `<tr>
+      <td colspan="5">Loading...</td>
+    </tr>`;
+
+  message.textContent = "";
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "get_points_dashboard",
+      {
+        input_date: date
+      }
+    );
+
+  if(error){
+
+    body.innerHTML =
+      `<tr>
+        <td colspan="5">
+          Error: ${escapeHtml(error.message)}
+        </td>
+      </tr>`;
+
+    return;
+  }
+
+  const rows =
+    Array.isArray(data) ? data : [];
+
+  if(rows.length === 0){
+
+    body.innerHTML =
+      `<tr>
+        <td colspan="5">
+          No members found.
+        </td>
+      </tr>`;
+
+    return;
+  }
+
+  body.innerHTML = "";
+
+  rows.forEach(row => {
+
+    const school =
+      Number(
+        row.school_points ??
+        row.school_madrasa_point ??
+        0
+      );
+
+    const game =
+      Number(
+        row.game_points ??
+        row.game_work_point ??
+        0
+      );
+
+    const total =
+      school + game;
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>
+        <strong>
+          ${escapeHtml(row.member_name || "")}
+        </strong>
+      </td>
+
+      <td>
+        <input
+          type="number"
+          min="0"
+          max="1"
+          value="${school}"
+          id="school-${row.id}"
+          oninput="updateTotal(${row.id})"
+        >
+      </td>
+
+      <td>
+        <input
+          type="number"
+          min="0"
+          max="2"
+          value="${game}"
+          id="game-${row.id}"
+          oninput="updateTotal(${row.id})"
+        >
+      </td>
+
+      <td
+        class="total"
+        id="total-${row.id}"
+      >
+        ${total}
+      </td>
+
+      <td>
+        <button
+          class="save-btn"
+          onclick="savePoints(${row.id}, '${escapeJs(date)}')"
+        >
+          Save
+        </button>
+      </td>
+    `;
+
+    body.appendChild(tr);
+
+  });
+
+}
+
+
+function updateTotal(id){
+
+  const school =
+    Number(
+      document.getElementById(
+        `school-${id}`
+      ).value
+    ) || 0;
+
+  const game =
+    Number(
+      document.getElementById(
+        `game-${id}`
+      ).value
+    ) || 0;
+
+  document.getElementById(
+    `total-${id}`
+  ).textContent =
+    school + game;
+}
+
+
+async function savePoints(memberId,date){
+
+  const school =
+    Number(
+      document.getElementById(
+        `school-${memberId}`
+      ).value
+    );
+
+  const game =
+    Number(
+      document.getElementById(
+        `game-${memberId}`
+      ).value
+    );
+
+  const message =
+    document.getElementById("message");
+
+  if(
+    !Number.isInteger(school) ||
+    school < 0 ||
+    school > 1
+  ){
+
+    message.className = "error";
+    message.textContent =
+      "School/Madrasa Point केवल 0 या 1 होना चाहिए।";
+
+    return;
+  }
+
+  if(
+    !Number.isInteger(game) ||
+    game < 0 ||
+    game > 2
+  ){
+
+    message.className = "error";
+    message.textContent =
+      "Game Work Point केवल 0 से 2 होना चाहिए।";
+
+    return;
+  }
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "save_daily_points",
+      {
+        input_member_id: memberId,
+        input_point_date: date,
+        input_school_point: school,
+        input_game_point: game
+      }
+    );
+
+  if(error){
+
+    message.className = "error";
+    message.textContent =
+      error.message;
+
+    return;
+  }
+
+  message.className = "success";
+  message.textContent =
+    "Points successfully saved. ✅";
+
+  await loadPoints();
+}
+
+
+async function logout(){
+
+  await supabaseClient.auth.signOut();
+
+  showLogin();
+
+}
+
+
+function showLogin(){
+
+  document.getElementById("loginBox")
+    .classList.remove("hidden");
+
+  document.getElementById("editorBox")
+    .classList.add("hidden");
+
+}
+
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+function escapeJs(value){
+
+  return String(value)
+    .replaceAll("\\","\\\\")
+    .replaceAll("'","\\'");
+}
+
+
+async function restoreSession(){
+
+  const {
+    data: { session }
+  } =
+    await supabaseClient.auth.getSession();
+
+  if(session){
+
+    await checkEditorAccess();
+
+  }
+
+}
+
+
+supabaseClient.auth.onAuthStateChange(
+  async (event, session) => {
+
+    if(event === "SIGNED_OUT"){
+
+      showLogin();
+
+    }
+
+  }
+);
+
+
+restoreSession();
+
+</script>
+
+</body>
+</html>

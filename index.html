@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Classic Empire Ltd</title>
 
@@ -27,55 +27,65 @@ body{
 }
 
 header{
-  background:linear-gradient(135deg,#111,#241800);
-  border-bottom:2px solid #d4af37;
-  padding:20px;
-  text-align:center;
+  background:#111;
+  border-bottom:1px solid #c9a227;
   position:sticky;
   top:0;
   z-index:1000;
 }
 
+.nav{
+  width:95%;
+  max-width:1200px;
+  margin:auto;
+  padding:14px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
 .logo{
-  width:75px;
-  height:75px;
-  object-fit:contain;
-  border-radius:50%;
-  border:2px solid #d4af37;
-  margin-bottom:8px;
-}
-
-header h1{
-  color:#d4af37;
-  font-size:28px;
-}
-
-header p{
-  color:#ddd;
-  font-size:14px;
+  color:#ffd84d;
+  font-size:22px;
+  font-weight:bold;
 }
 
 nav{
-  margin-top:15px;
   display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
   gap:8px;
+  flex-wrap:wrap;
 }
 
 nav a{
-  text-decoration:none;
   color:#fff;
-  background:#1b1b1b;
-  border:1px solid #555;
-  padding:8px 12px;
-  border-radius:8px;
-  font-size:13px;
+  text-decoration:none;
+  padding:7px 10px;
+  border-radius:6px;
+  font-size:14px;
 }
 
 nav a:hover{
-  background:#d4af37;
+  background:#c9a227;
   color:#000;
+}
+
+.hero{
+  text-align:center;
+  padding:70px 20px;
+  background:linear-gradient(#111,#080808);
+}
+
+.hero h1{
+  color:#ffd84d;
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:#ccc;
+  font-size:18px;
 }
 
 .container{
@@ -88,33 +98,14 @@ section{
   padding:45px 0;
 }
 
-.section-title{
+.title{
   text-align:center;
-  color:#d4af37;
+  color:#ffd84d;
   margin-bottom:25px;
-  font-size:25px;
+  font-size:28px;
 }
 
-.hero{
-  text-align:center;
-  padding:55px 15px;
-  background:
-    radial-gradient(circle at top,#352700,#080808 65%);
-}
-
-.hero h2{
-  color:#d4af37;
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.hero p{
-  color:#ddd;
-  max-width:700px;
-  margin:auto;
-}
-
-.cards{
+.card-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:18px;
@@ -123,227 +114,164 @@ section{
 .card{
   background:#111;
   border:1px solid #333;
-  border-radius:15px;
+  border-radius:14px;
   padding:20px;
+}
+
+.person{
   text-align:center;
-  box-shadow:0 5px 20px #000;
 }
 
-.card:hover{
-  border-color:#d4af37;
-  transform:translateY(-3px);
-}
-
-.person-img{
-  width:110px;
-  height:110px;
+.person img{
+  width:120px;
+  height:120px;
   object-fit:cover;
   border-radius:50%;
-  border:3px solid #d4af37;
+  border:2px solid #c9a227;
   margin-bottom:12px;
-  background:#222;
 }
 
-.card h3{
-  color:#fff;
-  margin-bottom:5px;
+.person h3{
+  color:#ffd84d;
 }
 
-.post{
-  color:#d4af37;
-  font-weight:bold;
+.person p{
+  color:#bbb;
 }
 
-.salary{
-  color:#aaa;
-  font-size:13px;
-  margin-top:5px;
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:700px;
 }
 
 .table-wrap{
   overflow-x:auto;
 }
 
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:600px;
-  background:#111;
-}
-
 th,td{
-  border:1px solid #333;
-  padding:12px;
+  border:1px solid #444;
+  padding:11px;
   text-align:center;
 }
 
 th{
-  background:#241d08;
-  color:#d4af37;
+  background:#1b1b1b;
+  color:#ffd84d;
 }
 
 td{
-  color:#ddd;
+  background:#101010;
 }
 
-.form-box{
-  max-width:650px;
+.form{
+  max-width:700px;
   margin:auto;
-  background:#111;
-  border:1px solid #333;
-  border-radius:15px;
-  padding:25px;
-}
-
-.form-group{
-  margin-bottom:15px;
 }
 
 label{
   display:block;
-  color:#d4af37;
-  margin-bottom:6px;
-  font-weight:bold;
+  margin:12px 0 5px;
 }
 
-input,
-select,
-textarea{
+input,select,textarea{
   width:100%;
   padding:12px;
-  border-radius:8px;
-  border:1px solid #444;
-  background:#080808;
+  background:#090909;
+  border:1px solid #555;
   color:#fff;
-  outline:none;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:#d4af37;
+  border-radius:8px;
+  font-size:15px;
 }
 
 textarea{
-  min-height:110px;
+  min-height:120px;
   resize:vertical;
 }
 
 button{
-  width:100%;
-  padding:13px;
-  border:none;
-  border-radius:8px;
   background:#d4af37;
   color:#000;
+  border:0;
+  padding:12px 20px;
+  border-radius:8px;
   font-weight:bold;
   cursor:pointer;
-  font-size:15px;
+  margin-top:15px;
 }
 
 button:hover{
-  background:#f1d76a;
-}
-
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
+  background:#ffd84d;
 }
 
 .message{
-  margin-top:15px;
+  display:none;
   padding:12px;
   border-radius:8px;
-  display:none;
-  text-align:center;
+  margin-top:15px;
 }
 
 .success{
   display:block;
-  background:#103b1c;
-  border:1px solid #2ecc71;
-  color:#7dffac;
+  background:#123d1c;
+  color:#72ff8a;
 }
 
 .error{
   display:block;
-  background:#3b1010;
-  border:1px solid #ff4444;
-  color:#ff8d8d;
+  background:#451414;
+  color:#ff7777;
 }
 
-.info-box{
-  background:#111;
-  border-left:4px solid #d4af37;
-  padding:18px;
-  border-radius:8px;
-  margin:20px 0;
-}
-
-.info-box strong{
-  color:#d4af37;
-}
-
-.other-title{
-  margin-top:40px;
+.info{
+  color:#bbb;
   text-align:center;
-  color:#d4af37;
-  font-size:22px;
+}
+
+.points-box{
+  background:#111;
+  border:1px solid #333;
+  border-radius:14px;
+  padding:20px;
+}
+
+.points-top{
+  display:flex;
+  gap:12px;
+  align-items:end;
+  flex-wrap:wrap;
   margin-bottom:20px;
 }
 
-.currency-box{
-  text-align:center;
-  background:#111;
-  border:1px solid #d4af37;
-  padding:25px;
-  border-radius:15px;
-  margin-bottom:25px;
+.points-date{
+  flex:1;
+  min-width:220px;
 }
 
-.currency-box h3{
-  color:#d4af37;
-  font-size:24px;
+.points-table{
+  overflow-x:auto;
 }
 
-.currency-box p{
-  margin-top:8px;
-  color:#ddd;
+.badge{
+  padding:4px 8px;
+  border-radius:6px;
+  background:#222;
 }
 
 footer{
   border-top:1px solid #333;
-  background:#050505;
-  text-align:center;
   padding:30px 15px;
-  color:#aaa;
-}
-
-footer strong{
-  color:#d4af37;
-}
-
-.small{
-  font-size:13px;
-  color:#888;
+  text-align:center;
+  color:#999;
 }
 
 @media(max-width:600px){
-  header h1{
-    font-size:23px;
+  .hero h1{
+    font-size:30px;
   }
 
-  .hero h2{
-    font-size:26px;
-  }
-
-  nav a{
-    font-size:12px;
-    padding:7px 9px;
-  }
-
-  section{
-    padding:35px 0;
+  nav{
+    justify-content:center;
   }
 }
 </style>
@@ -352,443 +280,221 @@ footer strong{
 <body>
 
 <header>
+  <div class="nav">
+    <div class="logo">Classic Empire Ltd</div>
 
-<img src="classic-empire-logo.png"
-     class="logo"
-     alt="Classic Empire Ltd Logo">
-
-<h1>Classic Empire Ltd</h1>
-
-<p>Official Empire Management System</p>
-
-<nav>
-  <a href="#home">Home</a>
-  <a href="#people">People</a>
-  <a href="#updates">Updates</a>
-  <a href="#currency">Currency</a>
-  <a href="#salary">Salary</a>
-  <a href="#apply">Apply</a>
-  <a href="points.html">Points</a>
-  <a href="exam.html">Exam</a>
-  <a href="status.html">Status</a>
-  <a href="result.html">Result</a>
-  <a href="admin.html">Admin</a>
-</nav>
-
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#people">People</a>
+      <a href="#currency">Currency</a>
+      <a href="#salary">Salary</a>
+      <a href="#points">Points</a>
+      <a href="#exam">Exam</a>
+      <a href="#apply">Apply</a>
+      <a href="status.html">Status</a>
+      <a href="result.html">Result</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </div>
 </header>
 
 
-<section id="home" class="hero">
-
-<div class="container">
-
-<h2>Welcome to Classic Empire Ltd</h2>
-
-<p>
-Classic Empire Ltd is a structured fictional empire system
-with leadership, administration, employees, applications,
-examinations, points and results.
-</p>
-
-</div>
-
+<section class="hero" id="home">
+  <h1>Classic Empire Ltd</h1>
+  <p>Welcome to Classic Empire</p>
+  <p>Head Office: Chakla Ghat, Kishanganj, Bihar, India</p>
 </section>
 
 
 <section id="people">
-
 <div class="container">
 
-<h2 class="section-title">Leadership & Posts</h2>
+<h2 class="title">Leadership</h2>
 
-<div class="cards">
+<div class="card-grid">
 
-<!-- PRESIDENT -->
-
-<div class="card">
-
-<img src="noor-ahmad.png"
-     class="person-img"
-     alt="Noor Ahmad">
-
+<div class="card person">
+<img src="noor-ahmad.png" alt="Noor Ahmad">
 <h3>Noor Ahmad</h3>
-
-<div class="post">President</div>
-
-<div class="salary">Salary: Unlimited</div>
-
+<p>President</p>
 </div>
 
-
-<!-- PRESIDENT ASSISTANT -->
-
-<div class="card">
-
-<img src="tabshir-alam.png"
-     class="person-img"
-     alt="Tabshir Alam">
-
+<div class="card person">
+<img src="tabshir-alam.png" alt="Tabshir Alam">
 <h3>Tabshir Alam</h3>
-
-<div class="post">
-President's Assistant
+<p>President's Assistant</p>
 </div>
 
-<div class="salary">
-Weekly Salary: ₹1,50,000
-</div>
-
-</div>
-
-
-<!-- DM -->
-
-<div class="card">
-
-<img src="jakir-hussain.png"
-     class="person-img"
-     alt="Jakir Hussain">
-
+<div class="card person">
+<img src="jakir-hussain.png" alt="Jakir Hussain">
 <h3>Jakir Hussain</h3>
-
-<div class="post">DM</div>
-
-<div class="salary">
-Weekly Salary: ₹2,18,200
+<p>DM</p>
 </div>
 
-</div>
-
-
-<!-- DM ASSISTANT -->
-
-<div class="card">
-
-<img src="shadat-hussain.png"
-     class="person-img"
-     alt="Shadat Hussain">
-
+<div class="card person">
+<img src="shadat-hussain.png" alt="Shadat Hussain">
 <h3>Shadat Hussain</h3>
-
-<div class="post">
-DM's Assistant
+<p>DM's Assistant</p>
 </div>
 
-<div class="salary">
-Weekly Salary: ₹1,20,000
-</div>
-
-</div>
-
-
-<!-- SDM -->
-
-<div class="card">
-
-<img src="aszad-sayeed.png"
-     class="person-img"
-     alt="Aszad Sayeed">
-
+<div class="card person">
+<img src="aszad-sayeed.png" alt="Aszad Sayeed">
 <h3>Aszad Sayeed</h3>
-
-<div class="post">SDM</div>
-
-<div class="salary">
-Weekly Salary: ₹1,77,500
+<p>SDM</p>
 </div>
 
-</div>
-
-
-<!-- SP -->
-
-<div class="card">
-
-<img src="shahnawaz-alam.png"
-     class="person-img"
-     alt="Shahnawaz Alam">
-
+<div class="card person">
+<img src="shahnawaz-alam.png" alt="Shahnawaz Alam">
 <h3>Shahnawaz Alam</h3>
-
-<div class="post">SP</div>
-
-<div class="salary">
-Weekly Salary: ₹2,15,900
+<p>SP</p>
 </div>
 
-</div>
-
-
-<!-- DSP -->
-
-<div class="card">
-
-<img src="shadab-alam.png"
-     class="person-img"
-     alt="Shadab Alam">
-
+<div class="card person">
+<img src="shadab-alam.png" alt="Shadab Alam">
 <h3>Shadab Alam</h3>
-
-<div class="post">DSP</div>
-
-<div class="salary">
-Weekly Salary: ₹1,77,500
-</div>
-
+<p>DSP</p>
 </div>
 
 </div>
 
 
-<!-- OTHER EMPLOYEES -->
+<h2 class="title" style="margin-top:45px">
+Other Employees
+</h2>
 
-<h3 class="other-title">Other Employees</h3>
+<div class="card-grid">
 
-<div class="cards">
-
-<!-- MAHIR ALAM -->
-
-<div class="card">
-
-<img src="mahir-alam.png"
-     class="person-img"
-     alt="Mahir Alam">
-
+<div class="card person">
+<img src="mahir-alam.png" alt="Mahir Alam">
 <h3>Mahir Alam</h3>
-
-<div class="post">
-Other Employee
+<p>Employee</p>
 </div>
 
-</div>
-
-
-<!-- SAJJAD ALAM -->
-
-<div class="card">
-
-<img src="sajjad-alam.png"
-     class="person-img"
-     alt="Sajjad Alam">
-
+<div class="card person">
+<img src="sajjad-alam.png" alt="Sajjad Alam">
 <h3>Sajjad Alam</h3>
-
-<div class="post">
-Other Employee
+<p>Employee</p>
 </div>
 
 </div>
 
 </div>
-
-</div>
-
-</section>
-
-
-<section id="updates">
-
-<div class="container">
-
-<h2 class="section-title">Latest Updates</h2>
-
-<div class="info-box">
-
-<strong>Permanent President Rule</strong>
-
-<p>
-The President is the founder of Classic Empire Ltd and is
-the person who established this Empire.
-</p>
-
-<p>
-The President is the permanent President of Classic Empire Ltd
-and the position of President will never change under the
-normal system.
-</p>
-
-<p>
-The President can personally appoint or transfer the position
-of President to another person only by the President's own
-decision.
-</p>
-
-<p>
-No other person or authority can change the President.
-</p>
-
-</div>
-
-
-<div class="info-box">
-
-<strong>Application System</strong>
-
-<p>
-Applicants can submit applications through the official
-application form. Approved applicants receive an exam code
-through the system.
-</p>
-
-</div>
-
-
-<div class="info-box">
-
-<strong>Examination System</strong>
-
-<p>
-The Classic Empire examination system contains objective
-and subjective questions, a 30-minute exam session and
-server-controlled exam access.
-</p>
-
-</div>
-
-</div>
-
 </section>
 
 
 <section id="currency">
-
 <div class="container">
 
-<h2 class="section-title">
-Classic Empire Currency
-</h2>
+<h2 class="title">Classic Currency</h2>
 
-<div class="currency-box">
-
-<h3>Classic Dinar</h3>
-
-<p>
-Official Code: <strong>CLD</strong>
-</p>
-
-<p>
-Short Name: <strong>CD</strong>
-</p>
-
-<p>
-Symbol: <strong>د.ك</strong>
-</p>
-
-</div>
-
+<div class="card">
 <div class="table-wrap">
 
 <table>
-
-<thead>
-
 <tr>
-<th>Currency</th>
-<th>Equivalent</th>
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr>
-<td>1 CD</td>
-<td>300 KD</td>
+<th>Currency Name</th>
+<th>Code</th>
+<th>Short Name</th>
+<th>Symbol</th>
+<th>Value</th>
 </tr>
 
 <tr>
-<td>1 CD</td>
-<td>₹93,600</td>
+<td>Classic Dinar</td>
+<td>CLD</td>
+<td>CD</td>
+<td>د.ك</td>
+<td>1 CD = 300 KD = ₹93,600</td>
 </tr>
-
-<tr>
-<td>1 KD</td>
-<td>₹312</td>
-</tr>
-
-</tbody>
-
 </table>
 
 </div>
-
 </div>
 
+</div>
 </section>
 
 
 <section id="salary">
-
 <div class="container">
 
-<h2 class="section-title">
-Weekly Salary
-</h2>
+<h2 class="title">Weekly Salary</h2>
 
+<div class="card">
 <div class="table-wrap">
 
 <table>
-
-<thead>
-
 <tr>
 <th>Post</th>
-<th>Name</th>
 <th>Weekly Salary</th>
-<th>Payment Day</th>
 </tr>
 
+<tr><td>President</td><td>Unlimited</td></tr>
+<tr><td>President's Assistant</td><td>₹1,50,000</td></tr>
+<tr><td>DM</td><td>₹2,18,200</td></tr>
+<tr><td>DM's Assistant</td><td>₹1,20,000</td></tr>
+<tr><td>SDM</td><td>₹1,77,500</td></tr>
+<tr><td>SP</td><td>₹2,15,900</td></tr>
+<tr><td>DSP</td><td>₹1,77,500</td></tr>
+
+</table>
+</div>
+
+<p class="info" style="margin-top:15px">
+Salary is paid every Thursday.
+</p>
+
+</div>
+</div>
+</section>
+
+
+<!-- PUBLIC POINTS ONLY -->
+<section id="points">
+<div class="container">
+
+<h2 class="title">Points & Awards</h2>
+
+<div class="points-box">
+
+<p class="info" style="margin-bottom:20px">
+सभी members के points और awards यहाँ देखे जा सकते हैं।
+</p>
+
+<div class="points-top">
+
+<div class="points-date">
+<label>Point Date</label>
+<input type="date" id="publicPointDate">
+</div>
+
+<button onclick="viewPublicPoints()">
+View Points
+</button>
+
+</div>
+
+<div class="points-table">
+
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>School / Madrasa</th>
+<th>Game Work</th>
+<th>Total</th>
+<th>Percentage</th>
+<th>Award</th>
+<th>Bonus</th>
+</tr>
 </thead>
 
-<tbody>
+<tbody id="publicPointsBody">
 
 <tr>
-<td>President</td>
-<td>Noor Ahmad</td>
-<td>Unlimited</td>
-<td>Thursday</td>
-</tr>
-
-<tr>
-<td>President's Assistant</td>
-<td>Tabshir Alam</td>
-<td>₹1,50,000</td>
-<td>Thursday</td>
-</tr>
-
-<tr>
-<td>DM</td>
-<td>Jakir Hussain</td>
-<td>₹2,18,200</td>
-<td>Thursday</td>
-</tr>
-
-<tr>
-<td>DM's Assistant</td>
-<td>Shadat Hussain</td>
-<td>₹1,20,000</td>
-<td>Thursday</td>
-</tr>
-
-<tr>
-<td>SDM</td>
-<td>Aszad Sayeed</td>
-<td>₹1,77,500</td>
-<td>Thursday</td>
-</tr>
-
-<tr>
-<td>SP</td>
-<td>Shahnawaz Alam</td>
-<td>₹2,15,900</td>
-<td>Thursday</td>
-</tr>
-
-<tr>
-<td>DSP</td>
-<td>Shadab Alam</td>
-<td>₹1,77,500</td>
-<td>Thursday</td>
+<td colspan="7">
+Date select करके View Points दबाएँ।
+</td>
 </tr>
 
 </tbody>
@@ -799,228 +505,97 @@ Weekly Salary
 
 </div>
 
+</div>
+</section>
+
+
+<section id="exam">
+<div class="container">
+
+<h2 class="title">Exam</h2>
+
+<div class="card">
+<p>
+Approved applicants को Exam Code मिलने के बाद
+exam page पर जाकर examination दे सकते हैं।
+</p>
+
+<p style="margin-top:15px">
+<a href="exam.html" style="color:#ffd84d">
+Open Exam
+</a>
+</p>
+</div>
+
+</div>
 </section>
 
 
 <section id="apply">
-
 <div class="container">
 
-<h2 class="section-title">
-Apply for Classic Empire Ltd
-</h2>
+<h2 class="title">Apply for Post</h2>
 
-<div class="form-box">
+<div class="card form">
 
 <form id="applicationForm">
 
-<div class="form-group">
+<label>Applicant Name *</label>
+<input id="applicantName" required>
 
-<label>
-Applicant Name *
-</label>
+<label>Age</label>
+<input id="age">
 
-<input
-type="text"
-id="applicantName"
-required
-placeholder="Enter your full name">
+<label>Class</label>
+<input id="class">
 
-</div>
-
-
-<div class="form-group">
-
-<label>
-Age
-</label>
-
-<input
-type="text"
-id="age"
-placeholder="Enter age">
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Class
-</label>
-
-<input
-type="text"
-id="applicantClass"
-placeholder="Enter class">
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Post *
-</label>
-
+<label>Post *</label>
 <select id="post" required>
-
-<option value="">
-Select Post
-</option>
-
-<option value="President">
-President
-</option>
-
-<option value="President's Assistant">
-President's Assistant
-</option>
-
-<option value="DM">
-DM
-</option>
-
-<option value="DM's Assistant">
-DM's Assistant
-</option>
-
-<option value="SDM">
-SDM
-</option>
-
-<option value="SP">
-SP
-</option>
-
-<option value="DSP">
-DSP
-</option>
-
+<option value="">Select Post</option>
+<option>DM</option>
+<option>DM's Assistant</option>
+<option>SDM</option>
+<option>SP</option>
+<option>DSP</option>
 </select>
 
-</div>
-
-
-<div class="form-group">
-
-<label>
-Email *
-</label>
-
+<label>Email *</label>
 <input
-type="email"
-id="email"
-required
-placeholder="Enter email">
+  type="email"
+  id="applicantEmail"
+  required
+>
 
-</div>
+<label>Contact Number</label>
+<input id="contactNumber">
 
-
-<div class="form-group">
-
-<label>
-Contact Number
-</label>
-
+<label>Photo</label>
 <input
-type="text"
-id="contact"
-placeholder="Enter contact number">
+  type="file"
+  id="applicantPhoto"
+  accept="image/*"
+>
 
-</div>
+<label>Reason</label>
+<textarea id="reason"></textarea>
 
-
-<div class="form-group">
-
-<label>
-Photo
-</label>
-
-<input
-type="file"
-id="photo"
-accept="image/*">
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Reason for Applying
-</label>
-
-<textarea
-id="reason"
-placeholder="Why do you want to join Classic Empire Ltd?"></textarea>
-
-</div>
-
-
-<button
-type="submit"
-id="submitBtn">
-
+<button type="submit">
 Submit Application
-
 </button>
 
-<div
-id="applicationMessage"
-class="message">
-</div>
+<div id="applicationMessage"
+     class="message"></div>
 
 </form>
 
 </div>
 
-
-<div class="info-box">
-
-<strong>Application Process</strong>
-
-<p>
-1. Submit your application.
-</p>
-
-<p>
-2. Admin reviews the application.
-</p>
-
-<p>
-3. Approved applications receive an Exam Code.
-</p>
-
-<p>
-4. Exam Code becomes available after the system unlock time.
-</p>
-
-<p>
-5. Use the Exam page to start your examination.
-</p>
-
 </div>
-
-</div>
-
 </section>
 
 
 <footer>
-
-<p>
-<strong>Classic Empire Ltd</strong>
-</p>
-
-<p>
-Head Office: Chakla Ghat, Kishanganj, Bihar, India
-</p>
-
-<p class="small">
-Official Classic Empire Ltd System
-</p>
-
+Classic Empire Ltd • Chakla Ghat, Kishanganj, Bihar, India
 </footer>
 
 
@@ -1033,193 +608,346 @@ const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
 const supabaseClient =
-supabase.createClient(
+window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
 
 
-const applicationForm =
-document.getElementById("applicationForm");
+/* Default date */
 
-const submitBtn =
-document.getElementById("submitBtn");
-
-const applicationMessage =
-document.getElementById("applicationMessage");
+document.getElementById(
+  "publicPointDate"
+).value =
+new Date().toISOString().split("T")[0];
 
 
-applicationForm.addEventListener(
-"submit",
-async function(event){
+/* =========================
+   PUBLIC POINTS
+========================= */
 
-  event.preventDefault();
+async function viewPublicPoints(){
 
-  if(submitBtn.disabled){
+  const date =
+    document.getElementById(
+      "publicPointDate"
+    ).value;
+
+  const body =
+    document.getElementById(
+      "publicPointsBody"
+    );
+
+  if(!date){
+
+    body.innerHTML =
+      `<tr>
+        <td colspan="7">
+          Please select a date.
+        </td>
+      </tr>`;
+
     return;
   }
 
-  submitBtn.disabled = true;
 
-  submitBtn.textContent =
-  "Submitting...";
-
-  applicationMessage.className =
-  "message";
-
-  applicationMessage.textContent =
-  "";
+  body.innerHTML =
+    `<tr>
+      <td colspan="7">
+        Loading...
+      </td>
+    </tr>`;
 
 
-  const applicantName =
-  document.getElementById(
-    "applicantName"
-  ).value.trim();
-
-  const age =
-  document.getElementById(
-    "age"
-  ).value.trim();
-
-  const applicantClass =
-  document.getElementById(
-    "applicantClass"
-  ).value.trim();
-
-  const post =
-  document.getElementById(
-    "post"
-  ).value.trim();
-
-  const email =
-  document.getElementById(
-    "email"
-  ).value.trim();
-
-  const contact =
-  document.getElementById(
-    "contact"
-  ).value.trim();
-
-  const reason =
-  document.getElementById(
-    "reason"
-  ).value.trim();
-
-  const photoInput =
-  document.getElementById(
-    "photo"
+  const {
+    data,
+    error
+  } = await supabaseClient.rpc(
+    "get_public_points",
+    {
+      input_date: date
+    }
   );
 
-  let photoName = "";
 
-  if(
-    photoInput.files &&
-    photoInput.files.length > 0
-  ){
-    photoName =
-    photoInput.files[0].name;
+  if(error){
+
+    console.error(error);
+
+    body.innerHTML =
+      `<tr>
+        <td colspan="7">
+          Points could not be loaded.
+        </td>
+      </tr>`;
+
+    return;
   }
 
 
-  try{
+  let rows = data;
 
-    const response =
-    await supabaseClient.rpc(
+
+  if(typeof rows === "string"){
+
+    try{
+      rows = JSON.parse(rows);
+    }catch(e){
+      rows = [];
+    }
+
+  }
+
+
+  if(!Array.isArray(rows) || rows.length === 0){
+
+    body.innerHTML =
+      `<tr>
+        <td colspan="7">
+          No points available.
+        </td>
+      </tr>`;
+
+    return;
+  }
+
+
+  body.innerHTML = "";
+
+
+  rows.forEach(row => {
+
+    const name =
+      row.member_name ?? "Unknown";
+
+    const school =
+      Number(
+        row.school_points ??
+        row.school_madrasa_point ??
+        0
+      );
+
+    const game =
+      Number(
+        row.game_points ??
+        row.game_work_point ??
+        0
+      );
+
+    const total =
+      Number(
+        row.total_points ??
+        row.daily_total ??
+        (school + game)
+      );
+
+    const percentage =
+      row.percentage ?? 0;
+
+    const award =
+      row.award_name ?? "No Award";
+
+    const emoji =
+      row.award_emoji ?? "❌";
+
+    const bonus =
+      row.bonus_points ?? 0;
+
+
+    const tr =
+      document.createElement("tr");
+
+
+    tr.innerHTML = `
+
+      <td>
+        <strong>${escapeHtml(name)}</strong>
+      </td>
+
+      <td>${school}</td>
+
+      <td>${game}</td>
+
+      <td><strong>${total}/3</strong></td>
+
+      <td>${percentage}%</td>
+
+      <td>
+        <span class="badge">
+          ${emoji} ${escapeHtml(award)}
+        </span>
+      </td>
+
+      <td>${bonus}</td>
+
+    `;
+
+
+    body.appendChild(tr);
+
+  });
+
+}
+
+
+/* =========================
+   APPLICATION
+========================= */
+
+document.getElementById(
+  "applicationForm"
+).addEventListener(
+  "submit",
+  async function(event){
+
+    event.preventDefault();
+
+
+    const message =
+      document.getElementById(
+        "applicationMessage"
+      );
+
+
+    message.className =
+      "message";
+
+    message.style.display =
+      "none";
+
+
+    const name =
+      document.getElementById(
+        "applicantName"
+      ).value.trim();
+
+    const age =
+      document.getElementById(
+        "age"
+      ).value.trim();
+
+    const classValue =
+      document.getElementById(
+        "class"
+      ).value.trim();
+
+    const post =
+      document.getElementById(
+        "post"
+      ).value.trim();
+
+    const email =
+      document.getElementById(
+        "applicantEmail"
+      ).value.trim();
+
+    const contact =
+      document.getElementById(
+        "contactNumber"
+      ).value.trim();
+
+    const reason =
+      document.getElementById(
+        "reason"
+      ).value.trim();
+
+    const photoInput =
+      document.getElementById(
+        "applicantPhoto"
+      );
+
+    const photo =
+      photoInput.files.length
+        ? photoInput.files[0].name
+        : "";
+
+
+    const {
+      data,
+      error
+    } = await supabaseClient.rpc(
       "submit_application",
       {
-        input_applicant_name:
-        applicantName,
-
-        input_age:
-        age,
-
-        input_class:
-        applicantClass,
-
-        input_post:
-        post,
-
-        input_applicant_photo:
-        photoName,
-
-        input_applicant_email:
-        email,
-
-        input_contact_number:
-        contact,
-
-        input_reason:
-        reason
+        input_applicant_name: name,
+        input_age: age,
+        input_class: classValue,
+        input_post: post,
+        input_applicant_photo: photo,
+        input_applicant_email: email,
+        input_contact_number: contact,
+        input_reason: reason
       }
     );
 
 
-    if(response.error){
+    if(error){
 
-      throw new Error(
-        response.error.message
-      );
+      message.textContent =
+        error.message;
 
+      message.className =
+        "message error";
+
+      message.style.display =
+        "block";
+
+      return;
     }
 
 
-    const data =
-    response.data;
+    if(!data || data.success === false){
 
-
-    if(
-      !data ||
-      data.success !== true
-    ){
-
-      throw new Error(
+      message.textContent =
         data?.message ||
-        "Application submit नहीं हो पाई"
-      );
+        "Application submission failed.";
 
+      message.className =
+        "message error";
+
+      message.style.display =
+        "block";
+
+      return;
     }
 
 
-    applicationMessage.className =
-    "message success";
+    message.textContent =
+      "Application successfully submitted. Status: Pending";
 
-    applicationMessage.innerHTML =
-    "<strong>Application Submitted Successfully</strong><br>" +
-    "Your application status is Pending.";
+    message.className =
+      "message success";
+
+    message.style.display =
+      "block";
 
 
-    applicationForm.reset();
-
-  }
-
-  catch(error){
-
-    console.error(
-      "Application Error:",
-      error
-    );
-
-    applicationMessage.className =
-    "message error";
-
-    applicationMessage.textContent =
-    "Error: " +
-    (error.message ||
-     "Application submit नहीं हो पाई");
+    document.getElementById(
+      "applicationForm"
+    ).reset();
 
   }
+);
 
-  finally{
 
-    submitBtn.disabled = false;
+/* =========================
+   SECURITY / HTML
+========================= */
 
-    submitBtn.textContent =
-    "Submit Application";
+function escapeHtml(value){
 
-  }
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
-});
+}
+
+
+/* Automatically load today's public points */
+
+viewPublicPoints();
 
 </script>
 

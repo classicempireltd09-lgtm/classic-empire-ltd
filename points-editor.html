@@ -21,21 +21,41 @@ body{
   color:#222;
 }
 
+/* HEADER */
+
 header{
   background:#111827;
   color:white;
-  padding:20px;
-  text-align:center;
+  padding:18px 20px;
 }
 
-header h1{
-  font-size:25px;
+.brand{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  gap:13px;
 }
 
-header p{
-  margin-top:6px;
+.logo{
+  width:58px;
+  height:58px;
+  object-fit:contain;
+  border-radius:10px;
+  background:white;
+  padding:3px;
+}
+
+.brand h1{
+  font-size:24px;
+}
+
+.brand p{
+  margin-top:5px;
   opacity:.85;
 }
+
+/* CONTAINER */
 
 .container{
   width:min(1100px,94%);
@@ -54,7 +74,10 @@ h2{
   margin-bottom:15px;
 }
 
-input,button,select{
+/* FORM */
+
+input,
+button{
   width:100%;
   padding:12px;
   margin-top:9px;
@@ -80,26 +103,33 @@ button:hover{
   margin-top:12px;
 }
 
+/* INFO */
+
+.info{
+  background:#eef2ff;
+  padding:13px;
+  border-radius:8px;
+  margin-bottom:15px;
+  line-height:1.7;
+}
+
 .hidden{
   display:none;
 }
 
-.info{
-  background:#eef2ff;
-  padding:12px;
-  border-radius:8px;
-  margin-bottom:15px;
-}
-
 .error{
   color:#b91c1c;
-  margin-top:10px;
+  margin-top:12px;
+  font-weight:bold;
 }
 
 .success{
   color:#15803d;
-  margin-top:10px;
+  margin-top:12px;
+  font-weight:bold;
 }
+
+/* TABLE */
 
 .table-wrap{
   overflow-x:auto;
@@ -108,10 +138,11 @@ button:hover{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:750px;
+  min-width:760px;
 }
 
-th,td{
+th,
+td{
   border:1px solid #ddd;
   padding:10px;
   text-align:center;
@@ -128,118 +159,223 @@ td input{
   text-align:center;
 }
 
+.total{
+  font-weight:bold;
+  font-size:17px;
+}
+
 .save-btn{
   background:#166534;
   width:auto;
-  padding:9px 15px;
+  padding:9px 16px;
   margin:0;
 }
 
-.total{
-  font-weight:bold;
+/* MOBILE */
+
+@media(max-width:600px){
+
+  .brand h1{
+    font-size:20px;
+  }
+
+  .brand p{
+    font-size:13px;
+  }
+
+  .logo{
+    width:50px;
+    height:50px;
+  }
+
+  .card{
+    padding:15px;
+  }
+
 }
 
-.badge{
-  display:inline-block;
-  background:#e5e7eb;
-  padding:6px 10px;
-  border-radius:20px;
-  margin-top:8px;
-}
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
+
 <header>
-  <h1>Classic Empire Ltd</h1>
-  <p>Daily Points Editor</p>
+
+  <div class="brand">
+
+    <img
+      src="classic-empire-logo.png"
+      alt="Classic Empire Ltd Logo"
+      class="logo"
+    >
+
+    <div>
+      <h1>Classic Empire Ltd</h1>
+      <p>Daily Points Editor</p>
+    </div>
+
+  </div>
+
 </header>
+
 
 <div class="container">
 
-  <!-- LOGIN -->
-  <div id="loginBox" class="card">
-    <h2>Points Editor Login</h2>
 
-    <input
-      id="email"
-      type="email"
-      placeholder="Email"
-      autocomplete="username"
-    >
+<!-- LOGIN -->
 
-    <input
-      id="password"
-      type="password"
-      placeholder="Password"
-      autocomplete="current-password"
-    >
+<div id="loginBox" class="card">
 
-    <button onclick="login()">Login</button>
+  <h2>Points Editor Login</h2>
 
-    <div id="loginMessage"></div>
-  </div>
+  <input
+    id="email"
+    type="email"
+    placeholder="Email"
+    autocomplete="username"
+  >
 
-  <!-- EDITOR -->
-  <div id="editorBox" class="hidden">
+  <input
+    id="password"
+    type="password"
+    placeholder="Password"
+    autocomplete="current-password"
+  >
 
-    <div class="card">
-      <h2>Points Management</h2>
+  <button onclick="login()">
+    Login
+  </button>
 
-      <div class="info">
-        Logged in:
-        <strong id="loggedEmail"></strong>
-        <br>
-        Role:
-        <strong id="loggedRole"></strong>
-      </div>
-
-      <label><strong>Select Date</strong></label>
-      <input id="pointDate" type="date">
-
-      <button onclick="loadPoints()">Load Points</button>
-
-      <button class="logout" onclick="logout()">Logout</button>
-
-      <div id="message"></div>
-    </div>
-
-    <div class="card">
-      <h2>Daily Points</h2>
-
-      <div class="info">
-        School / Madrasa: <strong>0–1 Point</strong><br>
-        Classic Empire Game Work: <strong>0–2 Points</strong><br>
-        Daily Maximum: <strong>3 Points</strong>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Member</th>
-              <th>School / Madrasa</th>
-              <th>Game Work</th>
-              <th>Total</th>
-              <th>Save</th>
-            </tr>
-          </thead>
-
-          <tbody id="pointsBody">
-            <tr>
-              <td colspan="5">Select a date and load points.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
+  <div id="loginMessage"></div>
 
 </div>
 
+
+<!-- EDITOR -->
+
+<div id="editorBox" class="hidden">
+
+
+  <!-- ACCOUNT -->
+
+  <div class="card">
+
+    <h2>Points Management</h2>
+
+    <div class="info">
+
+      Logged in:
+      <strong id="loggedEmail"></strong>
+
+      <br>
+
+      Role:
+      <strong id="loggedRole"></strong>
+
+    </div>
+
+
+    <label>
+      <strong>Select Date</strong>
+    </label>
+
+    <input
+      id="pointDate"
+      type="date"
+    >
+
+    <button onclick="loadPoints()">
+      Load Points
+    </button>
+
+    <button
+      class="logout"
+      onclick="logout()"
+    >
+      Logout
+    </button>
+
+    <div id="message"></div>
+
+  </div>
+
+
+  <!-- DAILY POINTS -->
+
+  <div class="card">
+
+    <h2>Daily Points</h2>
+
+    <div class="info">
+
+      School / Madrasa:
+      <strong>0–1 Point</strong>
+
+      <br>
+
+      Classic Empire Game Work:
+      <strong>0–2 Points</strong>
+
+      <br>
+
+      Daily Maximum:
+      <strong>3 Points</strong>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Member</th>
+
+            <th>School / Madrasa</th>
+
+            <th>Game Work</th>
+
+            <th>Total</th>
+
+            <th>Save</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="pointsBody">
+
+          <tr>
+
+            <td colspan="5">
+              Select a date and load points.
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+</div>
+
+
 <script>
+
+/* SUPABASE */
 
 const SUPABASE_URL =
 "https://hjatspkzgoddcpgwfkxo.supabase.co";
@@ -253,6 +389,9 @@ supabase.createClient(
   SUPABASE_KEY
 );
 
+
+/* AUTHORIZED USERS */
+
 const ADMIN_UID =
 "8820968d-c20b-4892-b38b-395083efd026";
 
@@ -260,73 +399,109 @@ const PRESIDENT_ASSISTANT_UID =
 "b4903f62-1728-438b-8da6-537f9d5d8019";
 
 
+/* TODAY */
+
 function todayDate(){
 
   const d = new Date();
 
-  const year = d.getFullYear();
+  const year =
+    d.getFullYear();
 
   const month =
-    String(d.getMonth()+1).padStart(2,"0");
+    String(d.getMonth()+1)
+    .padStart(2,"0");
 
   const day =
-    String(d.getDate()).padStart(2,"0");
+    String(d.getDate())
+    .padStart(2,"0");
 
   return `${year}-${month}-${day}`;
 }
 
 
-document.getElementById("pointDate").value =
-todayDate();
+document.getElementById(
+  "pointDate"
+).value = todayDate();
 
+
+/* LOGIN */
 
 async function login(){
 
   const email =
-    document.getElementById("email").value.trim();
+    document.getElementById(
+      "email"
+    ).value.trim();
 
   const password =
-    document.getElementById("password").value;
+    document.getElementById(
+      "password"
+    ).value;
 
   const message =
-    document.getElementById("loginMessage");
+    document.getElementById(
+      "loginMessage"
+    );
+
 
   message.className = "";
   message.textContent = "";
 
+
   if(!email || !password){
 
     message.className = "error";
+
     message.textContent =
       "Email और Password दोनों डालें।";
 
     return;
   }
 
-  const { data, error } =
-    await supabaseClient.auth.signInWithPassword({
-      email,
-      password
-    });
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.auth
+      .signInWithPassword({
+
+        email:email,
+
+        password:password
+
+      });
+
 
   if(error){
 
     message.className = "error";
-    message.textContent = error.message;
+
+    message.textContent =
+      error.message;
 
     return;
   }
 
+
   await checkEditorAccess();
+
 }
 
+
+/* CHECK ACCESS */
 
 async function checkEditorAccess(){
 
   const {
-    data: { user }
+    data:{
+      user
+    }
   } =
-    await supabaseClient.auth.getUser();
+    await supabaseClient.auth
+      .getUser();
+
 
   if(!user){
 
@@ -335,24 +510,39 @@ async function checkEditorAccess(){
     return;
   }
 
+
   let role = "";
+
 
   if(user.id === ADMIN_UID){
 
     role = "President";
 
-  }else if(user.id === PRESIDENT_ASSISTANT_UID){
+  }
 
-    role = "President Assistant";
+  else if(
+    user.id ===
+    PRESIDENT_ASSISTANT_UID
+  ){
 
-  }else{
+    role =
+      "President Assistant";
+
+  }
+
+  else{
 
     await supabaseClient.auth.signOut();
 
-    document.getElementById("loginMessage").className =
+    const message =
+      document.getElementById(
+        "loginMessage"
+      );
+
+    message.className =
       "error";
 
-    document.getElementById("loginMessage").textContent =
+    message.textContent =
       "इस account को Points Editor access नहीं है।";
 
     showLogin();
@@ -360,48 +550,83 @@ async function checkEditorAccess(){
     return;
   }
 
-  document.getElementById("loggedEmail").textContent =
+
+  document.getElementById(
+    "loggedEmail"
+  ).textContent =
     user.email || "";
 
-  document.getElementById("loggedRole").textContent =
+
+  document.getElementById(
+    "loggedRole"
+  ).textContent =
     role;
 
-  document.getElementById("loginBox")
-    .classList.add("hidden");
 
-  document.getElementById("editorBox")
-    .classList.remove("hidden");
+  document.getElementById(
+    "loginBox"
+  ).classList.add(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "editorBox"
+  ).classList.remove(
+    "hidden"
+  );
+
 
   await loadPoints();
+
 }
 
+
+/* LOAD POINTS */
 
 async function loadPoints(){
 
   const date =
-    document.getElementById("pointDate").value;
+    document.getElementById(
+      "pointDate"
+    ).value;
+
 
   const body =
-    document.getElementById("pointsBody");
+    document.getElementById(
+      "pointsBody"
+    );
+
 
   const message =
-    document.getElementById("message");
+    document.getElementById(
+      "message"
+    );
+
 
   if(!date){
 
-    message.className = "error";
+    message.className =
+      "error";
+
     message.textContent =
       "पहले date select करें।";
 
     return;
   }
 
-  body.innerHTML =
-    `<tr>
-      <td colspan="5">Loading...</td>
-    </tr>`;
+
+  body.innerHTML = `
+    <tr>
+      <td colspan="5">
+        Loading...
+      </td>
+    </tr>
+  `;
+
 
   message.textContent = "";
+
 
   const {
     data,
@@ -410,38 +635,48 @@ async function loadPoints(){
     await supabaseClient.rpc(
       "get_points_dashboard",
       {
-        input_date: date
+        input_date:date
       }
     );
 
+
   if(error){
 
-    body.innerHTML =
-      `<tr>
+    body.innerHTML = `
+      <tr>
         <td colspan="5">
-          Error: ${escapeHtml(error.message)}
+          Error:
+          ${escapeHtml(error.message)}
         </td>
-      </tr>`;
+      </tr>
+    `;
 
     return;
   }
 
+
   const rows =
-    Array.isArray(data) ? data : [];
+    Array.isArray(data)
+      ? data
+      : [];
+
 
   if(rows.length === 0){
 
-    body.innerHTML =
-      `<tr>
+    body.innerHTML = `
+      <tr>
         <td colspan="5">
           No members found.
         </td>
-      </tr>`;
+      </tr>
+    `;
 
     return;
   }
 
+
   body.innerHTML = "";
+
 
   rows.forEach(row => {
 
@@ -452,6 +687,7 @@ async function loadPoints(){
         0
       );
 
+
     const game =
       Number(
         row.game_points ??
@@ -459,20 +695,32 @@ async function loadPoints(){
         0
       );
 
+
     const total =
       school + game;
 
+
     const tr =
-      document.createElement("tr");
+      document.createElement(
+        "tr"
+      );
+
 
     tr.innerHTML = `
-      <td>
-        <strong>
-          ${escapeHtml(row.member_name || "")}
-        </strong>
-      </td>
 
       <td>
+
+        <strong>
+          ${escapeHtml(
+            row.member_name || ""
+          )}
+        </strong>
+
+      </td>
+
+
+      <td>
+
         <input
           type="number"
           min="0"
@@ -481,9 +729,12 @@ async function loadPoints(){
           id="school-${row.id}"
           oninput="updateTotal(${row.id})"
         >
+
       </td>
 
+
       <td>
+
         <input
           type="number"
           min="0"
@@ -492,7 +743,9 @@ async function loadPoints(){
           id="game-${row.id}"
           oninput="updateTotal(${row.id})"
         >
+
       </td>
+
 
       <td
         class="total"
@@ -501,15 +754,23 @@ async function loadPoints(){
         ${total}
       </td>
 
+
       <td>
+
         <button
           class="save-btn"
-          onclick="savePoints(${row.id}, '${escapeJs(date)}')"
+          onclick="savePoints(
+            ${row.id},
+            '${escapeJs(date)}'
+          )"
         >
           Save
         </button>
+
       </td>
+
     `;
+
 
     body.appendChild(tr);
 
@@ -517,6 +778,8 @@ async function loadPoints(){
 
 }
 
+
+/* LIVE TOTAL */
 
 function updateTotal(id){
 
@@ -527,6 +790,7 @@ function updateTotal(id){
       ).value
     ) || 0;
 
+
   const game =
     Number(
       document.getElementById(
@@ -534,14 +798,21 @@ function updateTotal(id){
       ).value
     ) || 0;
 
+
   document.getElementById(
     `total-${id}`
   ).textContent =
     school + game;
+
 }
 
 
-async function savePoints(memberId,date){
+/* SAVE */
+
+async function savePoints(
+  memberId,
+  date
+){
 
   const school =
     Number(
@@ -550,6 +821,7 @@ async function savePoints(memberId,date){
       ).value
     );
 
+
   const game =
     Number(
       document.getElementById(
@@ -557,8 +829,12 @@ async function savePoints(memberId,date){
       ).value
     );
 
+
   const message =
-    document.getElementById("message");
+    document.getElementById(
+      "message"
+    );
+
 
   if(
     !Number.isInteger(school) ||
@@ -566,12 +842,15 @@ async function savePoints(memberId,date){
     school > 1
   ){
 
-    message.className = "error";
+    message.className =
+      "error";
+
     message.textContent =
       "School/Madrasa Point केवल 0 या 1 होना चाहिए।";
 
     return;
   }
+
 
   if(
     !Number.isInteger(game) ||
@@ -579,12 +858,15 @@ async function savePoints(memberId,date){
     game > 2
   ){
 
-    message.className = "error";
+    message.className =
+      "error";
+
     message.textContent =
       "Game Work Point केवल 0 से 2 होना चाहिए।";
 
     return;
   }
+
 
   const {
     data,
@@ -593,29 +875,48 @@ async function savePoints(memberId,date){
     await supabaseClient.rpc(
       "save_daily_points",
       {
-        input_member_id: memberId,
-        input_point_date: date,
-        input_school_point: school,
-        input_game_point: game
+
+        input_member_id:
+          memberId,
+
+        input_point_date:
+          date,
+
+        input_school_point:
+          school,
+
+        input_game_point:
+          game
+
       }
     );
 
+
   if(error){
 
-    message.className = "error";
+    message.className =
+      "error";
+
     message.textContent =
       error.message;
 
     return;
   }
 
-  message.className = "success";
+
+  message.className =
+    "success";
+
   message.textContent =
     "Points successfully saved. ✅";
 
+
   await loadPoints();
+
 }
 
+
+/* LOGOUT */
 
 async function logout(){
 
@@ -626,42 +927,91 @@ async function logout(){
 }
 
 
+/* SHOW LOGIN */
+
 function showLogin(){
 
-  document.getElementById("loginBox")
-    .classList.remove("hidden");
+  document.getElementById(
+    "loginBox"
+  ).classList.remove(
+    "hidden"
+  );
 
-  document.getElementById("editorBox")
-    .classList.add("hidden");
+
+  document.getElementById(
+    "editorBox"
+  ).classList.add(
+    "hidden"
+  );
 
 }
 
+
+/* HTML SECURITY */
 
 function escapeHtml(value){
 
   return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
 }
 
+
+/* JS SECURITY */
 
 function escapeJs(value){
 
   return String(value)
-    .replaceAll("\\","\\\\")
-    .replaceAll("'","\\'");
+
+    .replaceAll(
+      "\\",
+      "\\\\"
+    )
+
+    .replaceAll(
+      "'",
+      "\\'"
+    );
+
 }
 
+
+/* RESTORE SESSION */
 
 async function restoreSession(){
 
   const {
-    data: { session }
+    data:{
+      session
+    }
   } =
-    await supabaseClient.auth.getSession();
+    await supabaseClient.auth
+      .getSession();
+
 
   if(session){
 
@@ -672,18 +1022,29 @@ async function restoreSession(){
 }
 
 
-supabaseClient.auth.onAuthStateChange(
-  async (event, session) => {
+/* AUTH LISTENER */
 
-    if(event === "SIGNED_OUT"){
+supabaseClient.auth
+  .onAuthStateChange(
+    async (
+      event,
+      session
+    ) => {
 
-      showLogin();
+      if(
+        event ===
+        "SIGNED_OUT"
+      ){
+
+        showLogin();
+
+      }
 
     }
+  );
 
-  }
-);
 
+/* START */
 
 restoreSession();
 

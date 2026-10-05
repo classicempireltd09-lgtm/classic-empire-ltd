@@ -2,11 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Classic Empire Ltd</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
@@ -23,86 +21,108 @@ body{
   font-family:Arial,sans-serif;
   background:#080808;
   color:#fff;
-  line-height:1.6;
 }
 
 header{
   background:#111;
-  border-bottom:1px solid #c9a227;
+  border-bottom:2px solid #d4af37;
+  padding:12px 20px;
   position:sticky;
   top:0;
   z-index:1000;
 }
 
-.nav{
-  width:95%;
+.header-inner{
   max-width:1200px;
   margin:auto;
-  padding:14px 0;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  gap:15px;
-  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:20px;
 }
 
-.logo{
-  color:#ffd84d;
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand img{
+  width:55px;
+  height:55px;
+  object-fit:contain;
+  border-radius:50%;
+}
+
+.brand-text h1{
+  color:#d4af37;
   font-size:22px;
-  font-weight:bold;
+}
+
+.brand-text p{
+  color:#aaa;
+  font-size:12px;
 }
 
 nav{
   display:flex;
-  gap:8px;
   flex-wrap:wrap;
+  gap:8px;
 }
 
 nav a{
   color:#fff;
   text-decoration:none;
-  padding:7px 10px;
-  border-radius:6px;
+  padding:9px 12px;
+  border-radius:7px;
   font-size:14px;
 }
 
 nav a:hover{
-  background:#c9a227;
+  background:#d4af37;
   color:#000;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:25px 16px;
 }
 
 .hero{
   text-align:center;
-  padding:70px 20px;
-  background:linear-gradient(#111,#080808);
+  padding:55px 15px;
+  background:linear-gradient(180deg,#151515,#080808);
 }
 
-.hero h1{
-  color:#ffd84d;
-  font-size:42px;
+.hero-logo{
+  width:130px;
+  height:130px;
+  object-fit:contain;
+  margin-bottom:18px;
+  border-radius:50%;
+}
+
+.hero h2{
+  color:#d4af37;
+  font-size:38px;
   margin-bottom:10px;
 }
 
 .hero p{
   color:#ccc;
-  font-size:18px;
-}
-
-.container{
-  width:94%;
-  max-width:1200px;
-  margin:auto;
+  font-size:17px;
 }
 
 section{
-  padding:45px 0;
+  margin-top:35px;
 }
 
-.title{
+.section-title{
   text-align:center;
-  color:#ffd84d;
-  margin-bottom:25px;
+  color:#d4af37;
   font-size:28px;
+  margin-bottom:22px;
 }
 
 .card-grid{
@@ -112,166 +132,170 @@ section{
 }
 
 .card{
-  background:#111;
+  background:#151515;
   border:1px solid #333;
-  border-radius:14px;
+  border-radius:12px;
   padding:20px;
-}
-
-.person{
   text-align:center;
 }
 
-.person img{
-  width:120px;
-  height:120px;
-  object-fit:cover;
+.card img{
+  width:90px;
+  height:90px;
   border-radius:50%;
-  border:2px solid #c9a227;
+  object-fit:cover;
+  border:2px solid #d4af37;
   margin-bottom:12px;
 }
 
-.person h3{
-  color:#ffd84d;
+.card h3{
+  color:#d4af37;
+  margin-bottom:7px;
 }
 
-.person p{
-  color:#bbb;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:700px;
+.card p{
+  color:#ccc;
 }
 
 .table-wrap{
   overflow-x:auto;
 }
 
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:600px;
+  background:#151515;
+}
+
 th,td{
-  border:1px solid #444;
-  padding:11px;
+  border:1px solid #333;
+  padding:12px;
   text-align:center;
 }
 
 th{
-  background:#1b1b1b;
-  color:#ffd84d;
+  background:#d4af37;
+  color:#000;
 }
 
 td{
-  background:#101010;
+  color:#eee;
 }
 
-.form{
-  max-width:700px;
-  margin:auto;
-}
-
-label{
-  display:block;
-  margin:12px 0 5px;
-}
-
-input,select,textarea{
-  width:100%;
-  padding:12px;
-  background:#090909;
-  border:1px solid #555;
-  color:#fff;
-  border-radius:8px;
-  font-size:15px;
-}
-
-textarea{
-  min-height:120px;
-  resize:vertical;
-}
-
-button{
+.btn{
+  display:inline-block;
   background:#d4af37;
   color:#000;
-  border:0;
+  text-decoration:none;
   padding:12px 20px;
   border-radius:8px;
   font-weight:bold;
+  margin:6px;
+  border:none;
   cursor:pointer;
-  margin-top:15px;
 }
 
-button:hover{
-  background:#ffd84d;
-}
-
-.message{
-  display:none;
-  padding:12px;
-  border-radius:8px;
-  margin-top:15px;
-}
-
-.success{
-  display:block;
-  background:#123d1c;
-  color:#72ff8a;
-}
-
-.error{
-  display:block;
-  background:#451414;
-  color:#ff7777;
-}
-
-.info{
-  color:#bbb;
-  text-align:center;
+.btn:hover{
+  background:#fff;
 }
 
 .points-box{
   background:#111;
   border:1px solid #333;
-  border-radius:14px;
+  border-radius:12px;
   padding:20px;
 }
 
-.points-top{
+.date-row{
   display:flex;
-  gap:12px;
-  align-items:end;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
   flex-wrap:wrap;
   margin-bottom:20px;
 }
 
-.points-date{
-  flex:1;
-  min-width:220px;
-}
-
-.points-table{
-  overflow-x:auto;
-}
-
-.badge{
-  padding:4px 8px;
-  border-radius:6px;
+input{
+  padding:11px;
+  border-radius:7px;
+  border:1px solid #555;
   background:#222;
+  color:#fff;
+}
+
+.message{
+  text-align:center;
+  padding:15px;
+  color:#aaa;
+}
+
+.application{
+  background:#151515;
+  padding:22px;
+  border-radius:12px;
+  border:1px solid #333;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.form-group label{
+  color:#d4af37;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+  padding:11px;
+  border-radius:7px;
+  border:1px solid #555;
+  background:#222;
+  color:#fff;
+}
+
+textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+.full{
+  grid-column:1/-1;
 }
 
 footer{
-  border-top:1px solid #333;
-  padding:30px 15px;
+  margin-top:50px;
+  padding:25px;
   text-align:center;
-  color:#999;
+  background:#111;
+  border-top:2px solid #d4af37;
+  color:#aaa;
 }
 
-@media(max-width:600px){
-  .hero h1{
-    font-size:30px;
+footer strong{
+  color:#d4af37;
+}
+
+@media(max-width:700px){
+  .header-inner{
+    flex-direction:column;
   }
 
   nav{
     justify-content:center;
+  }
+
+  .hero h2{
+    font-size:29px;
   }
 }
 </style>
@@ -280,76 +304,99 @@ footer{
 <body>
 
 <header>
-  <div class="nav">
-    <div class="logo">Classic Empire Ltd</div>
+  <div class="header-inner">
+
+    <div class="brand">
+      <img src="classic-empire-logo.png" alt="Classic Empire Logo">
+
+      <div class="brand-text">
+        <h1>Classic Empire Ltd</h1>
+        <p>Official Main Website</p>
+      </div>
+    </div>
 
     <nav>
       <a href="#home">Home</a>
-      <a href="#people">People</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#employees">Employees</a>
       <a href="#currency">Currency</a>
       <a href="#salary">Salary</a>
       <a href="#points">Points</a>
       <a href="#exam">Exam</a>
       <a href="#apply">Apply</a>
-      <a href="status.html">Status</a>
-      <a href="result.html">Result</a>
-      <a href="admin.html">Admin</a>
     </nav>
+
   </div>
 </header>
 
 
 <section class="hero" id="home">
-  <h1>Classic Empire Ltd</h1>
-  <p>Welcome to Classic Empire</p>
-  <p>Head Office: Chakla Ghat, Kishanganj, Bihar, India</p>
+
+  <img
+    src="classic-empire-logo.png"
+    alt="Classic Empire Ltd Logo"
+    class="hero-logo"
+  >
+
+  <h2>Classic Empire Ltd</h2>
+
+  <p>
+    Welcome to the Official Classic Empire Ltd Main Website
+  </p>
+
+  <div style="margin-top:20px;">
+    <a class="btn" href="#points">View Points</a>
+    <a class="btn" href="exam.html">Exam Portal</a>
+  </div>
+
 </section>
 
 
-<section id="people">
 <div class="container">
 
-<h2 class="title">Leadership</h2>
+<section id="leadership">
+
+<h2 class="section-title">Leadership</h2>
 
 <div class="card-grid">
 
-<div class="card person">
+<div class="card">
 <img src="noor-ahmad.png" alt="Noor Ahmad">
 <h3>Noor Ahmad</h3>
 <p>President</p>
 </div>
 
-<div class="card person">
+<div class="card">
 <img src="tabshir-alam.png" alt="Tabshir Alam">
 <h3>Tabshir Alam</h3>
 <p>President's Assistant</p>
 </div>
 
-<div class="card person">
+<div class="card">
 <img src="jakir-hussain.png" alt="Jakir Hussain">
 <h3>Jakir Hussain</h3>
 <p>DM</p>
 </div>
 
-<div class="card person">
+<div class="card">
 <img src="shadat-hussain.png" alt="Shadat Hussain">
 <h3>Shadat Hussain</h3>
 <p>DM's Assistant</p>
 </div>
 
-<div class="card person">
+<div class="card">
 <img src="aszad-sayeed.png" alt="Aszad Sayeed">
 <h3>Aszad Sayeed</h3>
 <p>SDM</p>
 </div>
 
-<div class="card person">
+<div class="card">
 <img src="shahnawaz-alam.png" alt="Shahnawaz Alam">
 <h3>Shahnawaz Alam</h3>
 <p>SP</p>
 </div>
 
-<div class="card person">
+<div class="card">
 <img src="shadab-alam.png" alt="Shadab Alam">
 <h3>Shadab Alam</h3>
 <p>DSP</p>
@@ -357,20 +404,22 @@ footer{
 
 </div>
 
+</section>
 
-<h2 class="title" style="margin-top:45px">
-Other Employees
-</h2>
+
+<section id="employees">
+
+<h2 class="section-title">Other Employees</h2>
 
 <div class="card-grid">
 
-<div class="card person">
+<div class="card">
 <img src="mahir-alam.png" alt="Mahir Alam">
 <h3>Mahir Alam</h3>
 <p>Employee</p>
 </div>
 
-<div class="card person">
+<div class="card">
 <img src="sajjad-alam.png" alt="Sajjad Alam">
 <h3>Sajjad Alam</h3>
 <p>Employee</p>
@@ -378,21 +427,18 @@ Other Employees
 
 </div>
 
-</div>
 </section>
 
 
 <section id="currency">
-<div class="container">
 
-<h2 class="title">Classic Currency</h2>
+<h2 class="section-title">Classic Empire Currency</h2>
 
-<div class="card">
 <div class="table-wrap">
 
 <table>
 <tr>
-<th>Currency Name</th>
+<th>Currency</th>
 <th>Code</th>
 <th>Short Name</th>
 <th>Symbol</th>
@@ -404,80 +450,109 @@ Other Employees
 <td>CLD</td>
 <td>CD</td>
 <td>د.ك</td>
-<td>1 CD = 300 KD = ₹93,600</td>
+<td>1 CD = ₹93,600</td>
 </tr>
+
 </table>
 
 </div>
-</div>
 
-</div>
 </section>
 
 
 <section id="salary">
-<div class="container">
 
-<h2 class="title">Weekly Salary</h2>
+<h2 class="section-title">Weekly Salary</h2>
 
-<div class="card">
 <div class="table-wrap">
 
 <table>
+
 <tr>
 <th>Post</th>
 <th>Weekly Salary</th>
 </tr>
 
-<tr><td>President</td><td>Unlimited</td></tr>
-<tr><td>President's Assistant</td><td>₹1,50,000</td></tr>
-<tr><td>DM</td><td>₹2,18,200</td></tr>
-<tr><td>DM's Assistant</td><td>₹1,20,000</td></tr>
-<tr><td>SDM</td><td>₹1,77,500</td></tr>
-<tr><td>SP</td><td>₹2,15,900</td></tr>
-<tr><td>DSP</td><td>₹1,77,500</td></tr>
+<tr>
+<td>President</td>
+<td>Unlimited</td>
+</tr>
+
+<tr>
+<td>President's Assistant</td>
+<td>₹1,50,000</td>
+</tr>
+
+<tr>
+<td>DM</td>
+<td>₹2,18,200</td>
+</tr>
+
+<tr>
+<td>DM's Assistant</td>
+<td>₹1,20,000</td>
+</tr>
+
+<tr>
+<td>SDM</td>
+<td>₹1,77,500</td>
+</tr>
+
+<tr>
+<td>SP</td>
+<td>₹2,15,900</td>
+</tr>
+
+<tr>
+<td>DSP</td>
+<td>₹1,77,500</td>
+</tr>
 
 </table>
-</div>
 
-<p class="info" style="margin-top:15px">
+<p style="text-align:center;color:#aaa;margin-top:10px;">
 Salary is paid every Thursday.
 </p>
 
 </div>
-</div>
+
 </section>
 
 
-<!-- PUBLIC POINTS ONLY -->
 <section id="points">
-<div class="container">
 
-<h2 class="title">Points & Awards</h2>
+<h2 class="section-title">Points & Awards</h2>
 
 <div class="points-box">
 
-<p class="info" style="margin-bottom:20px">
-सभी members के points और awards यहाँ देखे जा सकते हैं।
-</p>
+<div class="date-row">
 
-<div class="points-top">
+<label for="pointDate">Point Date:</label>
 
-<div class="points-date">
-<label>Point Date</label>
-<input type="date" id="publicPointDate">
-</div>
+<input
+  type="date"
+  id="pointDate"
+>
 
-<button onclick="viewPublicPoints()">
+<button
+  class="btn"
+  onclick="loadPoints()"
+>
 View Points
 </button>
 
 </div>
 
-<div class="points-table">
+<div id="pointsMessage" class="message">
+Loading points...
+</div>
 
-<table>
+<div class="table-wrap">
+
+<table id="pointsTable" style="display:none;">
+
 <thead>
+
 <tr>
 <th>Member</th>
 <th>School / Madrasa</th>
@@ -487,17 +562,10 @@ View Points
 <th>Award</th>
 <th>Bonus</th>
 </tr>
+
 </thead>
 
-<tbody id="publicPointsBody">
-
-<tr>
-<td colspan="7">
-Date select करके View Points दबाएँ।
-</td>
-</tr>
-
-</tbody>
+<tbody id="pointsBody"></tbody>
 
 </table>
 
@@ -505,99 +573,122 @@ Date select करके View Points दबाएँ।
 
 </div>
 
-</div>
 </section>
 
 
 <section id="exam">
-<div class="container">
 
-<h2 class="title">Exam</h2>
+<h2 class="section-title">Exam Portal</h2>
 
-<div class="card">
-<p>
-Approved applicants को Exam Code मिलने के बाद
-exam page पर जाकर examination दे सकते हैं।
+<div style="text-align:center;">
+
+<p style="color:#ccc;margin-bottom:15px;">
+Approved applicants can enter the exam using their Exam Code.
 </p>
 
-<p style="margin-top:15px">
-<a href="exam.html" style="color:#ffd84d">
-Open Exam
+<a class="btn" href="exam.html">
+Open Exam Portal
 </a>
-</p>
-</div>
 
 </div>
+
 </section>
 
 
 <section id="apply">
-<div class="container">
 
-<h2 class="title">Apply for Post</h2>
+<h2 class="section-title">Apply for Post</h2>
 
-<div class="card form">
+<div class="application">
 
 <form id="applicationForm">
 
-<label>Applicant Name *</label>
-<input id="applicantName" required>
+<div class="form-grid">
 
+<div class="form-group">
+<label>Applicant Name</label>
+<input id="applicantName" required>
+</div>
+
+<div class="form-group">
 <label>Age</label>
 <input id="age">
+</div>
 
+<div class="form-group">
 <label>Class</label>
-<input id="class">
+<input id="className">
+</div>
 
-<label>Post *</label>
+<div class="form-group">
+<label>Post</label>
+
 <select id="post" required>
+
 <option value="">Select Post</option>
 <option>DM</option>
-<option>DM's Assistant</option>
+<option>DM Assistant</option>
 <option>SDM</option>
 <option>SP</option>
 <option>DSP</option>
+<option>President Assistant</option>
+
 </select>
 
-<label>Email *</label>
-<input
-  type="email"
-  id="applicantEmail"
-  required
->
+</div>
 
+<div class="form-group">
+<label>Email</label>
+<input id="email" type="email" required>
+</div>
+
+<div class="form-group">
 <label>Contact Number</label>
-<input id="contactNumber">
+<input id="contact">
+</div>
 
-<label>Photo</label>
-<input
-  type="file"
-  id="applicantPhoto"
-  accept="image/*"
->
-
-<label>Reason</label>
+<div class="form-group full">
+<label>Reason for Application</label>
 <textarea id="reason"></textarea>
+</div>
 
-<button type="submit">
+</div>
+
+<div style="text-align:center;margin-top:18px;">
+
+<button class="btn" type="submit">
 Submit Application
 </button>
 
-<div id="applicationMessage"
-     class="message"></div>
+</div>
+
+<div id="applicationMessage" class="message"></div>
 
 </form>
 
 </div>
 
-</div>
 </section>
+
+</div>
 
 
 <footer>
-Classic Empire Ltd • Chakla Ghat, Kishanganj, Bihar, India
+
+<strong>Classic Empire Ltd</strong>
+
+<br><br>
+
+Official Main Website
+
+<br><br>
+
+© 2026 Classic Empire Ltd
+
 </footer>
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
@@ -608,346 +699,222 @@ const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
 const supabaseClient =
-window.supabase.createClient(
+supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
 
 
-/* Default date */
+/* DEFAULT DATE */
 
-document.getElementById(
-  "publicPointDate"
-).value =
+const pointDate =
+document.getElementById("pointDate");
+
+pointDate.value =
 new Date().toISOString().split("T")[0];
 
 
-/* =========================
-   PUBLIC POINTS
-========================= */
+/* PUBLIC POINTS */
 
-async function viewPublicPoints(){
+async function loadPoints(){
 
   const date =
-    document.getElementById(
-      "publicPointDate"
-    ).value;
+    document.getElementById("pointDate").value;
+
+  const message =
+    document.getElementById("pointsMessage");
+
+  const table =
+    document.getElementById("pointsTable");
 
   const body =
-    document.getElementById(
-      "publicPointsBody"
+    document.getElementById("pointsBody");
+
+  message.textContent =
+    "Loading points...";
+
+  table.style.display="none";
+
+  body.innerHTML="";
+
+  const {data,error} =
+    await supabaseClient.rpc(
+      "get_public_points",
+      {
+        input_date:date
+      }
     );
-
-  if(!date){
-
-    body.innerHTML =
-      `<tr>
-        <td colspan="7">
-          Please select a date.
-        </td>
-      </tr>`;
-
-    return;
-  }
-
-
-  body.innerHTML =
-    `<tr>
-      <td colspan="7">
-        Loading...
-      </td>
-    </tr>`;
-
-
-  const {
-    data,
-    error
-  } = await supabaseClient.rpc(
-    "get_public_points",
-    {
-      input_date: date
-    }
-  );
-
 
   if(error){
 
-    console.error(error);
-
-    body.innerHTML =
-      `<tr>
-        <td colspan="7">
-          Points could not be loaded.
-        </td>
-      </tr>`;
+    message.textContent =
+      "Points load नहीं हो पाए: "
+      + error.message;
 
     return;
   }
 
+  if(!data || data.length===0){
 
-  let rows = data;
-
-
-  if(typeof rows === "string"){
-
-    try{
-      rows = JSON.parse(rows);
-    }catch(e){
-      rows = [];
-    }
-
-  }
-
-
-  if(!Array.isArray(rows) || rows.length === 0){
-
-    body.innerHTML =
-      `<tr>
-        <td colspan="7">
-          No points available.
-        </td>
-      </tr>`;
+    message.textContent =
+      "इस तारीख के लिए कोई points उपलब्ध नहीं हैं।";
 
     return;
   }
 
-
-  body.innerHTML = "";
-
-
-  rows.forEach(row => {
-
-    const name =
-      row.member_name ?? "Unknown";
+  data.forEach(row=>{
 
     const school =
-      Number(
-        row.school_points ??
-        row.school_madrasa_point ??
-        0
-      );
+      row.school_points ??
+      row.school_madrasa_point ??
+      0;
 
     const game =
-      Number(
-        row.game_points ??
-        row.game_work_point ??
-        0
-      );
+      row.game_points ??
+      row.game_work_point ??
+      0;
 
     const total =
-      Number(
-        row.total_points ??
-        row.daily_total ??
-        (school + game)
-      );
+      row.total_points ??
+      row.daily_total ??
+      (school + game);
 
     const percentage =
-      row.percentage ?? 0;
+      row.percentage ??
+      0;
 
     const award =
-      row.award_name ?? "No Award";
+      row.award_name ??
+      "No Award";
 
     const emoji =
-      row.award_emoji ?? "❌";
+      row.award_emoji ??
+      "❌";
 
     const bonus =
-      row.bonus_points ?? 0;
-
+      row.bonus_points ??
+      0;
 
     const tr =
       document.createElement("tr");
 
+    tr.innerHTML=`
 
-    tr.innerHTML = `
-
-      <td>
-        <strong>${escapeHtml(name)}</strong>
-      </td>
+      <td>${row.member_name ?? ""}</td>
 
       <td>${school}</td>
 
       <td>${game}</td>
 
-      <td><strong>${total}/3</strong></td>
+      <td>${total}</td>
 
       <td>${percentage}%</td>
 
-      <td>
-        <span class="badge">
-          ${emoji} ${escapeHtml(award)}
-        </span>
-      </td>
+      <td>${emoji} ${award}</td>
 
       <td>${bonus}</td>
 
     `;
 
-
     body.appendChild(tr);
 
   });
 
+  table.style.display="table";
+
+  message.textContent =
+    "Points successfully loaded.";
+
 }
 
 
-/* =========================
-   APPLICATION
-========================= */
+/* APPLICATION */
 
-document.getElementById(
-  "applicationForm"
-).addEventListener(
-  "submit",
-  async function(event){
+document
+.getElementById("applicationForm")
+.addEventListener("submit",async function(e){
 
-    event.preventDefault();
+  e.preventDefault();
 
+  const message =
+    document.getElementById("applicationMessage");
 
-    const message =
-      document.getElementById(
-        "applicationMessage"
-      );
+  message.textContent =
+    "Submitting application...";
 
-
-    message.className =
-      "message";
-
-    message.style.display =
-      "none";
-
-
-    const name =
-      document.getElementById(
-        "applicantName"
-      ).value.trim();
-
-    const age =
-      document.getElementById(
-        "age"
-      ).value.trim();
-
-    const classValue =
-      document.getElementById(
-        "class"
-      ).value.trim();
-
-    const post =
-      document.getElementById(
-        "post"
-      ).value.trim();
-
-    const email =
-      document.getElementById(
-        "applicantEmail"
-      ).value.trim();
-
-    const contact =
-      document.getElementById(
-        "contactNumber"
-      ).value.trim();
-
-    const reason =
-      document.getElementById(
-        "reason"
-      ).value.trim();
-
-    const photoInput =
-      document.getElementById(
-        "applicantPhoto"
-      );
-
-    const photo =
-      photoInput.files.length
-        ? photoInput.files[0].name
-        : "";
-
-
-    const {
-      data,
-      error
-    } = await supabaseClient.rpc(
+  const {data,error} =
+    await supabaseClient.rpc(
       "submit_application",
       {
-        input_applicant_name: name,
-        input_age: age,
-        input_class: classValue,
-        input_post: post,
-        input_applicant_photo: photo,
-        input_applicant_email: email,
-        input_contact_number: contact,
-        input_reason: reason
+        input_applicant_name:
+          document.getElementById("applicantName").value,
+
+        input_age:
+          document.getElementById("age").value,
+
+        input_class:
+          document.getElementById("className").value,
+
+        input_post:
+          document.getElementById("post").value,
+
+        input_applicant_photo:
+          "",
+
+        input_applicant_email:
+          document.getElementById("email").value,
+
+        input_contact_number:
+          document.getElementById("contact").value,
+
+        input_reason:
+          document.getElementById("reason").value
       }
     );
 
+  if(error){
 
-    if(error){
+    message.textContent =
+      "Error: " + error.message;
 
-      message.textContent =
-        error.message;
+    return;
+  }
 
-      message.className =
-        "message error";
-
-      message.style.display =
-        "block";
-
-      return;
-    }
-
-
-    if(!data || data.success === false){
-
-      message.textContent =
-        data?.message ||
-        "Application submission failed.";
-
-      message.className =
-        "message error";
-
-      message.style.display =
-        "block";
-
-      return;
-    }
-
+  if(data && data.success){
 
     message.textContent =
       "Application successfully submitted. Status: Pending";
 
-    message.className =
-      "message success";
+    document
+      .getElementById("applicationForm")
+      .reset();
 
-    message.style.display =
-      "block";
+  }else{
 
-
-    document.getElementById(
-      "applicationForm"
-    ).reset();
+    message.textContent =
+      data?.message ||
+      "Application submit नहीं हो पाई।";
 
   }
-);
+
+});
 
 
-/* =========================
-   SECURITY / HTML
-========================= */
+/*
+  IMPORTANT:
 
-function escapeHtml(value){
+  Main Website has NO Admin Login.
+  Main Website has NO Points Editor.
+  Main Website has NO Admin Controls.
 
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  Admin is completely separate:
+  admin.html
 
-}
+  Points Editor is completely separate:
+  points-editor.html
+*/
 
-
-/* Automatically load today's public points */
-
-viewPublicPoints();
+loadPoints();
 
 </script>
 

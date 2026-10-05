@@ -1,137 +1,141 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Classic Empire Ltd - Exam Portal</title>
+
+<title>Classic Empire Ltd - Exam</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
   box-sizing:border-box;
   margin:0;
-  padding:0
+  padding:0;
 }
 
 body{
   font-family:Arial,sans-serif;
-  background:#080808;
-  color:#fff;
-  min-height:100vh;
+  background:#f4f6f8;
+  color:#222;
 }
 
 header{
-  background:#111;
-  border-bottom:2px solid #d4af37;
-  padding:22px 15px;
-  text-align:center;
+  background:#111827;
+  color:white;
+  padding:18px 20px;
 }
 
-header h1{
-  color:#d4af37;
-  margin-bottom:7px
+.brand{
+  max-width:1000px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-header p{
-  color:#aaa
+.logo{
+  width:55px;
+  height:55px;
+  object-fit:contain;
+  background:white;
+  border-radius:10px;
+  padding:3px;
 }
 
 .container{
-  width:94%;
-  max-width:850px;
-  margin:25px auto;
+  width:min(1000px,94%);
+  margin:22px auto;
 }
 
 .card{
-  background:#111;
-  border:1px solid #333;
+  background:white;
   border-radius:14px;
-  padding:22px;
-  margin-bottom:20px;
-}
-
-.notice{
-  border:2px solid #d4af37;
-  background:#17130a;
-}
-
-h2{
-  color:#d4af37;
+  padding:20px;
   margin-bottom:18px;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
 }
 
-label{
-  display:block;
-  margin-top:14px;
-  margin-bottom:7px;
-  color:#ddd;
-  font-weight:bold;
-}
-
-input,select,textarea{
+input,
+select,
+button,
+textarea{
   width:100%;
-  padding:13px;
+  padding:12px;
+  margin-top:9px;
+  border:1px solid #ccc;
   border-radius:8px;
-  border:1px solid #444;
-  background:#1b1b1b;
-  color:#fff;
   font-size:15px;
 }
 
-textarea{
-  min-height:130px;
-  resize:vertical;
-}
-
 button{
-  padding:12px 18px;
+  background:#111827;
+  color:white;
   border:0;
-  border-radius:8px;
-  background:#d4af37;
-  color:#000;
-  font-weight:bold;
   cursor:pointer;
-  margin-top:15px;
+  font-weight:bold;
 }
 
-button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
+.hidden{
+  display:none!important;
 }
 
-.message{
-  margin-top:15px;
-  padding:12px;
+.info{
+  background:#eef2ff;
+  padding:13px;
   border-radius:8px;
-  background:#181818;
-  border:1px solid #333;
-  line-height:1.6;
+  line-height:1.7;
+}
+
+.timer{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:#111827;
+  color:white;
+  text-align:center;
+  padding:14px;
+  border-radius:10px;
+  margin-bottom:18px;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.warning{
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(600px,92%);
+  z-index:9999;
+  background:#f59e0b;
+  color:#111;
+  padding:18px;
+  border-radius:12px;
+  box-shadow:0 8px 30px rgba(0,0,0,.25);
+  text-align:center;
+  font-weight:bold;
+}
+
+.danger{
+  background:#dc2626;
+  color:white;
 }
 
 .question{
-  background:#181818;
-  border:1px solid #333;
-  border-radius:12px;
-  padding:18px;
-  margin-bottom:16px;
-}
-
-.question-title{
-  font-weight:bold;
-  margin-bottom:13px;
-  line-height:1.5;
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:15px;
+  margin:14px 0;
 }
 
 .option{
   display:block;
-  padding:10px;
-  margin:8px 0;
-  border:1px solid #333;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-.option:hover{
-  border-color:#d4af37;
+  padding:9px;
+  margin-top:7px;
+  background:#f8fafc;
+  border-radius:7px;
 }
 
 .option input{
@@ -139,157 +143,43 @@ button:disabled{
   margin-right:8px;
 }
 
-.hidden{
-  display:none
+textarea{
+  min-height:150px;
+  resize:vertical;
 }
 
-.small{
-  color:#aaa;
-  font-size:13px;
-  margin-top:7px;
-  line-height:1.5;
-}
-
-.score-box{
-  margin-top:15px;
-  padding:15px;
-  background:#181818;
-  border-radius:10px;
-  border:1px solid #333;
-}
-
-.notice p{
-  line-height:1.7;
-  color:#eee;
-}
-
-
-/* =========================
-   TIMER
-========================= */
-
-.exam-topbar{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:#0d0d0d;
-  border:2px solid #d4af37;
-  border-radius:12px;
-  padding:14px;
-  margin-bottom:20px;
-  text-align:center;
-}
-
-.timer-label{
-  color:#aaa;
-  font-size:14px;
-}
-
-.timer{
-  color:#d4af37;
-  font-size:32px;
+.success{
+  color:#15803d;
   font-weight:bold;
-  margin-top:5px;
-  letter-spacing:2px;
-}
-
-.timer-danger{
-  color:#ff5555;
-}
-
-.violation-box{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  background:rgba(0,0,0,.92);
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-
-.violation-card{
-  width:100%;
-  max-width:500px;
-  background:#151515;
-  border:2px solid #d4af37;
-  border-radius:15px;
-  padding:25px;
-  text-align:center;
-}
-
-.violation-card h2{
-  color:#d4af37;
-}
-
-.violation-card p{
-  color:#ddd;
-  line-height:1.7;
   margin-top:10px;
 }
 
-.dismissed-card{
-  border-color:#ff5555;
-}
-
-.dismissed-card h2{
-  color:#ff5555;
-}
-
-.warning-count{
-  color:#d4af37;
+.error{
+  color:#b91c1c;
   font-weight:bold;
-  margin-top:15px;
+  margin-top:10px;
 }
 
+.submit{
+  background:#166534;
+  font-size:17px;
+  padding:14px;
+}
 
-/* =========================
-   SUBMITTED
-========================= */
-
-.submitted-box{
-  background:#101f15;
-  border:2px solid #2e9b55;
-  border-radius:14px;
-  padding:25px;
+.dismissed{
   text-align:center;
-  margin-top:20px;
+  padding:35px 15px;
 }
-
-.submitted-box h2{
-  color:#4fd47a;
-}
-
-.wait-text{
-  margin-top:15px;
-  color:#ddd;
-  line-height:1.7;
-}
-
-.result-time{
-  margin-top:15px;
-  padding:12px;
-  background:#171717;
-  border-radius:8px;
-  color:#d4af37;
-  font-weight:bold;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
 
 @media(max-width:600px){
-
-  .card{
-    padding:16px
+  .brand h1{
+    font-size:20px;
   }
 
-  .timer{
-    font-size:28px
+  .logo{
+    width:48px;
+    height:48px;
   }
-
 }
 </style>
 </head>
@@ -297,242 +187,161 @@ button:disabled{
 <body>
 
 <header>
-  <h1>🏛️ Classic Empire Ltd</h1>
-  <p>Official Exam Portal</p>
+  <div class="brand">
+
+    <img
+      src="classic-empire-logo.png"
+      class="logo"
+      alt="Classic Empire Ltd"
+    >
+
+    <div>
+      <h1>Classic Empire Ltd</h1>
+      <p>Official Examination</p>
+    </div>
+
+  </div>
 </header>
+
 
 <div class="container">
 
-
-<!-- IMPORTANT NOTICE -->
-
-<div id="noticeCard" class="card notice">
-
-  <h2>⚠️ Important Notice</h2>
-
-  <p>
-    इस परीक्षा का कुल समय
-    <b>30 मिनट</b> है।
-  </p>
-
-  <br>
-
-  <p>
-    पहली बार Exam से बाहर जाने या दूसरे tab में जाने पर
-    <b>Warning</b> मिलेगी।
-  </p>
-
-  <br>
-
-  <p>
-    दूसरी violation पर
-    <b>Exam Dismissed</b> कर दिया जाएगा।
-  </p>
-
-  <br>
-
-  <p>
-    Exam submit करने के बाद
-    <b>तुरंत Result नहीं दिखाया जाएगा।</b>
-  </p>
-
-  <br>
-
-  <p>
-    Result को
-    <b>24 घंटे बाद</b>
-    उपलब्ध कराया जाएगा।
-  </p>
-
-  <br>
-
-  <p>
-    <b style="color:#d4af37;">
-      Final marks और Final Result को Admin/President
-      system में बाद में निर्धारित या बदल सकते हैं।
-    </b>
-  </p>
-
-</div>
-
-
 <!-- LOGIN -->
 
-<div id="loginCard" class="card">
+<div id="loginBox" class="card">
 
-  <h2>🔐 Exam Login</h2>
-
-  <label>Exam Code</label>
+  <h2>Exam Login</h2>
 
   <input
     id="examCode"
-    type="text"
-    placeholder="Example: CE-DM-AEDFA"
+    placeholder="Exam Code"
     autocomplete="off"
   >
 
-  <label>Apply For Post</label>
-
-  <select id="examPost">
-
+  <select id="post">
     <option value="">Select Post</option>
-
-    <option>President's Assistant</option>
-    <option>DM</option>
-    <option>DM's Assistant</option>
-    <option>SDM</option>
-    <option>SP</option>
-    <option>DSP</option>
-
+    <option value="President Assistant">President Assistant</option>
+    <option value="DM">DM</option>
+    <option value="DM Assistant">DM Assistant</option>
+    <option value="SDM">SDM</option>
+    <option value="SP">SP</option>
+    <option value="DSP">DSP</option>
   </select>
 
-  <button
-    id="startExamButton"
-    onclick="startExam()"
-  >
-    🚀 Start Exam
+  <button onclick="startExam()">
+    Start Exam
   </button>
 
-  <div id="loginMessage" class="message"></div>
+  <div id="loginMessage"></div>
 
 </div>
 
 
 <!-- EXAM -->
 
-<div id="examCard" class="hidden">
+<div id="examBox" class="hidden">
 
+  <div class="timer">
+    Time Remaining:
+    <span id="timer">30:00</span>
+  </div>
 
-  <!-- TIMER -->
+  <div class="card">
 
-  <div class="exam-topbar">
+    <h2>Examination</h2>
 
-    <div class="timer-label">
-      ⏱️ Remaining Exam Time
-    </div>
+    <div class="info">
 
-    <div
-      id="examTimer"
-      class="timer"
-    >
-      30:00
-    </div>
+      <strong>Objective:</strong> 18 Questions
+      <br>
 
-    <div class="small">
-      पहली violation = Warning |
-      दूसरी violation = Dismiss
+      <strong>Subjective:</strong> 2 Questions
+      <br>
+
+      <strong>Total:</strong> 28 Marks
+      <br>
+
+      <strong>Passing:</strong> 21 Marks
+
     </div>
 
   </div>
 
 
-  <!-- OBJECTIVE -->
-
   <div class="card">
 
-    <h2>📝 Objective Section</h2>
+    <h2>Objective Questions</h2>
 
-    <p class="small">
-      कुल 18 Objective Questions —
-      प्रत्येक 1 अंक
-    </p>
+    <form id="examForm">
 
-    <div id="objectiveQuestions"></div>
-
-  </div>
+      <div id="objectiveQuestions"></div>
 
 
-  <!-- SUBJECTIVE -->
+      <h2 style="margin-top:25px;">
+        Subjective Questions
+      </h2>
 
-  <div class="card">
 
-    <h2>✍️ Subjective Section</h2>
+      <div class="question">
 
-    <p class="small">
-      2 Questions — कुल 10 अंक
-    </p>
+        <strong>
+          19. Explain why discipline is important
+          for an administrative officer.
+        </strong>
 
-    <label>
-      19. एक अच्छे प्रशासनिक अधिकारी के मुख्य गुणों को समझाइए।
-    </label>
+        <textarea
+          id="subjective1"
+          placeholder="Write your answer..."
+        ></textarea>
 
-    <textarea
-      id="subjective1"
-      placeholder="अपना उत्तर लिखें..."
-    ></textarea>
-
-    <label>
-      20. किसी कठिन प्रशासनिक परिस्थिति में अधिकारी को क्या करना चाहिए?
-    </label>
-
-    <textarea
-      id="subjective2"
-      placeholder="अपना उत्तर लिखें..."
-    ></textarea>
-
-    <div class="score-box">
-
-      <b>Automatic Subjective Evaluation:</b>
-
-      <div
-        id="subjectivePreview"
-        class="small"
-      >
-        उत्तर जमा करने के बाद system marks calculate करेगा।
       </div>
 
-    </div>
 
-    <button
-      id="submitExamButton"
-      onclick="submitExam(false)"
-    >
-      📤 Submit Exam
-    </button>
+      <div class="question">
 
-    <div
-      id="submitMessage"
-      class="message"
-    ></div>
+        <strong>
+          20. Explain the importance of honesty
+          and responsibility in public service.
+        </strong>
+
+        <textarea
+          id="subjective2"
+          placeholder="Write your answer..."
+        ></textarea>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="submit"
+        onclick="submitExam()"
+      >
+        Submit Exam
+      </button>
+
+      <div id="submitMessage"></div>
+
+    </form>
 
   </div>
 
 </div>
 
 
-<!-- 24 HOUR SUBMITTED MESSAGE -->
+<!-- DISMISSED -->
 
 <div
-  id="submittedCard"
-  class="hidden"
+  id="dismissedBox"
+  class="card hidden dismissed"
 >
 
-  <div class="submitted-box">
+  <h2>Exam Dismissed</h2>
 
-    <h2>✅ Exam Successfully Submitted</h2>
-
-    <p class="wait-text">
-      आपका exam successfully submit हो गया है।
-      <br><br>
-      <b>आपको अभी Result नहीं दिखाया जाएगा।</b>
-      <br><br>
-      आपका Result Exam submit होने के
-      <b>24 घंटे बाद</b> उपलब्ध होगा।
-    </p>
-
-    <div
-      id="resultAvailableTime"
-      class="result-time"
-    >
-      Result availability time calculating...
-    </div>
-
-    <p class="small">
-      Result बाद में Exam Code / Application Status
-      के माध्यम से देखा जा सकेगा।
-    </p>
-
-  </div>
+  <p style="margin-top:12px;">
+    Your exam has been dismissed because
+    the second examination violation was detected.
+  </p>
 
 </div>
 
@@ -540,51 +349,21 @@ button:disabled{
 </div>
 
 
-<!-- VIOLATION MODAL -->
+<!-- WARNING -->
 
 <div
-  id="violationOverlay"
-  class="violation-box"
+  id="warningBox"
+  class="warning hidden"
 >
 
-  <div
-    id="violationCard"
-    class="violation-card"
-  >
-
-    <h2 id="violationTitle">
-      ⚠️ Warning
-    </h2>
-
-    <p id="violationText">
-      Exam window छोड़ने की कोशिश detect हुई है।
-    </p>
-
-    <div
-      id="violationCount"
-      class="warning-count"
-    >
-      Warning 1 / 2
-    </div>
-
-    <button
-      id="violationButton"
-      onclick="closeViolation()"
-    >
-      वापस Exam में जाएँ
-    </button>
-
-  </div>
+  <div id="warningText"></div>
 
 </div>
 
 
 <script>
 
-
-/* =====================================================
-   SUPABASE
-===================================================== */
+/* SUPABASE */
 
 const SUPABASE_URL =
 "https://hjatspkzgoddcpgwfkxo.supabase.co";
@@ -592,237 +371,238 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
+const supabaseClient =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
-/* =====================================================
-   GLOBAL STATE
-===================================================== */
 
-let verifiedExam = false;
+/* STATE */
 
-let verifiedApplicant = "";
+let examCode = "";
+let applicantName = "";
+let selectedPost = "";
 
-let verifiedPost = "";
-
-let activeExamCode = "";
-
-let examExpiresAt = null;
+let expiresAt = null;
 
 let timerInterval = null;
 
 let violationBusy = false;
 
-let examSubmitted = false;
+let lastViolationTime = 0;
 
-let examDismissed = false;
+const VIOLATION_COOLDOWN = 5000;
 
 
-/* =====================================================
-   QUESTIONS
-===================================================== */
+/* QUESTIONS */
 
-const questions=[
+const questions = [
 
-{
-q:"भारत में जिला प्रशासन का प्रमुख अधिकारी सामान्यतः कौन होता है?",
-options:["DM","DSP","SP","SDM"],
-answer:0
-},
+  {
+    q:"Which post is responsible for district administration?",
+    options:[
+      "DM",
+      "DSP",
+      "SP",
+      "SDM"
+    ],
+    answer:"A"
+  },
 
-{
-q:"IPS का पूरा नाम क्या है?",
-options:[
-"Indian Public Service",
-"Indian Police Service",
-"Indian Protection Service",
-"Indian Political Service"
-],
-answer:1
-},
+  {
+    q:"Which service is associated with police administration?",
+    options:[
+      "IAS",
+      "IPS",
+      "IRS",
+      "IFS"
+    ],
+    answer:"B"
+  },
 
-{
-q:"IAS का पूरा नाम क्या है?",
-options:[
-"Indian Administrative Service",
-"Indian Army Service",
-"Indian Authority Service",
-"Indian Administration System"
-],
-answer:0
-},
+  {
+    q:"What is the full form of IAS?",
+    options:[
+      "Indian Administrative Service",
+      "Indian Army Service",
+      "Indian Authority Service",
+      "Indian Administrative System"
+    ],
+    answer:"A"
+  },
 
-{
-q:"SP किस प्रशासनिक क्षेत्र से संबंधित पद है?",
-options:[
-"Revenue Administration",
-"Education Administration",
-"Police Administration",
-"Judicial Administration"
-],
-answer:2
-},
+  {
+    q:"Who works under the DM in this system?",
+    options:[
+      "President",
+      "SP",
+      "SDM",
+      "President Assistant"
+    ],
+    answer:"C"
+  },
 
-{
-q:"DSP सामान्यतः किसके अधीन कार्य करता है?",
-options:[
-"SP",
-"DM",
-"SDM",
-"President"
-],
-answer:0
-},
+  {
+    q:"Which post is above DSP in the police track?",
+    options:[
+      "SP",
+      "SDM",
+      "DM",
+      "Assistant"
+    ],
+    answer:"A"
+  },
 
-{
-q:"SDM का पूरा नाम क्या है?",
-options:[
-"Senior District Manager",
-"State Development Magistrate",
-"Sub-Divisional Magistrate",
-"Special District Magistrate"
-],
-answer:2
-},
+  {
+    q:"What does UPSC conduct?",
+    options:[
+      "Only school exams",
+      "Civil services examinations",
+      "Driving tests",
+      "Sports competitions"
+    ],
+    answer:"C"
+  },
 
-{
-q:"भारत में सर्वोच्च कानून क्या है?",
-options:[
-"संविधान",
-"नियमावली",
-"सरकारी आदेश",
-"स्थानीय कानून"
-],
-answer:0
-},
+  {
+    q:"Which officer assists the DM in this hierarchy?",
+    options:[
+      "SDM",
+      "DSP",
+      "SP",
+      "President"
+    ],
+    answer:"A"
+  },
 
-{
-q:"लोकतंत्र में जनता का मुख्य अधिकार क्या है?",
-options:[
-"अधिकारी नियुक्त करना",
-"प्रतिनिधि चुनना",
-"न्यायाधीश बनना",
-"कानून लिखना"
-],
-answer:1
-},
+  {
+    q:"Which service is commonly associated with district police leadership?",
+    options:[
+      "IAS",
+      "IPS",
+      "IFS",
+      "IRS"
+    ],
+    answer:"B"
+  },
 
-{
-q:"प्रशासन का मुख्य उद्देश्य क्या होना चाहिए?",
-options:[
-"व्यक्तिगत लाभ",
-"शक्ति बढ़ाना",
-"जनसेवा",
-"केवल दंड देना"
-],
-answer:2
-},
+  {
+    q:"What is the main purpose of an examination?",
+    options:[
+      "To evaluate knowledge and ability",
+      "To punish students",
+      "To cancel applications",
+      "To select randomly"
+    ],
+    answer:"C"
+  },
 
-{
-q:"एक अच्छे अधिकारी का महत्वपूर्ण गुण क्या है?",
-options:[
-"ईमानदारी",
-"पक्षपात",
-"लापरवाही",
-"अहंकार"
-],
-answer:0
-},
+  {
+    q:"Which quality is important for public administration?",
+    options:[
+      "Dishonesty",
+      "Irresponsibility",
+      "Integrity",
+      "Carelessness"
+    ],
+    answer:"A"
+  },
 
-{
-q:"कठिन परिस्थिति में अधिकारी को क्या करना चाहिए?",
-options:[
-"बिना सोचे निर्णय लेना",
-"तथ्यों के आधार पर निर्णय लेना",
-"समस्या को छोड़ देना",
-"किसी पर भी दोष लगाना"
-],
-answer:1
-},
+  {
+    q:"Which post is part of the police track?",
+    options:[
+      "SDM",
+      "DSP",
+      "DM",
+      "President"
+    ],
+    answer:"B"
+  },
 
-{
-q:"न्यायपूर्ण प्रशासन की मुख्य विशेषता क्या है?",
-options:[
-"पक्षपात",
-"व्यक्तिगत पसंद",
-"निष्पक्षता",
-"गोपनीय निर्णय"
-],
-answer:2
-},
+  {
+    q:"Which quality is important for a leader?",
+    options:[
+      "Carelessness",
+      "Dishonesty",
+      "Responsibility",
+      "Negligence"
+    ],
+    answer:"C"
+  },
 
-{
-q:"कानून का पालन किसके लिए होना चाहिए?",
-options:[
-"केवल अधिकारियों के लिए",
-"केवल आम जनता के लिए",
-"केवल नेताओं के लिए",
-"सभी के लिए"
-],
-answer:3
-},
+  {
+    q:"Which is a constitutional position in India?",
+    options:[
+      "President of India",
+      "DSP",
+      "SDM",
+      "DM"
+    ],
+    answer:"D"
+  },
 
-{
-q:"जनता की शिकायत मिलने पर अधिकारी को क्या करना चाहिए?",
-options:[
-"शिकायत को अनदेखा करना",
-"बिना सुने दंड देना",
-"शिकायत सुनकर उचित कार्रवाई करना",
-"शिकायत वापस कर देना"
-],
-answer:2
-},
+  {
+    q:"Which officer generally handles police administration at district level?",
+    options:[
+      "SDM",
+      "SP",
+      "DM",
+      "DSP"
+    ],
+    answer:"C"
+  },
 
-{
-q:"अधिकारी के निर्णय में क्या होना चाहिए?",
-options:[
-"निष्पक्षता और जिम्मेदारी",
-"व्यक्तिगत लाभ",
-"पक्षपात",
-"गुस्सा"
-],
-answer:0
-},
+  {
+    q:"What should an officer do when facing a difficult decision?",
+    options:[
+      "Ignore the law",
+      "Follow rules and act responsibly",
+      "Choose randomly",
+      "Avoid responsibility"
+    ],
+    answer:"A"
+  },
 
-{
-q:"Teamwork का सही अर्थ क्या है?",
-options:[
-"अकेले काम करना",
-"दूसरों को रोकना",
-"मिलकर काम करना",
-"काम से बचना"
-],
-answer:2
-},
+  {
+    q:"Which is an important principle of public service?",
+    options:[
+      "Favoritism",
+      "Secrecy from everyone",
+      "Public interest",
+      "Personal benefit"
+    ],
+    answer:"C"
+  },
 
-{
-q:"Leadership का मुख्य अर्थ क्या है?",
-options:[
-"दूसरों को डराना",
-"सही दिशा देना",
-"केवल आदेश देना",
-"जिम्मेदारी से बचना"
-],
-answer:1
-},
+  {
+    q:"Which officer can work under an SP?",
+    options:[
+      "DSP",
+      "DM",
+      "SDM",
+      "President"
+    ],
+    answer:"B"
+  },
 
-{
-q:"सार्वजनिक पद पर अधिकारी की जिम्मेदारी किसके प्रति होती है?",
-options:[
-"केवल अपने मित्रों के प्रति",
-"केवल परिवार के प्रति",
-"केवल अपने विभाग के प्रति",
-"जनता और कानून के प्रति"
-],
-answer:3
-}
+  {
+    q:"What should be maintained during an official examination?",
+    options:[
+      "Discipline",
+      "Cheating",
+      "Disruption",
+      "Carelessness"
+    ],
+    answer:"D"
+  }
 
 ];
 
 
-/* =====================================================
-   LOAD QUESTIONS
-===================================================== */
+/* RENDER QUESTIONS */
 
-function loadQuestions(){
+function renderQuestions(){
 
   const box =
     document.getElementById(
@@ -832,46 +612,50 @@ function loadQuestions(){
   box.innerHTML = "";
 
   questions.forEach(
-    (question,index)=>{
+    (item,index) => {
+
+      const number =
+        index + 1;
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+      div.className =
+        "question";
 
       let html = `
-        <div class="question">
-
-          <div class="question-title">
-            ${index+1}.
-            ${escapeHtml(question.q)}
-          </div>
+        <strong>
+          ${number}. ${item.q}
+        </strong>
       `;
 
-      question.options.forEach(
-        (option,optIndex)=>{
+      item.options.forEach(
+        (option,index2) => {
 
           const letter =
             String.fromCharCode(
-              65 + optIndex
+              65 + index2
             );
 
           html += `
             <label class="option">
-
               <input
                 type="radio"
-                name="q${index}"
-                value="${optIndex}"
+                name="q${number}"
+                value="${letter}"
               >
-
-              <b>${letter}.</b>
-              ${escapeHtml(option)}
-
+              ${letter}. ${option}
             </label>
           `;
 
         }
       );
 
-      html += `</div>`;
+      div.innerHTML = html;
 
-      box.innerHTML += html;
+      box.appendChild(div);
 
     }
   );
@@ -879,261 +663,162 @@ function loadQuestions(){
 }
 
 
-/* =====================================================
-   START EXAM
-===================================================== */
+/* START EXAM */
 
 async function startExam(){
 
   const code =
-    document
-      .getElementById("examCode")
-      .value
-      .trim()
-      .toUpperCase();
+    document.getElementById(
+      "examCode"
+    ).value.trim();
 
   const post =
-    document
-      .getElementById("examPost")
-      .value;
+    document.getElementById(
+      "post"
+    ).value;
 
   const message =
-    document
-      .getElementById("loginMessage");
+    document.getElementById(
+      "loginMessage"
+    );
 
-  const startButton =
-    document
-      .getElementById("startExamButton");
+
+  message.className = "";
+  message.textContent = "";
 
 
   if(!code || !post){
 
-    message.innerText =
+    message.className =
+      "error";
+
+    message.textContent =
       "Exam Code और Post दोनों भरें।";
 
     return;
-
   }
 
 
-  startButton.disabled = true;
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "verify_exam_code",
+      {
+        input_code:code,
+        input_post:post
+      }
+    );
 
-  message.innerText =
-    "Exam Session verify हो रहा है...";
 
+  if(error){
+
+    message.className =
+      "error";
+
+    message.textContent =
+      error.message;
+
+    return;
+  }
+
+
+  const result =
+    Array.isArray(data)
+      ? data[0]
+      : data;
+
+
+  if(
+    !result ||
+    result.success === false
+  ){
+
+    message.className =
+      "error";
+
+    message.textContent =
+      result?.message ||
+      "Exam Code invalid है।";
+
+    return;
+  }
+
+
+  examCode = code;
+
+  selectedPost = post;
+
+  applicantName =
+    result.applicant_name || "";
+
+
+  expiresAt =
+    new Date(
+      result.expires_at
+    ).getTime();
+
+
+  document.getElementById(
+    "loginBox"
+  ).classList.add(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "examBox"
+  ).classList.remove(
+    "hidden"
+  );
+
+
+  renderQuestions();
+
+  requestFullscreen();
+
+  startTimer();
+
+}
+
+
+/* FULLSCREEN */
+
+async function requestFullscreen(){
 
   try{
 
-    const response =
-      await fetch(
-        `${SUPABASE_URL}/rest/v1/rpc/verify_exam_code`,
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json",
-
-            "apikey":
-              SUPABASE_KEY,
-
-            "Authorization":
-              `Bearer ${SUPABASE_KEY}`
-          },
-
-          body:JSON.stringify({
-
-            input_code:code,
-
-            input_post:post
-
-          })
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
     if(
-      !response.ok ||
-      !data?.success
+      document.documentElement
+        .requestFullscreen
     ){
 
-      throw new Error(
-        data?.message ||
-        "Exam Code invalid है।"
-      );
+      await document.documentElement
+        .requestFullscreen();
 
     }
 
+  }catch(e){
 
-    verifiedExam = true;
-
-    verifiedApplicant =
-      data.applicant_name || "";
-
-    verifiedPost =
-      data.post || post;
-
-    activeExamCode = code;
-
-    examExpiresAt =
-      data.expires_at;
-
-
-    if(!examExpiresAt){
-
-      throw new Error(
-        "Exam timer session नहीं मिला।"
-      );
-
-    }
-
-
-    document
-      .getElementById("loginCard")
-      .classList.add("hidden");
-
-
-    document
-      .getElementById("noticeCard")
-      .classList.add("hidden");
-
-
-    document
-      .getElementById("examCard")
-      .classList.remove("hidden");
-
-
-    loadQuestions();
-
-    startTimer();
-
-    setupAntiCheating();
-
-
-    /*
-      Fullscreen की कोशिश।
-      Browser अनुमति न दे तो exam फिर भी चलेगा।
-    */
-
-    try{
-
-      if(
-        document.documentElement.requestFullscreen
-      ){
-
-        await document
-          .documentElement
-          .requestFullscreen();
-
-      }
-
-    }catch(e){}
-
-
-  }catch(error){
-
-    message.innerText =
-      "❌ " +
-      error.message;
-
-    startButton.disabled = false;
+    /* Browser may block fullscreen */
 
   }
 
 }
 
 
-/* =====================================================
-   30 MINUTE SERVER TIMER
-===================================================== */
+/* TIMER */
 
 function startTimer(){
 
-  if(timerInterval){
-
-    clearInterval(timerInterval);
-
-  }
-
-
-  function updateTimer(){
-
-    if(!verifiedExam || examSubmitted || examDismissed){
-
-      return;
-
-    }
-
-
-    const remaining =
-      new Date(examExpiresAt).getTime()
-      - Date.now();
-
-
-    if(remaining <= 0){
-
-      clearInterval(timerInterval);
-
-      document
-        .getElementById("examTimer")
-        .innerText = "00:00";
-
-      submitExam(true);
-
-      return;
-
-    }
-
-
-    const totalSeconds =
-      Math.floor(
-        remaining / 1000
-      );
-
-
-    const minutes =
-      Math.floor(
-        totalSeconds / 60
-      );
-
-
-    const seconds =
-      totalSeconds % 60;
-
-
-    const timer =
-      document
-        .getElementById("examTimer");
-
-
-    timer.innerText =
-      String(minutes).padStart(2,"0")
-      + ":" +
-      String(seconds).padStart(2,"0");
-
-
-    if(totalSeconds <= 300){
-
-      timer.classList.add(
-        "timer-danger"
-      );
-
-    }else{
-
-      timer.classList.remove(
-        "timer-danger"
-      );
-
-    }
-
-  }
+  clearInterval(
+    timerInterval
+  );
 
 
   updateTimer();
+
 
   timerInterval =
     setInterval(
@@ -1144,266 +829,287 @@ function startTimer(){
 }
 
 
-/* =====================================================
-   ANTI CHEATING
-===================================================== */
+function updateTimer(){
 
-function setupAntiCheating(){
+  if(!expiresAt)
+    return;
 
-  /*
-    पहली/दूसरी violation के लिए
-    एक event को एक ही बार count करें।
-  */
 
-  document.addEventListener(
-    "visibilitychange",
-    handleVisibilityChange
+  const remaining =
+    Math.max(
+      0,
+      expiresAt -
+      Date.now()
+    );
+
+
+  const totalSeconds =
+    Math.floor(
+      remaining / 1000
+    );
+
+
+  const minutes =
+    Math.floor(
+      totalSeconds / 60
+    );
+
+
+  const seconds =
+    totalSeconds % 60;
+
+
+  document.getElementById(
+    "timer"
+  ).textContent =
+    `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+
+
+  if(remaining <= 0){
+
+    clearInterval(
+      timerInterval
+    );
+
+    autoSubmitExam();
+
+  }
+
+}
+
+
+/* WARNING */
+
+function showWarning(message){
+
+  const box =
+    document.getElementById(
+      "warningBox"
+    );
+
+  const text =
+    document.getElementById(
+      "warningText"
+    );
+
+
+  text.textContent =
+    message;
+
+
+  box.classList.remove(
+    "hidden"
   );
 
 
-  document.addEventListener(
-    "fullscreenchange",
-    handleFullscreenChange
+  setTimeout(
+    () => {
+
+      box.classList.add(
+        "hidden"
+      );
+
+    },
+    5000
   );
 
 }
 
 
-function handleVisibilityChange(){
+/* VIOLATION */
+
+async function registerViolation(reason){
 
   if(
-    !verifiedExam ||
-    examSubmitted ||
-    examDismissed
+    !examCode ||
+    violationBusy
   ){
 
     return;
-
   }
+
+
+  const now =
+    Date.now();
 
 
   /*
-    Page hidden होने पर violation।
-    Browser बंद होने पर event हमेशा
-    guarantee नहीं होता।
+    Prevent one browser event from
+    creating multiple violations.
   */
 
-  if(document.hidden){
-
-    recordViolation();
-
-  }
-
-}
-
-
-function handleFullscreenChange(){
-
   if(
-    !verifiedExam ||
-    examSubmitted ||
-    examDismissed
+    now - lastViolationTime <
+    VIOLATION_COOLDOWN
   ){
 
     return;
-
-  }
-
-
-  /*
-    Fullscreen से बाहर आने पर violation।
-  */
-
-  if(!document.fullscreenElement){
-
-    recordViolation();
-
-  }
-
-}
-
-
-/* =====================================================
-   RECORD VIOLATION
-===================================================== */
-
-async function recordViolation(){
-
-  if(
-    violationBusy ||
-    !activeExamCode ||
-    examSubmitted ||
-    examDismissed
-  ){
-
-    return;
-
   }
 
 
   violationBusy = true;
 
-
-  try{
-
-    const response =
-      await fetch(
-        `${SUPABASE_URL}/rest/v1/rpc/record_exam_violation`,
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json",
-
-            "apikey":
-              SUPABASE_KEY,
-
-            "Authorization":
-              `Bearer ${SUPABASE_KEY}`
-          },
-
-          body:JSON.stringify({
-
-            input_code:
-              activeExamCode
-
-          }),
-
-          keepalive:true
-
-        }
-      );
+  lastViolationTime = now;
 
 
-    const data =
-      await response.json();
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "record_exam_violation",
+      {
+        input_code:examCode
+      }
+    );
 
 
-    if(
-      data?.dismissed
-    ){
-
-      dismissExam(
-        data.message ||
-        "Exam Dismissed."
-      );
-
-      return;
-
-    }
+  violationBusy = false;
 
 
-    if(
-      data?.warning
-    ){
+  if(error){
 
-      showWarning(
-        data.message ||
-        "पहली violation detect हुई है।"
-      );
+    showWarning(
+      "Exam warning: violation detected."
+    );
 
-    }
-
-  }catch(error){
-
-    /*
-      Network error होने पर local warning नहीं
-      दिखाएँगे; server record को authoritative
-      माना जाएगा।
-    */
-
-  }finally{
-
-    violationBusy = false;
-
+    return;
   }
 
-}
 
+  const result =
+    Array.isArray(data)
+      ? data[0]
+      : data;
 
-/* =====================================================
-   WARNING
-===================================================== */
-
-function showWarning(message){
-
-  const overlay =
-    document
-      .getElementById("violationOverlay");
-
-  const card =
-    document
-      .getElementById("violationCard");
-
-  const title =
-    document
-      .getElementById("violationTitle");
-
-  const text =
-    document
-      .getElementById("violationText");
 
   const count =
-    document
-      .getElementById("violationCount");
-
-  const button =
-    document
-      .getElementById("violationButton");
-
-
-  card.className =
-    "violation-card";
+    Number(
+      result?.violation_count ??
+      result?.count ??
+      1
+    );
 
 
-  title.innerText =
-    "⚠️ Warning";
+  if(
+    result?.dismissed === true ||
+    count >= 2
+  ){
 
+    dismissExam();
 
-  text.innerText =
-    message;
-
-
-  count.innerText =
-    "Warning 1 / 2";
-
-
-  button.innerText =
-    "वापस Exam में जाएँ";
-
-
-  overlay.style.display =
-    "flex";
-
-}
-
-
-function closeViolation(){
-
-  const overlay =
-    document
-      .getElementById("violationOverlay");
-
-  overlay.style.display =
-    "none";
+    return;
+  }
 
 
   /*
-    वापस fullscreen की कोशिश।
+    FIRST VIOLATION ONLY
   */
+
+  showWarning(
+    "⚠️ WARNING 1/2: " +
+    reason +
+    ". अगली violation पर exam dismiss हो सकता है।"
+  );
+
+}
+
+
+/* TAB / WINDOW */
+
+document.addEventListener(
+  "visibilitychange",
+  () => {
+
+    if(
+      document.hidden &&
+      examCode
+    ){
+
+      registerViolation(
+        "आपने exam window/tab छोड़ा"
+      );
+
+    }
+
+  }
+);
+
+
+/* FULLSCREEN */
+
+document.addEventListener(
+  "fullscreenchange",
+  () => {
+
+    if(
+      examCode &&
+      !document.fullscreenElement
+    ){
+
+      registerViolation(
+        "Fullscreen mode से बाहर निकले"
+      );
+
+    }
+
+  }
+);
+
+
+/* PAGE LEAVE */
+
+window.addEventListener(
+  "beforeunload",
+  event => {
+
+    if(
+      examCode &&
+      !document.hidden
+    ){
+
+      event.preventDefault();
+
+      event.returnValue = "";
+
+    }
+
+  }
+);
+
+
+/* DISMISS */
+
+function dismissExam(){
+
+  clearInterval(
+    timerInterval
+  );
+
+
+  document.getElementById(
+    "examBox"
+  ).classList.add(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "dismissedBox"
+  ).classList.remove(
+    "hidden"
+  );
+
+
+  examCode = "";
 
   try{
 
     if(
-      !document.fullscreenElement &&
-      document.documentElement.requestFullscreen
+      document.fullscreenElement
     ){
 
-      document
-        .documentElement
-        .requestFullscreen()
-        .catch(()=>{});
+      document.exitFullscreen();
 
     }
 
@@ -1412,115 +1118,57 @@ function closeViolation(){
 }
 
 
-/* =====================================================
-   DISMISS EXAM
-===================================================== */
+/* OBJECTIVE MARKING */
 
-function dismissExam(message){
+function calculateObjective(){
 
-  if(examDismissed) return;
-
-  examDismissed = true;
-
-  verifiedExam = false;
+  let score = 0;
 
 
-  if(timerInterval){
+  questions.forEach(
+    (question,index) => {
 
-    clearInterval(timerInterval);
-
-  }
-
-
-  const overlay =
-    document
-      .getElementById("violationOverlay");
-
-  const card =
-    document
-      .getElementById("violationCard");
-
-  const title =
-    document
-      .getElementById("violationTitle");
-
-  const text =
-    document
-      .getElementById("violationText");
-
-  const count =
-    document
-      .getElementById("violationCount");
-
-  const button =
-    document
-      .getElementById("violationButton");
+      const selected =
+        document.querySelector(
+          `input[name="q${index+1}"]:checked`
+        );
 
 
-  card.className =
-    "violation-card dismissed-card";
+      if(
+        selected &&
+        selected.value ===
+        question.answer
+      ){
+
+        score++;
+
+      }
+
+    }
+  );
 
 
-  title.innerText =
-    "❌ Exam Dismissed";
-
-
-  text.innerText =
-    message ||
-    "दूसरी violation के कारण आपका exam dismiss कर दिया गया है।";
-
-
-  count.innerText =
-    "Exam Status: DISMISSED";
-
-
-  button.innerText =
-    "Close";
-
-
-  button.onclick =
-    function(){
-
-      overlay.style.display =
-        "none";
-
-      document
-        .getElementById("examCard")
-        .classList.add("hidden");
-
-      document
-        .getElementById("noticeCard")
-        .classList.remove("hidden");
-
-      window.scrollTo({
-        top:0,
-        behavior:"smooth"
-      });
-
-    };
-
-
-  overlay.style.display =
-    "flex";
+  return score;
 
 }
 
 
-/* =====================================================
-   AUTOMATIC SUBJECTIVE MARKING
-===================================================== */
+/* SUBJECTIVE */
 
-function automaticSubjectiveMarks(
-  answer1,
-  answer2
-){
+function calculateSubjective(){
 
-  function markAnswer(answer){
+  const a =
+    document.getElementById(
+      "subjective1"
+    ).value.trim();
 
-    const text =
-      String(answer || "")
-      .trim();
+  const b =
+    document.getElementById(
+      "subjective2"
+    ).value.trim();
 
+
+  function marks(text){
 
     if(text.length < 20)
       return 0;
@@ -1540,314 +1188,238 @@ function automaticSubjectiveMarks(
 
 
   return Math.min(
-    markAnswer(answer1)
-    +
-    markAnswer(answer2),
-    10
+    10,
+    marks(a) + marks(b)
   );
 
 }
 
 
-/* =====================================================
-   OBJECTIVE MARKING
-===================================================== */
+/* SUBMIT */
 
-function calculateObjective(){
+async function submitExam(){
 
-  let score = 0;
-
-
-  questions.forEach(
-    (question,index)=>{
-
-      const selected =
-        document.querySelector(
-          `input[name="q${index}"]:checked`
-        );
-
-
-      if(
-        selected &&
-        Number(selected.value) ===
-        question.answer
-      ){
-
-        score++;
-
-      }
-
-    }
-  );
-
-
-  return score;
-
-}
-
-
-/* =====================================================
-   SUBMIT EXAM
-===================================================== */
-
-async function submitExam(autoSubmit=false){
-
-  if(
-    !verifiedExam ||
-    examSubmitted ||
-    examDismissed
-  ){
-
+  if(!examCode)
     return;
 
+
+  if(
+    Date.now() >= expiresAt
+  ){
+
+    await autoSubmitExam();
+
+    return;
   }
-
-
-  const button =
-    document
-      .getElementById(
-        "submitExamButton"
-      );
-
-
-  const message =
-    document
-      .getElementById(
-        "submitMessage"
-      );
-
-
-  const answer1 =
-    document
-      .getElementById(
-        "subjective1"
-      )
-      .value
-      .trim();
-
-
-  const answer2 =
-    document
-      .getElementById(
-        "subjective2"
-      )
-      .value
-      .trim();
 
 
   const objective =
     calculateObjective();
 
-
   const subjective =
-    automaticSubjectiveMarks(
-      answer1,
-      answer2
+    calculateSubjective();
+
+
+  const message =
+    document.getElementById(
+      "submitMessage"
     );
 
 
-  const total =
-    objective + subjective;
+  message.className = "";
+
+  message.textContent =
+    "Submitting...";
 
 
-  const finalResult =
-    total >= 21
-    ? "PASS"
-    : "FAIL";
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "submit_complete_exam",
+      {
+        input_exam_code:
+          examCode,
+
+        input_applicant_name:
+          applicantName,
+
+        input_post:
+          selectedPost,
+
+        input_objective_score:
+          objective,
+
+        input_subjective_answer_1:
+          document.getElementById(
+            "subjective1"
+          ).value,
+
+        input_subjective_answer_2:
+          document.getElementById(
+            "subjective2"
+          ).value,
+
+        input_subjective_marks:
+          subjective
+      }
+    );
 
 
-  button.disabled = true;
+  if(error){
 
+    message.className =
+      "error";
 
-  if(autoSubmit){
+    message.textContent =
+      error.message;
 
-    message.innerText =
-      "⏰ 30 मिनट पूरे हो गए। Exam automatically submit हो रहा है...";
-
-  }else{
-
-    message.innerText =
-      "Exam submit हो रहा है...";
-
+    return;
   }
+
+
+  const result =
+    Array.isArray(data)
+      ? data[0]
+      : data;
+
+
+  if(
+    result &&
+    result.success === false
+  ){
+
+    message.className =
+      "error";
+
+    message.textContent =
+      result.message ||
+      "Exam submission failed.";
+
+    return;
+  }
+
+
+  clearInterval(
+    timerInterval
+  );
+
+
+  message.className =
+    "success";
+
+  message.textContent =
+    "Exam successfully submitted. Result will be available after 24 hours.";
+
+  examCode = "";
+
+
+  document.querySelector(
+    ".submit"
+  ).disabled = true;
 
 
   try{
 
-    const response =
-      await fetch(
-        `${SUPABASE_URL}/rest/v1/rpc/submit_complete_exam`,
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json",
-
-            "apikey":
-              SUPABASE_KEY,
-
-            "Authorization":
-              `Bearer ${SUPABASE_KEY}`
-          },
-
-          body:JSON.stringify({
-
-            input_code:
-              activeExamCode,
-
-            input_applicant_name:
-              verifiedApplicant,
-
-            input_post:
-              verifiedPost,
-
-            input_objective_score:
-              objective,
-
-            input_subjective_answer_1:
-              answer1,
-
-            input_subjective_answer_2:
-              answer2,
-
-            input_subjective_marks:
-              subjective,
-
-            input_total_marks:
-              total,
-
-            input_final_result:
-              finalResult
-
-          })
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
     if(
-      !response.ok ||
-      !data?.success
+      document.fullscreenElement
     ){
 
-      throw new Error(
-        data?.message ||
-        "Exam submit नहीं हुआ।"
-      );
+      await document.exitFullscreen();
 
     }
 
+  }catch(e){}
 
-    examSubmitted = true;
-
-    verifiedExam = false;
-
-
-    if(timerInterval){
-
-      clearInterval(timerInterval);
-
-    }
+}
 
 
-    /*
-      IMPORTANT:
-      यहाँ Result/Marks नहीं दिखाए जाते।
-      केवल 24-hour waiting message।
-    */
+/* AUTO SUBMIT */
 
-    document
-      .getElementById("examCard")
-      .classList.add("hidden");
+async function autoSubmitExam(){
+
+  if(!examCode)
+    return;
 
 
-    document
-      .getElementById("submittedCard")
-      .classList.remove("hidden");
+  const objective =
+    calculateObjective();
+
+  const subjective =
+    calculateSubjective();
 
 
-    document
-      .getElementById("resultAvailableTime")
-      .innerText =
-        "Result 24 घंटे बाद उपलब्ध होगा।";
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "submit_complete_exam",
+      {
+        input_exam_code:
+          examCode,
 
+        input_applicant_name:
+          applicantName,
 
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
+        input_post:
+          selectedPost,
 
+        input_objective_score:
+          objective,
 
-    /*
-      Fullscreen बंद करने की कोशिश।
-    */
+        input_subjective_answer_1:
+          document.getElementById(
+            "subjective1"
+          ).value,
 
-    try{
+        input_subjective_answer_2:
+          document.getElementById(
+            "subjective2"
+          ).value,
 
-      if(document.fullscreenElement){
-
-        await document.exitFullscreen();
-
+        input_subjective_marks:
+          subjective
       }
+    );
 
-    }catch(e){}
 
+  if(!error){
 
-  }catch(error){
+    document.getElementById(
+      "submitMessage"
+    ).className =
+      "success";
 
-    button.disabled = false;
+    document.getElementById(
+      "submitMessage"
+    ).textContent =
+      "Time समाप्त हो गया। Exam automatically submitted.";
 
-    message.innerText =
-      "❌ " +
-      error.message;
+    document.querySelector(
+      ".submit"
+    ).disabled = true;
 
   }
 
-}
+
+  examCode = "";
 
 
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(value){
-
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* =====================================================
-   PAGE PROTECTION
-===================================================== */
-
-window.addEventListener(
-  "beforeunload",
-  function(event){
+  try{
 
     if(
-      verifiedExam &&
-      !examSubmitted &&
-      !examDismissed
+      document.fullscreenElement
     ){
 
-      event.preventDefault();
-
-      event.returnValue = "";
+      await document.exitFullscreen();
 
     }
 
-  }
-);
+  }catch(e){}
+
+}
 
 </script>
 

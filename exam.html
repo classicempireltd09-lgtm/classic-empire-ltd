@@ -1,274 +1,290 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Classic Empire Ltd — Exam Portal</title>
+  <title>Classic Empire Ltd — Examination</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<style>
-*{
-  box-sizing:border-box;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#080808;
-  color:#fff;
-}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #080808;
+      color: #fff;
+    }
 
-header{
-  background:#111;
-  border-bottom:1px solid #d4af37;
-  padding:15px;
-  text-align:center;
-}
+    header {
+      background: #111;
+      border-bottom: 1px solid #d4af37;
+      padding: 15px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
 
-.logo{
-  width:75px;
-  height:75px;
-  object-fit:contain;
-  display:block;
-  margin:auto;
-}
+    header img {
+      width: 75px;
+      height: 75px;
+      object-fit: contain;
+      display: block;
+      margin: auto;
+    }
 
-.brand{
-  color:#ffd700;
-  font-size:24px;
-  font-weight:bold;
-  margin-top:8px;
-}
+    header h1 {
+      margin: 8px 0 0;
+      color: #ffd700;
+      font-size: 22px;
+    }
 
-.container{
-  width:min(950px,94%);
-  margin:25px auto;
-}
+    .container {
+      max-width: 900px;
+      margin: 25px auto;
+      padding: 15px;
+    }
 
-.card{
-  background:#111;
-  border:1px solid #333;
-  border-radius:14px;
-  padding:22px;
-  margin-bottom:20px;
-  box-shadow:0 0 20px rgba(212,175,55,.08);
-}
+    .card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
 
-h1,h2,h3{
-  color:#ffd700;
-}
+    h2 {
+      color: #ffd700;
+      margin-top: 0;
+    }
 
-label{
-  display:block;
-  margin-top:15px;
-  margin-bottom:7px;
-  font-weight:bold;
-}
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 7px;
+      color: #ddd;
+    }
 
-input,
-select,
-textarea{
-  width:100%;
-  padding:13px;
-  border-radius:8px;
-  border:1px solid #555;
-  background:#080808;
-  color:#fff;
-  font-size:16px;
-}
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #080808;
+      color: white;
+      font-size: 16px;
+    }
 
-textarea{
-  min-height:140px;
-  resize:vertical;
-}
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
 
-button{
-  width:100%;
-  padding:14px;
-  border:0;
-  border-radius:9px;
-  background:#d4af37;
-  color:#000;
-  font-size:17px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:18px;
-}
+    button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 8px;
+      background: #ffd700;
+      color: #000;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 18px;
+    }
 
-button:hover{
-  background:#ffd700;
-}
+    button:hover {
+      opacity: 0.9;
+    }
 
-button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
 
-.info{
-  background:#181818;
-  border-left:4px solid #d4af37;
-  padding:14px;
-  border-radius:7px;
-  margin:15px 0;
-}
+    .danger {
+      color: #ff5252;
+    }
 
-.warning{
-  background:#241b00;
-  border:1px solid #d4af37;
-  color:#ffd700;
-  padding:15px;
-  border-radius:9px;
-  margin:15px 0;
-}
+    .success {
+      color: #00e676;
+    }
 
-.error{
-  background:#250909;
-  border:1px solid #b33;
-  color:#ff7777;
-  padding:15px;
-  border-radius:9px;
-  margin:15px 0;
-}
+    .warning {
+      color: #ffd700;
+    }
 
-.success{
-  background:#09250f;
-  border:1px solid #37a957;
-  color:#72e58b;
-  padding:15px;
-  border-radius:9px;
-  margin:15px 0;
-}
+    .hidden {
+      display: none !important;
+    }
 
-.hidden{
-  display:none !important;
-}
+    #timerBox {
+      position: sticky;
+      top: 115px;
+      z-index: 900;
+      background: #1a1a1a;
+      border: 1px solid #d4af37;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:#0d0d0d;
-  border-bottom:1px solid #d4af37;
-  padding:12px;
-}
+    #timer {
+      font-size: 28px;
+      font-weight: bold;
+      color: #ffd700;
+    }
 
-.exam-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  max-width:950px;
-  margin:auto;
-}
+    .exam-info {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
 
-.timer{
-  color:#ffd700;
-  font-size:22px;
-  font-weight:bold;
-}
+    .info-item {
+      background: #181818;
+      padding: 12px;
+      border-radius: 8px;
+    }
 
-.timer.danger{
-  color:#ff5555;
-}
+    .question {
+      background: #151515;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
 
-.question{
-  background:#151515;
-  border:1px solid #333;
-  padding:18px;
-  border-radius:12px;
-  margin:18px 0;
-}
+    .question-number {
+      color: #ffd700;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-.question-title{
-  font-size:17px;
-  font-weight:bold;
-  line-height:1.6;
-}
+    .question-text {
+      font-size: 17px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
 
-.option{
-  display:block;
-  background:#0d0d0d;
-  border:1px solid #444;
-  padding:12px;
-  border-radius:8px;
-  margin-top:10px;
-  cursor:pointer;
-}
+    .option {
+      display: block;
+      background: #0d0d0d;
+      border: 1px solid #333;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 8px 0;
+      cursor: pointer;
+    }
 
-.option:hover{
-  border-color:#d4af37;
-}
+    .option:hover {
+      border-color: #ffd700;
+    }
 
-.option input{
-  width:auto;
-  margin-right:8px;
-}
+    .option input {
+      width: auto;
+      margin-right: 8px;
+    }
 
-.subjective{
-  border-color:#765f13;
-}
+    .progress-wrap {
+      background: #222;
+      height: 8px;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
 
-.progress{
-  width:100%;
-  height:8px;
-  background:#333;
-  border-radius:10px;
-  overflow:hidden;
-  margin:10px 0 20px;
-}
+    #progressBar {
+      height: 100%;
+      width: 0%;
+      background: #ffd700;
+      transition: width 0.3s;
+    }
 
-.progress-bar{
-  height:100%;
-  width:0%;
-  background:#d4af37;
-  transition:.3s;
-}
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5000;
+      padding: 20px;
+    }
 
-.center{
-  text-align:center;
-}
+    .modal-box {
+      max-width: 550px;
+      width: 100%;
+      background: #111;
+      border: 1px solid #ffd700;
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+    }
 
-.small{
-  color:#aaa;
-  font-size:14px;
-}
+    .modal-box h2 {
+      color: #ffd700;
+    }
 
-footer{
-  text-align:center;
-  color:#777;
-  padding:30px 10px;
-  border-top:1px solid #222;
-  margin-top:30px;
-}
-</style>
+    .modal-box p {
+      line-height: 1.7;
+      color: #ddd;
+    }
+
+    #statusMessage {
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 15px;
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .exam-info {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 10px;
+      }
+
+      header h1 {
+        font-size: 19px;
+      }
+
+      #timer {
+        font-size: 24px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-  <img src="classic-empire-logo.png" class="logo" alt="Classic Empire Ltd">
-  <div class="brand">CLASSIC EMPIRE LTD</div>
-  <div class="small">Official Examination Portal</div>
+  <img src="classic-empire-logo.png" alt="Classic Empire Ltd Logo">
+  <h1>Classic Empire Ltd — Examination</h1>
 </header>
 
-<!-- CODE VERIFICATION -->
-<div id="loginPage" class="container">
+<div class="container">
 
-  <div class="card">
+  <!-- LOGIN -->
+  <section id="loginCard" class="card">
     <h2>परीक्षा प्रवेश</h2>
-
-    <div class="info">
-      अपना Exam Code और Post दर्ज करें। परीक्षा शुरू होने के बाद आपको
-      निर्धारित प्रश्नपत्र और Section दिया जाएगा।
-    </div>
 
     <label>Exam Code</label>
     <input
-      id="examCode"
       type="text"
-      placeholder="उदाहरण: CE-DM-12345"
+      id="examCode"
+      placeholder="अपना Exam Code डालें"
       autocomplete="off"
     >
 
@@ -283,121 +299,125 @@ footer{
       <option value="DSP">DSP</option>
     </select>
 
+    <button id="verifyBtn">
+      परीक्षा शुरू करने के लिए Verify करें
+    </button>
+
     <div id="loginMessage"></div>
-
-    <button id="verifyBtn" onclick="verifyCode()">
-      Exam Verify करें
-    </button>
-  </div>
-
-</div>
+  </section>
 
 
-<!-- EXAM START WARNING -->
-<div id="warningPage" class="container hidden">
+  <!-- EXAM START WARNING -->
+  <div id="warningModal" class="modal hidden">
+    <div class="modal-box">
 
-  <div class="card">
+      <h2>⚠️ महत्वपूर्ण चेतावनी</h2>
 
-    <h2>⚠️ परीक्षा शुरू करने से पहले ध्यान दें</h2>
+      <p>
+        परीक्षा शुरू होने के बाद:
+      </p>
 
-    <div class="warning">
+      <p>
+        • दूसरी Tab/Window में जाना मना है।<br>
+        • परीक्षा Window छोड़ने पर परीक्षा तुरंत dismiss हो सकती है।<br>
+        • Fullscreen छोड़ने पर परीक्षा dismiss हो सकती है।<br>
+        • समय समाप्त होने पर परीक्षा automatically submit होगी।<br>
+        • परीक्षा शुरू करने के बाद वापस जाने की अनुमति नहीं होगी।
+      </p>
 
-      <b>महत्वपूर्ण नियम:</b>
+      <p class="warning">
+        परीक्षा शुरू करने से पहले सभी निर्देश पढ़ लें।
+      </p>
 
-      <ul>
-        <li>परीक्षा की अवधि <b>30 मिनट</b> है।</li>
-        <li>परीक्षा शुरू होने के बाद Timer शुरू हो जाएगा।</li>
-        <li>दूसरे Tab या Window पर जाने की कोशिश करने पर परीक्षा तुरंत समाप्त की जा सकती है।</li>
-        <li>परीक्षा के दौरान Page छोड़ने या परीक्षा Window से बाहर जाने पर violation दर्ज होगा।</li>
-        <li>एक Exam Code से परीक्षा दोबारा submit नहीं की जा सकती।</li>
-        <li>18 Objective और 2 Subjective प्रश्न होंगे।</li>
-      </ul>
+      <button id="startExamBtn">
+        मैं समझ गया — परीक्षा शुरू करें
+      </button>
 
-    </div>
-
-    <div id="candidateInfo" class="info"></div>
-
-    <button onclick="startExam()">
-      परीक्षा शुरू करें
-    </button>
-
-  </div>
-
-</div>
-
-
-<!-- EXAM PAGE -->
-<div id="examPage" class="hidden">
-
-  <div class="topbar">
-    <div class="exam-top">
-      <div>
-        <b id="examCandidate">Candidate</b>
-        <div class="small" id="examDetails"></div>
-      </div>
-
-      <div class="timer" id="timer">
-        30:00
-      </div>
-    </div>
-  </div>
-
-  <main class="container">
-
-    <div class="card">
-
-      <h2>परीक्षा प्रश्नपत्र</h2>
-
-      <div class="info">
-        <b>कुल प्रश्न:</b> 20<br>
-        <b>Objective:</b> 18 × 1 = 18 अंक<br>
-        <b>Subjective:</b> 2 × 5 = 10 अंक<br>
-        <b>कुल:</b> 28 अंक
-      </div>
-
-      <div class="progress">
-        <div id="progressBar" class="progress-bar"></div>
-      </div>
-
-      <div id="questionsContainer"></div>
-
-      <div id="submitMessage"></div>
-
-      <button id="submitBtn" onclick="submitExam()">
-        परीक्षा Submit करें
+      <button
+        id="cancelStartBtn"
+        style="background:#333;color:white;"
+      >
+        वापस जाएँ
       </button>
 
     </div>
-
-  </main>
-
-</div>
-
-
-<!-- RESULT MESSAGE -->
-<div id="resultPage" class="container hidden">
-
-  <div class="card center">
-
-    <h2>परीक्षा जमा हो गई</h2>
-
-    <div id="resultMessage"></div>
-
   </div>
 
+
+  <!-- EXAM -->
+  <section id="examArea" class="hidden">
+
+    <div id="timerBox">
+      <div>⏱️ शेष परीक्षा समय</div>
+      <div id="timer">30:00</div>
+
+      <div class="progress-wrap">
+        <div id="progressBar"></div>
+      </div>
+    </div>
+
+
+    <div class="card">
+
+      <h2>परीक्षा विवरण</h2>
+
+      <div class="exam-info">
+
+        <div class="info-item">
+          <strong>Applicant:</strong>
+          <span id="applicantName"></span>
+        </div>
+
+        <div class="info-item">
+          <strong>Post:</strong>
+          <span id="examPost"></span>
+        </div>
+
+        <div class="info-item">
+          <strong>Section:</strong>
+          <span id="examSection"></span>
+        </div>
+
+        <div class="info-item">
+          <strong>Paper:</strong>
+          <span id="paperName"></span>
+        </div>
+
+      </div>
+
+      <p class="warning">
+        कुल प्रश्न: 20 | Objective: 18 | Subjective: 2 | कुल अंक: 28
+      </p>
+
+    </div>
+
+
+    <form id="examForm">
+
+      <div id="questionsContainer"></div>
+
+      <button
+        type="submit"
+        id="submitBtn"
+      >
+        परीक्षा जमा करें
+      </button>
+
+    </form>
+
+  </section>
+
+
+  <!-- FINAL MESSAGE -->
+  <section id="finalCard" class="card hidden">
+    <h2 id="finalTitle"></h2>
+    <p id="finalMessage"></p>
+  </section>
+
 </div>
-
-
-<footer>
-  Classic Empire Ltd • Chakla Ghat, Kishanganj, Bihar, India
-</footer>
 
 
 <script>
-
-/* ==============================
-   SUPABASE
-============================== */
 
 const SUPABASE_URL =
   "https://hjatspkzgoddcpgwfkxo.supabase.co";
@@ -412,882 +432,1028 @@ const supabaseClient =
   );
 
 
-/* ==============================
-   GLOBAL VARIABLES
-============================== */
-
 let examCode = "";
 let selectedPost = "";
-let candidateName = "";
+let applicantName = "";
 let examSection = "";
-let paperId = "";
 
 let questions = [];
-
-let examSession = null;
-let expiresAt = null;
+let sessionExpiresAt = null;
 
 let timerInterval = null;
+
 let examStarted = false;
-let examFinished = false;
-let violationSent = false;
+let examSubmitted = false;
+let violationTriggered = false;
 
 
-/* ==============================
-   HELPERS
-============================== */
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
-function showMessage(id, html, type){
+const loginCard =
+  document.getElementById("loginCard");
 
-  const box = document.getElementById(id);
+const examArea =
+  document.getElementById("examArea");
 
-  box.innerHTML =
-    `<div class="${type}">${html}</div>`;
+const finalCard =
+  document.getElementById("finalCard");
+
+const warningModal =
+  document.getElementById("warningModal");
+
+const loginMessage =
+  document.getElementById("loginMessage");
+
+const questionsContainer =
+  document.getElementById("questionsContainer");
+
+const timerElement =
+  document.getElementById("timer");
+
+const progressBar =
+  document.getElementById("progressBar");
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showLoginMessage(message, type = "danger") {
+
+  loginMessage.style.display = "block";
+
+  loginMessage.className = type;
+
+  loginMessage.textContent = message;
 }
 
 
-function normalizeCode(value){
-  return String(value || "")
-    .trim()
-    .toUpperCase();
-}
-
-
-/* ==============================
+/* =====================================================
    VERIFY EXAM CODE
-============================== */
+===================================================== */
 
-async function verifyCode(){
+document
+  .getElementById("verifyBtn")
+  .addEventListener("click", verifyExam);
 
-  if(examStarted){
-    return;
-  }
 
-  examCode =
-    normalizeCode(
-      document.getElementById("examCode").value
+async function verifyExam() {
+
+  const code =
+    document
+      .getElementById("examCode")
+      .value
+      .trim()
+      .toUpperCase();
+
+  const post =
+    document
+      .getElementById("post")
+      .value
+      .trim();
+
+
+  if (!code) {
+
+    showLoginMessage(
+      "Exam Code डालना जरूरी है।"
     );
 
-  selectedPost =
-    document.getElementById("post").value;
-
-  if(!examCode){
-    showMessage(
-      "loginMessage",
-      "कृपया Exam Code दर्ज करें।",
-      "error"
-    );
     return;
   }
 
-  if(!selectedPost){
-    showMessage(
-      "loginMessage",
-      "कृपया Post चुनें।",
-      "error"
-    );
-    return;
-  }
 
-  const btn =
-    document.getElementById("verifyBtn");
+  if (!post) {
 
-  btn.disabled = true;
-  btn.textContent = "Verify हो रहा है...";
-
-  try{
-
-    const {data, error} =
-      await supabaseClient.rpc(
-        "verify_exam_code",
-        {
-          input_code: examCode,
-          input_post: selectedPost
-        }
-      );
-
-    if(error){
-      throw error;
-    }
-
-    console.log("verify_exam_code:", data);
-
-    if(!data){
-      throw new Error("Exam verification failed.");
-    }
-
-    let result = data;
-
-    if(typeof result === "string"){
-      try{
-        result = JSON.parse(result);
-      }catch(e){}
-    }
-
-    if(result.success === false){
-      throw new Error(
-        result.message ||
-        "Exam Code verify नहीं हो सका।"
-      );
-    }
-
-    if(result.allowed === false){
-      throw new Error(
-        result.message ||
-        "यह Exam Code मान्य नहीं है।"
-      );
-    }
-
-    /*
-      Different RPC return shapes को support
-      करने के लिए values कई possible keys से
-      पढ़ी जा रही हैं।
-    */
-
-    candidateName =
-      result.applicant_name ||
-      result.name ||
-      result.candidate_name ||
-      "";
-
-    examSession = result;
-
-    /*
-      Session expiry
-    */
-
-    expiresAt =
-      result.expires_at ||
-      result.session_expires_at ||
-      result.expiry_time ||
-      null;
-
-
-    /* ==============================
-       GET QUESTIONS
-    ============================== */
-
-    const {data: questionData, error: questionError} =
-      await supabaseClient.rpc(
-        "get_exam_questions",
-        {
-          input_exam_code: examCode
-        }
-      );
-
-    if(questionError){
-      throw questionError;
-    }
-
-    console.log(
-      "get_exam_questions:",
-      questionData
+    showLoginMessage(
+      "Post चुनना जरूरी है।"
     );
 
-    let qResult = questionData;
-
-    if(typeof qResult === "string"){
-      qResult = JSON.parse(qResult);
-    }
-
-    if(!qResult || qResult.success === false){
-      throw new Error(
-        qResult?.message ||
-        "Questions load नहीं हो सके।"
-      );
-    }
-
-    candidateName =
-      qResult.applicant_name ||
-      candidateName;
-
-    selectedPost =
-      qResult.post ||
-      selectedPost;
-
-    examSection =
-      qResult.section ||
-      "";
-
-    paperId =
-      qResult.paper_id ||
-      "";
-
-    questions =
-      Array.isArray(qResult.questions)
-        ? qResult.questions
-        : [];
-
-    if(questions.length !== 20){
-
-      throw new Error(
-        "इस परीक्षा के लिए 20 प्रश्न उपलब्ध नहीं हैं।"
-      );
-    }
-
-    /*
-      18 objective + 2 subjective check
-    */
-
-    const objectiveCount =
-      questions.filter(
-        q =>
-          String(q.question_type).toUpperCase() ===
-          "OBJECTIVE"
-      ).length;
-
-    const subjectiveCount =
-      questions.filter(
-        q =>
-          String(q.question_type).toUpperCase() ===
-          "SUBJECTIVE"
-      ).length;
-
-    if(
-      objectiveCount !== 18 ||
-      subjectiveCount !== 2
-    ){
-
-      throw new Error(
-        `Question structure गलत है। Objective: ${objectiveCount}, Subjective: ${subjectiveCount}`
-      );
-    }
-
-
-    /*
-      Candidate information
-    */
-
-    document.getElementById("candidateInfo").innerHTML = `
-      <b>नाम:</b> ${escapeHtml(candidateName || "Applicant")}<br>
-      <b>Post:</b> ${escapeHtml(selectedPost)}<br>
-      <b>Section:</b> ${escapeHtml(examSection)}<br>
-      <b>Paper:</b> ${escapeHtml(qResult.paper_name || "")}
-    `;
-
-
-    document.getElementById("loginPage")
-      .classList.add("hidden");
-
-    document.getElementById("warningPage")
-      .classList.remove("hidden");
-
-  }catch(error){
-
-    console.error(error);
-
-    showMessage(
-      "loginMessage",
-      escapeHtml(
-        error.message ||
-        "Exam verify नहीं हो सका।"
-      ),
-      "error"
-    );
-
-  }finally{
-
-    btn.disabled = false;
-    btn.textContent = "Exam Verify करें";
-
-  }
-}
-
-
-/* ==============================
-   START EXAM
-============================== */
-
-async function startExam(){
-
-  if(examStarted){
     return;
   }
 
-  if(!questions.length){
-    showMessage(
-      "candidateInfo",
-      "Questions उपलब्ध नहीं हैं।",
-      "error"
-    );
-    return;
-  }
 
-  /*
-    Browser fullscreen
-  */
-
-  try{
-
-    if(document.documentElement.requestFullscreen){
-      await document.documentElement.requestFullscreen();
-    }
-
-  }catch(e){
-    console.log("Fullscreen unavailable:", e);
-  }
-
-
-  examStarted = true;
-
-  document.getElementById("warningPage")
-    .classList.add("hidden");
-
-  document.getElementById("examPage")
-    .classList.remove("hidden");
-
-
-  document.getElementById("examCandidate")
-    .textContent =
-      candidateName || "Applicant";
-
-  document.getElementById("examDetails")
-    .textContent =
-      `${selectedPost} • Section ${examSection}`;
-
-
-  renderQuestions();
-
-  /*
-    Timer:
-    पहले server expiry मिले तो वही use होगा।
-    नहीं तो 30 मिनट का fallback।
-  */
-
-  if(!expiresAt){
-
-    expiresAt =
-      new Date(
-        Date.now() + (30 * 60 * 1000)
-      ).toISOString();
-
-  }
-
-  startTimer();
-
-  /*
-    Browser history protection
-  */
-
-  history.pushState(
-    {exam:true},
-    "",
-    window.location.href
-  );
-
-}
-
-
-/* ==============================
-   RENDER QUESTIONS
-============================== */
-
-function renderQuestions(){
-
-  const container =
-    document.getElementById(
-      "questionsContainer"
-    );
-
-  container.innerHTML = "";
-
-  let objectiveNumber = 0;
-  let subjectiveNumber = 0;
-
-  questions.forEach((q, index) => {
-
-    const type =
-      String(q.question_type || "")
-        .toUpperCase();
-
-    const questionNumber =
-      Number(q.question_number) ||
-      (index + 1);
-
-    let html = "";
-
-    if(type === "OBJECTIVE"){
-
-      objectiveNumber++;
-
-      html += `
-        <div class="question">
-          <div class="question-title">
-            ${questionNumber}. ${escapeHtml(q.question_text)}
-          </div>
-
-          <label class="option">
-            <input
-              type="radio"
-              name="question_${questionNumber}"
-              value="A"
-              onchange="updateProgress()"
-            >
-            <b>A.</b> ${escapeHtml(q.option_a)}
-          </label>
-
-          <label class="option">
-            <input
-              type="radio"
-              name="question_${questionNumber}"
-              value="B"
-              onchange="updateProgress()"
-            >
-            <b>B.</b> ${escapeHtml(q.option_b)}
-          </label>
-
-          <label class="option">
-            <input
-              type="radio"
-              name="question_${questionNumber}"
-              value="C"
-              onchange="updateProgress()"
-            >
-            <b>C.</b> ${escapeHtml(q.option_c)}
-          </label>
-
-          <label class="option">
-            <input
-              type="radio"
-              name="question_${questionNumber}"
-              value="D"
-              onchange="updateProgress()"
-            >
-            <b>D.</b> ${escapeHtml(q.option_d)}
-          </label>
-        </div>
-      `;
-
-    }else{
-
-      subjectiveNumber++;
-
-      html += `
-        <div class="question subjective">
-
-          <div class="question-title">
-            ${questionNumber}. ${escapeHtml(q.question_text)}
-          </div>
-
-          <div class="small">
-            यह प्रश्न 5 अंकों का है।
-          </div>
-
-          <textarea
-            id="subjective_${questionNumber}"
-            placeholder="अपना उत्तर यहाँ लिखें..."
-            oninput="updateProgress()"
-          ></textarea>
-
-        </div>
-      `;
-
-    }
-
-    container.innerHTML += html;
-
-  });
-
-}
-
-
-/* ==============================
-   PROGRESS
-============================== */
-
-function updateProgress(){
-
-  let answered = 0;
-
-  questions.forEach(q => {
-
-    const number =
-      Number(q.question_number);
-
-    const type =
-      String(q.question_type || "")
-        .toUpperCase();
-
-    if(type === "OBJECTIVE"){
-
-      const selected =
-        document.querySelector(
-          `input[name="question_${number}"]:checked`
-        );
-
-      if(selected){
-        answered++;
-      }
-
-    }else{
-
-      const textarea =
-        document.getElementById(
-          `subjective_${number}`
-        );
-
-      if(
-        textarea &&
-        textarea.value.trim().length > 0
-      ){
-        answered++;
-      }
-
-    }
-
-  });
-
-  const percentage =
-    (answered / questions.length) * 100;
-
-  document.getElementById(
-    "progressBar"
-  ).style.width =
-    percentage + "%";
-}
-
-
-/* ==============================
-   TIMER
-============================== */
-
-function startTimer(){
-
-  clearInterval(timerInterval);
-
-  timerInterval =
-    setInterval(updateTimer, 1000);
-
-  updateTimer();
-}
-
-
-function updateTimer(){
-
-  if(examFinished){
-    clearInterval(timerInterval);
-    return;
-  }
-
-  const remaining =
-    new Date(expiresAt).getTime() -
-    Date.now();
-
-  if(remaining <= 0){
-
-    clearInterval(timerInterval);
-
-    document.getElementById("timer")
-      .textContent = "00:00";
-
-    autoSubmitByTimeout();
-
-    return;
-  }
-
-  const totalSeconds =
-    Math.floor(remaining / 1000);
-
-  const minutes =
-    Math.floor(totalSeconds / 60);
-
-  const seconds =
-    totalSeconds % 60;
-
-  const timer =
-    document.getElementById("timer");
-
-  timer.textContent =
-    String(minutes).padStart(2,"0") +
-    ":" +
-    String(seconds).padStart(2,"0");
-
-  if(totalSeconds <= 300){
-    timer.classList.add("danger");
-  }else{
-    timer.classList.remove("danger");
-  }
-
-}
-
-
-/* ==============================
-   COLLECT ANSWERS
-============================== */
-
-function collectAnswers(){
-
-  const answers = [];
-
-  questions.forEach(q => {
-
-    const number =
-      Number(q.question_number);
-
-    const type =
-      String(q.question_type || "")
-        .toUpperCase();
-
-    if(type === "OBJECTIVE"){
-
-      const selected =
-        document.querySelector(
-          `input[name="question_${number}"]:checked`
-        );
-
-      answers.push({
-        question_number:number,
-        question_type:"OBJECTIVE",
-        answer:selected
-          ? selected.value
-          : null
-      });
-
-    }else{
-
-      const textarea =
-        document.getElementById(
-          `subjective_${number}`
-        );
-
-      answers.push({
-        question_number:number,
-        question_type:"SUBJECTIVE",
-        answer:textarea
-          ? textarea.value.trim()
-          : ""
-      });
-
-    }
-
-  });
-
-  return answers;
-}
-
-
-/* ==============================
-   SUBMIT EXAM
-============================== */
-
-async function submitExam(){
-
-  if(examFinished){
-    return;
-  }
-
-  const confirmSubmit =
-    confirm(
-      "क्या आप परीक्षा Submit करना चाहते हैं?\n\nSubmit करने के बाद answers बदल नहीं सकेंगे।"
-    );
-
-  if(!confirmSubmit){
-    return;
-  }
-
-  await submitExamToServer(false);
-}
-
-
-/* ==============================
-   AUTO SUBMIT
-============================== */
-
-async function autoSubmitByTimeout(){
-
-  if(examFinished){
-    return;
-  }
-
-  showMessage(
-    "submitMessage",
-    "⏰ 30 मिनट पूरे हो गए हैं। परीक्षा automatically submit की जा रही है...",
+  showLoginMessage(
+    "Exam verify किया जा रहा है...",
     "warning"
   );
 
-  await submitExamToServer(true);
-}
 
-
-/* ==============================
-   SERVER SUBMISSION
-============================== */
-
-async function submitExamToServer(autoSubmit){
-
-  if(examFinished){
-    return;
-  }
-
-  examFinished = true;
-
-  clearInterval(timerInterval);
-
-  const submitBtn =
-    document.getElementById("submitBtn");
-
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Submit हो रहा है...";
-
-
-  const answers =
-    collectAnswers();
-
-
-  /*
-    Backend function expected:
-    submit_complete_exam(
-      input_exam_code,
-      input_answers
-    )
-
-    Answers JSON के रूप में भेजे जाते हैं।
-  */
-
-  try{
-
-    const {data, error} =
-      await supabaseClient.rpc(
-        "submit_complete_exam",
-        {
-          input_exam_code: examCode,
-          input_answers: answers
-        }
-      );
-
-    if(error){
-      throw error;
-    }
-
-    console.log(
-      "submit_complete_exam:",
-      data
+  const { data, error } =
+    await supabaseClient.rpc(
+      "verify_exam_code",
+      {
+        input_code: code,
+        input_post: post
+      }
     );
 
-    let result = data;
 
-    if(typeof result === "string"){
-      try{
-        result = JSON.parse(result);
-      }catch(e){}
-    }
-
-    if(result && result.success === false){
-
-      throw new Error(
-        result.message ||
-        "Exam submit नहीं हो सका।"
-      );
-
-    }
-
-
-    /*
-      Exam result को तुरंत final result के रूप
-      में दिखाने के बजाय submission confirmation।
-    */
-
-    document.getElementById("examPage")
-      .classList.add("hidden");
-
-    document.getElementById("resultPage")
-      .classList.remove("hidden");
-
-    document.getElementById("resultMessage")
-      .innerHTML = `
-        <div class="success">
-          <b>परीक्षा सफलतापूर्वक जमा हो गई।</b>
-          <br><br>
-          Exam Code:
-          <b>${escapeHtml(examCode)}</b>
-          <br>
-          Post:
-          <b>${escapeHtml(selectedPost)}</b>
-          <br>
-          Section:
-          <b>${escapeHtml(examSection)}</b>
-          <br><br>
-          आपका result निर्धारित समय के बाद उपलब्ध होगा।
-        </div>
-      `;
-
-    /*
-      Browser back से exam में लौटने से रोकना
-    */
-
-    try{
-      history.replaceState(
-        null,
-        "",
-        window.location.href
-      );
-    }catch(e){}
-
-
-  }catch(error){
+  if (error) {
 
     console.error(error);
 
-    /*
-      अगर backend submission failure हुआ,
-      examFinished वापस false ताकि legitimate
-      retry संभव रहे।
-    */
-
-    examFinished = false;
-
-    submitBtn.disabled = false;
-    submitBtn.textContent =
-      "परीक्षा Submit करें";
-
-    showMessage(
-      "submitMessage",
-      escapeHtml(
-        error.message ||
-        "Exam submit नहीं हो सका।"
-      ),
-      "error"
+    showLoginMessage(
+      error.message || "Exam verification failed."
     );
 
+    return;
   }
+
+
+  if (!data || data.success !== true) {
+
+    showLoginMessage(
+      data?.message ||
+      "Exam Code verify नहीं हुआ।"
+    );
+
+    return;
+  }
+
+
+  examCode = code;
+
+  selectedPost = post;
+
+  applicantName =
+    data.applicant_name || "";
+
+  sessionExpiresAt =
+    data.expires_at || null;
+
+
+  /*
+    Questions server से उसी
+    Exam Code के Section के अनुसार आएंगे।
+  */
+
+  const result =
+    await loadExamQuestions();
+
+
+  if (!result) {
+    return;
+  }
+
+
+  /*
+    Warning दिखाएँ
+  */
+
+  warningModal.classList.remove("hidden");
 
 }
 
 
-/* ==============================
-   VIOLATION
-============================== */
+/* =====================================================
+   LOAD QUESTIONS
+===================================================== */
 
-async function handleExamViolation(reason){
+async function loadExamQuestions() {
 
-  if(
-    !examStarted ||
-    examFinished ||
-    violationSent
-  ){
-    return;
-  }
-
-  violationSent = true;
-  examFinished = true;
-
-  clearInterval(timerInterval);
-
-  console.log(
-    "Exam violation:",
-    reason
-  );
-
-  try{
-
+  const { data, error } =
     await supabaseClient.rpc(
-      "record_exam_violation",
+      "get_exam_questions",
       {
         input_exam_code: examCode
       }
     );
 
-  }catch(error){
+
+  if (error) {
+
+    console.error(error);
+
+    showLoginMessage(
+      error.message ||
+      "Questions load नहीं हो सके।"
+    );
+
+    return false;
+  }
+
+
+  if (!data || data.success !== true) {
+
+    showLoginMessage(
+      data?.message ||
+      "Questions उपलब्ध नहीं हैं।"
+    );
+
+    return false;
+  }
+
+
+  applicantName =
+    data.applicant_name || applicantName;
+
+  selectedPost =
+    data.post || selectedPost;
+
+  examSection =
+    data.section || "";
+
+  questions =
+    Array.isArray(data.questions)
+      ? data.questions
+      : [];
+
+
+  if (questions.length !== 20) {
+
+    showLoginMessage(
+      "इस Exam Paper में 20 प्रश्न उपलब्ध नहीं हैं।"
+    );
+
+    return false;
+  }
+
+
+  document
+    .getElementById("applicantName")
+    .textContent = applicantName;
+
+  document
+    .getElementById("examPost")
+    .textContent = selectedPost;
+
+  document
+    .getElementById("examSection")
+    .textContent = examSection;
+
+  document
+    .getElementById("paperName")
+    .textContent =
+      data.paper_name || "";
+
+
+  renderQuestions();
+
+  return true;
+}
+
+
+/* =====================================================
+   RENDER QUESTIONS
+===================================================== */
+
+function renderQuestions() {
+
+  questionsContainer.innerHTML = "";
+
+
+  questions.forEach((q, index) => {
+
+    const box =
+      document.createElement("div");
+
+    box.className = "question";
+
+
+    const number =
+      document.createElement("div");
+
+    number.className =
+      "question-number";
+
+    number.textContent =
+      `प्रश्न ${q.question_number}`;
+
+    box.appendChild(number);
+
+
+    const text =
+      document.createElement("div");
+
+    text.className =
+      "question-text";
+
+    text.textContent =
+      q.question_text;
+
+    box.appendChild(text);
+
+
+    if (
+      String(q.question_type).toUpperCase()
+      === "OBJECTIVE"
+    ) {
+
+      const options = [
+        ["A", q.option_a],
+        ["B", q.option_b],
+        ["C", q.option_c],
+        ["D", q.option_d]
+      ];
+
+
+      options.forEach(([letter, value]) => {
+
+        if (!value) return;
+
+
+        const label =
+          document.createElement("label");
+
+        label.className = "option";
+
+
+        const radio =
+          document.createElement("input");
+
+        radio.type = "radio";
+
+        radio.name =
+          `question_${q.question_number}`;
+
+        radio.value = letter;
+
+
+        label.appendChild(radio);
+
+        label.appendChild(
+          document.createTextNode(
+            `${letter}. ${value}`
+          )
+        );
+
+
+        box.appendChild(label);
+
+      });
+
+    } else {
+
+      const textarea =
+        document.createElement("textarea");
+
+      textarea.name =
+        `question_${q.question_number}`;
+
+      textarea.placeholder =
+        "अपना उत्तर यहाँ लिखें...";
+
+
+      box.appendChild(textarea);
+
+    }
+
+
+    questionsContainer.appendChild(box);
+
+  });
+
+
+  updateProgress();
+
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+document.addEventListener(
+  "change",
+  updateProgress
+);
+
+
+function updateProgress() {
+
+  if (!questions.length) return;
+
+
+  let answered = 0;
+
+
+  questions.forEach(q => {
+
+    const name =
+      `question_${q.question_number}`;
+
+    const checked =
+      document.querySelector(
+        `input[name="${name}"]:checked`
+      );
+
+    const textarea =
+      document.querySelector(
+        `textarea[name="${name}"]`
+      );
+
+
+    if (
+      checked ||
+      (textarea && textarea.value.trim())
+    ) {
+      answered++;
+    }
+
+  });
+
+
+  const percent =
+    (answered / questions.length) * 100;
+
+
+  progressBar.style.width =
+    `${percent}%`;
+
+}
+
+
+/* =====================================================
+   START EXAM
+===================================================== */
+
+document
+  .getElementById("startExamBtn")
+  .addEventListener(
+    "click",
+    startExam
+  );
+
+
+document
+  .getElementById("cancelStartBtn")
+  .addEventListener(
+    "click",
+    () => {
+
+      warningModal.classList.add("hidden");
+
+    }
+  );
+
+
+async function startExam() {
+
+  warningModal.classList.add("hidden");
+
+  examStarted = true;
+
+
+  loginCard.classList.add("hidden");
+
+  examArea.classList.remove("hidden");
+
+
+  /*
+    Fullscreen
+  */
+
+  try {
+
+    if (
+      document.documentElement.requestFullscreen
+    ) {
+
+      await document
+        .documentElement
+        .requestFullscreen();
+
+    }
+
+  } catch (e) {
+
+    console.log(
+      "Fullscreen unavailable",
+      e
+    );
+
+  }
+
+
+  startTimer();
+
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+function startTimer() {
+
+  clearInterval(timerInterval);
+
+
+  function tick() {
+
+    let remaining;
+
+
+    if (sessionExpiresAt) {
+
+      remaining =
+        Math.max(
+          0,
+          new Date(sessionExpiresAt).getTime()
+          - Date.now()
+        );
+
+    } else {
+
+      /*
+        Fallback:
+        30 minutes
+      */
+
+      if (!window.localExamStartTime) {
+
+        window.localExamStartTime =
+          Date.now();
+
+      }
+
+      remaining =
+        Math.max(
+          0,
+          30 * 60 * 1000
+          -
+          (
+            Date.now()
+            -
+            window.localExamStartTime
+          )
+        );
+
+    }
+
+
+    const totalSeconds =
+      Math.floor(
+        remaining / 1000
+      );
+
+
+    const minutes =
+      Math.floor(
+        totalSeconds / 60
+      );
+
+
+    const seconds =
+      totalSeconds % 60;
+
+
+    timerElement.textContent =
+      `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+
+
+    if (remaining <= 0) {
+
+      clearInterval(timerInterval);
+
+      autoSubmitExam();
+
+    }
+
+  }
+
+
+  tick();
+
+  timerInterval =
+    setInterval(
+      tick,
+      1000
+    );
+
+}
+
+
+/* =====================================================
+   COLLECT ANSWERS
+===================================================== */
+
+function collectAnswers() {
+
+  const answers = [];
+
+
+  questions.forEach(q => {
+
+    const name =
+      `question_${q.question_number}`;
+
+
+    const selected =
+      document.querySelector(
+        `input[name="${name}"]:checked`
+      );
+
+
+    const textarea =
+      document.querySelector(
+        `textarea[name="${name}"]`
+      );
+
+
+    answers.push({
+      question_number:
+        q.question_number,
+
+      question_type:
+        q.question_type,
+
+      answer:
+        selected
+          ? selected.value
+          : textarea
+            ? textarea.value.trim()
+            : ""
+    });
+
+  });
+
+
+  return answers;
+}
+
+
+/* =====================================================
+   SUBJECTIVE ANSWERS
+===================================================== */
+
+function getSubjectiveAnswers() {
+
+  const subjective =
+    questions.filter(
+      q =>
+        String(q.question_type).toUpperCase()
+        === "SUBJECTIVE"
+    );
+
+
+  let answer1 = "";
+
+  let answer2 = "";
+
+
+  if (subjective[0]) {
+
+    const textarea =
+      document.querySelector(
+        `textarea[name="question_${subjective[0].question_number}"]`
+      );
+
+    answer1 =
+      textarea
+        ? textarea.value.trim()
+        : "";
+
+  }
+
+
+  if (subjective[1]) {
+
+    const textarea =
+      document.querySelector(
+        `textarea[name="question_${subjective[1].question_number}"]`
+      );
+
+    answer2 =
+      textarea
+        ? textarea.value.trim()
+        : "";
+
+  }
+
+
+  return {
+    answer1,
+    answer2
+  };
+
+}
+
+
+/* =====================================================
+   CALCULATE OBJECTIVE
+===================================================== */
+
+function calculateObjectiveScore() {
+
+  let score = 0;
+
+
+  questions.forEach(q => {
+
+    if (
+      String(q.question_type).toUpperCase()
+      !== "OBJECTIVE"
+    ) {
+      return;
+    }
+
+
+    const selected =
+      document.querySelector(
+        `input[name="question_${q.question_number}"]:checked`
+      );
+
+
+    if (!selected) return;
+
+
+    if (
+      selected.value.toUpperCase()
+      ===
+      String(q.correct_answer || "")
+        .trim()
+        .toUpperCase()
+    ) {
+
+      score += Number(q.marks || 1);
+
+    }
+
+  });
+
+
+  /*
+    Maximum Objective = 18
+  */
+
+  return Math.min(
+    score,
+    18
+  );
+
+}
+
+
+/* =====================================================
+   SUBMIT FORM
+===================================================== */
+
+document
+  .getElementById("examForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      if (examSubmitted) {
+        return;
+      }
+
+
+      const confirmed =
+        confirm(
+          "क्या आप परीक्षा जमा करना चाहते हैं?\n\nजमा करने के बाद परीक्षा दोबारा नहीं खोली जा सकेगी।"
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      await submitExam(false);
+
+    }
+  );
+
+
+/* =====================================================
+   AUTO SUBMIT
+===================================================== */
+
+async function autoSubmitExam() {
+
+  if (examSubmitted) {
+    return;
+  }
+
+
+  alert(
+    "आपका 30 मिनट का परीक्षा समय समाप्त हो गया है। परीक्षा automatically submit की जा रही है।"
+  );
+
+
+  await submitExam(true);
+
+}
+
+
+/* =====================================================
+   FINAL SUBMIT
+===================================================== */
+
+async function submitExam(isAutoSubmit) {
+
+  if (examSubmitted) {
+    return;
+  }
+
+
+  examSubmitted = true;
+
+
+  clearInterval(timerInterval);
+
+
+  const submitBtn =
+    document.getElementById("submitBtn");
+
+  submitBtn.disabled = true;
+
+  submitBtn.textContent =
+    "Exam Submit हो रहा है...";
+
+
+  const objectiveScore =
+    calculateObjectiveScore();
+
+
+  const subjective =
+    getSubjectiveAnswers();
+
+
+  /*
+    IMPORTANT:
+    Subjective marks student side से
+    नहीं भेजे जाते।
+    Server/Admin बाद में marks देगा।
+
+    इसलिए अभी 0 भेजे जा रहे हैं।
+  */
+
+  const subjectiveMarks = 0;
+
+
+  const { data, error } =
+    await supabaseClient.rpc(
+      "submit_complete_exam",
+      {
+        input_exam_code:
+          examCode,
+
+        input_applicant_name:
+          applicantName,
+
+        input_post:
+          selectedPost,
+
+        input_objective_score:
+          objectiveScore,
+
+        input_subjective_answer_1:
+          subjective.answer1,
+
+        input_subjective_answer_2:
+          subjective.answer2,
+
+        input_subjective_marks:
+          subjectiveMarks
+      }
+    );
+
+
+  if (error) {
+
+    console.error(error);
+
+    /*
+      Submit failed होने पर फिर से
+      submit की अनुमति दें।
+    */
+
+    examSubmitted = false;
+
+    submitBtn.disabled = false;
+
+    submitBtn.textContent =
+      "परीक्षा जमा करें";
+
+
+    alert(
+      error.message ||
+      "Exam submit नहीं हो सका।"
+    );
+
+    return;
+
+  }
+
+
+  if (!data || data.success !== true) {
+
+    examSubmitted = false;
+
+    submitBtn.disabled = false;
+
+    submitBtn.textContent =
+      "परीक्षा जमा करें";
+
+
+    alert(
+      data?.message ||
+      "Exam submit नहीं हो सका।"
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Successful submission
+  */
+
+  examSubmitted = true;
+
+
+  examArea.classList.add("hidden");
+
+  finalCard.classList.remove("hidden");
+
+
+  document
+    .getElementById("finalTitle")
+    .textContent =
+      "✅ परीक्षा सफलतापूर्वक जमा हो गई";
+
+
+  document
+    .getElementById("finalMessage")
+    .innerHTML =
+      `
+      आपका परीक्षा पत्र सफलतापूर्वक जमा हो गया है।<br><br>
+
+      <strong>Exam Code:</strong>
+      ${escapeHtml(examCode)}
+      <br><br>
+
+      आपका Objective भाग server पर सुरक्षित रूप से जमा हो गया है।
+      <br><br>
+
+      Subjective भाग का मूल्यांकन Admin/President द्वारा किया जाएगा।
+      <br><br>
+
+      <strong>Final Result सामान्यतः 24 घंटे बाद उपलब्ध होगा।</strong>
+      <br><br>
+
+      President द्वारा Result जल्दी release किया जा सकता है।
+      `;
+
+
+  /*
+    Fullscreen exit
+  */
+
+  try {
+
+    if (document.fullscreenElement) {
+
+      await document.exitFullscreen();
+
+    }
+
+  } catch (e) {
+
+    console.log(e);
+
+  }
+
+}
+
+
+/* =====================================================
+   VIOLATION
+===================================================== */
+
+async function triggerViolation(reason) {
+
+  if (!examStarted) return;
+
+  if (examSubmitted) return;
+
+  if (violationTriggered) return;
+
+
+  violationTriggered = true;
+
+
+  try {
+
+    await supabaseClient.rpc(
+      "record_exam_violation",
+      {
+        input_exam_code:
+          examCode
+      }
+    );
+
+  } catch (error) {
 
     console.error(
       "Violation RPC error:",
@@ -1296,43 +1462,56 @@ async function handleExamViolation(reason){
 
   }
 
-  document.getElementById("examPage")
-    .classList.add("hidden");
 
-  document.getElementById("resultPage")
-    .classList.remove("hidden");
+  examSubmitted = true;
 
-  document.getElementById("resultMessage")
-    .innerHTML = `
-      <div class="error">
-        <b>परीक्षा समाप्त कर दी गई।</b>
-        <br><br>
-        परीक्षा के दौरान परीक्षा Window/Tab छोड़ने का violation दर्ज हुआ।
-        <br><br>
-        Exam Code:
-        <b>${escapeHtml(examCode)}</b>
-      </div>
-    `;
+  clearInterval(timerInterval);
+
+
+  examArea.classList.add("hidden");
+
+  finalCard.classList.remove("hidden");
+
+
+  document
+    .getElementById("finalTitle")
+    .textContent =
+      "❌ परीक्षा समाप्त";
+
+
+  document
+    .getElementById("finalMessage")
+    .innerHTML =
+      `
+      परीक्षा नियमों का उल्लंघन detected हुआ है।
+      <br><br>
+      <strong>Reason:</strong>
+      ${escapeHtml(reason)}
+      <br><br>
+      यह Exam Session dismiss कर दी गई है।
+      `;
 
 }
 
 
-/* ==============================
-   VISIBILITY CHECK
-============================== */
+/* =====================================================
+   TAB CHANGE
+===================================================== */
 
 document.addEventListener(
   "visibilitychange",
-  function(){
+  function() {
 
-    if(
-      document.hidden &&
-      examStarted &&
-      !examFinished
-    ){
+    if (
+      document.visibilityState === "hidden"
+      &&
+      examStarted
+      &&
+      !examSubmitted
+    ) {
 
-      handleExamViolation(
-        "TAB_OR_WINDOW_LEFT"
+      triggerViolation(
+        "Exam window/tab छोड़ी गई"
       );
 
     }
@@ -1341,21 +1520,22 @@ document.addEventListener(
 );
 
 
-/* ==============================
+/* =====================================================
    WINDOW BLUR
-============================== */
+===================================================== */
 
 window.addEventListener(
   "blur",
-  function(){
+  function() {
 
-    if(
-      examStarted &&
-      !examFinished
-    ){
+    if (
+      examStarted
+      &&
+      !examSubmitted
+    ) {
 
-      handleExamViolation(
-        "WINDOW_LEFT"
+      triggerViolation(
+        "Exam window से बाहर जाने का प्रयास"
       );
 
     }
@@ -1364,83 +1544,24 @@ window.addEventListener(
 );
 
 
-/* ==============================
-   BACK BUTTON
-============================== */
-
-window.addEventListener(
-  "popstate",
-  function(){
-
-    if(
-      examStarted &&
-      !examFinished
-    ){
-
-      handleExamViolation(
-        "BACK_BUTTON"
-      );
-
-    }
-
-  }
-);
-
-
-/* ==============================
-   BEFORE UNLOAD
-============================== */
-
-window.addEventListener(
-  "beforeunload",
-  function(event){
-
-    if(
-      examStarted &&
-      !examFinished
-    ){
-
-      event.preventDefault();
-      event.returnValue = "";
-
-    }
-
-  }
-);
-
-
-/* ==============================
-   DISABLE CONTEXT MENU
-============================== */
-
-document.addEventListener(
-  "contextmenu",
-  function(event){
-
-    if(examStarted){
-      event.preventDefault();
-    }
-
-  }
-);
-
-
-/* ==============================
-   ESCAPE FULLSCREEN
-============================== */
+/* =====================================================
+   FULLSCREEN EXIT
+===================================================== */
 
 document.addEventListener(
   "fullscreenchange",
-  function(){
+  function() {
 
-    if(
-      examStarted &&
-      !examFinished &&
+    if (
+      examStarted
+      &&
+      !examSubmitted
+      &&
       !document.fullscreenElement
-    ){
+    ) {
 
-      handleExamViolation(
-        "FULLSCREEN_EXIT"
+      triggerViolation(
+        "Fullscreen mode छोड़ा गया"
       );
 
     }
@@ -1449,18 +1570,121 @@ document.addEventListener(
 );
 
 
-/* ==============================
+/* =====================================================
+   BACK BUTTON / HISTORY
+===================================================== */
+
+history.pushState(
+  null,
+  "",
+  location.href
+);
+
+
+window.addEventListener(
+  "popstate",
+  function() {
+
+    history.pushState(
+      null,
+      "",
+      location.href
+    );
+
+
+    if (
+      examStarted
+      &&
+      !examSubmitted
+    ) {
+
+      triggerViolation(
+        "Back button का उपयोग किया गया"
+      );
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   BEFORE UNLOAD
+===================================================== */
+
+window.addEventListener(
+  "beforeunload",
+  function(event) {
+
+    if (
+      examStarted
+      &&
+      !examSubmitted
+    ) {
+
+      event.preventDefault();
+
+      event.returnValue =
+        "Exam अभी चल रहा है।";
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   CONTEXT MENU
+===================================================== */
+
+document.addEventListener(
+  "contextmenu",
+  function(event) {
+
+    if (examStarted) {
+
+      event.preventDefault();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   ESCAPE KEY
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      examStarted
+      &&
+      event.key === "Escape"
+    ) {
+
+      event.preventDefault();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
    HTML ESCAPE
-============================== */
+===================================================== */
 
-function escapeHtml(value){
+function escapeHtml(value) {
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 
 }
 

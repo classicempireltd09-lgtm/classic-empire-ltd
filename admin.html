@@ -1,680 +1,307 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Classic Empire Ltd - Admin Panel</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box}
 
 body{
+  margin:0;
   font-family:Arial,sans-serif;
   background:#080808;
   color:#fff;
-  min-height:100vh;
 }
 
 header{
-  background:#0b0b0b;
-  border-bottom:1px solid #333;
-  padding:18px 20px;
-  position:sticky;
-  top:0;
-  z-index:1000;
+  background:#111;
+  border-bottom:2px solid #d4af37;
+  padding:15px;
 }
 
-.header-inner{
-  max-width:1400px;
+.header{
+  max-width:1200px;
   margin:auto;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:15px;
 }
 
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
 .logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:#ffd700;
-  font-size:21px;
-  font-weight:bold;
-}
-
-.logo img{
-  width:42px;
-  height:42px;
+  width:55px;
+  height:55px;
   object-fit:contain;
-}
-
-.header-right{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.container{
-  width:94%;
-  max-width:1400px;
-  margin:auto;
-  padding:30px 0 60px;
+  border-radius:50%;
 }
 
 h1,h2,h3{
-  color:#ffd700;
+  color:#d4af37;
 }
 
-.card{
-  background:#111;
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:20px;
+}
+
+.panel{
+  background:#151515;
   border:1px solid #333;
-  border-radius:15px;
-  padding:22px;
+  border-radius:12px;
+  padding:20px;
   margin-bottom:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.25);
+}
+
+input,select{
+  width:100%;
+  padding:11px;
+  margin:7px 0 12px;
+  background:#222;
+  color:#fff;
+  border:1px solid #555;
+  border-radius:7px;
 }
 
 button{
-  border:none;
-  border-radius:8px;
-  padding:11px 16px;
-  font-weight:bold;
-  cursor:pointer;
-  background:#ffd700;
+  background:#d4af37;
   color:#000;
+  border:0;
+  border-radius:7px;
+  padding:11px 16px;
+  cursor:pointer;
+  font-weight:bold;
+  margin:4px;
 }
 
 button:hover{
   background:#fff;
 }
 
-button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
-button.danger{
-  background:#ff4444;
+.danger{
+  background:#b3261e;
   color:#fff;
 }
 
-button.dark{
-  background:#222;
-  color:#ffd700;
-  border:1px solid #ffd700;
-}
-
-button.green{
-  background:#00b85a;
+.secondary{
+  background:#333;
   color:#fff;
 }
 
-button.blue{
-  background:#246bfe;
-  color:#fff;
-}
-
-input,select,textarea{
-  width:100%;
-  padding:11px;
-  margin-top:6px;
-  border-radius:8px;
-  border:1px solid #444;
-  background:#080808;
-  color:#fff;
-}
-
-textarea{
-  min-height:100px;
-  resize:vertical;
-}
-
-label{
-  color:#ccc;
-  font-size:14px;
-}
-
-.form-grid{
+.grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:15px;
 }
 
-.full{
-  grid-column:1/-1;
-}
-
-.login-box{
-  max-width:450px;
-  margin:80px auto;
-}
-
-.login-box h1{
-  text-align:center;
-  margin-bottom:25px;
-}
-
-.status-message{
-  margin-top:15px;
-  padding:12px;
-  border-radius:8px;
-  display:none;
-}
-
-.status-message.show{
-  display:block;
-}
-
-.status-message.success{
-  background:#102b18;
-  border:1px solid #00cc66;
-  color:#8affb0;
-}
-
-.status-message.error{
-  background:#351414;
-  border:1px solid #ff4444;
-  color:#ff8888;
-}
-
-.status-message.info{
-  background:#171717;
-  border:1px solid #ffd700;
-  color:#ffd700;
-}
-
-.top-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:15px;
-}
-
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:15px;
-  margin-top:20px;
-}
-
-.stat-card{
-  background:#0b0b0b;
+.stat{
+  background:#101010;
   border:1px solid #333;
-  border-radius:12px;
-  padding:20px 12px;
+  border-radius:10px;
+  padding:18px;
   text-align:center;
 }
 
-.stat-number{
-  font-size:32px;
-  font-weight:bold;
-  color:#ffd700;
-}
-
-.stat-label{
-  color:#aaa;
-  margin-top:6px;
-  font-size:14px;
-}
-
-.notice{
-  background:#171717;
-  border:1px solid #ffd700;
-  color:#ddd;
-  border-radius:12px;
-  padding:15px;
-  margin-bottom:20px;
-}
-
-.notice strong{
-  color:#ffd700;
-}
-
-.table-wrap{
-  overflow-x:auto;
-  margin-top:18px;
+.stat strong{
+  display:block;
+  font-size:28px;
+  color:#d4af37;
+  margin-top:8px;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:950px;
+  min-width:850px;
 }
 
 th,td{
   border:1px solid #333;
-  padding:11px;
-  text-align:left;
-  vertical-align:top;
+  padding:10px;
+  text-align:center;
 }
 
 th{
-  color:#ffd700;
-  background:#181818;
+  background:#d4af37;
+  color:#000;
 }
 
-td{
-  background:#0d0d0d;
-}
-
-.badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:15px;
-  font-size:12px;
-  font-weight:bold;
-}
-
-.badge.pending{
-  background:#493c00;
-  color:#ffd700;
-}
-
-.badge.approved{
-  background:#103a20;
-  color:#72ff9d;
-}
-
-.badge.rejected{
-  background:#451717;
-  color:#ff8888;
-}
-
-.badge.pass{
-  background:#103a20;
-  color:#72ff9d;
-}
-
-.badge.fail{
-  background:#451717;
-  color:#ff8888;
-}
-
-.badge.unused{
-  background:#17334a;
-  color:#79c7ff;
-}
-
-.badge.used{
-  background:#3b3b3b;
-  color:#aaa;
-}
-
-.action-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-}
-
-.empty{
-  color:#888;
-  text-align:center;
-  padding:25px;
+.table-wrap{
+  overflow-x:auto;
 }
 
 .hidden{
-  display:none !important;
+  display:none!important;
+}
+
+.message{
+  padding:12px;
+  margin:10px 0;
+  border-radius:7px;
+  background:#111;
+}
+
+.success{
+  color:#70e070;
+}
+
+.error{
+  color:#ff7777;
+}
+
+.code-box{
+  background:#000;
+  border:2px solid #d4af37;
+  padding:18px;
+  border-radius:10px;
+  text-align:center;
+  margin-top:15px;
+}
+
+.generated-code{
+  font-size:26px;
+  color:#d4af37;
+  font-weight:bold;
+  letter-spacing:2px;
+  margin:10px 0;
 }
 
 .modal{
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.8);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:3000;
-  padding:20px;
-}
-
-.modal.show{
   display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:5000;
+  padding:15px;
 }
 
 .modal-box{
   width:100%;
-  max-width:600px;
-  max-height:90vh;
-  overflow:auto;
-  background:#111;
-  border:1px solid #ffd700;
-  border-radius:15px;
-  padding:25px;
+  max-width:550px;
+  background:#151515;
+  border:1px solid #d4af37;
+  border-radius:12px;
+  padding:20px;
 }
 
-.modal-header{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:center;
-  margin-bottom:20px;
+.login{
+  max-width:450px;
+  margin:70px auto;
 }
 
-.close{
-  background:#222;
-  color:#fff;
-  border:1px solid #555;
-}
-
-.info-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin:15px 0;
-}
-
-.info-item{
-  background:#080808;
-  border:1px solid #333;
-  border-radius:8px;
-  padding:12px;
-}
-
-.info-item strong{
-  display:block;
-  color:#ffd700;
-  margin-bottom:4px;
-}
-
-.president-box{
-  border:1px solid #ffd700;
-  background:#151200;
-}
-
-.president-rule{
-  color:#ccc;
-  line-height:1.7;
-  margin-top:10px;
-}
-
-.application-tools{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:15px;
-}
-
-.application-tools button.active{
-  background:#ffd700;
-  color:#000;
-}
-
-footer{
-  text-align:center;
-  padding:25px;
-  border-top:1px solid #333;
-  color:#777;
-}
-
-@media(max-width:750px){
-
-  .header-inner{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .form-grid,
-  .info-grid{
-    grid-template-columns:1fr;
-  }
-
-  .full{
-    grid-column:auto;
-  }
-
-  .container{
-    width:96%;
-  }
-
+.small{
+  color:#aaa;
+  font-size:13px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
-
-<section id="loginSection">
-
-<div class="login-box card">
-
-<h1>🔐 Admin Login</h1>
-
-<div class="form-grid">
-
-<div class="full">
-
-<label>Email</label>
-
-<input
-id="loginEmail"
-type="email"
-autocomplete="username"
-placeholder="Admin Email"
->
-
-</div>
-
-<div class="full">
-
-<label>Password</label>
-
-<input
-id="loginPassword"
-type="password"
-autocomplete="current-password"
-placeholder="Password"
->
-
-</div>
-
-</div>
-
-<div class="top-actions">
-
-<button
-id="loginButton"
-onclick="loginAdmin()"
->
-Login
-</button>
-
-</div>
-
-<div
-id="loginMessage"
-class="status-message">
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ADMIN APP -->
-
-<div
-id="adminApp"
-class="hidden"
->
-
 <header>
+<div class="header">
 
-<div class="header-inner">
-
-<div class="logo">
-
-<img
-src="classic-empire-logo.png"
-alt="Classic Empire Logo"
->
-
-<span>Classic Empire Ltd — Admin</span>
-
+<div class="brand">
+<img src="classic-empire-logo.png" class="logo" alt="Classic Empire Logo">
+<div>
+<h2 style="margin:0">Classic Empire Ltd</h2>
+<div class="small">President Admin Panel</div>
+</div>
 </div>
 
-<div class="header-right">
-
-<span
-id="adminEmail"
-style="color:#aaa;font-size:13px;"
-></span>
-
-<button
-class="dark"
-onclick="logoutAdmin()"
->
-Logout
-</button>
+<button onclick="logout()">Logout</button>
 
 </div>
-
-</div>
-
 </header>
 
 
-<main class="container">
+<div class="container">
 
-<div class="card">
 
-<h1>📊 Classic Empire Admin Dashboard</h1>
+<!-- LOGIN -->
 
-<p style="color:#aaa;margin-top:8px;">
-Complete administration, application, exam and result management.
-</p>
+<div id="loginPanel" class="panel login">
 
-<div class="top-actions">
+<h2>Admin Login</h2>
 
-<button onclick="loadAllData()">
-🔄 Refresh Dashboard
+<input
+  id="email"
+  type="email"
+  placeholder="Admin Email"
+>
+
+<input
+  id="password"
+  type="password"
+  placeholder="Password"
+>
+
+<button onclick="login()" style="width:100%">
+Login
 </button>
 
-</div>
-
-<div
-id="globalMessage"
-class="status-message">
-</div>
+<div id="loginMessage" class="message"></div>
 
 </div>
 
 
-<!-- SYSTEM OVERVIEW -->
+<!-- DASHBOARD -->
 
-<div class="card">
+<div id="dashboard" class="hidden">
 
-<h2>📊 System Overview</h2>
 
-<div class="stats-grid">
+<div class="panel">
 
-<div class="stat-card">
-<div class="stat-number" id="totalApplications">0</div>
-<div class="stat-label">👥 Total Applications</div>
-</div>
+<h2>Dashboard</h2>
 
-<div class="stat-card">
-<div class="stat-number" id="pendingApplications">0</div>
-<div class="stat-label">⏳ Pending</div>
-</div>
+<p>
+Logged in:
+<strong id="loggedEmail"></strong>
+</p>
 
-<div class="stat-card">
-<div class="stat-number" id="approvedApplications">0</div>
-<div class="stat-label">✅ Approved</div>
-</div>
-
-<div class="stat-card">
-<div class="stat-number" id="rejectedApplications">0</div>
-<div class="stat-label">❌ Rejected</div>
-</div>
-
-<div class="stat-card">
-<div class="stat-number" id="totalExamCodes">0</div>
-<div class="stat-label">🔑 Exam Codes</div>
-</div>
-
-<div class="stat-card">
-<div class="stat-number" id="totalExams">0</div>
-<div class="stat-label">📝 Exams Submitted</div>
-</div>
-
-<div class="stat-card">
-<div class="stat-number" id="totalPass">0</div>
-<div class="stat-label">🎓 PASS</div>
-</div>
-
-<div class="stat-card">
-<div class="stat-number" id="totalFail">0</div>
-<div class="stat-label">📕 FAIL</div>
-</div>
-
-</div>
+<p>
+Access:
+<strong>President / Admin</strong>
+</p>
 
 </div>
 
 
-<!-- NOTICE -->
+<!-- APPLICATION COUNTS -->
 
-<div class="notice">
+<div class="grid">
 
-<strong>⚠️ Result Management Notice</strong>
-
-<br><br>
-
-Exam results are automatically calculated by the system.
-Admin can later edit Objective Marks, Subjective Marks,
-Final Total and PASS/FAIL when required.
-
+<div class="stat">
+Total Applications
+<strong id="totalApplications">0</strong>
 </div>
 
-
-<!-- PRESIDENT -->
-
-<div class="card president-box">
-
-<h2>👑 President Control</h2>
-
-<div class="info-grid">
-
-<div class="info-item">
-<strong>Current President</strong>
-Noor Ahmad
+<div class="stat">
+Pending
+<strong id="pendingApplications">0</strong>
 </div>
 
-<div class="info-item">
-<strong>Position</strong>
-Permanent President
+<div class="stat">
+Approved
+<strong id="approvedApplications">0</strong>
 </div>
 
-</div>
-
-<div class="president-rule">
-
-The President is the founder of Classic Empire Ltd and is
-the person who established this Empire.
-
-<br><br>
-
-The President is the permanent President of Classic Empire Ltd
-and the position of President will never change under the
-normal system.
-
-<br><br>
-
-The President can personally appoint or transfer the position
-of President to another person only by the President's own decision.
-
-<br><br>
-
-No other person or authority can change the President.
-
+<div class="stat">
+Rejected
+<strong id="rejectedApplications">0</strong>
 </div>
 
 </div>
@@ -682,173 +309,82 @@ No other person or authority can change the President.
 
 <!-- APPLICATION MANAGEMENT -->
 
-<div class="card">
+<div class="panel">
 
-<h2>📋 Application Management</h2>
+<h2>Application Management</h2>
 
-<div class="application-tools">
-
-<button
-id="filterAll"
-class="active"
-onclick="setApplicationFilter('All')"
->
+<button onclick="loadApplications('all')">
 All
 </button>
 
-<button
-id="filterPending"
-onclick="setApplicationFilter('Pending')"
->
-⏳ Pending
+<button onclick="loadApplications('pending')">
+Pending
 </button>
 
-<button
-id="filterApproved"
-onclick="setApplicationFilter('Approved')"
->
-✅ Approved
+<button onclick="loadApplications('approved')">
+Approved
 </button>
 
-<button
-id="filterRejected"
-onclick="setApplicationFilter('Rejected')"
->
-❌ Rejected
+<button onclick="loadApplications('rejected')">
+Rejected
 </button>
 
-</div>
+<div id="applicationsMessage" class="message"></div>
 
-<div
-id="applicationsContainer"
->
-<div class="empty">
-Loading applications...
-</div>
-</div>
+<div class="table-wrap">
 
-</div>
+<table>
 
+<thead>
+<tr>
+<th>Name</th>
+<th>Age</th>
+<th>Class</th>
+<th>Post</th>
+<th>Email</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
 
-<!-- EXAM CODES -->
+<tbody id="applicationsBody"></tbody>
 
-<div class="card">
+</table>
 
-<h2>🔑 Exam Code History</h2>
-
-<div
-id="codesContainer"
->
-<div class="empty">
-Loading exam codes...
-</div>
 </div>
 
 </div>
 
 
-<!-- EXAM SUBMISSIONS -->
+<!-- MANUAL EXAM CODE -->
 
-<div class="card">
+<div class="panel">
 
-<h2>📝 Exam Submission History</h2>
+<h2>🔑 Manual Exam Code Generator</h2>
 
-<div
-id="submissionsContainer"
->
-<div class="empty">
-Loading submissions...
-</div>
-</div>
+<p class="small">
+जरूरत पड़ने पर President/Admin यहाँ से तुरंत Exam Code generate कर सकता है।
+</p>
 
-</div>
-
-</main>
-
-
-<footer>
-© 2026 Classic Empire Ltd — Admin Panel
-</footer>
-
-</div>
-
-
-<!-- RESULT EDIT MODAL -->
-
-<div
-id="resultModal"
-class="modal"
->
-
-<div class="modal-box">
-
-<div class="modal-header">
-
-<h2>✏️ Edit Exam Result</h2>
-
-<button
-class="close"
-onclick="closeResultModal()"
->
-✕
-</button>
-
-</div>
-
-<div
-id="resultStudentInfo"
-class="info-grid">
-</div>
-
-<div class="form-grid">
+<div class="grid">
 
 <div>
-
-<label>Objective Marks /18</label>
-
-<input
-id="editObjective"
-type="number"
-min="0"
-max="18"
->
-
+<label>Applicant Name</label>
+<input id="manualApplicantName" placeholder="Applicant Name">
 </div>
 
 <div>
+<label>Post</label>
 
-<label>Subjective Marks /10</label>
+<select id="manualPost">
 
-<input
-id="editSubjective"
-type="number"
-min="0"
-max="10"
->
-
-</div>
-
-<div>
-
-<label>Final Total /28</label>
-
-<input
-id="editTotal"
-type="number"
-min="0"
-max="28"
->
-
-</div>
-
-<div>
-
-<label>Final Result</label>
-
-<select id="editResult">
-
-<option value="PASS">PASS</option>
-<option value="FAIL">FAIL</option>
+<option value="">Select Post</option>
+<option>DM</option>
+<option>DM Assistant</option>
+<option>SDM</option>
+<option>SP</option>
+<option>DSP</option>
+<option>President Assistant</option>
 
 </select>
 
@@ -856,33 +392,146 @@ max="28"
 
 </div>
 
-<p style="color:#888;font-size:13px;margin-top:12px;">
-Automatic Total = Objective Marks + Subjective Marks.
-Admin may manually override the final Total and Result.
-</p>
-
-<div class="top-actions">
-
-<button
-class="green"
-onclick="saveResult()"
->
-💾 Save Result
+<button onclick="generateManualCode()">
+Generate Exam Code
 </button>
 
-<button
-class="dark"
-onclick="closeResultModal()"
->
+<div id="manualCodeMessage" class="message"></div>
+
+<div id="generatedCodeBox" class="code-box hidden">
+
+<div>Generated Exam Code</div>
+
+<div id="generatedCode" class="generated-code">
+-
+</div>
+
+<div id="generatedCodeInfo" class="small"></div>
+
+</div>
+
+</div>
+
+
+<!-- EXAM CODE HISTORY -->
+
+<div class="panel">
+
+<h2>Exam Code History</h2>
+
+<button onclick="loadExamCodes()">
+Refresh
+</button>
+
+<div id="codesMessage" class="message"></div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Code</th>
+<th>Applicant</th>
+<th>Post</th>
+<th>Used</th>
+<th>Unlock Time</th>
+<th>Created</th>
+</tr>
+</thead>
+
+<tbody id="codesBody"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- EXAM RESULTS -->
+
+<div class="panel">
+
+<h2>Exam Submission / Result Management</h2>
+
+<button onclick="loadResults()">
+Refresh Results
+</button>
+
+<div id="resultsMessage" class="message"></div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Applicant</th>
+<th>Post</th>
+<th>Code</th>
+<th>Objective</th>
+<th>Subjective</th>
+<th>Total</th>
+<th>Final Result</th>
+<th>Submitted</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="resultsBody"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- RESULT EDIT MODAL -->
+
+<div id="resultModal" class="modal hidden">
+
+<div class="modal-box">
+
+<h2>Edit Final Result</h2>
+
+<input type="hidden" id="editSubmissionId">
+
+<label>Objective Marks /18</label>
+<input id="editObjective" type="number" min="0" max="18">
+
+<label>Subjective Marks /10</label>
+<input id="editSubjective" type="number" min="0" max="10">
+
+<label>Total Marks /28</label>
+<input id="editTotal" type="number" min="0" max="28">
+
+<label>Final Result</label>
+
+<select id="editResult">
+<option value="PASS">PASS</option>
+<option value="FAIL">FAIL</option>
+</select>
+
+<div style="margin-top:15px">
+
+<button onclick="saveResult()">
+Save Final Result
+</button>
+
+<button class="secondary" onclick="closeResultModal()">
 Cancel
 </button>
 
 </div>
 
-<div
-id="resultMessage"
-class="status-message">
-</div>
+<div id="editMessage" class="message"></div>
 
 </div>
 
@@ -891,241 +540,127 @@ class="status-message">
 
 <script>
 
-/* =====================================================
-   SUPABASE
-===================================================== */
-
 const SUPABASE_URL =
 "https://hjatspkzgoddcpgwfkxo.supabase.co";
 
 const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
+const ADMIN_UID =
+"8820968d-c20b-4892-b38b-395083efd026";
+
 const supabaseClient =
-window.supabase.createClient(
+supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
 
 
-/* =====================================================
-   ADMIN UID
-===================================================== */
-
-const ADMIN_UID =
-"8820968d-c20b-4892-b38b-395083efd026";
-
-
-/* =====================================================
-   DATA
-===================================================== */
-
-let applicationsData = [];
-let filteredApplications = [];
-
-let examCodesData = [];
-let submissionsData = [];
-
-let selectedSubmissionId = null;
-
-let applicationFilter = "All";
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHTML(value){
-
-  if(
-    value === null ||
-    value === undefined
-  ){
-    return "";
-  }
-
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* =====================================================
-   MESSAGE
-===================================================== */
-
-function showMessage(
-  elementId,
-  message,
-  type="info"
-){
-
-  const box =
-    document.getElementById(elementId);
-
-  if(!box) return;
-
-  box.className =
-    "status-message show " + type;
-
-  box.textContent =
-    message;
-
-}
-
-
-/* =====================================================
+/* =========================
    LOGIN
-===================================================== */
+========================= */
 
-async function loginAdmin(){
+async function login(){
 
   const email =
-    document
-    .getElementById("loginEmail")
-    .value
-    .trim();
+    document.getElementById("email").value.trim();
 
   const password =
-    document
-    .getElementById("loginPassword")
-    .value;
+    document.getElementById("password").value;
 
-  if(!email || !password){
+  const msg =
+    document.getElementById("loginMessage");
 
-    showMessage(
-      "loginMessage",
-      "Email और Password भरें।",
-      "error"
-    );
+  msg.textContent="Logging in...";
 
-    return;
-  }
-
-  const button =
-    document.getElementById(
-      "loginButton"
-    );
-
-  button.disabled = true;
-  button.textContent = "Logging in...";
-
-  try{
-
-    const {
-      data,
-      error
-    } =
+  const {data,error} =
     await supabaseClient.auth.signInWithPassword({
       email,
       password
     });
 
-    if(error){
-      throw error;
-    }
-
-    await verifyAdmin(data.user);
-
-  }
-  catch(error){
-
-    showMessage(
-      "loginMessage",
-      error.message ||
-      "Login failed.",
-      "error"
-    );
-
-  }
-  finally{
-
-    button.disabled = false;
-    button.textContent = "Login";
-
-  }
-
-}
-
-
-/* =====================================================
-   VERIFY ADMIN
-===================================================== */
-
-async function verifyAdmin(user){
-
-  if(!user){
-
-    await supabaseClient.auth.signOut();
-    return;
-
-  }
-
-  const {
-    data,
-    error
-  } =
-  await supabaseClient.rpc(
-    "check_admin"
-  );
-
   if(error){
 
-    await supabaseClient.auth.signOut();
-    throw error;
+    msg.innerHTML =
+      `<span class="error">${error.message}</span>`;
 
+    return;
   }
 
-  if(
-    !data ||
-    data.is_admin !== true
-  ){
+  if(data.user.id !== ADMIN_UID){
 
     await supabaseClient.auth.signOut();
 
-    throw new Error(
-      "यह account Admin नहीं है।"
-    );
+    msg.innerHTML =
+      `<span class="error">
+      केवल President/Admin यहाँ login कर सकता है।
+      </span>`;
 
+    return;
   }
 
-  if(user.id !== ADMIN_UID){
-
-    await supabaseClient.auth.signOut();
-
-    throw new Error(
-      "यह Admin account authorized नहीं है।"
-    );
-
-  }
-
-  document
-  .getElementById("loginSection")
-  .classList.add("hidden");
-
-  document
-  .getElementById("adminApp")
-  .classList.remove("hidden");
-
-  document
-  .getElementById("adminEmail")
-  .textContent =
-    user.email || "";
-
-  await loadAllData();
+  showDashboard(data.user);
 
 }
 
 
-/* =====================================================
-   LOGOUT
-===================================================== */
+/* =========================
+   SESSION
+========================= */
 
-async function logoutAdmin(){
+async function checkSession(){
+
+  const {data} =
+    await supabaseClient.auth.getSession();
+
+  if(data.session){
+
+    if(data.session.user.id === ADMIN_UID){
+
+      showDashboard(data.session.user);
+
+    }else{
+
+      await supabaseClient.auth.signOut();
+
+    }
+
+  }
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+async function showDashboard(user){
+
+  document
+    .getElementById("loginPanel")
+    .classList.add("hidden");
+
+  document
+    .getElementById("dashboard")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("loggedEmail")
+    .textContent = user.email || "";
+
+  await loadApplicationCounts();
+  await loadApplications("all");
+  await loadExamCodes();
+  await loadResults();
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function logout(){
 
   await supabaseClient.auth.signOut();
 
@@ -1134,524 +669,197 @@ async function logoutAdmin(){
 }
 
 
-/* =====================================================
-   SESSION
-===================================================== */
+/* =========================
+   APPLICATION COUNTS
+========================= */
 
-async function checkExistingSession(){
+async function loadApplicationCounts(){
 
-  const {
-    data
-  } =
-  await supabaseClient.auth.getSession();
+  const {data,error} =
+    await supabaseClient.rpc(
+      "get_application_counts"
+    );
 
-  if(
-    data &&
-    data.session &&
-    data.session.user
-  ){
+  if(error)return;
 
-    try{
+  const x =
+    typeof data === "string"
+      ? JSON.parse(data)
+      : data;
 
-      await verifyAdmin(
-        data.session.user
-      );
+  document.getElementById("totalApplications")
+    .textContent = x.total ?? 0;
 
-    }
-    catch(error){
+  document.getElementById("pendingApplications")
+    .textContent = x.pending ?? 0;
 
-      console.error(error);
+  document.getElementById("approvedApplications")
+    .textContent = x.approved ?? 0;
 
-    }
-
-  }
+  document.getElementById("rejectedApplications")
+    .textContent = x.rejected ?? 0;
 
 }
 
 
-/* =====================================================
+/* =========================
    APPLICATIONS
-===================================================== */
+========================= */
 
-async function loadApplications(){
+let allApplications=[];
 
-  const container =
-    document.getElementById(
-      "applicationsContainer"
-    );
+async function loadApplications(filter="all"){
 
-  container.innerHTML =
-    '<div class="empty">Loading applications...</div>';
+  const msg =
+    document.getElementById("applicationsMessage");
 
-  try{
+  const body =
+    document.getElementById("applicationsBody");
 
-    const {
-      data,
-      error
-    } =
+  msg.textContent="Loading...";
+
+  const {data,error} =
     await supabaseClient.rpc(
       "get_applications"
     );
 
-    if(error){
-      throw error;
-    }
+  if(error){
 
-    let rows = [];
+    msg.innerHTML =
+      `<span class="error">${error.message}</span>`;
 
-    if(Array.isArray(data)){
-
-      rows = data;
-
-    }
-    else if(
-      data &&
-      Array.isArray(data.applications)
-    ){
-
-      rows = data.applications;
-
-    }
-    else if(
-      data &&
-      data.data &&
-      Array.isArray(data.data)
-    ){
-
-      rows = data.data;
-
-    }
-
-    applicationsData =
-      rows.map(app => ({
-
-        ...app,
-
-        status:
-          app.status
-          ? String(app.status).trim()
-          : "Pending"
-
-      }));
-
-    applicationsData.sort(
-      (a,b) =>
-        new Date(b.created_at || 0)
-        -
-        new Date(a.created_at || 0)
-    );
-
-    updateApplicationStats();
-
-    renderApplications();
-
-  }
-  catch(error){
-
-    console.error(
-      "Application Load Error:",
-      error
-    );
-
-    container.innerHTML = `
-      <div class="empty" style="color:#ff8888;">
-        ❌ Applications load नहीं हो सकीं.<br><br>
-        ${escapeHTML(
-          error.message || "Unknown error"
-        )}
-      </div>
-    `;
-
-    updateApplicationStats();
-
+    return;
   }
 
-}
+  allApplications =
+    Array.isArray(data)
+      ? data
+      : [];
 
+  let rows=allApplications;
 
-/* =====================================================
-   APPLICATION COUNTS
-===================================================== */
+  if(filter!=="all"){
 
-function updateApplicationStats(){
-
-  const total =
-    applicationsData.length;
-
-  const pending =
-    applicationsData.filter(
-      app =>
-        String(app.status)
-        .trim()
-        .toLowerCase()
-        === "pending"
-    ).length;
-
-  const approved =
-    applicationsData.filter(
-      app =>
-        String(app.status)
-        .trim()
-        .toLowerCase()
-        === "approved"
-    ).length;
-
-  const rejected =
-    applicationsData.filter(
-      app =>
-        String(app.status)
-        .trim()
-        .toLowerCase()
-        === "rejected"
-    ).length;
-
-  document.getElementById(
-    "totalApplications"
-  ).textContent = total;
-
-  document.getElementById(
-    "pendingApplications"
-  ).textContent = pending;
-
-  document.getElementById(
-    "approvedApplications"
-  ).textContent = approved;
-
-  document.getElementById(
-    "rejectedApplications"
-  ).textContent = rejected;
-
-}
-
-
-/* =====================================================
-   APPLICATION FILTER
-===================================================== */
-
-function setApplicationFilter(filter){
-
-  applicationFilter = filter;
-
-  document
-  .querySelectorAll(
-    ".application-tools button"
-  )
-  .forEach(button =>
-    button.classList.remove("active")
-  );
-
-  const idMap = {
-    "All":"filterAll",
-    "Pending":"filterPending",
-    "Approved":"filterApproved",
-    "Rejected":"filterRejected"
-  };
-
-  const activeButton =
-    document.getElementById(
-      idMap[filter]
-    );
-
-  if(activeButton){
-    activeButton.classList.add("active");
-  }
-
-  renderApplications();
-
-}
-
-
-/* =====================================================
-   RENDER APPLICATIONS
-===================================================== */
-
-function renderApplications(){
-
-  const container =
-    document.getElementById(
-      "applicationsContainer"
-    );
-
-  const normalizedFilter =
-    applicationFilter
-    .toLowerCase();
-
-  if(applicationFilter === "All"){
-
-    filteredApplications =
-      [...applicationsData];
-
-  }
-  else{
-
-    filteredApplications =
-      applicationsData.filter(
-        app =>
-          String(app.status || "Pending")
-          .trim()
+    rows =
+      rows.filter(x =>
+        String(x.status || "")
           .toLowerCase()
-          === normalizedFilter
+          === filter
       );
 
   }
 
+  body.innerHTML="";
 
-  if(!filteredApplications.length){
+  rows.forEach(app=>{
 
-    let text =
-      "No applications found.";
+    const tr =
+      document.createElement("tr");
 
-    if(applicationFilter === "Pending"){
-      text =
-        "⏳ No Pending applications found.";
-    }
+    const status =
+      String(app.status || "Pending");
 
-    if(applicationFilter === "Approved"){
-      text =
-        "✅ No Approved applications found.";
-    }
+    let action="";
 
-    if(applicationFilter === "Rejected"){
-      text =
-        "❌ No Rejected applications found.";
-    }
+    if(status.toLowerCase()==="pending"){
 
-    container.innerHTML =
-      `<div class="empty">${text}</div>`;
-
-    return;
-
-  }
-
-
-  let html = `
-
-  <div class="table-wrap">
-
-  <table>
-
-  <thead>
-
-  <tr>
-
-  <th>ID</th>
-  <th>Applicant</th>
-  <th>Age</th>
-  <th>Class</th>
-  <th>Post</th>
-  <th>Email</th>
-  <th>Contact</th>
-  <th>Reason</th>
-  <th>Status</th>
-  <th>Created</th>
-  <th>Action</th>
-
-  </tr>
-
-  </thead>
-
-  <tbody>
-  `;
-
-
-  filteredApplications.forEach(app => {
-
-    const cleanStatus =
-      String(
-        app.status || "Pending"
-      ).trim();
-
-    const statusClass =
-      cleanStatus.toLowerCase();
-
-
-    html += `
-
-    <tr>
-
-    <td>
-      ${escapeHTML(app.id)}
-    </td>
-
-    <td>
-      <strong>
-        ${escapeHTML(app.applicant_name)}
-      </strong>
-    </td>
-
-    <td>
-      ${escapeHTML(app.age)}
-    </td>
-
-    <td>
-      ${escapeHTML(app.class)}
-    </td>
-
-    <td>
-      ${escapeHTML(app.post)}
-    </td>
-
-    <td>
-      ${escapeHTML(app.applicant_email)}
-    </td>
-
-    <td>
-      ${escapeHTML(app.contact_number)}
-    </td>
-
-    <td style="max-width:250px;">
-      ${escapeHTML(app.reason)}
-    </td>
-
-    <td>
-
-      <span class="badge ${statusClass}">
-        ${escapeHTML(cleanStatus)}
-      </span>
-
-    </td>
-
-    <td>
-      ${formatDate(app.created_at)}
-    </td>
-
-    <td>
-
-      <div class="action-row">
-
-        <button
-          class="green"
-          onclick="changeApplicationStatus(
-            ${Number(app.id)},
-            'Approved'
-          )"
-        >
-          ✅ Approve
+      action=`
+        <button onclick="changeApplicationStatus(${app.id},'Approved')">
+          Approve
         </button>
 
-        <button
-          class="danger"
-          onclick="changeApplicationStatus(
-            ${Number(app.id)},
-            'Rejected'
-          )"
-        >
-          ❌ Reject
+        <button class="danger"
+          onclick="changeApplicationStatus(${app.id},'Rejected')">
+          Reject
         </button>
+      `;
 
-        <button
-          class="dark"
-          onclick="changeApplicationStatus(
-            ${Number(app.id)},
-            'Pending'
-          )"
-        >
-          ⏳ Pending
+    }else{
+
+      action=`
+        <button class="secondary"
+          onclick="changeApplicationStatus(${app.id},'Pending')">
+          Pending
         </button>
+      `;
 
-      </div>
+    }
 
-    </td>
+    tr.innerHTML=`
 
-    </tr>
+      <td>${safe(app.applicant_name)}</td>
+      <td>${safe(app.age)}</td>
+      <td>${safe(app.class)}</td>
+      <td>${safe(app.post)}</td>
+      <td>${safe(app.applicant_email)}</td>
+      <td>${safe(status)}</td>
+      <td>${action}</td>
 
     `;
 
+    body.appendChild(tr);
+
   });
 
-
-  html += `
-
-  </tbody>
-
-  </table>
-
-  </div>
-
-  `;
-
-  container.innerHTML =
-    html;
+  msg.textContent =
+    `${rows.length} application(s) found.`;
 
 }
 
 
-/* =====================================================
-   CHANGE APPLICATION STATUS
-===================================================== */
+async function changeApplicationStatus(id,status){
 
-async function changeApplicationStatus(
-  applicationId,
-  status
-){
+  if(!confirm(
+    `Application को ${status} करना है?`
+  ))return;
 
-  const message =
-    status === "Approved"
-    ? "Application approve करें? Exam Code automatically generate होगा।"
-    : `Application को ${status} करना है?`;
-
-  if(!confirm(message)){
-    return;
-  }
-
-  try{
-
-    showMessage(
-      "globalMessage",
-      "Application status update हो रहा है...",
-      "info"
-    );
-
-    const {
-      data,
-      error
-    } =
+  const {data,error} =
     await supabaseClient.rpc(
       "update_application_status",
       {
-        input_application_id:
-          Number(applicationId),
-
-        input_status:
-          status
+        input_application_id:id,
+        input_status:status
       }
     );
 
-    if(error){
-      throw error;
-    }
+  if(error){
 
-    if(
-      !data ||
-      data.success !== true
-    ){
+    alert(error.message);
+    return;
 
-      throw new Error(
-        data?.message ||
-        "Status update failed."
+  }
+
+  const result =
+    typeof data === "string"
+      ? JSON.parse(data)
+      : data;
+
+  if(result && result.success){
+
+    if(result.exam_code){
+
+      alert(
+        `Application Approved.\n\nExam Code:\n${result.exam_code}\n\nCode 2 घंटे बाद applicant को दिखाई देगा।`
+      );
+
+    }else{
+
+      alert(
+        result.message ||
+        "Status updated successfully."
       );
 
     }
 
-    showMessage(
-      "globalMessage",
-      data.message ||
-      "Application status updated.",
-      "success"
-    );
+    await loadApplicationCounts();
+    await loadApplications("all");
+    await loadExamCodes();
 
-    await loadAllData();
+  }else{
 
-  }
-  catch(error){
-
-    console.error(error);
-
-    showMessage(
-      "globalMessage",
-      error.message ||
-      "Status update failed.",
-      "error"
+    alert(
+      result?.message ||
+      "Status update failed."
     );
 
   }
@@ -1659,762 +867,519 @@ async function changeApplicationStatus(
 }
 
 
-/* =====================================================
-   EXAM CODES
-===================================================== */
+/* =========================
+   MANUAL CODE GENERATOR
+========================= */
+
+async function generateManualCode(){
+
+  const name =
+    document
+      .getElementById("manualApplicantName")
+      .value.trim();
+
+  const post =
+    document
+      .getElementById("manualPost")
+      .value;
+
+  const msg =
+    document
+      .getElementById("manualCodeMessage");
+
+  const box =
+    document
+      .getElementById("generatedCodeBox");
+
+  if(!name || !post){
+
+    msg.innerHTML =
+      `<span class="error">
+      Applicant Name और Post दोनों भरें।
+      </span>`;
+
+    return;
+
+  }
+
+  msg.textContent =
+    "Generating...";
+
+  box.classList.add("hidden");
+
+  const {data,error} =
+    await supabaseClient.rpc(
+      "generate_manual_exam_code",
+      {
+        input_applicant_name:name,
+        input_post:post,
+        input_application_id:null
+      }
+    );
+
+  if(error){
+
+    msg.innerHTML =
+      `<span class="error">${error.message}</span>`;
+
+    return;
+
+  }
+
+  const result =
+    typeof data === "string"
+      ? JSON.parse(data)
+      : data;
+
+  if(!result || !result.success){
+
+    msg.innerHTML =
+      `<span class="error">
+      ${result?.message || "Code generate नहीं हुआ।"}
+      </span>`;
+
+    return;
+
+  }
+
+  document
+    .getElementById("generatedCode")
+    .textContent = result.code;
+
+  document
+    .getElementById("generatedCodeInfo")
+    .textContent =
+      `${result.applicant_name} — ${result.post} — Immediate Access`;
+
+  box.classList.remove("hidden");
+
+  msg.innerHTML =
+    `<span class="success">
+    Exam Code successfully generated.
+    </span>`;
+
+  await loadExamCodes();
+
+}
+
+
+/* =========================
+   EXAM CODE HISTORY
+========================= */
 
 async function loadExamCodes(){
 
-  const {
-    data,
-    error
-  } =
-  await supabaseClient.rpc(
-    "get_exam_codes"
-  );
+  const body =
+    document.getElementById("codesBody");
+
+  const msg =
+    document.getElementById("codesMessage");
+
+  /*
+    exam_codes table direct select may be blocked by RLS.
+    Therefore use admin RPC if available.
+  */
+
+  const {data,error} =
+    await supabaseClient
+      .from("exam_codes")
+      .select("*")
+      .order("created_at",{ascending:false})
+      .limit(100);
 
   if(error){
-    throw error;
-  }
 
-  examCodesData =
-    Array.isArray(data)
-    ? data
-    : [];
-
-  renderExamCodes();
-
-  document.getElementById(
-    "totalExamCodes"
-  ).textContent =
-    examCodesData.length;
-
-}
-
-
-/* =====================================================
-   RENDER EXAM CODES
-===================================================== */
-
-function renderExamCodes(){
-
-  const container =
-    document.getElementById(
-      "codesContainer"
-    );
-
-  if(!examCodesData.length){
-
-    container.innerHTML =
-      '<div class="empty">No exam codes found.</div>';
+    msg.innerHTML =
+      `<span class="error">${error.message}</span>`;
 
     return;
 
   }
 
-  let html = `
+  body.innerHTML="";
 
-  <div class="table-wrap">
+  (data || []).forEach(x=>{
 
-  <table>
+    const tr =
+      document.createElement("tr");
 
-  <thead>
+    tr.innerHTML=`
 
-  <tr>
-  <th>ID</th>
-  <th>Code</th>
-  <th>Applicant</th>
-  <th>Post</th>
-  <th>Used</th>
-  <th>Unlock At</th>
-  <th>Created</th>
-  </tr>
+      <td><strong>${safe(x.code)}</strong></td>
 
-  </thead>
+      <td>${safe(x.applicant_name)}</td>
 
-  <tbody>
+      <td>${safe(x.post)}</td>
 
-  `;
+      <td>${x.used ? "Yes" : "No"}</td>
 
-  examCodesData.forEach(code => {
+      <td>${formatDate(x.unlock_at)}</td>
 
-    html += `
-
-    <tr>
-
-    <td>
-      ${escapeHTML(code.id)}
-    </td>
-
-    <td>
-      <strong style="color:#ffd700;">
-        ${escapeHTML(code.code)}
-      </strong>
-    </td>
-
-    <td>
-      ${escapeHTML(code.applicant_name)}
-    </td>
-
-    <td>
-      ${escapeHTML(code.post)}
-    </td>
-
-    <td>
-
-      ${
-        code.used
-        ? '<span class="badge used">USED</span>'
-        : '<span class="badge unused">UNUSED</span>'
-      }
-
-    </td>
-
-    <td>
-      ${formatDate(code.unlock_at)}
-    </td>
-
-    <td>
-      ${formatDate(code.created_at)}
-    </td>
-
-    </tr>
+      <td>${formatDate(x.created_at)}</td>
 
     `;
 
+    body.appendChild(tr);
+
   });
 
-  html += `
-
-  </tbody>
-
-  </table>
-
-  </div>
-
-  `;
-
-  container.innerHTML =
-    html;
+  msg.textContent =
+    `${(data || []).length} code(s) loaded.`;
 
 }
 
 
-/* =====================================================
-   EXAM SUBMISSIONS
-===================================================== */
+/* =========================
+   RESULTS
+========================= */
 
-async function loadSubmissions(){
+async function loadResults(){
 
-  const {
-    data,
-    error
-  } =
-  await supabaseClient.rpc(
-    "get_exam_submissions"
-  );
+  const body =
+    document.getElementById("resultsBody");
+
+  const msg =
+    document.getElementById("resultsMessage");
+
+  msg.textContent="Loading results...";
+
+  const {data,error} =
+    await supabaseClient
+      .from("exam_submissions")
+      .select("*")
+      .order("submitted_at",{ascending:false})
+      .limit(200);
 
   if(error){
-    throw error;
-  }
 
-  submissionsData =
-    Array.isArray(data)
-    ? data
-    : [];
-
-  renderSubmissions();
-
-  updateSubmissionStats();
-
-}
-
-
-/* =====================================================
-   SUBMISSION STATS
-===================================================== */
-
-function updateSubmissionStats(){
-
-  const total =
-    submissionsData.length;
-
-  const pass =
-    submissionsData.filter(
-      item =>
-        item.final_result === "PASS"
-    ).length;
-
-  const fail =
-    submissionsData.filter(
-      item =>
-        item.final_result === "FAIL"
-    ).length;
-
-  document.getElementById(
-    "totalExams"
-  ).textContent =
-    total;
-
-  document.getElementById(
-    "totalPass"
-  ).textContent =
-    pass;
-
-  document.getElementById(
-    "totalFail"
-  ).textContent =
-    fail;
-
-}
-
-
-/* =====================================================
-   RENDER SUBMISSIONS
-===================================================== */
-
-function renderSubmissions(){
-
-  const container =
-    document.getElementById(
-      "submissionsContainer"
-    );
-
-  if(!submissionsData.length){
-
-    container.innerHTML =
-      '<div class="empty">No exam submissions found.</div>';
+    msg.innerHTML =
+      `<span class="error">${error.message}</span>`;
 
     return;
 
   }
 
-  let html = `
+  body.innerHTML="";
 
-  <div class="table-wrap">
+  (data || []).forEach(x=>{
 
-  <table>
+    const released =
+      x.result_released === true;
 
-  <thead>
+    const submitted =
+      x.submitted_at
+        ? new Date(x.submitted_at)
+        : null;
 
-  <tr>
+    const hours =
+      submitted
+        ? (Date.now()-submitted.getTime())
+          /(1000*60*60)
+        : 0;
 
-  <th>ID</th>
-  <th>Applicant</th>
-  <th>Post</th>
-  <th>Exam Code</th>
-  <th>Objective</th>
-  <th>Subjective</th>
-  <th>Total</th>
-  <th>Result</th>
-  <th>Submitted</th>
-  <th>Action</th>
+    const availableNormally =
+      hours >= 24;
 
-  </tr>
-
-  </thead>
-
-  <tbody>
-
-  `;
-
-  submissionsData.forEach(submission => {
-
-    const resultClass =
-      submission.final_result === "PASS"
-      ? "pass"
-      : "fail";
-
-    html += `
-
-    <tr>
-
-    <td>
-      ${escapeHTML(submission.id)}
-    </td>
-
-    <td>
-      <strong>
-        ${escapeHTML(
-          submission.applicant_name
-        )}
-      </strong>
-    </td>
-
-    <td>
-      ${escapeHTML(submission.post)}
-    </td>
-
-    <td>
-      ${escapeHTML(submission.exam_code)}
-    </td>
-
-    <td>
-      ${escapeHTML(
-        submission.objective_score
-      )}/18
-    </td>
-
-    <td>
-      ${escapeHTML(
-        submission.subjective_marks
-      )}/10
-    </td>
-
-    <td>
-      ${escapeHTML(
-        submission.total_marks
-      )}/28
-    </td>
-
-    <td>
-
-      <span class="badge ${resultClass}">
-        ${escapeHTML(
-          submission.final_result
-        )}
-      </span>
-
-    </td>
-
-    <td>
-      ${formatDate(
-        submission.submitted_at
-      )}
-    </td>
-
-    <td>
+    let action = `
 
       <button
-        class="dark"
-        onclick="openResultModal(
-          ${Number(submission.id)}
-        )"
-      >
-        ✏️ Edit Result
+        onclick='openResultEditor(${JSON.stringify(x)})'>
+        Edit Result
       </button>
-
-    </td>
-
-    </tr>
 
     `;
 
+    if(!released && !availableNormally){
+
+      action += `
+
+        <button
+          onclick="releaseResultNow(${x.id})">
+          Release Result Now
+        </button>
+
+      `;
+
+    }
+
+    if(released){
+
+      action += `
+        <div class="small success">
+          Released Early
+        </div>
+      `;
+
+    }
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML=`
+
+      <td>${safe(x.applicant_name)}</td>
+
+      <td>${safe(x.post)}</td>
+
+      <td>${safe(x.exam_code)}</td>
+
+      <td>${x.objective_score ?? 0}/18</td>
+
+      <td>${x.subjective_marks ?? 0}/10</td>
+
+      <td>${x.total_marks ?? 0}/28</td>
+
+      <td>${safe(x.final_result)}</td>
+
+      <td>${formatDate(x.submitted_at)}</td>
+
+      <td>${action}</td>
+
+    `;
+
+    body.appendChild(tr);
+
   });
 
-  html += `
-
-  </tbody>
-
-  </table>
-
-  </div>
-
-  `;
-
-  container.innerHTML =
-    html;
+  msg.textContent =
+    `${(data || []).length} result(s) loaded.`;
 
 }
 
 
-/* =====================================================
-   RESULT MODAL
-===================================================== */
+/* =========================
+   EARLY RESULT RELEASE
+========================= */
 
-function openResultModal(
-  submissionId
-){
+async function releaseResultNow(id){
 
-  const submission =
-    submissionsData.find(
-      item =>
-        Number(item.id) ===
-        Number(submissionId)
+  if(!confirm(
+    "क्या यह Result 24 घंटे से पहले applicant को जारी करना है?"
+  ))return;
+
+  const {data,error} =
+    await supabaseClient.rpc(
+      "release_exam_result",
+      {
+        input_submission_id:id
+      }
     );
 
-  if(!submission){
+  if(error){
 
-    alert(
-      "Submission नहीं मिली।"
-    );
-
+    alert(error.message);
     return;
 
   }
 
-  selectedSubmissionId =
-    Number(submissionId);
+  const result =
+    typeof data === "string"
+      ? JSON.parse(data)
+      : data;
 
-  document.getElementById(
-    "resultStudentInfo"
-  ).innerHTML = `
+  if(result?.success){
 
-    <div class="info-item">
-      <strong>Applicant</strong>
-      ${escapeHTML(
-        submission.applicant_name
-      )}
-    </div>
-
-    <div class="info-item">
-      <strong>Post</strong>
-      ${escapeHTML(
-        submission.post
-      )}
-    </div>
-
-    <div class="info-item">
-      <strong>Exam Code</strong>
-      ${escapeHTML(
-        submission.exam_code
-      )}
-    </div>
-
-    <div class="info-item">
-      <strong>Submitted</strong>
-      ${formatDate(
-        submission.submitted_at
-      )}
-    </div>
-
-  `;
-
-  document.getElementById(
-    "editObjective"
-  ).value =
-    Number(
-      submission.objective_score || 0
+    alert(
+      "Result successfully released."
     );
 
-  document.getElementById(
-    "editSubjective"
-  ).value =
-    Number(
-      submission.subjective_marks || 0
+    await loadResults();
+
+  }else{
+
+    alert(
+      result?.message ||
+      "Result release failed."
     );
 
-  document.getElementById(
-    "editTotal"
-  ).value =
-    Number(
-      submission.total_marks || 0
-    );
-
-  document.getElementById(
-    "editResult"
-  ).value =
-    submission.final_result === "PASS"
-    ? "PASS"
-    : "FAIL";
-
-  document.getElementById(
-    "resultMessage"
-  ).className =
-    "status-message";
-
-  document.getElementById(
-    "resultModal"
-  ).classList.add("show");
+  }
 
 }
 
 
-/* =====================================================
-   CLOSE RESULT MODAL
-===================================================== */
+/* =========================
+   RESULT EDITOR
+========================= */
+
+function openResultEditor(row){
+
+  document
+    .getElementById("editSubmissionId")
+    .value = row.id;
+
+  document
+    .getElementById("editObjective")
+    .value = row.objective_score ?? 0;
+
+  document
+    .getElementById("editSubjective")
+    .value = row.subjective_marks ?? 0;
+
+  document
+    .getElementById("editTotal")
+    .value = row.total_marks ?? 0;
+
+  document
+    .getElementById("editResult")
+    .value =
+      row.final_result === "FAIL"
+        ? "FAIL"
+        : "PASS";
+
+  document
+    .getElementById("editMessage")
+    .textContent="";
+
+  document
+    .getElementById("resultModal")
+    .classList.remove("hidden");
+
+}
+
 
 function closeResultModal(){
 
-  document.getElementById(
-    "resultModal"
-  ).classList.remove("show");
-
-  selectedSubmissionId =
-    null;
+  document
+    .getElementById("resultModal")
+    .classList.add("hidden");
 
 }
 
 
-/* =====================================================
-   SAVE RESULT
-===================================================== */
-
 async function saveResult(){
 
-  if(!selectedSubmissionId){
-    return;
-  }
+  const id =
+    Number(
+      document
+        .getElementById("editSubmissionId")
+        .value
+    );
 
   const objective =
     Number(
-      document.getElementById(
-        "editObjective"
-      ).value
+      document
+        .getElementById("editObjective")
+        .value
     );
 
   const subjective =
     Number(
-      document.getElementById(
-        "editSubjective"
-      ).value
+      document
+        .getElementById("editSubjective")
+        .value
     );
 
   const total =
     Number(
-      document.getElementById(
-        "editTotal"
-      ).value
+      document
+        .getElementById("editTotal")
+        .value
     );
 
   const finalResult =
-    document.getElementById(
-      "editResult"
-    ).value;
+    document
+      .getElementById("editResult")
+      .value;
 
-  if(
-    !Number.isInteger(objective) ||
-    objective < 0 ||
-    objective > 18
-  ){
+  const msg =
+    document
+      .getElementById("editMessage");
 
-    showMessage(
-      "resultMessage",
-      "Objective marks 0 से 18 के बीच रखें।",
-      "error"
-    );
+  msg.textContent =
+    "Saving...";
 
-    return;
-  }
-
-  if(
-    !Number.isInteger(subjective) ||
-    subjective < 0 ||
-    subjective > 10
-  ){
-
-    showMessage(
-      "resultMessage",
-      "Subjective marks 0 से 10 के बीच रखें।",
-      "error"
-    );
-
-    return;
-  }
-
-  if(
-    !Number.isInteger(total) ||
-    total < 0 ||
-    total > 28
-  ){
-
-    showMessage(
-      "resultMessage",
-      "Total marks 0 से 28 के बीच रखें।",
-      "error"
-    );
-
-    return;
-  }
-
-  try{
-
-    showMessage(
-      "resultMessage",
-      "Result save हो रहा है...",
-      "info"
-    );
-
-    const {
-      data,
-      error
-    } =
+  const {data,error} =
     await supabaseClient.rpc(
       "update_exam_result",
       {
-        input_submission_id:
-          selectedSubmissionId,
-
-        input_objective_marks:
-          objective,
-
-        input_subjective_marks:
-          subjective,
-
-        input_total_marks:
-          total,
-
-        input_final_result:
-          finalResult
+        input_submission_id:id,
+        input_objective:objective,
+        input_subjective:subjective,
+        input_total:total,
+        input_final_result:finalResult
       }
     );
 
-    if(error){
-      throw error;
-    }
+  if(error){
 
-    if(
-      !data ||
-      data.success !== true
-    ){
+    msg.innerHTML =
+      `<span class="error">${error.message}</span>`;
 
-      throw new Error(
-        data?.message ||
-        "Result update failed."
-      );
+    return;
 
-    }
+  }
 
-    showMessage(
-      "resultMessage",
-      "✅ Result successfully updated.",
-      "success"
-    );
+  const result =
+    typeof data === "string"
+      ? JSON.parse(data)
+      : data;
 
-    await loadSubmissions();
+  if(result?.success){
+
+    msg.innerHTML =
+      `<span class="success">
+      Final Result saved successfully.
+      </span>`;
+
+    await loadResults();
 
     setTimeout(
       closeResultModal,
       700
     );
 
-  }
-  catch(error){
+  }else{
 
-    showMessage(
-      "resultMessage",
-      error.message ||
-      "Result update failed.",
-      "error"
-    );
+    msg.innerHTML =
+      `<span class="error">
+      ${result?.message || "Save failed."}
+      </span>`;
 
   }
 
 }
 
 
-/* =====================================================
-   DATE
-===================================================== */
+/* =========================
+   HELPERS
+========================= */
+
+function safe(value){
+
+  if(value===null || value===undefined)
+    return "";
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
 
 function formatDate(value){
 
-  if(!value){
-    return "-";
-  }
+  if(!value)return "-";
 
   try{
 
-    return new Date(
-      value
-    ).toLocaleString(
-      "en-IN",
-      {
-        dateStyle:"medium",
-        timeStyle:"short"
-      }
-    );
+    return new Date(value)
+      .toLocaleString("en-IN");
 
-  }
-  catch{
+  }catch{
 
-    return String(value);
+    return value;
 
   }
 
 }
 
 
-/* =====================================================
-   LOAD EVERYTHING
-===================================================== */
+/* START */
 
-async function loadAllData(){
-
-  try{
-
-    showMessage(
-      "globalMessage",
-      "Dashboard data loading...",
-      "info"
-    );
-
-    await Promise.all([
-
-      loadApplications(),
-
-      loadExamCodes(),
-
-      loadSubmissions()
-
-    ]);
-
-    showMessage(
-      "globalMessage",
-      "✅ Dashboard updated successfully.",
-      "success"
-    );
-
-  }
-  catch(error){
-
-    console.error(error);
-
-    showMessage(
-      "globalMessage",
-      error.message ||
-      "Dashboard data load नहीं हुआ।",
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   AUTO REFRESH
-===================================================== */
-
-setInterval(
-  async function(){
-
-    const app =
-      document.getElementById(
-        "adminApp"
-      );
-
-    if(
-      app &&
-      !app.classList.contains("hidden")
-    ){
-
-      try{
-
-        await loadAllData();
-
-      }
-      catch(error){
-
-        console.error(
-          "Auto refresh error:",
-          error
-        );
-
-      }
-
-    }
-
-  },
-  30000
-);
-
-
-/* =====================================================
-   START
-===================================================== */
-
-checkExistingSession();
+checkSession();
 
 </script>
 

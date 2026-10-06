@@ -1,661 +1,481 @@
 <!DOCTYPE html>
 <html lang="hi">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Classic Empire Ltd - Marksheet</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
   box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 body{
-  margin:0;
+  font-family:Arial,sans-serif;
   background:#080808;
   color:#fff;
-  font-family:Arial,sans-serif;
+  padding:20px;
 }
-
-/* HEADER */
-
-.topbar{
-  background:#111;
-  border-bottom:2px solid #d4af37;
-  padding:15px;
-  text-align:center;
-}
-
-.logo{
-  width:80px;
-  height:80px;
-  object-fit:contain;
-}
-
-.brand{
-  color:#ffd700;
-  font-size:25px;
-  font-weight:bold;
-  margin-top:6px;
-}
-
-.subtitle{
-  color:#aaa;
-  font-size:13px;
-  margin-top:4px;
-}
-
-/* MAIN */
 
 .container{
-  max-width:850px;
-  margin:25px auto;
-  padding:15px;
+  max-width:900px;
+  margin:auto;
 }
 
-/* SEARCH */
-
-.search-box{
-  background:#111;
-  border:1px solid #333;
-  border-radius:14px;
-  padding:20px;
+.top{
+  text-align:center;
   margin-bottom:20px;
 }
 
-.search-box h2{
-  color:#ffd700;
-  margin-top:0;
-}
-
-input{
-  width:100%;
-  padding:14px;
-  border-radius:9px;
-  border:1px solid #555;
-  background:#080808;
-  color:#fff;
-  font-size:16px;
-  outline:none;
-  margin-top:8px;
-}
-
-button{
-  width:100%;
-  margin-top:12px;
-  padding:14px;
-  border:none;
-  border-radius:9px;
-  background:#ffd700;
-  color:#000;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-button:hover{
-  background:#fff;
-}
-
-.error{
-  display:none;
-  margin-top:14px;
-  padding:12px;
-  border-radius:8px;
-  background:#351010;
-  border:1px solid #a33;
-  color:#ffb0b0;
-  text-align:center;
-}
-
-/* MARKSHEET */
-
-.marksheet{
-  display:none;
-  background:#fff;
-  color:#111;
-  border-radius:12px;
-  padding:30px;
-  position:relative;
-}
-
-.marksheet-header{
-  text-align:center;
-  border-bottom:3px solid #d4af37;
-  padding-bottom:15px;
-}
-
-.marksheet-logo{
+.logo{
   width:90px;
   height:90px;
   object-fit:contain;
 }
 
-.marksheet-title{
-  font-size:27px;
-  font-weight:bold;
+h1{
+  color:#ffd700;
   margin-top:8px;
 }
 
-.marksheet-subtitle{
-  font-size:15px;
-  color:#555;
-  margin-top:5px;
+.search-box{
+  background:#111;
+  padding:18px;
+  border:1px solid #333;
+  border-radius:14px;
+  margin-bottom:20px;
 }
 
-.official{
-  margin-top:10px;
-  font-size:13px;
+input{
+  width:100%;
+  padding:13px;
+  background:#080808;
+  color:#fff;
+  border:1px solid #555;
+  border-radius:8px;
+  margin-bottom:10px;
+}
+
+button,
+.marksheet-button{
+  display:block;
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:8px;
+  background:#ffd700;
+  color:#000;
   font-weight:bold;
+  text-align:center;
+  text-decoration:none;
+  cursor:pointer;
 }
 
-/* DETAILS */
+.status{
+  text-align:center;
+  margin:15px 0;
+}
 
-.details{
-  margin-top:25px;
+.error{
+  color:#ff5555;
+}
+
+.success{
+  color:#00ff88;
+}
+
+.mark-sheet{
+  background:#fff;
+  color:#111;
+  padding:35px;
+  border:8px double #c9a227;
+  border-radius:4px;
+  display:none;
+}
+
+.header{
+  text-align:center;
+  border-bottom:2px solid #c9a227;
+  padding-bottom:15px;
+  margin-bottom:20px;
+}
+
+.header img{
+  width:75px;
+  height:75px;
+  object-fit:contain;
+}
+
+.header h2{
+  margin-top:8px;
+  color:#111;
+}
+
+.header p{
+  margin-top:5px;
+  color:#555;
+}
+
+.photo-area{
+  text-align:center;
+  margin:15px 0;
+}
+
+.applicant-photo{
+  width:120px;
+  height:145px;
+  object-fit:cover;
+  border:2px solid #c9a227;
+  border-radius:5px;
+}
+
+.info{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:10px;
+  margin-bottom:25px;
 }
 
-.detail-box{
+.info div{
   border:1px solid #ccc;
-  border-radius:8px;
-  padding:12px;
-  background:#fafafa;
+  padding:10px;
 }
 
 .label{
-  color:#666;
   font-size:12px;
+  color:#666;
 }
 
 .value{
   font-weight:bold;
-  margin-top:5px;
-  font-size:15px;
+  margin-top:4px;
 }
 
-/* MARKS */
-
-.marks-title{
-  text-align:center;
-  margin-top:28px;
-  font-size:20px;
-  font-weight:bold;
-}
-
-table{
+.marks{
   width:100%;
   border-collapse:collapse;
-  margin-top:12px;
+  margin-bottom:20px;
 }
 
-th,
-td{
-  border:1px solid #bbb;
+.marks th,
+.marks td{
+  border:1px solid #999;
   padding:12px;
   text-align:center;
 }
 
-th{
-  background:#eee;
+.marks th{
+  background:#f0e0a0;
 }
 
-.total-row{
-  font-weight:bold;
-  background:#f5f5f5;
-}
-
-/* RESULT */
-
-.result-box{
-  margin-top:25px;
-  padding:18px;
-  border:2px solid #222;
-  border-radius:10px;
+.result{
   text-align:center;
-  font-size:25px;
+  font-size:22px;
   font-weight:bold;
+  padding:15px;
+  border:2px solid #c9a227;
+  margin-bottom:25px;
 }
-
-.pass{
-  color:#087f23;
-}
-
-.fail{
-  color:#b00020;
-}
-
-/* INTERVIEW */
 
 .interview{
-  margin-top:25px;
-  padding:16px;
-  border:1px solid #bbb;
-  border-radius:10px;
-  background:#fafafa;
+  text-align:center;
+  border:1px solid #ccc;
+  padding:15px;
+  margin-bottom:25px;
 }
 
-.interview-title{
+.signatures{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+  margin-top:35px;
+  align-items:end;
+}
+
+.signature-box{
+  text-align:center;
+}
+
+.signature-box img{
+  width:170px;
+  height:75px;
+  object-fit:contain;
+}
+
+.seal-box{
+  text-align:center;
+}
+
+.seal-box img{
+  width:130px;
+  height:130px;
+  object-fit:contain;
+}
+
+.signature-line{
+  border-top:1px solid #222;
+  margin-top:5px;
+  padding-top:6px;
   font-weight:bold;
-  font-size:18px;
-  margin-bottom:8px;
 }
-
-/* FOOTER */
 
 .footer{
-  margin-top:30px;
-  padding-top:15px;
-  border-top:1px solid #ccc;
   text-align:center;
+  margin-top:25px;
   font-size:12px;
   color:#666;
 }
 
-/* PRINT */
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
 
-.print-btn{
-  display:none;
-  background:#111;
-  color:#ffd700;
-  border:1px solid #ffd700;
+.actions button{
+  flex:1;
 }
 
 @media(max-width:600px){
 
-  .details{
-    grid-template-columns:1fr;
-  }
-
-  .marksheet{
+  .mark-sheet{
     padding:18px;
   }
 
-  .marksheet-title{
-    font-size:22px;
+  .info{
+    grid-template-columns:1fr;
   }
 
-  th,
-  td{
-    padding:9px 5px;
-    font-size:13px;
+  .signatures{
+    grid-template-columns:1fr;
   }
 
+  .actions{
+    flex-direction:column;
+  }
 }
 
 @media print{
 
   body{
     background:#fff;
-  }
-
-  .topbar,
-  .search-box,
-  .print-btn{
-    display:none!important;
-  }
-
-  .container{
-    margin:0;
     padding:0;
-    max-width:none;
   }
 
-  .marksheet{
-    display:block!important;
+  .top,
+  .search-box,
+  .status,
+  .actions{
+    display:none !important;
+  }
+
+  .mark-sheet{
+    display:block !important;
     border-radius:0;
-    padding:20px;
+    border:8px double #c9a227;
   }
-
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- HEADER -->
-
-<div class="topbar">
-
-<img
-  src="classic-empire-logo.png"
-  class="logo"
-  alt="Classic Empire Logo"
->
-
-<div class="brand">
-CLASSIC EMPIRE LTD
-</div>
-
-<div class="subtitle">
-Official Examination Marksheet
-</div>
-
-</div>
-
-
 <div class="container">
 
+  <div class="top">
+    <img
+      class="logo"
+      src="classic-empire-logo.png"
+      alt="Classic Empire"
+    >
 
-<!-- SEARCH BOX -->
+    <h1>Classic Empire Ltd</h1>
+  </div>
 
-<div class="search-box">
+  <div class="search-box">
 
-<h2>
-📄 Marksheet देखें
-</h2>
+    <input
+      id="examCode"
+      type="text"
+      placeholder="Exam Code डालें"
+    >
 
-<p>
-अपना Exam Code डालकर Marksheet देखें।
-</p>
+    <button onclick="loadMarksheet()">
+      Marksheet देखें
+    </button>
 
-<input
-  type="text"
-  id="examCode"
-  placeholder="जैसे CE-DM-XXXXXXXX"
-  autocomplete="off"
->
+  </div>
 
-<button onclick="loadMarksheet()">
-Marksheet देखें
-</button>
+  <div id="status" class="status"></div>
 
-<div
-  id="errorBox"
-  class="error"
->
-</div>
+  <div id="markSheet" class="mark-sheet">
 
-</div>
+    <div class="header">
 
+      <img
+        src="classic-empire-logo.png"
+        alt="Classic Empire Logo"
+      >
 
-<!-- MARKSHEET -->
+      <h2>CLASSIC EMPIRE LTD</h2>
 
-<div
-  id="marksheet"
-  class="marksheet"
->
+      <p>OFFICIAL EXAMINATION MARKSHEET</p>
 
+    </div>
 
-<!-- MARKSHEET HEADER -->
+    <div class="photo-area">
 
-<div class="marksheet-header">
+      <img
+        id="applicantPhoto"
+        class="applicant-photo"
+        src=""
+        alt="Applicant Photo"
+        style="display:none;"
+      >
 
-<img
-  src="classic-empire-logo.png"
-  class="marksheet-logo"
-  alt="Classic Empire Logo"
->
+    </div>
 
-<div class="marksheet-title">
-CLASSIC EMPIRE LTD
-</div>
+    <div class="info">
 
-<div class="marksheet-subtitle">
-OFFICIAL EXAMINATION MARKSHEET
-</div>
+      <div>
+        <div class="label">Applicant Name</div>
+        <div class="value" id="applicantName">-</div>
+      </div>
 
-<div class="official">
-Official Examination Result
-</div>
+      <div>
+        <div class="label">Exam Code</div>
+        <div class="value" id="codeValue">-</div>
+      </div>
 
-</div>
+      <div>
+        <div class="label">Post</div>
+        <div class="value" id="postValue">-</div>
+      </div>
 
+      <div>
+        <div class="label">Section</div>
+        <div class="value" id="sectionValue">-</div>
+      </div>
 
-<!-- DETAILS -->
+    </div>
 
-<div class="details">
+    <table class="marks">
 
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Marks</th>
+          <th>Maximum</th>
+        </tr>
+      </thead>
 
-<div class="detail-box">
+      <tbody>
 
-<div class="label">
-Applicant Name
-</div>
+        <tr>
+          <td>Objective</td>
+          <td id="objectiveMarks">0</td>
+          <td>18</td>
+        </tr>
 
-<div
-  id="applicantName"
-  class="value"
->
-—
-</div>
+        <tr>
+          <td>Subjective</td>
+          <td id="subjectiveMarks">0</td>
+          <td>10</td>
+        </tr>
 
-</div>
+        <tr>
+          <th>Total</th>
+          <th id="totalMarks">0</th>
+          <th>28</th>
+        </tr>
 
+      </tbody>
 
-<div class="detail-box">
+    </table>
 
-<div class="label">
-Exam Code
-</div>
+    <div
+      id="finalResult"
+      class="result"
+    >
+      -
+    </div>
 
-<div
-  id="showExamCode"
-  class="value"
->
-—
-</div>
+    <div class="interview">
 
-</div>
+      <strong>Interview Information</strong>
 
+      <p id="interviewLocation">
+        Head Office: Chakla Ghat,
+        Kishanganj, Bihar, India
+      </p>
 
-<div class="detail-box">
+    </div>
 
-<div class="label">
-Post
-</div>
+    <div class="signatures">
 
-<div
-  id="post"
-  class="value"
->
-—
-</div>
+      <div class="seal-box">
 
-</div>
+        <img
+          id="officialSeal"
+          src=""
+          alt="Official Seal"
+          style="display:none;"
+        >
 
+        <div class="signature-line">
+          Official Seal
+        </div>
 
-<div class="detail-box">
+      </div>
 
-<div class="label">
-Exam Section
-</div>
+      <div class="signature-box">
 
-<div
-  id="section"
-  class="value"
->
-—
-</div>
+        <img
+          id="presidentSignature"
+          src=""
+          alt="President Signature"
+          style="display:none;"
+        >
 
-</div>
+        <div class="signature-line">
+          Noor Ahmad<br>
+          President<br>
+          CLASSIC EMPIRE LTD
+        </div>
 
+      </div>
 
-</div>
+    </div>
 
+    <div class="footer">
 
-<!-- MARKS -->
+      Head Office: Chakla Ghat,
+      Kishanganj, Bihar, India
 
-<div class="marks-title">
-Marks Details
-</div>
+      <br>
 
+      Classic Empire Ltd
 
-<table>
+    </div>
 
-<thead>
+  </div>
 
-<tr>
+  <div class="actions">
 
-<th>
-Subject
-</th>
+    <button onclick="window.print()">
+      🖨️ Print / Save PDF
+    </button>
 
-<th>
-Maximum Marks
-</th>
-
-<th>
-Obtained Marks
-</th>
-
-</tr>
-
-</thead>
-
-
-<tbody>
-
-
-<tr>
-
-<td>
-Objective
-</td>
-
-<td>
-18
-</td>
-
-<td id="objectiveMarks">
-0
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-Subjective
-</td>
-
-<td>
-10
-</td>
-
-<td id="subjectiveMarks">
-0
-</td>
-
-</tr>
-
-
-<tr class="total-row">
-
-<td>
-Total
-</td>
-
-<td>
-28
-</td>
-
-<td id="totalMarks">
-0
-</td>
-
-</tr>
-
-
-</tbody>
-
-</table>
-
-
-<!-- RESULT -->
-
-<div
-  id="resultBox"
-  class="result-box"
->
-—
-</div>
-
-
-<!-- INTERVIEW -->
-
-<div class="interview">
-
-<div class="interview-title">
-Interview Information
-</div>
-
-<div>
-PASS होने वाले उम्मीदवारों को Interview के लिए सूचित किया जाएगा।
-</div>
-
-<br>
-
-<strong>
-Interview Location:
-</strong>
-
-<div id="interviewLocation">
-
-Head Office:
-Chakla Ghat,
-Kishanganj,
-Bihar, India
+  </div>
 
 </div>
-
-</div>
-
-
-<!-- FOOTER -->
-
-<div class="footer">
-
-Classic Empire Ltd
-
-<br>
-
-Chakla Ghat, Kishanganj, Bihar, India
-
-<br>
-
-This is an official examination marksheet.
-
-</div>
-
-
-</div>
-
-
-<!-- PRINT BUTTON -->
-
-<button
-  id="printButton"
-  class="print-btn"
-  onclick="window.print()"
->
-🖨️ Print / Save as PDF
-</button>
-
-
-</div>
-
 
 <script>
-
-/* =========================
-   SUPABASE
-========================= */
 
 const SUPABASE_URL =
 "https://hjatspkzgoddcpgwfkxo.supabase.co";
@@ -663,303 +483,278 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
-
 const supabaseClient =
-window.supabase.createClient(
+supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
 
 
-/* =========================
-   ERROR
-========================= */
-
-function showError(message){
+function setStatus(message,type=""){
 
   const box =
-    document.getElementById("errorBox");
+    document.getElementById("status");
 
-  box.textContent =
-    message;
+  box.textContent = message;
 
-  box.style.display =
-    "block";
-
+  box.className =
+    "status " + type;
 }
 
 
-/* =========================
-   LOAD MARKSHEET
-========================= */
+function safe(value){
+
+  return value === null ||
+         value === undefined ||
+         value === ""
+    ? "-"
+    : value;
+}
+
 
 async function loadMarksheet(){
 
-  const input =
-    document.getElementById("examCode");
-
-
   const code =
-    input.value
-      .trim()
-      .toUpperCase();
-
-
-  const errorBox =
-    document.getElementById("errorBox");
-
-
-  const marksheet =
-    document.getElementById("marksheet");
-
-
-  const printButton =
-    document.getElementById("printButton");
-
-
-  errorBox.style.display =
-    "none";
-
-
-  marksheet.style.display =
-    "none";
-
-
-  printButton.style.display =
-    "none";
-
+    document
+      .getElementById("examCode")
+      .value
+      .trim();
 
   if(!code){
 
-    showError(
-      "कृपया Exam Code डालें।"
+    setStatus(
+      "Exam Code डालें।",
+      "error"
     );
 
     return;
-
   }
 
+  setStatus(
+    "Marksheet load हो रही है..."
+  );
 
-  try{
-
-
-    const {data,error} =
-      await supabaseClient.rpc(
-        "get_marksheet_data",
-        {
-          input_exam_code:code
-        }
-      );
+  document
+    .getElementById("markSheet")
+    .style.display = "none";
 
 
-    if(error){
-
-      console.error(error);
-
-      showError(
-        "Marksheet data प्राप्त नहीं हो सका।"
-      );
-
-      return;
-
+  const {
+    data,
+    error
+  } = await supabaseClient.rpc(
+    "get_marksheet_data",
+    {
+      input_exam_code: code
     }
+  );
 
 
-    let result =
-      typeof data === "string"
-        ? JSON.parse(data)
-        : data;
-
-
-    if(!result){
-
-      showError(
-        "इस Exam Code की Marksheet नहीं मिली।"
-      );
-
-      return;
-
-    }
-
-
-    if(result.success === false){
-
-      showError(
-        result.message ||
-        "Marksheet उपलब्ध नहीं है।"
-      );
-
-      return;
-
-    }
-
-
-    /* =========================
-       FILL DETAILS
-    ========================= */
-
-
-    document.getElementById(
-      "applicantName"
-    ).textContent =
-      result.applicant_name || "—";
-
-
-    document.getElementById(
-      "showExamCode"
-    ).textContent =
-      result.exam_code || code;
-
-
-    document.getElementById(
-      "post"
-    ).textContent =
-      result.post || "—";
-
-
-    document.getElementById(
-      "section"
-    ).textContent =
-      result.section || "—";
-
-
-    document.getElementById(
-      "objectiveMarks"
-    ).textContent =
-      result.objective_marks ?? 0;
-
-
-    document.getElementById(
-      "subjectiveMarks"
-    ).textContent =
-      result.subjective_marks ?? 0;
-
-
-    document.getElementById(
-      "totalMarks"
-    ).textContent =
-      result.total_marks ?? 0;
-
-
-    document.getElementById(
-      "interviewLocation"
-    ).textContent =
-      result.interview_location ||
-      "Head Office: Chakla Ghat, Kishanganj, Bihar, India";
-
-
-    /* =========================
-       RESULT
-    ========================= */
-
-    const finalResult =
-      String(
-        result.final_result || ""
-      )
-      .toUpperCase()
-      .trim();
-
-
-    const resultBox =
-      document.getElementById(
-        "resultBox"
-      );
-
-
-    resultBox.classList.remove(
-      "pass",
-      "fail"
-    );
-
-
-    if(finalResult === "PASS"){
-
-      resultBox.textContent =
-        "✅ PASS";
-
-      resultBox.classList.add(
-        "pass"
-      );
-
-    }
-
-    else if(finalResult === "FAIL"){
-
-      resultBox.textContent =
-        "❌ FAIL";
-
-      resultBox.classList.add(
-        "fail"
-      );
-
-    }
-
-    else{
-
-      resultBox.textContent =
-        finalResult ||
-        "RESULT PENDING";
-
-    }
-
-
-    /* =========================
-       SHOW
-    ========================= */
-
-    marksheet.style.display =
-      "block";
-
-
-    printButton.style.display =
-      "block";
-
-
-    marksheet.scrollIntoView({
-      behavior:"smooth"
-    });
-
-
-  }
-
-  catch(error){
+  if(error){
 
     console.error(error);
 
-    showError(
-      "कुछ समस्या हुई। कृपया फिर से प्रयास करें।"
+    setStatus(
+      "Marksheet load नहीं हो सकी।",
+      "error"
     );
 
+    return;
   }
+
+
+  if(!data || data.success !== true){
+
+    setStatus(
+      "इस Exam Code की Marksheet नहीं मिली।",
+      "error"
+    );
+
+    return;
+  }
+
+
+  document
+    .getElementById("applicantName")
+    .textContent =
+      safe(data.applicant_name);
+
+
+  document
+    .getElementById("codeValue")
+    .textContent =
+      safe(data.exam_code);
+
+
+  document
+    .getElementById("postValue")
+    .textContent =
+      safe(data.post);
+
+
+  document
+    .getElementById("sectionValue")
+    .textContent =
+      safe(data.section);
+
+
+  document
+    .getElementById("objectiveMarks")
+    .textContent =
+      safe(data.objective_marks);
+
+
+  document
+    .getElementById("subjectiveMarks")
+    .textContent =
+      safe(data.subjective_marks);
+
+
+  document
+    .getElementById("totalMarks")
+    .textContent =
+      safe(data.total_marks);
+
+
+  document
+    .getElementById("finalResult")
+    .textContent =
+      safe(data.final_result);
+
+
+  if(data.interview_location){
+
+    document
+      .getElementById("interviewLocation")
+      .textContent =
+        data.interview_location;
+
+  }
+
+
+  if(data.applicant_photo){
+
+    const photo =
+      document.getElementById(
+        "applicantPhoto"
+      );
+
+    photo.src =
+      data.applicant_photo;
+
+    photo.style.display =
+      "inline-block";
+
+  }
+
+
+  /*
+   * Seal and President Signature
+   * पहले submission-level URL देखेंगे।
+   * अगर खाली हो तो global settings से लेंगे।
+   */
+
+  let sealUrl =
+    data.official_seal_url || null;
+
+  let signatureUrl =
+    data.president_signature_url || null;
+
+
+  if(!sealUrl || !signatureUrl){
+
+    const {
+      data:settings,
+      error:settingsError
+    } = await supabaseClient.rpc(
+      "get_marksheet_settings"
+    );
+
+
+    if(!settingsError && settings){
+
+      if(!sealUrl){
+
+        sealUrl =
+          settings.official_seal_url;
+
+      }
+
+      if(!signatureUrl){
+
+        signatureUrl =
+          settings.president_signature_url;
+
+      }
+
+    }
+
+  }
+
+
+  if(sealUrl){
+
+    const seal =
+      document.getElementById(
+        "officialSeal"
+      );
+
+    seal.src =
+      sealUrl;
+
+    seal.style.display =
+      "inline-block";
+
+  }
+
+
+  if(signatureUrl){
+
+    const signature =
+      document.getElementById(
+        "presidentSignature"
+      );
+
+    signature.src =
+      signatureUrl;
+
+    signature.style.display =
+      "inline-block";
+
+  }
+
+
+  document
+    .getElementById("markSheet")
+    .style.display =
+      "block";
+
+
+  setStatus(
+    "✅ Marksheet तैयार है।",
+    "success"
+  );
 
 }
 
 
-/* =========================
-   AUTO READ URL CODE
-========================= */
-
 window.addEventListener(
   "DOMContentLoaded",
-  () => {
+  function(){
 
     const params =
       new URLSearchParams(
         window.location.search
       );
 
-
     const code =
       params.get("code");
 
-
     if(code){
 
-      document.getElementById(
-        "examCode"
-      ).value =
-        code.toUpperCase();
-
+      document
+        .getElementById("examCode")
+        .value = code;
 
       loadMarksheet();
 
@@ -970,7 +765,5 @@ window.addEventListener(
 
 </script>
 
-
 </body>
-
 </html>

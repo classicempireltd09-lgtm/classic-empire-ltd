@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body style="background:#111;color:white;font-family:Arial;padding:20px">
+
+<h2>Marksheet RPC Test</h2>
+
+<pre id="out">Testing...</pre>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const supabase = window.supabase.createClient(
+  "https://hjatspkzgoddcpgwfkxo.supabase.co",
+  "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_"
+);
+
+async function test(){
+
+  const { data, error } = await supabase.rpc(
+    "get_marksheet_data",
+    {
+      input_exam_code: "CE-MAN-5DC717EE"
+    }
+  );
+
+  document.getElementById("out").textContent =
+    JSON.stringify(
+      {
+        data:data,
+        error:error
+      },
+      null,
+      2
+    );
+}
+
+test();
+
+</script>
+
+</body>
+</html>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Classic Empire Ltd - Admin Panel</title>
+<title>Classic Empire Ltd - President Admin Panel</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -22,10 +22,13 @@ header{
   background:#111;
   border-bottom:2px solid #d4af37;
   padding:15px;
+  position:sticky;
+  top:0;
+  z-index:1000;
 }
 
 .header{
-  max-width:1200px;
+  max-width:1250px;
   margin:auto;
   display:flex;
   align-items:center;
@@ -51,7 +54,7 @@ h1,h2,h3{
 }
 
 .container{
-  max-width:1200px;
+  max-width:1250px;
   margin:auto;
   padding:20px;
 }
@@ -62,41 +65,6 @@ h1,h2,h3{
   border-radius:12px;
   padding:20px;
   margin-bottom:20px;
-}
-
-input,select{
-  width:100%;
-  padding:11px;
-  margin:7px 0 12px;
-  background:#222;
-  color:#fff;
-  border:1px solid #555;
-  border-radius:7px;
-}
-
-button{
-  background:#d4af37;
-  color:#000;
-  border:0;
-  border-radius:7px;
-  padding:11px 16px;
-  cursor:pointer;
-  font-weight:bold;
-  margin:4px;
-}
-
-button:hover{
-  background:#fff;
-}
-
-.danger{
-  background:#b3261e;
-  color:#fff;
-}
-
-.secondary{
-  background:#333;
-  color:#fff;
 }
 
 .grid{
@@ -120,29 +88,59 @@ button:hover{
   margin-top:8px;
 }
 
-table{
+input,select,textarea{
   width:100%;
-  border-collapse:collapse;
-  min-width:850px;
+  padding:11px;
+  margin:7px 0 12px;
+  background:#222;
+  color:#fff;
+  border:1px solid #555;
+  border-radius:7px;
 }
 
-th,td{
-  border:1px solid #333;
-  padding:10px;
-  text-align:center;
+textarea{
+  min-height:100px;
+  resize:vertical;
 }
 
-th{
+button{
   background:#d4af37;
   color:#000;
+  border:0;
+  border-radius:7px;
+  padding:11px 16px;
+  cursor:pointer;
+  font-weight:bold;
+  margin:4px;
 }
 
-.table-wrap{
-  overflow-x:auto;
+button:hover{
+  background:#fff;
 }
 
-.hidden{
-  display:none!important;
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.danger{
+  background:#b3261e;
+  color:#fff;
+}
+
+.secondary{
+  background:#333;
+  color:#fff;
+}
+
+.blue{
+  background:#1976d2;
+  color:#fff;
+}
+
+.green{
+  background:#16803c;
+  color:#fff;
 }
 
 .message{
@@ -158,6 +156,47 @@ th{
 
 .error{
   color:#ff7777;
+}
+
+.warning{
+  color:#ffd700;
+}
+
+.small{
+  color:#aaa;
+  font-size:13px;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.login{
+  max-width:450px;
+  margin:70px auto;
+}
+
+.table-wrap{
+  overflow-x:auto;
+  margin-top:15px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:1100px;
+}
+
+th,td{
+  border:1px solid #333;
+  padding:10px;
+  text-align:center;
+  vertical-align:middle;
+}
+
+th{
+  background:#d4af37;
+  color:#000;
 }
 
 .code-box{
@@ -177,34 +216,106 @@ th{
   margin:10px 0;
 }
 
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.badge-manual{
+  background:#513600;
+  color:#ffd700;
+}
+
+.badge-application{
+  background:#173d2a;
+  color:#70e070;
+}
+
+.badge-pass{
+  background:#173d2a;
+  color:#70e070;
+}
+
+.badge-fail{
+  background:#451515;
+  color:#ff7777;
+}
+
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.8);
+  background:rgba(0,0,0,.88);
   display:flex;
   justify-content:center;
   align-items:center;
   z-index:5000;
   padding:15px;
+  overflow:auto;
 }
 
 .modal-box{
   width:100%;
-  max-width:550px;
+  max-width:700px;
+  max-height:92vh;
+  overflow:auto;
   background:#151515;
   border:1px solid #d4af37;
   border-radius:12px;
   padding:20px;
 }
 
-.login{
-  max-width:450px;
-  margin:70px auto;
+.detail-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
 }
 
-.small{
-  color:#aaa;
-  font-size:13px;
+.detail-item{
+  background:#101010;
+  border:1px solid #333;
+  padding:12px;
+  border-radius:8px;
+}
+
+.answer-box{
+  background:#101010;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:12px;
+  margin:10px 0;
+  white-space:pre-wrap;
+  line-height:1.6;
+}
+
+.filters{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:10px;
+  align-items:end;
+}
+
+@media(max-width:700px){
+
+  .header{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .detail-grid{
+    grid-template-columns:1fr;
+  }
+
+  .filters{
+    grid-template-columns:1fr;
+  }
+
+  .container{
+    padding:10px;
+  }
+
 }
 </style>
 </head>
@@ -215,7 +326,8 @@ th{
 <div class="header">
 
 <div class="brand">
-<img src="classic-empire-logo.png" class="logo" alt="Classic Empire Logo">
+<img src="classic-empire-logo.png" class="logo" alt="Classic Empire Ltd Logo">
+
 <div>
 <h2 style="margin:0">Classic Empire Ltd</h2>
 <div class="small">President Admin Panel</div>
@@ -230,23 +342,22 @@ th{
 
 <div class="container">
 
-
 <!-- LOGIN -->
 
 <div id="loginPanel" class="panel login">
 
-<h2>Admin Login</h2>
+<h2>🔐 Admin Login</h2>
 
 <input
-  id="email"
-  type="email"
-  placeholder="Admin Email"
+id="email"
+type="email"
+placeholder="Admin Email"
 >
 
 <input
-  id="password"
-  type="password"
-  placeholder="Password"
+id="password"
+type="password"
+placeholder="Password"
 >
 
 <button onclick="login()" style="width:100%">
@@ -262,10 +373,9 @@ Login
 
 <div id="dashboard" class="hidden">
 
-
 <div class="panel">
 
-<h2>Dashboard</h2>
+<h2>President Admin Dashboard</h2>
 
 <p>
 Logged in:
@@ -274,7 +384,7 @@ Logged in:
 
 <p>
 Access:
-<strong>President / Admin</strong>
+<strong>President / Admin Only</strong>
 </p>
 
 </div>
@@ -304,6 +414,11 @@ Rejected
 <strong id="rejectedApplications">0</strong>
 </div>
 
+<div class="stat">
+Exam Submissions
+<strong id="totalSubmissions">0</strong>
+</div>
+
 </div>
 
 
@@ -311,23 +426,12 @@ Rejected
 
 <div class="panel">
 
-<h2>Application Management</h2>
+<h2>📋 Application Management</h2>
 
-<button onclick="loadApplications('all')">
-All
-</button>
-
-<button onclick="loadApplications('pending')">
-Pending
-</button>
-
-<button onclick="loadApplications('approved')">
-Approved
-</button>
-
-<button onclick="loadApplications('rejected')">
-Rejected
-</button>
+<button onclick="loadApplications('all')">All</button>
+<button onclick="loadApplications('pending')">Pending</button>
+<button onclick="loadApplications('approved')">Approved</button>
+<button onclick="loadApplications('rejected')">Rejected</button>
 
 <div id="applicationsMessage" class="message"></div>
 
@@ -363,28 +467,54 @@ Rejected
 <h2>🔑 Manual Exam Code Generator</h2>
 
 <p class="small">
-जरूरत पड़ने पर President/Admin यहाँ से तुरंत Exam Code generate कर सकता है।
+President/Admin बिना application के भी जरूरत पड़ने पर Exam Code generate कर सकता है।
+Manual code तुरंत active होगा और Exam Code History में दिखाई देगा।
 </p>
 
 <div class="grid">
 
 <div>
+
 <label>Applicant Name</label>
-<input id="manualApplicantName" placeholder="Applicant Name">
+
+<input
+id="manualApplicantName"
+placeholder="Applicant Name"
+>
+
 </div>
 
 <div>
+
 <label>Post</label>
 
 <select id="manualPost">
 
 <option value="">Select Post</option>
-<option>DM</option>
-<option>DM Assistant</option>
-<option>SDM</option>
-<option>SP</option>
-<option>DSP</option>
-<option>President Assistant</option>
+
+<option value="President's Assistant">
+President's Assistant
+</option>
+
+<option value="DM">
+DM
+</option>
+
+<option value="DM's Assistant">
+DM's Assistant
+</option>
+
+<option value="SDM">
+SDM
+</option>
+
+<option value="SP">
+SP
+</option>
+
+<option value="DSP">
+DSP
+</option>
 
 </select>
 
@@ -417,11 +547,59 @@ Generate Exam Code
 
 <div class="panel">
 
-<h2>Exam Code History</h2>
+<h2>🔐 Exam Code History</h2>
+
+<p class="small">
+Application Code और Manual Code दोनों यहाँ दिखाई देंगे।
+</p>
 
 <button onclick="loadExamCodes()">
-Refresh
+🔄 Refresh Code History
 </button>
+
+<div class="filters">
+
+<div>
+<label>Search</label>
+<input
+id="codeSearch"
+placeholder="Code / Applicant / Application ID"
+oninput="renderExamCodes()"
+>
+</div>
+
+<div>
+<label>Type</label>
+<select id="codeTypeFilter" onchange="renderExamCodes()">
+<option value="all">All</option>
+<option value="application">Application</option>
+<option value="manual">Manual</option>
+</select>
+</div>
+
+<div>
+<label>Used</label>
+<select id="codeUsedFilter" onchange="renderExamCodes()">
+<option value="all">All</option>
+<option value="yes">Used</option>
+<option value="no">Unused</option>
+</select>
+</div>
+
+<div>
+<label>Post</label>
+<select id="codePostFilter" onchange="renderExamCodes()">
+<option value="all">All Posts</option>
+<option>President's Assistant</option>
+<option>DM</option>
+<option>DM's Assistant</option>
+<option>SDM</option>
+<option>SP</option>
+<option>DSP</option>
+</select>
+</div>
+
+</div>
 
 <div id="codesMessage" class="message"></div>
 
@@ -434,8 +612,11 @@ Refresh
 <th>Code</th>
 <th>Applicant</th>
 <th>Post</th>
+<th>Section</th>
+<th>Type</th>
+<th>Application ID</th>
 <th>Used</th>
-<th>Unlock Time</th>
+<th>Unlock</th>
 <th>Created</th>
 </tr>
 </thead>
@@ -449,15 +630,63 @@ Refresh
 </div>
 
 
-<!-- EXAM RESULTS -->
+<!-- SUBMISSION MANAGEMENT -->
 
 <div class="panel">
 
-<h2>Exam Submission / Result Management</h2>
+<h2>📝 Exam Submission / Result Management</h2>
+
+<p class="small">
+यहाँ submitted exams आएंगे। President objective, subjective, total और PASS/FAIL edit कर सकता है।
+</p>
 
 <button onclick="loadResults()">
-Refresh Results
+🔄 Refresh Submissions
 </button>
+
+<div class="filters">
+
+<div>
+<label>Search</label>
+<input
+id="resultSearch"
+placeholder="Applicant / Exam Code"
+oninput="renderResults()"
+>
+</div>
+
+<div>
+<label>Post</label>
+<select id="resultPostFilter" onchange="renderResults()">
+<option value="all">All Posts</option>
+<option>President's Assistant</option>
+<option>DM</option>
+<option>DM's Assistant</option>
+<option>SDM</option>
+<option>SP</option>
+<option>DSP</option>
+</select>
+</div>
+
+<div>
+<label>Result</label>
+<select id="resultFilter" onchange="renderResults()">
+<option value="all">All</option>
+<option value="PASS">PASS</option>
+<option value="FAIL">FAIL</option>
+</select>
+</div>
+
+<div>
+<label>Release</label>
+<select id="releaseFilter" onchange="renderResults()">
+<option value="all">All</option>
+<option value="released">Released</option>
+<option value="pending">Not Released</option>
+</select>
+</div>
+
+</div>
 
 <div id="resultsMessage" class="message"></div>
 
@@ -470,10 +699,12 @@ Refresh Results
 <th>Applicant</th>
 <th>Post</th>
 <th>Code</th>
+<th>Section</th>
 <th>Objective</th>
 <th>Subjective</th>
 <th>Total</th>
-<th>Final Result</th>
+<th>Result</th>
+<th>Release</th>
 <th>Submitted</th>
 <th>Action</th>
 </tr>
@@ -487,6 +718,30 @@ Refresh Results
 
 </div>
 
+</div>
+
+</div>
+
+
+<!-- RESULT DETAIL MODAL -->
+
+<div id="detailModal" class="modal hidden">
+
+<div class="modal-box">
+
+<h2>📄 Exam Submission Detail</h2>
+
+<div id="detailContent"></div>
+
+<div style="margin-top:15px">
+
+<button
+class="secondary"
+onclick="closeDetailModal()">
+Close
+</button>
+
+</div>
 
 </div>
 
@@ -499,24 +754,44 @@ Refresh Results
 
 <div class="modal-box">
 
-<h2>Edit Final Result</h2>
+<h2>✏️ Edit Final Result</h2>
 
 <input type="hidden" id="editSubmissionId">
 
 <label>Objective Marks /18</label>
-<input id="editObjective" type="number" min="0" max="18">
+
+<input
+id="editObjective"
+type="number"
+min="0"
+max="18"
+>
 
 <label>Subjective Marks /10</label>
-<input id="editSubjective" type="number" min="0" max="10">
+
+<input
+id="editSubjective"
+type="number"
+min="0"
+max="10"
+>
 
 <label>Total Marks /28</label>
-<input id="editTotal" type="number" min="0" max="28">
+
+<input
+id="editTotal"
+type="number"
+min="0"
+max="28"
+>
 
 <label>Final Result</label>
 
 <select id="editResult">
+
 <option value="PASS">PASS</option>
 <option value="FAIL">FAIL</option>
+
 </select>
 
 <div style="margin-top:15px">
@@ -525,13 +800,58 @@ Refresh Results
 Save Final Result
 </button>
 
-<button class="secondary" onclick="closeResultModal()">
+<button
+class="secondary"
+onclick="closeResultModal()">
 Cancel
 </button>
 
 </div>
 
 <div id="editMessage" class="message"></div>
+
+</div>
+
+</div>
+
+
+<!-- SECTION EDIT MODAL -->
+
+<div id="sectionModal" class="modal hidden">
+
+<div class="modal-box">
+
+<h2>🔤 Edit Exam Section</h2>
+
+<input type="hidden" id="editSectionCode">
+
+<p>
+Exam Code:
+<strong id="sectionCodeText"></strong>
+</p>
+
+<label>Exam Section</label>
+
+<select id="editSection">
+
+<option value="A">A</option>
+<option value="B">B</option>
+<option value="C">C</option>
+<option value="D">D</option>
+
+</select>
+
+<button onclick="saveSection()">
+Save Section
+</button>
+
+<button
+class="secondary"
+onclick="closeSectionModal()">
+Cancel
+</button>
+
+<div id="sectionMessage" class="message"></div>
 
 </div>
 
@@ -550,15 +870,26 @@ const ADMIN_UID =
 "8820968d-c20b-4892-b38b-395083efd026";
 
 const supabaseClient =
-supabase.createClient(
+window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
 
 
-/* =========================
+/* =====================================================
+   GLOBAL DATA
+===================================================== */
+
+let allApplications = [];
+
+let allExamCodes = [];
+
+let allResults = [];
+
+
+/* =====================================================
    LOGIN
-========================= */
+===================================================== */
 
 async function login(){
 
@@ -571,7 +902,18 @@ async function login(){
   const msg =
     document.getElementById("loginMessage");
 
-  msg.textContent="Logging in...";
+  if(!email || !password){
+
+    msg.innerHTML =
+      `<span class="error">
+      Email और Password दोनों भरें।
+      </span>`;
+
+    return;
+  }
+
+  msg.textContent =
+    "Logging in...";
 
   const {data,error} =
     await supabaseClient.auth.signInWithPassword({
@@ -582,12 +924,14 @@ async function login(){
   if(error){
 
     msg.innerHTML =
-      `<span class="error">${error.message}</span>`;
+      `<span class="error">
+      ${safe(error.message)}
+      </span>`;
 
     return;
   }
 
-  if(data.user.id !== ADMIN_UID){
+  if(!data.user || data.user.id !== ADMIN_UID){
 
     await supabaseClient.auth.signOut();
 
@@ -604,9 +948,9 @@ async function login(){
 }
 
 
-/* =========================
+/* =====================================================
    SESSION
-========================= */
+===================================================== */
 
 async function checkSession(){
 
@@ -630,9 +974,9 @@ async function checkSession(){
 }
 
 
-/* =========================
+/* =====================================================
    DASHBOARD
-========================= */
+===================================================== */
 
 async function showDashboard(user){
 
@@ -646,19 +990,23 @@ async function showDashboard(user){
 
   document
     .getElementById("loggedEmail")
-    .textContent = user.email || "";
+    .textContent =
+      user.email || "";
 
   await loadApplicationCounts();
+
   await loadApplications("all");
+
   await loadExamCodes();
+
   await loadResults();
 
 }
 
 
-/* =========================
+/* =====================================================
    LOGOUT
-========================= */
+===================================================== */
 
 async function logout(){
 
@@ -669,9 +1017,9 @@ async function logout(){
 }
 
 
-/* =========================
+/* =====================================================
    APPLICATION COUNTS
-========================= */
+===================================================== */
 
 async function loadApplicationCounts(){
 
@@ -680,7 +1028,13 @@ async function loadApplicationCounts(){
       "get_application_counts"
     );
 
-  if(error)return;
+  if(error){
+
+    console.error(error);
+
+    return;
+
+  }
 
   const x =
     typeof data === "string"
@@ -688,25 +1042,27 @@ async function loadApplicationCounts(){
       : data;
 
   document.getElementById("totalApplications")
-    .textContent = x.total ?? 0;
+    .textContent =
+      x.total ?? 0;
 
   document.getElementById("pendingApplications")
-    .textContent = x.pending ?? 0;
+    .textContent =
+      x.pending ?? 0;
 
   document.getElementById("approvedApplications")
-    .textContent = x.approved ?? 0;
+    .textContent =
+      x.approved ?? 0;
 
   document.getElementById("rejectedApplications")
-    .textContent = x.rejected ?? 0;
+    .textContent =
+      x.rejected ?? 0;
 
 }
 
 
-/* =========================
+/* =====================================================
    APPLICATIONS
-========================= */
-
-let allApplications=[];
+===================================================== */
 
 async function loadApplications(filter="all"){
 
@@ -716,7 +1072,8 @@ async function loadApplications(filter="all"){
   const body =
     document.getElementById("applicationsBody");
 
-  msg.textContent="Loading...";
+  msg.textContent =
+    "Loading...";
 
   const {data,error} =
     await supabaseClient.rpc(
@@ -726,9 +1083,12 @@ async function loadApplications(filter="all"){
   if(error){
 
     msg.innerHTML =
-      `<span class="error">${error.message}</span>`;
+      `<span class="error">
+      ${safe(error.message)}
+      </span>`;
 
     return;
+
   }
 
   allApplications =
@@ -736,9 +1096,10 @@ async function loadApplications(filter="all"){
       ? data
       : [];
 
-  let rows=allApplications;
+  let rows =
+    allApplications;
 
-  if(filter!=="all"){
+  if(filter !== "all"){
 
     rows =
       rows.filter(x =>
@@ -749,50 +1110,79 @@ async function loadApplications(filter="all"){
 
   }
 
-  body.innerHTML="";
+  body.innerHTML = "";
 
-  rows.forEach(app=>{
+  rows.forEach(app => {
 
     const tr =
       document.createElement("tr");
 
     const status =
-      String(app.status || "Pending");
+      String(
+        app.status ||
+        "Pending"
+      );
 
-    let action="";
+    let action = "";
 
-    if(status.toLowerCase()==="pending"){
+    if(
+      status.toLowerCase()
+      ===
+      "pending"
+    ){
 
-      action=`
-        <button onclick="changeApplicationStatus(${app.id},'Approved')">
+      action = `
+
+        <button
+          onclick="changeApplicationStatus(
+            ${Number(app.id)},
+            'Approved'
+          )">
           Approve
         </button>
 
-        <button class="danger"
-          onclick="changeApplicationStatus(${app.id},'Rejected')">
+        <button
+          class="danger"
+          onclick="changeApplicationStatus(
+            ${Number(app.id)},
+            'Rejected'
+          )">
           Reject
         </button>
+
       `;
 
     }else{
 
-      action=`
-        <button class="secondary"
-          onclick="changeApplicationStatus(${app.id},'Pending')">
+      action = `
+
+        <button
+          class="secondary"
+          onclick="changeApplicationStatus(
+            ${Number(app.id)},
+            'Pending'
+          )">
           Pending
         </button>
+
       `;
 
     }
 
-    tr.innerHTML=`
+    tr.innerHTML = `
 
       <td>${safe(app.applicant_name)}</td>
+
       <td>${safe(app.age)}</td>
+
       <td>${safe(app.class)}</td>
+
       <td>${safe(app.post)}</td>
+
       <td>${safe(app.applicant_email)}</td>
+
       <td>${safe(status)}</td>
+
       <td>${action}</td>
 
     `;
@@ -807,24 +1197,37 @@ async function loadApplications(filter="all"){
 }
 
 
-async function changeApplicationStatus(id,status){
+async function changeApplicationStatus(
+  id,
+  status
+){
 
-  if(!confirm(
-    `Application को ${status} करना है?`
-  ))return;
+  if(
+    !confirm(
+      `Application को ${status} करना है?`
+    )
+  ){
+
+    return;
+
+  }
 
   const {data,error} =
     await supabaseClient.rpc(
       "update_application_status",
       {
-        input_application_id:id,
-        input_status:status
+        input_application_id:
+          id,
+
+        input_status:
+          status
       }
     );
 
   if(error){
 
     alert(error.message);
+
     return;
 
   }
@@ -839,7 +1242,9 @@ async function changeApplicationStatus(id,status){
     if(result.exam_code){
 
       alert(
-        `Application Approved.\n\nExam Code:\n${result.exam_code}\n\nCode 2 घंटे बाद applicant को दिखाई देगा।`
+        `Application Approved.\n\n` +
+        `Exam Code:\n${result.exam_code}\n\n` +
+        `Code unlock होने के बाद applicant use कर सकता है।`
       );
 
     }else{
@@ -852,7 +1257,9 @@ async function changeApplicationStatus(id,status){
     }
 
     await loadApplicationCounts();
+
     await loadApplications("all");
+
     await loadExamCodes();
 
   }else{
@@ -867,16 +1274,17 @@ async function changeApplicationStatus(id,status){
 }
 
 
-/* =========================
+/* =====================================================
    MANUAL CODE GENERATOR
-========================= */
+===================================================== */
 
 async function generateManualCode(){
 
   const name =
     document
       .getElementById("manualApplicantName")
-      .value.trim();
+      .value
+      .trim();
 
   const post =
     document
@@ -903,7 +1311,7 @@ async function generateManualCode(){
   }
 
   msg.textContent =
-    "Generating...";
+    "Exam Code generate किया जा रहा है...";
 
   box.classList.add("hidden");
 
@@ -911,16 +1319,23 @@ async function generateManualCode(){
     await supabaseClient.rpc(
       "generate_manual_exam_code",
       {
-        input_applicant_name:name,
-        input_post:post,
-        input_application_id:null
+        input_applicant_name:
+          name,
+
+        input_application_id:
+          null,
+
+        input_post:
+          post
       }
     );
 
   if(error){
 
     msg.innerHTML =
-      `<span class="error">${error.message}</span>`;
+      `<span class="error">
+      ${safe(error.message)}
+      </span>`;
 
     return;
 
@@ -931,11 +1346,17 @@ async function generateManualCode(){
       ? JSON.parse(data)
       : data;
 
-  if(!result || !result.success){
+  if(
+    !result ||
+    !result.success
+  ){
 
     msg.innerHTML =
       `<span class="error">
-      ${result?.message || "Code generate नहीं हुआ।"}
+      ${safe(
+        result?.message ||
+        "Code generate नहीं हुआ।"
+      )}
       </span>`;
 
     return;
@@ -944,12 +1365,18 @@ async function generateManualCode(){
 
   document
     .getElementById("generatedCode")
-    .textContent = result.code;
+    .textContent =
+      result.exam_code ||
+      result.code ||
+      "-";
 
   document
     .getElementById("generatedCodeInfo")
     .textContent =
-      `${result.applicant_name} — ${result.post} — Immediate Access`;
+      `${result.applicant_name} — ` +
+      `${result.post} — ` +
+      `Section ${result.section || "-"} — ` +
+      `Immediate Access`;
 
   box.classList.remove("hidden");
 
@@ -958,14 +1385,18 @@ async function generateManualCode(){
     Exam Code successfully generated.
     </span>`;
 
+  document
+    .getElementById("manualApplicantName")
+    .value = "";
+
   await loadExamCodes();
 
 }
 
 
-/* =========================
+/* =====================================================
    EXAM CODE HISTORY
-========================= */
+===================================================== */
 
 async function loadExamCodes(){
 
@@ -975,47 +1406,232 @@ async function loadExamCodes(){
   const msg =
     document.getElementById("codesMessage");
 
-  /*
-    exam_codes table direct select may be blocked by RLS.
-    Therefore use admin RPC if available.
-  */
+  msg.textContent =
+    "Loading Exam Code History...";
 
   const {data,error} =
-    await supabaseClient
-      .from("exam_codes")
-      .select("*")
-      .order("created_at",{ascending:false})
-      .limit(100);
+    await supabaseClient.rpc(
+      "get_exam_code_history"
+    );
 
   if(error){
 
     msg.innerHTML =
-      `<span class="error">${error.message}</span>`;
+      `<span class="error">
+      ${safe(error.message)}
+      </span>`;
 
     return;
 
   }
 
-  body.innerHTML="";
+  const result =
+    typeof data === "string"
+      ? JSON.parse(data)
+      : data;
 
-  (data || []).forEach(x=>{
+  if(
+    !result ||
+    result.success !== true
+  ){
+
+    msg.innerHTML =
+      `<span class="error">
+      ${safe(
+        result?.message ||
+        "Code history load नहीं हुई।"
+      )}
+      </span>`;
+
+    return;
+
+  }
+
+  allExamCodes =
+    Array.isArray(result.records)
+      ? result.records
+      : [];
+
+  renderExamCodes();
+
+}
+
+
+function renderExamCodes(){
+
+  const body =
+    document.getElementById("codesBody");
+
+  const msg =
+    document.getElementById("codesMessage");
+
+  const search =
+    document
+      .getElementById("codeSearch")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const type =
+    document
+      .getElementById("codeTypeFilter")
+      .value;
+
+  const used =
+    document
+      .getElementById("codeUsedFilter")
+      .value;
+
+  const post =
+    document
+      .getElementById("codePostFilter")
+      .value;
+
+  let rows =
+    allExamCodes.filter(x => {
+
+      const applicationId =
+        x.application_id;
+
+      const isManual =
+        applicationId === null ||
+        applicationId === undefined;
+
+      const recordType =
+        isManual
+          ? "manual"
+          : "application";
+
+      const searchText =
+        [
+          x.exam_code,
+          x.applicant_name,
+          x.application_id,
+          x.post
+        ]
+        .join(" ")
+        .toLowerCase();
+
+      if(
+        search &&
+        !searchText.includes(search)
+      ){
+
+        return false;
+
+      }
+
+      if(
+        type !== "all" &&
+        type !== recordType
+      ){
+
+        return false;
+
+      }
+
+      if(
+        used === "yes" &&
+        x.used !== true
+      ){
+
+        return false;
+
+      }
+
+      if(
+        used === "no" &&
+        x.used === true
+      ){
+
+        return false;
+
+      }
+
+      if(
+        post !== "all" &&
+        String(x.post || "")
+          .toLowerCase()
+        !==
+        post.toLowerCase()
+      ){
+
+        return false;
+
+      }
+
+      return true;
+
+    });
+
+  body.innerHTML = "";
+
+  rows.forEach(x => {
+
+    const isManual =
+      x.application_id === null ||
+      x.application_id === undefined;
+
+    const typeBadge =
+      isManual
+        ? `<span class="badge badge-manual">MANUAL</span>`
+        : `<span class="badge badge-application">APPLICATION</span>`;
 
     const tr =
       document.createElement("tr");
 
-    tr.innerHTML=`
+    tr.innerHTML = `
 
-      <td><strong>${safe(x.code)}</strong></td>
+      <td>
+        <strong>${safe(x.exam_code)}</strong>
+      </td>
 
-      <td>${safe(x.applicant_name)}</td>
+      <td>
+        ${safe(x.applicant_name)}
+      </td>
 
-      <td>${safe(x.post)}</td>
+      <td>
+        ${safe(x.post)}
+      </td>
 
-      <td>${x.used ? "Yes" : "No"}</td>
+      <td>
+        <strong>${safe(x.section || "-")}</strong>
+        <br>
+        <button
+          class="secondary"
+          onclick="openSectionEditor(
+            '${safeJs(x.exam_code)}',
+            '${safeJs(x.section || "A")}'
+          )">
+          Edit
+        </button>
+      </td>
 
-      <td>${formatDate(x.unlock_at)}</td>
+      <td>${typeBadge}</td>
 
-      <td>${formatDate(x.created_at)}</td>
+      <td>
+        ${
+          isManual
+            ? "-"
+            : safe(x.application_id)
+        }
+      </td>
+
+      <td>
+        ${
+          x.used
+            ? "✅ Yes"
+            : "❌ No"
+        }
+      </td>
+
+      <td>
+        ${formatDate(x.unlock_at)}
+      </td>
+
+      <td>
+        ${formatDate(x.created_at)}
+      </td>
 
     `;
 
@@ -1024,14 +1640,136 @@ async function loadExamCodes(){
   });
 
   msg.textContent =
-    `${(data || []).length} code(s) loaded.`;
+    `${rows.length} code(s) shown.`;
 
 }
 
 
-/* =========================
-   RESULTS
-========================= */
+/* =====================================================
+   SECTION EDIT
+===================================================== */
+
+function openSectionEditor(
+  code,
+  section
+){
+
+  document
+    .getElementById("editSectionCode")
+    .value = code;
+
+  document
+    .getElementById("sectionCodeText")
+    .textContent = code;
+
+  document
+    .getElementById("editSection")
+    .value =
+      ["A","B","C","D"].includes(section)
+        ? section
+        : "A";
+
+  document
+    .getElementById("sectionMessage")
+    .textContent = "";
+
+  document
+    .getElementById("sectionModal")
+    .classList.remove("hidden");
+
+}
+
+
+function closeSectionModal(){
+
+  document
+    .getElementById("sectionModal")
+    .classList.add("hidden");
+
+}
+
+
+async function saveSection(){
+
+  const code =
+    document
+      .getElementById("editSectionCode")
+      .value;
+
+  const section =
+    document
+      .getElementById("editSection")
+      .value;
+
+  const msg =
+    document
+      .getElementById("sectionMessage");
+
+  msg.textContent =
+    "Saving section...";
+
+  const {data,error} =
+    await supabaseClient.rpc(
+      "update_exam_section",
+      {
+        input_exam_code:
+          code,
+
+        input_section:
+          section
+      }
+    );
+
+  if(error){
+
+    msg.innerHTML =
+      `<span class="error">
+      ${safe(error.message)}
+      </span>`;
+
+    return;
+
+  }
+
+  const result =
+    typeof data === "string"
+      ? JSON.parse(data)
+      : data;
+
+  if(
+    result?.success
+  ){
+
+    msg.innerHTML =
+      `<span class="success">
+      Exam Section successfully updated.
+      </span>`;
+
+    await loadExamCodes();
+
+    setTimeout(
+      closeSectionModal,
+      700
+    );
+
+  }else{
+
+    msg.innerHTML =
+      `<span class="error">
+      ${safe(
+        result?.message ||
+        "Section update failed."
+      )}
+      </span>`;
+
+  }
+
+}
+
+
+/* =====================================================
+   SUBMISSION HISTORY
+===================================================== */
 
 async function loadResults(){
 
@@ -1041,27 +1779,149 @@ async function loadResults(){
   const msg =
     document.getElementById("resultsMessage");
 
-  msg.textContent="Loading results...";
+  msg.textContent =
+    "Loading Exam Submission History...";
 
   const {data,error} =
-    await supabaseClient
-      .from("exam_submissions")
-      .select("*")
-      .order("submitted_at",{ascending:false})
-      .limit(200);
+    await supabaseClient.rpc(
+      "get_exam_submissions"
+    );
 
   if(error){
 
     msg.innerHTML =
-      `<span class="error">${error.message}</span>`;
+      `<span class="error">
+      ${safe(error.message)}
+      </span>`;
 
     return;
 
   }
 
-  body.innerHTML="";
+  allResults =
+    Array.isArray(data)
+      ? data
+      : [];
 
-  (data || []).forEach(x=>{
+  /*
+    get_exam_submissions का return
+    result_released/section यदि backend
+    से उपलब्ध हो तो preserve रहेगा।
+  */
+
+  document
+    .getElementById("totalSubmissions")
+    .textContent =
+      allResults.length;
+
+  renderResults();
+
+}
+
+
+function renderResults(){
+
+  const body =
+    document.getElementById("resultsBody");
+
+  const msg =
+    document.getElementById("resultsMessage");
+
+  const search =
+    document
+      .getElementById("resultSearch")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const post =
+    document
+      .getElementById("resultPostFilter")
+      .value;
+
+  const resultFilter =
+    document
+      .getElementById("resultFilter")
+      .value;
+
+  const releaseFilter =
+    document
+      .getElementById("releaseFilter")
+      .value;
+
+  let rows =
+    allResults.filter(x => {
+
+      const searchText =
+        [
+          x.applicant_name,
+          x.exam_code,
+          x.post
+        ]
+        .join(" ")
+        .toLowerCase();
+
+      if(
+        search &&
+        !searchText.includes(search)
+      ){
+
+        return false;
+
+      }
+
+      if(
+        post !== "all" &&
+        String(x.post || "")
+          .toLowerCase()
+        !==
+        post.toLowerCase()
+      ){
+
+        return false;
+
+      }
+
+      if(
+        resultFilter !== "all" &&
+        String(x.final_result || "")
+          .toUpperCase()
+        !==
+        resultFilter
+      ){
+
+        return false;
+
+      }
+
+      const released =
+        x.result_released === true;
+
+      if(
+        releaseFilter === "released" &&
+        !released
+      ){
+
+        return false;
+
+      }
+
+      if(
+        releaseFilter === "pending" &&
+        released
+      ){
+
+        return false;
+
+      }
+
+      return true;
+
+    });
+
+  body.innerHTML = "";
+
+  rows.forEach(x => {
 
     const released =
       x.result_released === true;
@@ -1073,8 +1933,12 @@ async function loadResults(){
 
     const hours =
       submitted
-        ? (Date.now()-submitted.getTime())
-          /(1000*60*60)
+        ? (
+            Date.now() -
+            submitted.getTime()
+          )
+          /
+          (1000 * 60 * 60)
         : 0;
 
     const availableNormally =
@@ -1083,57 +1947,108 @@ async function loadResults(){
     let action = `
 
       <button
-        onclick='openResultEditor(${JSON.stringify(x)})'>
-        Edit Result
+        onclick='openSubmissionDetail(
+          ${JSON.stringify(x)}
+        )'>
+        Detail
+      </button>
+
+      <button
+        onclick='openResultEditor(
+          ${JSON.stringify(x)}
+        )'>
+        Edit Marks
       </button>
 
     `;
 
-    if(!released && !availableNormally){
+    if(
+      !released &&
+      !availableNormally
+    ){
 
       action += `
 
         <button
-          onclick="releaseResultNow(${x.id})">
-          Release Result Now
+          class="green"
+          onclick="releaseResultNow(
+            ${Number(x.id)}
+          )">
+          Release Now
         </button>
 
       `;
 
     }
 
-    if(released){
+    const releaseText =
+      released
+        ? `<span class="badge badge-pass">
+             RELEASED
+           </span>`
+        : availableNormally
+          ? `<span class="badge badge-pass">
+               AVAILABLE
+             </span>`
+          : `<span class="badge badge-fail">
+               24H PENDING
+             </span>`;
 
-      action += `
-        <div class="small success">
-          Released Early
-        </div>
-      `;
-
-    }
+    const resultBadge =
+      String(x.final_result || "")
+        .toUpperCase()
+        === "PASS"
+        ? `<span class="badge badge-pass">PASS</span>`
+        : `<span class="badge badge-fail">FAIL</span>`;
 
     const tr =
       document.createElement("tr");
 
-    tr.innerHTML=`
+    tr.innerHTML = `
 
-      <td>${safe(x.applicant_name)}</td>
+      <td>
+        ${safe(x.applicant_name)}
+      </td>
 
-      <td>${safe(x.post)}</td>
+      <td>
+        ${safe(x.post)}
+      </td>
 
-      <td>${safe(x.exam_code)}</td>
+      <td>
+        <strong>${safe(x.exam_code)}</strong>
+      </td>
 
-      <td>${x.objective_score ?? 0}/18</td>
+      <td>
+        ${safe(x.exam_section || "-")}
+      </td>
 
-      <td>${x.subjective_marks ?? 0}/10</td>
+      <td>
+        ${Number(x.objective_score || 0)}/18
+      </td>
 
-      <td>${x.total_marks ?? 0}/28</td>
+      <td>
+        ${Number(x.subjective_marks || 0)}/10
+      </td>
 
-      <td>${safe(x.final_result)}</td>
+      <td>
+        ${Number(x.total_marks || 0)}/28
+      </td>
 
-      <td>${formatDate(x.submitted_at)}</td>
+      <td>
+        ${resultBadge}
+      </td>
 
-      <td>${action}</td>
+      <td>
+        ${releaseText}
+      </td>
+
+      <td>
+        ${formatDate(x.submitted_at)}
+      </td>
+
+      <td>
+        ${action}
+      </td>
 
     `;
 
@@ -1142,32 +2057,132 @@ async function loadResults(){
   });
 
   msg.textContent =
-    `${(data || []).length} result(s) loaded.`;
+    `${rows.length} submission(s) shown.`;
 
 }
 
 
-/* =========================
+/* =====================================================
+   SUBMISSION DETAIL
+===================================================== */
+
+function openSubmissionDetail(row){
+
+  const detail =
+    document.getElementById(
+      "detailContent"
+    );
+
+  detail.innerHTML = `
+
+    <div class="detail-grid">
+
+      <div class="detail-item">
+        <strong>Applicant</strong><br>
+        ${safe(row.applicant_name)}
+      </div>
+
+      <div class="detail-item">
+        <strong>Exam Code</strong><br>
+        ${safe(row.exam_code)}
+      </div>
+
+      <div class="detail-item">
+        <strong>Post</strong><br>
+        ${safe(row.post)}
+      </div>
+
+      <div class="detail-item">
+        <strong>Section</strong><br>
+        ${safe(row.exam_section || "-")}
+      </div>
+
+      <div class="detail-item">
+        <strong>Objective</strong><br>
+        ${Number(row.objective_score || 0)}/18
+      </div>
+
+      <div class="detail-item">
+        <strong>Subjective</strong><br>
+        ${Number(row.subjective_marks || 0)}/10
+      </div>
+
+      <div class="detail-item">
+        <strong>Total</strong><br>
+        ${Number(row.total_marks || 0)}/28
+      </div>
+
+      <div class="detail-item">
+        <strong>Result</strong><br>
+        ${safe(row.final_result)}
+      </div>
+
+    </div>
+
+    <h3>Subjective Answer 1</h3>
+
+    <div class="answer-box">
+      ${safe(row.subjective_answer_1 || "उत्तर नहीं दिया गया।")}
+    </div>
+
+    <h3>Subjective Answer 2</h3>
+
+    <div class="answer-box">
+      ${safe(row.subjective_answer_2 || "उत्तर नहीं दिया गया।")}
+    </div>
+
+    <p class="small">
+      Submitted:
+      ${formatDate(row.submitted_at)}
+    </p>
+
+  `;
+
+  document
+    .getElementById("detailModal")
+    .classList.remove("hidden");
+
+}
+
+
+function closeDetailModal(){
+
+  document
+    .getElementById("detailModal")
+    .classList.add("hidden");
+
+}
+
+
+/* =====================================================
    EARLY RESULT RELEASE
-========================= */
+===================================================== */
 
 async function releaseResultNow(id){
 
-  if(!confirm(
-    "क्या यह Result 24 घंटे से पहले applicant को जारी करना है?"
-  ))return;
+  if(
+    !confirm(
+      "क्या यह Result 24 घंटे से पहले applicant को जारी करना है?"
+    )
+  ){
+
+    return;
+
+  }
 
   const {data,error} =
     await supabaseClient.rpc(
       "release_exam_result",
       {
-        input_submission_id:id
+        input_submission_id:
+          id
       }
     );
 
   if(error){
 
     alert(error.message);
+
     return;
 
   }
@@ -1197,38 +2212,44 @@ async function releaseResultNow(id){
 }
 
 
-/* =========================
+/* =====================================================
    RESULT EDITOR
-========================= */
+===================================================== */
 
 function openResultEditor(row){
 
   document
     .getElementById("editSubmissionId")
-    .value = row.id;
+    .value =
+      row.id;
 
   document
     .getElementById("editObjective")
-    .value = row.objective_score ?? 0;
+    .value =
+      row.objective_score ?? 0;
 
   document
     .getElementById("editSubjective")
-    .value = row.subjective_marks ?? 0;
+    .value =
+      row.subjective_marks ?? 0;
 
   document
     .getElementById("editTotal")
-    .value = row.total_marks ?? 0;
+    .value =
+      row.total_marks ?? 0;
 
   document
     .getElementById("editResult")
     .value =
-      row.final_result === "FAIL"
+      String(row.final_result || "")
+        .toUpperCase()
+        === "FAIL"
         ? "FAIL"
         : "PASS";
 
   document
     .getElementById("editMessage")
-    .textContent="";
+    .textContent = "";
 
   document
     .getElementById("resultModal")
@@ -1245,6 +2266,10 @@ function closeResultModal(){
 
 }
 
+
+/* =====================================================
+   SAVE RESULT
+===================================================== */
 
 async function saveResult(){
 
@@ -1285,34 +2310,83 @@ async function saveResult(){
     document
       .getElementById("editMessage");
 
-  msg.textContent =
-    "Saving...";
 
-  const {data,error} =
-    await supabaseClient.rpc(
-      "update_exam_result",
-      {
-        input_submission_id:id,
-        input_objective:objective,
-        input_subjective:subjective,
-        input_total:total,
-        input_final_result:finalResult
-      }
-    );
-
-  if(error){
+  if(
+    objective < 0 ||
+    objective > 18 ||
+    subjective < 0 ||
+    subjective > 10 ||
+    total < 0 ||
+    total > 28
+  ){
 
     msg.innerHTML =
-      `<span class="error">${error.message}</span>`;
+      `<span class="error">
+      Marks सीमा गलत है।
+      </span>`;
 
     return;
 
   }
 
+
+  if(
+    objective + subjective !== total
+  ){
+
+    msg.innerHTML =
+      `<span class="error">
+      Total = Objective + Subjective होना चाहिए।
+      </span>`;
+
+    return;
+
+  }
+
+
+  msg.textContent =
+    "Saving...";
+
+
+  const {data,error} =
+    await supabaseClient.rpc(
+      "update_exam_result",
+      {
+        input_submission_id:
+          id,
+
+        input_objective:
+          objective,
+
+        input_subjective:
+          subjective,
+
+        input_total:
+          total,
+
+        input_final_result:
+          finalResult
+      }
+    );
+
+
+  if(error){
+
+    msg.innerHTML =
+      `<span class="error">
+      ${safe(error.message)}
+      </span>`;
+
+    return;
+
+  }
+
+
   const result =
     typeof data === "string"
       ? JSON.parse(data)
       : data;
+
 
   if(result?.success){
 
@@ -1332,7 +2406,10 @@ async function saveResult(){
 
     msg.innerHTML =
       `<span class="error">
-      ${result?.message || "Save failed."}
+      ${safe(
+        result?.message ||
+        "Save failed."
+      )}
       </span>`;
 
   }
@@ -1340,14 +2417,20 @@ async function saveResult(){
 }
 
 
-/* =========================
+/* =====================================================
    HELPERS
-========================= */
+===================================================== */
 
 function safe(value){
 
-  if(value===null || value===undefined)
+  if(
+    value === null ||
+    value === undefined
+  ){
+
     return "";
+
+  }
 
   return String(value)
     .replaceAll("&","&amp;")
@@ -1359,25 +2442,48 @@ function safe(value){
 }
 
 
+function safeJs(value){
+
+  return String(value || "")
+    .replaceAll("\\","\\\\")
+    .replaceAll("'","\\'")
+    .replaceAll("\n"," ")
+    .replaceAll("\r"," ");
+
+}
+
+
 function formatDate(value){
 
-  if(!value)return "-";
+  if(!value){
+
+    return "-";
+
+  }
 
   try{
 
     return new Date(value)
-      .toLocaleString("en-IN");
+      .toLocaleString(
+        "en-IN",
+        {
+          dateStyle:"medium",
+          timeStyle:"short"
+        }
+      );
 
   }catch{
 
-    return value;
+    return String(value);
 
   }
 
 }
 
 
-/* START */
+/* =====================================================
+   START
+===================================================== */
 
 checkSession();
 

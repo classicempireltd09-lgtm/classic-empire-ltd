@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Classic Empire — Attendance Dashboard</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #080808;
+      color: white;
+    }
+
+    header {
+      background: #111;
+      border-bottom: 1px solid #333;
+      text-align: center;
+      padding: 20px;
+    }
+
+    header img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+
+    header h1 {
+      color: #ffd700;
+      margin: 8px 0;
+    }
+
+    header p {
+      color: #aaa;
+      margin: 5px;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 1100px;
+      margin: 25px auto;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stat {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .stat h2 {
+      color: #ffd700;
+      margin: 0 0 8px;
+    }
+
+    .stat strong {
+      font-size: 28px;
+    }
+
+    .card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 15px;
+      padding: 18px;
+      overflow-x: auto;
+    }
+
+    .card h2 {
+      color: #ffd700;
+      margin-top: 0;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+
+    input {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #555;
+      background: #080808;
+      color: white;
+    }
+
+    button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      background: #ffd700;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      min-width: 700px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #333;
+      text-align: left;
+    }
+
+    th {
+      color: #ffd700;
+      background: #171717;
+    }
+
+    .present {
+      color: #42e65b;
+      font-weight: bold;
+    }
+
+    .absent {
+      color: #ff5555;
+      font-weight: bold;
+    }
+
+    #message {
+      text-align: center;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .error {
+      display: block !important;
+      background: #351212;
+      border: 1px solid #ff4444;
+    }
+
+    footer {
+      text-align: center;
+      color: #777;
+      padding: 30px 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <img
+    src="classic-empire-logo.png"
+    alt="Classic Empire Logo"
+  >
+
+  <h1>Classic Empire Ltd.</h1>
+
+  <p>Attendance Dashboard</p>
+
+</header>
+
+<div class="container">
+
+  <div id="message"></div>
+
+  <div class="stats">
+
+    <div class="stat">
+      <h2>कुल Records</h2>
+      <strong id="totalRecords">0</strong>
+    </div>
+
+    <div class="stat">
+      <h2>Present</h2>
+      <strong id="presentCount">0</strong>
+    </div>
+
+    <div class="stat">
+      <h2>Members</h2>
+      <strong id="memberCount">0</strong>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>📋 Attendance History</h2>
+
+    <div class="controls">
+
+      <input
+        type="text"
+        id="search"
+        placeholder="Member का नाम खोजें..."
+        oninput="filterTable()"
+      >
+
+      <button onclick="loadAttendance()">
+        🔄 Refresh
+      </button>
+
+    </div>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Member ID</th>
+          <th>Member Name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody id="attendanceBody">
+        <tr>
+          <td colspan="6">
+            Loading...
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+<footer>
+  Classic Empire Ltd • Chakla Ghat, Kishanganj, Bihar, India
+</footer>
+
+<script>
+
+const SUPABASE_URL =
+  "https://hjatspkzgoddcpgwfkxo.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+let attendanceData = [];
+
+
+/* =========================
+   LOAD ATTENDANCE
+========================= */
+
+async function loadAttendance() {
+
+  hideMessage();
+
+  const {
+    data: sessionData
+  } = await supabaseClient.auth.getSession();
+
+  if (!sessionData.session) {
+
+    showMessage(
+      "🔒 Attendance Dashboard देखने के लिए login आवश्यक है।"
+    );
+
+    document.getElementById(
+      "attendanceBody"
+    ).innerHTML = `
+      <tr>
+        <td colspan="6">
+          Login required
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+  const {
+    data,
+    error
+  } = await supabaseClient.rpc(
+    "get_attendance_history"
+  );
+
+  if (error) {
+
+    console.error(error);
+
+    showMessage(
+      "❌ Attendance history load नहीं हो सकी।"
+    );
+
+    return;
+  }
+
+  attendanceData =
+    Array.isArray(data)
+      ? data
+      : [];
+
+  updateStats();
+
+  renderTable(attendanceData);
+}
+
+
+/* =========================
+   STATISTICS
+========================= */
+
+function updateStats() {
+
+  document.getElementById(
+    "totalRecords"
+  ).textContent =
+    attendanceData.length;
+
+  const present =
+    attendanceData.filter(
+      item =>
+        item.status === "Present"
+    ).length;
+
+  document.getElementById(
+    "presentCount"
+  ).textContent = present;
+
+  const members =
+    new Set(
+      attendanceData.map(
+        item => item.member_id
+      )
+    );
+
+  document.getElementById(
+    "memberCount"
+  ).textContent =
+    members.size;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+function renderTable(data) {
+
+  const body =
+    document.getElementById(
+      "attendanceBody"
+    );
+
+  if (!data.length) {
+
+    body.innerHTML = `
+      <tr>
+        <td colspan="6">
+          अभी कोई Attendance record नहीं है।
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+  body.innerHTML =
+    data.map(item => {
+
+      const date =
+        new Date(
+          item.attendance_date
+        ).toLocaleDateString(
+          "hi-IN"
+        );
+
+      const time =
+        new Date(
+          item.attendance_time
+        ).toLocaleTimeString(
+          "hi-IN",
+          {
+            hour: "2-digit",
+            minute: "2-digit"
+          }
+        );
+
+      const statusClass =
+        item.status === "Present"
+          ? "present"
+          : "absent";
+
+      return `
+        <tr>
+          <td>${item.id}</td>
+          <td>${item.member_id}</td>
+          <td>${escapeHtml(item.member_name)}</td>
+          <td>${date}</td>
+          <td>${time}</td>
+          <td class="${statusClass}">
+            ${escapeHtml(item.status)}
+          </td>
+        </tr>
+      `;
+
+    }).join("");
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function filterTable() {
+
+  const search =
+    document.getElementById(
+      "search"
+    ).value
+      .toLowerCase()
+      .trim();
+
+  const filtered =
+    attendanceData.filter(
+      item =>
+        item.member_name
+          .toLowerCase()
+          .includes(search)
+    );
+
+  renderTable(filtered);
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(message) {
+
+  const box =
+    document.getElementById(
+      "message"
+    );
+
+  box.textContent = message;
+
+  box.className = "error";
+}
+
+
+function hideMessage() {
+
+  const box =
+    document.getElementById(
+      "message"
+    );
+
+  box.textContent = "";
+
+  box.className = "";
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadAttendance();
+
+</script>
+
+</body>
+</html>

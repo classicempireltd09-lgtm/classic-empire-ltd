@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Classic Empire - Marksheet Settings</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#080808;
+  color:#fff;
+  padding:20px;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+}
+
+.logo{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.logo img{
+  width:100px;
+  height:100px;
+  object-fit:contain;
+}
+
+h1{
+  text-align:center;
+  color:#ffd700;
+  margin-bottom:8px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#aaa;
+  margin-bottom:25px;
+}
+
+.card{
+  background:#111;
+  border:1px solid #333;
+  border-radius:16px;
+  padding:22px;
+  margin-bottom:20px;
+}
+
+label{
+  display:block;
+  margin-bottom:8px;
+  color:#ffd700;
+  font-weight:bold;
+}
+
+input[type="file"]{
+  width:100%;
+  padding:12px;
+  background:#080808;
+  color:#fff;
+  border:1px solid #444;
+  border-radius:10px;
+  margin-bottom:15px;
+}
+
+.preview{
+  text-align:center;
+  min-height:120px;
+  padding:15px;
+  border:1px dashed #555;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+
+.preview img{
+  max-width:220px;
+  max-height:160px;
+  object-fit:contain;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:10px;
+  background:#ffd700;
+  color:#000;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+}
+
+button:disabled{
+  opacity:.5;
+}
+
+.status{
+  text-align:center;
+  margin-top:15px;
+  min-height:25px;
+}
+
+.success{
+  color:#00ff88;
+}
+
+.error{
+  color:#ff5555;
+}
+
+.back{
+  display:block;
+  text-align:center;
+  color:#ffd700;
+  text-decoration:none;
+  margin-top:20px;
+}
+
+footer{
+  text-align:center;
+  color:#777;
+  margin-top:30px;
+  font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="logo">
+    <img src="classic-empire-logo.png" alt="Classic Empire">
+  </div>
+
+  <h1>Marksheet Settings</h1>
+  <div class="subtitle">
+    President Control Panel
+  </div>
+
+  <div class="card">
+
+    <label>Official Seal</label>
+
+    <input
+      type="file"
+      id="sealFile"
+      accept="image/png,image/jpeg,image/webp"
+    >
+
+    <div class="preview" id="sealPreview">
+      Seal preview
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <label>President Signature</label>
+
+    <input
+      type="file"
+      id="signatureFile"
+      accept="image/png,image/jpeg,image/webp"
+    >
+
+    <div class="preview" id="signaturePreview">
+      Signature preview
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <button id="saveBtn">
+      Save Marksheet Assets
+    </button>
+
+    <div id="status" class="status"></div>
+
+  </div>
+
+  <a class="back" href="admin.html">
+    ← Admin Panel
+  </a>
+
+  <footer>
+    Classic Empire Ltd • Chakla Ghat, Kishanganj, Bihar, India
+  </footer>
+
+</div>
+
+<script>
+
+const SUPABASE_URL =
+"https://hjatspkzgoddcpgwfkxo.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
+
+const supabaseClient =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const sealFile =
+document.getElementById("sealFile");
+
+const signatureFile =
+document.getElementById("signatureFile");
+
+const sealPreview =
+document.getElementById("sealPreview");
+
+const signaturePreview =
+document.getElementById("signaturePreview");
+
+const saveBtn =
+document.getElementById("saveBtn");
+
+const statusBox =
+document.getElementById("status");
+
+
+function previewImage(file, box){
+
+  if(!file){
+    box.innerHTML = "Preview";
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    box.innerHTML =
+      `<img src="${e.target.result}" alt="Preview">`;
+
+  };
+
+  reader.readAsDataURL(file);
+}
+
+
+sealFile.addEventListener(
+  "change",
+  function(){
+    previewImage(
+      this.files[0],
+      sealPreview
+    );
+  }
+);
+
+
+signatureFile.addEventListener(
+  "change",
+  function(){
+    previewImage(
+      this.files[0],
+      signaturePreview
+    );
+  }
+);
+
+
+async function checkPresident(){
+
+  const {
+    data:{
+      session
+    }
+  } = await supabaseClient
+    .auth
+    .getSession();
+
+  if(!session){
+
+    statusBox.textContent =
+      "कृपया President login करें।";
+
+    statusBox.className =
+      "status error";
+
+    saveBtn.disabled = true;
+
+    return false;
+  }
+
+  const {
+    data,
+    error
+  } = await supabaseClient.rpc(
+    "check_admin_access"
+  );
+
+  if(error){
+
+    statusBox.textContent =
+      "Access check failed.";
+
+    statusBox.className =
+      "status error";
+
+    saveBtn.disabled = true;
+
+    return false;
+  }
+
+  if(!data || data.allowed !== true){
+
+    statusBox.textContent =
+      "केवल President को अनुमति है।";
+
+    statusBox.className =
+      "status error";
+
+    saveBtn.disabled = true;
+
+    return false;
+  }
+
+  return true;
+}
+
+
+async function uploadFile(file, prefix){
+
+  if(!file){
+    return null;
+  }
+
+  const extension =
+    file.name
+      .split(".")
+      .pop()
+      .toLowerCase();
+
+  const fileName =
+    prefix +
+    "-" +
+    Date.now() +
+    "." +
+    extension;
+
+  const path =
+    "official/" +
+    fileName;
+
+  const {
+    error
+  } = await supabaseClient
+    .storage
+    .from("marksheet-assets")
+    .upload(
+      path,
+      file,
+      {
+        upsert:true,
+        contentType:file.type
+      }
+    );
+
+  if(error){
+    throw error;
+  }
+
+  const {
+    data
+  } = supabaseClient
+    .storage
+    .from("marksheet-assets")
+    .getPublicUrl(path);
+
+  return data.publicUrl;
+}
+
+
+saveBtn.addEventListener(
+  "click",
+  async function(){
+
+    try{
+
+      saveBtn.disabled = true;
+
+      statusBox.textContent =
+        "Uploading...";
+
+      statusBox.className =
+        "status";
+
+      const seal =
+        sealFile.files[0];
+
+      const signature =
+        signatureFile.files[0];
+
+      if(!seal && !signature){
+
+        throw new Error(
+          "कम से कम एक image चुनें।"
+        );
+
+      }
+
+      const allowedTypes = [
+        "image/png",
+        "image/jpeg",
+        "image/webp"
+      ];
+
+      if(
+        seal &&
+        !allowedTypes.includes(seal.type)
+      ){
+
+        throw new Error(
+          "Seal केवल PNG, JPG या WEBP हो सकती है।"
+        );
+
+      }
+
+      if(
+        signature &&
+        !allowedTypes.includes(signature.type)
+      ){
+
+        throw new Error(
+          "Signature केवल PNG, JPG या WEBP हो सकती है।"
+        );
+
+      }
+
+      let sealUrl = null;
+      let signatureUrl = null;
+
+      if(seal){
+
+        sealUrl =
+          await uploadFile(
+            seal,
+            "official-seal"
+          );
+
+      }
+
+      if(signature){
+
+        signatureUrl =
+          await uploadFile(
+            signature,
+            "president-signature"
+          );
+
+      }
+
+      const {
+        data,
+        error
+      } = await supabaseClient.rpc(
+        "update_marksheet_settings",
+        {
+          input_seal_url:
+            sealUrl || "",
+
+          input_signature_url:
+            signatureUrl || ""
+        }
+      );
+
+      if(error){
+        throw error;
+      }
+
+      if(!data || data.success !== true){
+
+        throw new Error(
+          data?.message ||
+          "Settings save नहीं हुईं।"
+        );
+
+      }
+
+      statusBox.textContent =
+        "✅ Marksheet assets successfully saved.";
+
+      statusBox.className =
+        "status success";
+
+    }catch(error){
+
+      console.error(error);
+
+      statusBox.textContent =
+        "❌ " +
+        (error.message ||
+        "Something went wrong.");
+
+      statusBox.className =
+        "status error";
+
+    }finally{
+
+      saveBtn.disabled = false;
+
+    }
+
+  }
+);
+
+
+checkPresident();
+
+</script>
+
+</body>
+</html>

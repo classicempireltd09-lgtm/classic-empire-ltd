@@ -1,170 +1,232 @@
+हाँ भाई 👍 पूरा नया admin.html दे रहा हूँ। इसमें Section वाला fix पहले से लगा हुआ है और बाकी current Exam Code History + Submission/Result management भी रहेगा।
+इसे पूरा replace करके admin.html में डाल देना।
 <!DOCTYPE html>
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Classic Empire Ltd - President Admin Panel</title>
+<title>Classic Empire Ltd — Admin Panel</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 body{
-  margin:0;
   font-family:Arial,sans-serif;
   background:#080808;
   color:#fff;
+  min-height:100vh;
 }
 
 header{
-  background:#111;
-  border-bottom:2px solid #d4af37;
-  padding:15px;
   position:sticky;
   top:0;
-  z-index:1000;
-}
-
-.header{
-  max-width:1250px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-}
-
-.brand{
+  z-index:50;
+  background:#111;
+  border-bottom:1px solid #d4af37;
+  padding:14px;
   display:flex;
   align-items:center;
   gap:12px;
 }
 
-.logo{
-  width:55px;
-  height:55px;
+header img{
+  width:48px;
+  height:48px;
   object-fit:contain;
-  border-radius:50%;
 }
 
-h1,h2,h3{
-  color:#d4af37;
+header h1{
+  color:#ffd700;
+  font-size:20px;
+}
+
+header p{
+  color:#aaa;
+  font-size:12px;
+  margin-top:3px;
 }
 
 .container{
+  width:94%;
   max-width:1250px;
-  margin:auto;
-  padding:20px;
+  margin:25px auto;
 }
 
-.panel{
-  background:#151515;
+.card{
+  background:#111;
   border:1px solid #333;
-  border-radius:12px;
-  padding:20px;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:20px;
+  box-shadow:0 0 15px rgba(255,215,0,.05);
+}
+
+.card h2{
+  color:#ffd700;
+  margin-bottom:15px;
+  font-size:19px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:11px;
+  margin:6px 0 12px;
+  background:#080808;
+  border:1px solid #444;
+  border-radius:8px;
+  color:#fff;
+  outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#ffd700;
+}
+
+button{
+  border:0;
+  border-radius:8px;
+  padding:10px 15px;
+  cursor:pointer;
+  font-weight:bold;
+  margin:4px;
+}
+
+.gold{
+  background:#ffd700;
+  color:#000;
+}
+
+.dark{
+  background:#222;
+  color:#fff;
+  border:1px solid #555;
+}
+
+.red{
+  background:#b00020;
+  color:#fff;
+}
+
+.green{
+  background:#16823b;
+  color:#fff;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
   margin-bottom:20px;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:15px;
-}
-
 .stat{
-  background:#101010;
+  background:#111;
   border:1px solid #333;
-  border-radius:10px;
+  border-radius:12px;
   padding:18px;
   text-align:center;
 }
 
 .stat strong{
   display:block;
+  color:#ffd700;
   font-size:28px;
-  color:#d4af37;
   margin-top:8px;
 }
 
-input,select,textarea{
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
   width:100%;
-  padding:11px;
-  margin:7px 0 12px;
+  border-collapse:collapse;
+  min-width:850px;
+}
+
+th,
+td{
+  padding:10px;
+  border-bottom:1px solid #333;
+  text-align:left;
+  font-size:13px;
+}
+
+th{
+  color:#ffd700;
+  background:#181818;
+}
+
+.badge{
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:20px;
+  font-size:11px;
   background:#222;
-  color:#fff;
   border:1px solid #555;
-  border-radius:7px;
 }
 
-textarea{
-  min-height:100px;
-  resize:vertical;
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.82);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:15px;
 }
 
-button{
-  background:#d4af37;
-  color:#000;
-  border:0;
-  border-radius:7px;
-  padding:11px 16px;
-  cursor:pointer;
-  font-weight:bold;
-  margin:4px;
+.modal-box{
+  width:100%;
+  max-width:600px;
+  max-height:90vh;
+  overflow-y:auto;
+  background:#111;
+  border:1px solid #ffd700;
+  border-radius:14px;
+  padding:20px;
 }
 
-button:hover{
-  background:#fff;
-}
-
-button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
-.danger{
-  background:#b3261e;
-  color:#fff;
-}
-
-.secondary{
+.close{
+  float:right;
   background:#333;
   color:#fff;
 }
 
-.blue{
-  background:#1976d2;
-  color:#fff;
-}
-
-.green{
-  background:#16803c;
-  color:#fff;
-}
-
 .message{
-  padding:12px;
+  padding:10px;
+  border-radius:8px;
   margin:10px 0;
-  border-radius:7px;
-  background:#111;
+  display:none;
 }
 
 .success{
-  color:#70e070;
+  display:block;
+  background:#123d20;
+  border:1px solid #16823b;
 }
 
 .error{
-  color:#ff7777;
-}
-
-.warning{
-  color:#ffd700;
+  display:block;
+  background:#42131b;
+  border:1px solid #b00020;
 }
 
 .small{
-  color:#aaa;
-  font-size:13px;
+  color:#999;
+  font-size:12px;
 }
 
 .hidden{
@@ -176,684 +238,433 @@ button:disabled{
   margin:70px auto;
 }
 
-.table-wrap{
-  overflow-x:auto;
-  margin-top:15px;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:1100px;
-}
-
-th,td{
-  border:1px solid #333;
-  padding:10px;
+.logo-center{
   text-align:center;
-  vertical-align:middle;
+  margin-bottom:20px;
 }
 
-th{
-  background:#d4af37;
-  color:#000;
+.logo-center img{
+  width:90px;
+  height:90px;
+  object-fit:contain;
 }
 
-.code-box{
-  background:#000;
-  border:2px solid #d4af37;
-  padding:18px;
-  border-radius:10px;
-  text-align:center;
-  margin-top:15px;
-}
-
-.generated-code{
-  font-size:26px;
-  color:#d4af37;
-  font-weight:bold;
-  letter-spacing:2px;
-  margin:10px 0;
-}
-
-.badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:bold;
-}
-
-.badge-manual{
-  background:#513600;
+a{
   color:#ffd700;
 }
 
-.badge-application{
-  background:#173d2a;
-  color:#70e070;
-}
-
-.badge-pass{
-  background:#173d2a;
-  color:#70e070;
-}
-
-.badge-fail{
-  background:#451515;
-  color:#ff7777;
-}
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.88);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:5000;
-  padding:15px;
-  overflow:auto;
-}
-
-.modal-box{
-  width:100%;
-  max-width:700px;
-  max-height:92vh;
-  overflow:auto;
-  background:#151515;
-  border:1px solid #d4af37;
-  border-radius:12px;
-  padding:20px;
-}
-
-.detail-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-
-.detail-item{
-  background:#101010;
-  border:1px solid #333;
-  padding:12px;
-  border-radius:8px;
-}
-
-.answer-box{
-  background:#101010;
-  border:1px solid #333;
-  border-radius:8px;
-  padding:12px;
-  margin:10px 0;
-  white-space:pre-wrap;
-  line-height:1.6;
-}
-
-.filters{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr 1fr;
-  gap:10px;
-  align-items:end;
-}
-
-@media(max-width:700px){
-
-  .header{
-    flex-direction:column;
-    align-items:stretch;
-  }
-
-  .detail-grid{
-    grid-template-columns:1fr;
-  }
-
-  .filters{
-    grid-template-columns:1fr;
+@media(max-width:600px){
+  header h1{
+    font-size:16px;
   }
 
   .container{
-    padding:10px;
+    width:96%;
   }
 
+  .card{
+    padding:13px;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- LOGIN -->
+<div id="loginScreen" class="login card">
+
+  <div class="logo-center">
+    <img src="classic-empire-logo.png" alt="Classic Empire Ltd">
+    <h2>Classic Empire Ltd</h2>
+    <p class="small">President / Admin Login</p>
+  </div>
+
+  <button class="gold" style="width:100%;" onclick="login()">
+    Login with Supabase
+  </button>
+
+  <div id="loginMsg" class="message"></div>
+</div>
+
+
+<!-- ADMIN -->
+<div id="adminScreen" class="hidden">
+
 <header>
-<div class="header">
+  <img src="classic-empire-logo.png" alt="Classic Empire Ltd">
 
-<div class="brand">
-<img src="classic-empire-logo.png" class="logo" alt="Classic Empire Ltd Logo">
+  <div>
+    <h1>Classic Empire Ltd — Administration</h1>
+    <p>President Control Panel</p>
+  </div>
 
-<div>
-<h2 style="margin:0">Classic Empire Ltd</h2>
-<div class="small">President Admin Panel</div>
-</div>
-</div>
-
-<button onclick="logout()">Logout</button>
-
-</div>
+  <button class="red" style="margin-left:auto;" onclick="logout()">
+    Logout
+  </button>
 </header>
 
 
 <div class="container">
 
-<!-- LOGIN -->
+  <!-- OVERVIEW -->
+  <div class="stats">
 
-<div id="loginPanel" class="panel login">
+    <div class="stat">
+      Applications
+      <strong id="totalApplications">0</strong>
+    </div>
 
-<h2>🔐 Admin Login</h2>
+    <div class="stat">
+      Pending
+      <strong id="pendingApplications">0</strong>
+    </div>
 
-<input
-id="email"
-type="email"
-placeholder="Admin Email"
->
+    <div class="stat">
+      Approved
+      <strong id="approvedApplications">0</strong>
+    </div>
 
-<input
-id="password"
-type="password"
-placeholder="Password"
->
+    <div class="stat">
+      Rejected
+      <strong id="rejectedApplications">0</strong>
+    </div>
 
-<button onclick="login()" style="width:100%">
-Login
-</button>
+  </div>
 
-<div id="loginMessage" class="message"></div>
 
-</div>
+  <!-- PRESIDENT -->
+  <div class="card">
 
+    <h2>👑 President Control</h2>
 
-<!-- DASHBOARD -->
+    <p>
+      <b>President:</b> Noor Ahmad
+    </p>
 
-<div id="dashboard" class="hidden">
+    <p class="small" style="margin-top:7px;">
+      President is the founder and permanent President of
+      Classic Empire Ltd. No other authority can change the
+      President under the normal system.
+    </p>
 
-<div class="panel">
+  </div>
 
-<h2>President Admin Dashboard</h2>
 
-<p>
-Logged in:
-<strong id="loggedEmail"></strong>
-</p>
+  <!-- APPLICATIONS -->
+  <div class="card">
 
-<p>
-Access:
-<strong>President / Admin Only</strong>
-</p>
+    <h2>📋 Application Management</h2>
 
-</div>
+    <button class="gold" onclick="loadApplications()">
+      Refresh Applications
+    </button>
 
+    <div id="applicationMsg" class="message"></div>
 
-<!-- APPLICATION COUNTS -->
+    <div class="table-wrap">
 
-<div class="grid">
+      <table>
 
-<div class="stat">
-Total Applications
-<strong id="totalApplications">0</strong>
-</div>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Applicant</th>
+            <th>Age</th>
+            <th>Class</th>
+            <th>Post</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-<div class="stat">
-Pending
-<strong id="pendingApplications">0</strong>
-</div>
+        <tbody id="applicationsBody">
+        </tbody>
 
-<div class="stat">
-Approved
-<strong id="approvedApplications">0</strong>
-</div>
+      </table>
 
-<div class="stat">
-Rejected
-<strong id="rejectedApplications">0</strong>
-</div>
+    </div>
 
-<div class="stat">
-Exam Submissions
-<strong id="totalSubmissions">0</strong>
-</div>
+  </div>
 
-</div>
 
+  <!-- MANUAL CODE -->
+  <div class="card">
 
-<!-- APPLICATION MANAGEMENT -->
+    <h2>🔐 Manual Exam Code Generator</h2>
 
-<div class="panel">
+    <p class="small">
+      President/Admin emergency or manual use के लिए
+      application के बिना भी exam code generate कर सकता है।
+    </p>
 
-<h2>📋 Application Management</h2>
+    <input
+      id="manualApplicant"
+      type="text"
+      placeholder="Applicant Name"
+    >
 
-<button onclick="loadApplications('all')">All</button>
-<button onclick="loadApplications('pending')">Pending</button>
-<button onclick="loadApplications('approved')">Approved</button>
-<button onclick="loadApplications('rejected')">Rejected</button>
+    <select id="manualPost">
 
-<div id="applicationsMessage" class="message"></div>
+      <option value="">
+        Select Post
+      </option>
 
-<div class="table-wrap">
+      <option value="President's Assistant">
+        President's Assistant
+      </option>
 
-<table>
+      <option value="DM">
+        DM
+      </option>
 
-<thead>
-<tr>
-<th>Name</th>
-<th>Age</th>
-<th>Class</th>
-<th>Post</th>
-<th>Email</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
-</thead>
+      <option value="DM's Assistant">
+        DM's Assistant
+      </option>
 
-<tbody id="applicationsBody"></tbody>
+      <option value="SDM">
+        SDM
+      </option>
 
-</table>
+      <option value="SP">
+        SP
+      </option>
 
-</div>
+      <option value="DSP">
+        DSP
+      </option>
 
-</div>
+    </select>
 
+    <button class="gold" onclick="generateManualCode()">
+      Generate Exam Code
+    </button>
 
-<!-- MANUAL EXAM CODE -->
+    <div id="manualMsg" class="message"></div>
 
-<div class="panel">
+  </div>
 
-<h2>🔑 Manual Exam Code Generator</h2>
 
-<p class="small">
-President/Admin बिना application के भी जरूरत पड़ने पर Exam Code generate कर सकता है।
-Manual code तुरंत active होगा और Exam Code History में दिखाई देगा।
-</p>
+  <!-- CODE HISTORY -->
+  <div class="card">
 
-<div class="grid">
+    <h2>🧾 Exam Code History</h2>
 
-<div>
+    <input
+      id="codeSearch"
+      type="text"
+      placeholder="Search code / applicant / post..."
+      oninput="renderCodeHistory()"
+    >
 
-<label>Applicant Name</label>
+    <button class="gold" onclick="loadCodeHistory()">
+      Refresh Code History
+    </button>
 
-<input
-id="manualApplicantName"
-placeholder="Applicant Name"
->
+    <div class="table-wrap">
 
-</div>
+      <table>
 
-<div>
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Applicant</th>
+            <th>Post</th>
+            <th>Section</th>
+            <th>Type</th>
+            <th>Application ID</th>
+            <th>Used</th>
+            <th>Unlock</th>
+            <th>Created</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-<label>Post</label>
+        <tbody id="codeHistoryBody">
+        </tbody>
 
-<select id="manualPost">
+      </table>
 
-<option value="">Select Post</option>
+    </div>
 
-<option value="President's Assistant">
-President's Assistant
-</option>
+  </div>
 
-<option value="DM">
-DM
-</option>
 
-<option value="DM's Assistant">
-DM's Assistant
-</option>
+  <!-- SUBMISSIONS -->
+  <div class="card">
 
-<option value="SDM">
-SDM
-</option>
+    <h2>📝 Exam Submission / Result History</h2>
 
-<option value="SP">
-SP
-</option>
+    <input
+      id="resultSearch"
+      type="text"
+      placeholder="Search result..."
+      oninput="renderResults()"
+    >
 
-<option value="DSP">
-DSP
-</option>
+    <button class="gold" onclick="loadResults()">
+      Refresh Results
+    </button>
 
-</select>
+    <div class="table-wrap">
 
-</div>
+      <table>
 
-</div>
+        <thead>
+          <tr>
+            <th>Applicant</th>
+            <th>Exam Code</th>
+            <th>Post</th>
+            <th>Section</th>
+            <th>Objective</th>
+            <th>Subjective</th>
+            <th>Total</th>
+            <th>Result</th>
+            <th>Submitted</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-<button onclick="generateManualCode()">
-Generate Exam Code
-</button>
+        <tbody id="resultsBody">
+        </tbody>
 
-<div id="manualCodeMessage" class="message"></div>
+      </table>
 
-<div id="generatedCodeBox" class="code-box hidden">
+    </div>
 
-<div>Generated Exam Code</div>
+  </div>
 
-<div id="generatedCode" class="generated-code">
--
-</div>
 
-<div id="generatedCodeInfo" class="small"></div>
+  <!-- LINKS -->
+  <div class="card">
 
-</div>
+    <h2>🔗 Administration Links</h2>
 
-</div>
+    <p>
+      <a href="marksheet-settings.html">
+        Marksheet Settings
+      </a>
+    </p>
 
+    <p style="margin-top:10px;">
+      <a href="attendance-dashboard.html">
+        Attendance Dashboard
+      </a>
+    </p>
 
-<!-- EXAM CODE HISTORY -->
-
-<div class="panel">
-
-<h2>🔐 Exam Code History</h2>
-
-<p class="small">
-Application Code और Manual Code दोनों यहाँ दिखाई देंगे।
-</p>
-
-<button onclick="loadExamCodes()">
-🔄 Refresh Code History
-</button>
-
-<div class="filters">
-
-<div>
-<label>Search</label>
-<input
-id="codeSearch"
-placeholder="Code / Applicant / Application ID"
-oninput="renderExamCodes()"
->
-</div>
-
-<div>
-<label>Type</label>
-<select id="codeTypeFilter" onchange="renderExamCodes()">
-<option value="all">All</option>
-<option value="application">Application</option>
-<option value="manual">Manual</option>
-</select>
-</div>
-
-<div>
-<label>Used</label>
-<select id="codeUsedFilter" onchange="renderExamCodes()">
-<option value="all">All</option>
-<option value="yes">Used</option>
-<option value="no">Unused</option>
-</select>
-</div>
-
-<div>
-<label>Post</label>
-<select id="codePostFilter" onchange="renderExamCodes()">
-<option value="all">All Posts</option>
-<option>President's Assistant</option>
-<option>DM</option>
-<option>DM's Assistant</option>
-<option>SDM</option>
-<option>SP</option>
-<option>DSP</option>
-</select>
-</div>
-
-</div>
-
-<div id="codesMessage" class="message"></div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-<tr>
-<th>Code</th>
-<th>Applicant</th>
-<th>Post</th>
-<th>Section</th>
-<th>Type</th>
-<th>Application ID</th>
-<th>Used</th>
-<th>Unlock</th>
-<th>Created</th>
-</tr>
-</thead>
-
-<tbody id="codesBody"></tbody>
-
-</table>
+  </div>
 
 </div>
 
 </div>
 
 
-<!-- SUBMISSION MANAGEMENT -->
+<!-- APPLICATION MODAL -->
+<div id="applicationModal" class="modal">
 
-<div class="panel">
+  <div class="modal-box">
 
-<h2>📝 Exam Submission / Result Management</h2>
+    <button class="close" onclick="closeModal('applicationModal')">
+      ✕
+    </button>
 
-<p class="small">
-यहाँ submitted exams आएंगे। President objective, subjective, total और PASS/FAIL edit कर सकता है।
-</p>
+    <h2 style="color:#ffd700;">
+      Application Details
+    </h2>
 
-<button onclick="loadResults()">
-🔄 Refresh Submissions
-</button>
+    <div id="applicationDetails"></div>
 
-<div class="filters">
-
-<div>
-<label>Search</label>
-<input
-id="resultSearch"
-placeholder="Applicant / Exam Code"
-oninput="renderResults()"
->
-</div>
-
-<div>
-<label>Post</label>
-<select id="resultPostFilter" onchange="renderResults()">
-<option value="all">All Posts</option>
-<option>President's Assistant</option>
-<option>DM</option>
-<option>DM's Assistant</option>
-<option>SDM</option>
-<option>SP</option>
-<option>DSP</option>
-</select>
-</div>
-
-<div>
-<label>Result</label>
-<select id="resultFilter" onchange="renderResults()">
-<option value="all">All</option>
-<option value="PASS">PASS</option>
-<option value="FAIL">FAIL</option>
-</select>
-</div>
-
-<div>
-<label>Release</label>
-<select id="releaseFilter" onchange="renderResults()">
-<option value="all">All</option>
-<option value="released">Released</option>
-<option value="pending">Not Released</option>
-</select>
-</div>
-
-</div>
-
-<div id="resultsMessage" class="message"></div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-<tr>
-<th>Applicant</th>
-<th>Post</th>
-<th>Code</th>
-<th>Section</th>
-<th>Objective</th>
-<th>Subjective</th>
-<th>Total</th>
-<th>Result</th>
-<th>Release</th>
-<th>Submitted</th>
-<th>Action</th>
-</tr>
-</thead>
-
-<tbody id="resultsBody"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
+  </div>
 
 </div>
 
 
-<!-- RESULT DETAIL MODAL -->
+<!-- SECTION MODAL -->
+<div id="sectionModal" class="modal">
 
-<div id="detailModal" class="modal hidden">
+  <div class="modal-box">
 
-<div class="modal-box">
+    <button class="close" onclick="closeModal('sectionModal')">
+      ✕
+    </button>
 
-<h2>📄 Exam Submission Detail</h2>
+    <h2 style="color:#ffd700;">
+      Edit Exam Section
+    </h2>
 
-<div id="detailContent"></div>
+    <p id="sectionCodeText" class="small"></p>
 
-<div style="margin-top:15px">
+    <select id="sectionSelect">
 
-<button
-class="secondary"
-onclick="closeDetailModal()">
-Close
-</button>
+      <option value="A">Section A</option>
+      <option value="B">Section B</option>
+      <option value="C">Section C</option>
+      <option value="D">Section D</option>
 
-</div>
+    </select>
 
-</div>
+    <button class="gold" onclick="saveSection()">
+      Save Section
+    </button>
 
-</div>
+    <div id="sectionMsg" class="message"></div>
 
-
-<!-- RESULT EDIT MODAL -->
-
-<div id="resultModal" class="modal hidden">
-
-<div class="modal-box">
-
-<h2>✏️ Edit Final Result</h2>
-
-<input type="hidden" id="editSubmissionId">
-
-<label>Objective Marks /18</label>
-
-<input
-id="editObjective"
-type="number"
-min="0"
-max="18"
->
-
-<label>Subjective Marks /10</label>
-
-<input
-id="editSubjective"
-type="number"
-min="0"
-max="10"
->
-
-<label>Total Marks /28</label>
-
-<input
-id="editTotal"
-type="number"
-min="0"
-max="28"
->
-
-<label>Final Result</label>
-
-<select id="editResult">
-
-<option value="PASS">PASS</option>
-<option value="FAIL">FAIL</option>
-
-</select>
-
-<div style="margin-top:15px">
-
-<button onclick="saveResult()">
-Save Final Result
-</button>
-
-<button
-class="secondary"
-onclick="closeResultModal()">
-Cancel
-</button>
-
-</div>
-
-<div id="editMessage" class="message"></div>
-
-</div>
+  </div>
 
 </div>
 
 
-<!-- SECTION EDIT MODAL -->
+<!-- RESULT MODAL -->
+<div id="resultModal" class="modal">
 
-<div id="sectionModal" class="modal hidden">
+  <div class="modal-box">
 
-<div class="modal-box">
+    <button class="close" onclick="closeModal('resultModal')">
+      ✕
+    </button>
 
-<h2>🔤 Edit Exam Section</h2>
+    <h2 style="color:#ffd700;">
+      Exam Result Management
+    </h2>
 
-<input type="hidden" id="editSectionCode">
+    <p id="resultApplicant" class="small"></p>
 
-<p>
-Exam Code:
-<strong id="sectionCodeText"></strong>
-</p>
+    <input type="number"
+           id="editObjective"
+           min="0"
+           max="18"
+           placeholder="Objective Marks /18">
 
-<label>Exam Section</label>
+    <input type="number"
+           id="editSubjective"
+           min="0"
+           max="10"
+           placeholder="Subjective Marks /10">
 
-<select id="editSection">
+    <input type="number"
+           id="editTotal"
+           min="0"
+           max="28"
+           placeholder="Total Marks /28">
 
-<option value="A">A</option>
-<option value="B">B</option>
-<option value="C">C</option>
-<option value="D">D</option>
+    <select id="editResult">
+      <option value="PASS">PASS</option>
+      <option value="FAIL">FAIL</option>
+    </select>
 
-</select>
+    <button class="gold" onclick="saveResult()">
+      Save Result
+    </button>
 
-<button onclick="saveSection()">
-Save Section
-</button>
+    <button class="green" onclick="releaseResult()">
+      Release Result Now
+    </button>
 
-<button
-class="secondary"
-onclick="closeSectionModal()">
-Cancel
-</button>
+    <div id="resultMsg" class="message"></div>
 
-<div id="sectionMessage" class="message"></div>
-
-</div>
+  </div>
 
 </div>
 
@@ -866,1628 +677,29 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
-const ADMIN_UID =
-"8820968d-c20b-4892-b38b-395083efd026";
-
 const supabaseClient =
-window.supabase.createClient(
+supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
 
 
-/* =====================================================
-   GLOBAL DATA
-===================================================== */
+const ADMIN_UID =
+"8820968d-c20b-4892-b38b-395083efd026";
 
-let allApplications = [];
 
+let applications = [];
 let allExamCodes = [];
-
 let allResults = [];
 
+let selectedSectionCode = null;
+let selectedSubmissionId = null;
 
-/* =====================================================
-   LOGIN
-===================================================== */
 
-async function login(){
-
-  const email =
-    document.getElementById("email").value.trim();
-
-  const password =
-    document.getElementById("password").value;
-
-  const msg =
-    document.getElementById("loginMessage");
-
-  if(!email || !password){
-
-    msg.innerHTML =
-      `<span class="error">
-      Email और Password दोनों भरें।
-      </span>`;
-
-    return;
-  }
-
-  msg.textContent =
-    "Logging in...";
-
-  const {data,error} =
-    await supabaseClient.auth.signInWithPassword({
-      email,
-      password
-    });
-
-  if(error){
-
-    msg.innerHTML =
-      `<span class="error">
-      ${safe(error.message)}
-      </span>`;
-
-    return;
-  }
-
-  if(!data.user || data.user.id !== ADMIN_UID){
-
-    await supabaseClient.auth.signOut();
-
-    msg.innerHTML =
-      `<span class="error">
-      केवल President/Admin यहाँ login कर सकता है।
-      </span>`;
-
-    return;
-  }
-
-  showDashboard(data.user);
-
-}
-
-
-/* =====================================================
-   SESSION
-===================================================== */
-
-async function checkSession(){
-
-  const {data} =
-    await supabaseClient.auth.getSession();
-
-  if(data.session){
-
-    if(data.session.user.id === ADMIN_UID){
-
-      showDashboard(data.session.user);
-
-    }else{
-
-      await supabaseClient.auth.signOut();
-
-    }
-
-  }
-
-}
-
-
-/* =====================================================
-   DASHBOARD
-===================================================== */
-
-async function showDashboard(user){
-
-  document
-    .getElementById("loginPanel")
-    .classList.add("hidden");
-
-  document
-    .getElementById("dashboard")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("loggedEmail")
-    .textContent =
-      user.email || "";
-
-  await loadApplicationCounts();
-
-  await loadApplications("all");
-
-  await loadExamCodes();
-
-  await loadResults();
-
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-async function logout(){
-
-  await supabaseClient.auth.signOut();
-
-  location.reload();
-
-}
-
-
-/* =====================================================
-   APPLICATION COUNTS
-===================================================== */
-
-async function loadApplicationCounts(){
-
-  const {data,error} =
-    await supabaseClient.rpc(
-      "get_application_counts"
-    );
-
-  if(error){
-
-    console.error(error);
-
-    return;
-
-  }
-
-  const x =
-    typeof data === "string"
-      ? JSON.parse(data)
-      : data;
-
-  document.getElementById("totalApplications")
-    .textContent =
-      x.total ?? 0;
-
-  document.getElementById("pendingApplications")
-    .textContent =
-      x.pending ?? 0;
-
-  document.getElementById("approvedApplications")
-    .textContent =
-      x.approved ?? 0;
-
-  document.getElementById("rejectedApplications")
-    .textContent =
-      x.rejected ?? 0;
-
-}
-
-
-/* =====================================================
-   APPLICATIONS
-===================================================== */
-
-async function loadApplications(filter="all"){
-
-  const msg =
-    document.getElementById("applicationsMessage");
-
-  const body =
-    document.getElementById("applicationsBody");
-
-  msg.textContent =
-    "Loading...";
-
-  const {data,error} =
-    await supabaseClient.rpc(
-      "get_applications"
-    );
-
-  if(error){
-
-    msg.innerHTML =
-      `<span class="error">
-      ${safe(error.message)}
-      </span>`;
-
-    return;
-
-  }
-
-  allApplications =
-    Array.isArray(data)
-      ? data
-      : [];
-
-  let rows =
-    allApplications;
-
-  if(filter !== "all"){
-
-    rows =
-      rows.filter(x =>
-        String(x.status || "")
-          .toLowerCase()
-          === filter
-      );
-
-  }
-
-  body.innerHTML = "";
-
-  rows.forEach(app => {
-
-    const tr =
-      document.createElement("tr");
-
-    const status =
-      String(
-        app.status ||
-        "Pending"
-      );
-
-    let action = "";
-
-    if(
-      status.toLowerCase()
-      ===
-      "pending"
-    ){
-
-      action = `
-
-        <button
-          onclick="changeApplicationStatus(
-            ${Number(app.id)},
-            'Approved'
-          )">
-          Approve
-        </button>
-
-        <button
-          class="danger"
-          onclick="changeApplicationStatus(
-            ${Number(app.id)},
-            'Rejected'
-          )">
-          Reject
-        </button>
-
-      `;
-
-    }else{
-
-      action = `
-
-        <button
-          class="secondary"
-          onclick="changeApplicationStatus(
-            ${Number(app.id)},
-            'Pending'
-          )">
-          Pending
-        </button>
-
-      `;
-
-    }
-
-    tr.innerHTML = `
-
-      <td>${safe(app.applicant_name)}</td>
-
-      <td>${safe(app.age)}</td>
-
-      <td>${safe(app.class)}</td>
-
-      <td>${safe(app.post)}</td>
-
-      <td>${safe(app.applicant_email)}</td>
-
-      <td>${safe(status)}</td>
-
-      <td>${action}</td>
-
-    `;
-
-    body.appendChild(tr);
-
-  });
-
-  msg.textContent =
-    `${rows.length} application(s) found.`;
-
-}
-
-
-async function changeApplicationStatus(
-  id,
-  status
-){
-
-  if(
-    !confirm(
-      `Application को ${status} करना है?`
-    )
-  ){
-
-    return;
-
-  }
-
-  const {data,error} =
-    await supabaseClient.rpc(
-      "update_application_status",
-      {
-        input_application_id:
-          id,
-
-        input_status:
-          status
-      }
-    );
-
-  if(error){
-
-    alert(error.message);
-
-    return;
-
-  }
-
-  const result =
-    typeof data === "string"
-      ? JSON.parse(data)
-      : data;
-
-  if(result && result.success){
-
-    if(result.exam_code){
-
-      alert(
-        `Application Approved.\n\n` +
-        `Exam Code:\n${result.exam_code}\n\n` +
-        `Code unlock होने के बाद applicant use कर सकता है।`
-      );
-
-    }else{
-
-      alert(
-        result.message ||
-        "Status updated successfully."
-      );
-
-    }
-
-    await loadApplicationCounts();
-
-    await loadApplications("all");
-
-    await loadExamCodes();
-
-  }else{
-
-    alert(
-      result?.message ||
-      "Status update failed."
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   MANUAL CODE GENERATOR
-===================================================== */
-
-async function generateManualCode(){
-
-  const name =
-    document
-      .getElementById("manualApplicantName")
-      .value
-      .trim();
-
-  const post =
-    document
-      .getElementById("manualPost")
-      .value;
-
-  const msg =
-    document
-      .getElementById("manualCodeMessage");
-
-  const box =
-    document
-      .getElementById("generatedCodeBox");
-
-  if(!name || !post){
-
-    msg.innerHTML =
-      `<span class="error">
-      Applicant Name और Post दोनों भरें।
-      </span>`;
-
-    return;
-
-  }
-
-  msg.textContent =
-    "Exam Code generate किया जा रहा है...";
-
-  box.classList.add("hidden");
-
-  const {data,error} =
-    await supabaseClient.rpc(
-      "generate_manual_exam_code",
-      {
-        input_applicant_name:
-          name,
-
-        input_application_id:
-          null,
-
-        input_post:
-          post
-      }
-    );
-
-  if(error){
-
-    msg.innerHTML =
-      `<span class="error">
-      ${safe(error.message)}
-      </span>`;
-
-    return;
-
-  }
-
-  const result =
-    typeof data === "string"
-      ? JSON.parse(data)
-      : data;
-
-  if(
-    !result ||
-    !result.success
-  ){
-
-    msg.innerHTML =
-      `<span class="error">
-      ${safe(
-        result?.message ||
-        "Code generate नहीं हुआ।"
-      )}
-      </span>`;
-
-    return;
-
-  }
-
-  document
-    .getElementById("generatedCode")
-    .textContent =
-      result.exam_code ||
-      result.code ||
-      "-";
-
-  document
-    .getElementById("generatedCodeInfo")
-    .textContent =
-      `${result.applicant_name} — ` +
-      `${result.post} — ` +
-      `Section ${result.section || "-"} — ` +
-      `Immediate Access`;
-
-  box.classList.remove("hidden");
-
-  msg.innerHTML =
-    `<span class="success">
-    Exam Code successfully generated.
-    </span>`;
-
-  document
-    .getElementById("manualApplicantName")
-    .value = "";
-
-  await loadExamCodes();
-
-}
-
-
-/* =====================================================
-   EXAM CODE HISTORY
-===================================================== */
-
-async function loadExamCodes(){
-
-  const body =
-    document.getElementById("codesBody");
-
-  const msg =
-    document.getElementById("codesMessage");
-
-  msg.textContent =
-    "Loading Exam Code History...";
-
-  const {data,error} =
-    await supabaseClient.rpc(
-      "get_exam_code_history"
-    );
-
-  if(error){
-
-    msg.innerHTML =
-      `<span class="error">
-      ${safe(error.message)}
-      </span>`;
-
-    return;
-
-  }
-
-  const result =
-    typeof data === "string"
-      ? JSON.parse(data)
-      : data;
-
-  if(
-    !result ||
-    result.success !== true
-  ){
-
-    msg.innerHTML =
-      `<span class="error">
-      ${safe(
-        result?.message ||
-        "Code history load नहीं हुई।"
-      )}
-      </span>`;
-
-    return;
-
-  }
-
-  allExamCodes =
-    Array.isArray(result.records)
-      ? result.records
-      : [];
-
-  renderExamCodes();
-
-}
-
-
-function renderExamCodes(){
-
-  const body =
-    document.getElementById("codesBody");
-
-  const msg =
-    document.getElementById("codesMessage");
-
-  const search =
-    document
-      .getElementById("codeSearch")
-      .value
-      .trim()
-      .toLowerCase();
-
-  const type =
-    document
-      .getElementById("codeTypeFilter")
-      .value;
-
-  const used =
-    document
-      .getElementById("codeUsedFilter")
-      .value;
-
-  const post =
-    document
-      .getElementById("codePostFilter")
-      .value;
-
-  let rows =
-    allExamCodes.filter(x => {
-
-      const applicationId =
-        x.application_id;
-
-      const isManual =
-        applicationId === null ||
-        applicationId === undefined;
-
-      const recordType =
-        isManual
-          ? "manual"
-          : "application";
-
-      const searchText =
-        [
-          x.exam_code,
-          x.applicant_name,
-          x.application_id,
-          x.post
-        ]
-        .join(" ")
-        .toLowerCase();
-
-      if(
-        search &&
-        !searchText.includes(search)
-      ){
-
-        return false;
-
-      }
-
-      if(
-        type !== "all" &&
-        type !== recordType
-      ){
-
-        return false;
-
-      }
-
-      if(
-        used === "yes" &&
-        x.used !== true
-      ){
-
-        return false;
-
-      }
-
-      if(
-        used === "no" &&
-        x.used === true
-      ){
-
-        return false;
-
-      }
-
-      if(
-        post !== "all" &&
-        String(x.post || "")
-          .toLowerCase()
-        !==
-        post.toLowerCase()
-      ){
-
-        return false;
-
-      }
-
-      return true;
-
-    });
-
-  body.innerHTML = "";
-
-  rows.forEach(x => {
-
-    const isManual =
-      x.application_id === null ||
-      x.application_id === undefined;
-
-    const typeBadge =
-      isManual
-        ? `<span class="badge badge-manual">MANUAL</span>`
-        : `<span class="badge badge-application">APPLICATION</span>`;
-
-    const tr =
-      document.createElement("tr");
-
-    tr.innerHTML = `
-
-      <td>
-        <strong>${safe(x.exam_code)}</strong>
-      </td>
-
-      <td>
-        ${safe(x.applicant_name)}
-      </td>
-
-      <td>
-        ${safe(x.post)}
-      </td>
-
-      <td>
-        <strong>${safe(x.section || "-")}</strong>
-        <br>
-        <button
-          class="secondary"
-          onclick="openSectionEditor(
-            '${safeJs(x.exam_code)}',
-            '${safeJs(x.section || "A")}'
-          )">
-          Edit
-        </button>
-      </td>
-
-      <td>${typeBadge}</td>
-
-      <td>
-        ${
-          isManual
-            ? "-"
-            : safe(x.application_id)
-        }
-      </td>
-
-      <td>
-        ${
-          x.used
-            ? "✅ Yes"
-            : "❌ No"
-        }
-      </td>
-
-      <td>
-        ${formatDate(x.unlock_at)}
-      </td>
-
-      <td>
-        ${formatDate(x.created_at)}
-      </td>
-
-    `;
-
-    body.appendChild(tr);
-
-  });
-
-  msg.textContent =
-    `${rows.length} code(s) shown.`;
-
-}
-
-
-/* =====================================================
-   SECTION EDIT
-===================================================== */
-
-function openSectionEditor(
-  code,
-  section
-){
-
-  document
-    .getElementById("editSectionCode")
-    .value = code;
-
-  document
-    .getElementById("sectionCodeText")
-    .textContent = code;
-
-  document
-    .getElementById("editSection")
-    .value =
-      ["A","B","C","D"].includes(section)
-        ? section
-        : "A";
-
-  document
-    .getElementById("sectionMessage")
-    .textContent = "";
-
-  document
-    .getElementById("sectionModal")
-    .classList.remove("hidden");
-
-}
-
-
-function closeSectionModal(){
-
-  document
-    .getElementById("sectionModal")
-    .classList.add("hidden");
-
-}
-
-
-async function saveSection(){
-
-  const code =
-    document
-      .getElementById("editSectionCode")
-      .value;
-
-  const section =
-    document
-      .getElementById("editSection")
-      .value;
-
-  const msg =
-    document
-      .getElementById("sectionMessage");
-
-  msg.textContent =
-    "Saving section...";
-
-  const {data,error} =
-    await supabaseClient.rpc(
-      "update_exam_section",
-      {
-        input_exam_code:
-          code,
-
-        input_section:
-          section
-      }
-    );
-
-  if(error){
-
-    msg.innerHTML =
-      `<span class="error">
-      ${safe(error.message)}
-      </span>`;
-
-    return;
-
-  }
-
-  const result =
-    typeof data === "string"
-      ? JSON.parse(data)
-      : data;
-
-  if(
-    result?.success
-  ){
-
-    msg.innerHTML =
-      `<span class="success">
-      Exam Section successfully updated.
-      </span>`;
-
-    await loadExamCodes();
-
-    setTimeout(
-      closeSectionModal,
-      700
-    );
-
-  }else{
-
-    msg.innerHTML =
-      `<span class="error">
-      ${safe(
-        result?.message ||
-        "Section update failed."
-      )}
-      </span>`;
-
-  }
-
-}
-
-
-/* =====================================================
-   SUBMISSION HISTORY
-===================================================== */
-
-async function loadResults(){
-
-  const body =
-    document.getElementById("resultsBody");
-
-  const msg =
-    document.getElementById("resultsMessage");
-
-  msg.textContent =
-    "Loading Exam Submission History...";
-
-  const {data,error} =
-    await supabaseClient.rpc(
-      "get_exam_submissions"
-    );
-
-  if(error){
-
-    msg.innerHTML =
-      `<span class="error">
-      ${safe(error.message)}
-      </span>`;
-
-    return;
-
-  }
-
-  allResults =
-    Array.isArray(data)
-      ? data
-      : [];
-
-  /*
-    get_exam_submissions का return
-    result_released/section यदि backend
-    से उपलब्ध हो तो preserve रहेगा।
-  */
-
-  document
-    .getElementById("totalSubmissions")
-    .textContent =
-      allResults.length;
-
-  renderResults();
-
-}
-
-
-function renderResults(){
-
-  const body =
-    document.getElementById("resultsBody");
-
-  const msg =
-    document.getElementById("resultsMessage");
-
-  const search =
-    document
-      .getElementById("resultSearch")
-      .value
-      .trim()
-      .toLowerCase();
-
-  const post =
-    document
-      .getElementById("resultPostFilter")
-      .value;
-
-  const resultFilter =
-    document
-      .getElementById("resultFilter")
-      .value;
-
-  const releaseFilter =
-    document
-      .getElementById("releaseFilter")
-      .value;
-
-  let rows =
-    allResults.filter(x => {
-
-      const searchText =
-        [
-          x.applicant_name,
-          x.exam_code,
-          x.post
-        ]
-        .join(" ")
-        .toLowerCase();
-
-      if(
-        search &&
-        !searchText.includes(search)
-      ){
-
-        return false;
-
-      }
-
-      if(
-        post !== "all" &&
-        String(x.post || "")
-          .toLowerCase()
-        !==
-        post.toLowerCase()
-      ){
-
-        return false;
-
-      }
-
-      if(
-        resultFilter !== "all" &&
-        String(x.final_result || "")
-          .toUpperCase()
-        !==
-        resultFilter
-      ){
-
-        return false;
-
-      }
-
-      const released =
-        x.result_released === true;
-
-      if(
-        releaseFilter === "released" &&
-        !released
-      ){
-
-        return false;
-
-      }
-
-      if(
-        releaseFilter === "pending" &&
-        released
-      ){
-
-        return false;
-
-      }
-
-      return true;
-
-    });
-
-  body.innerHTML = "";
-
-  rows.forEach(x => {
-
-    const released =
-      x.result_released === true;
-
-    const submitted =
-      x.submitted_at
-        ? new Date(x.submitted_at)
-        : null;
-
-    const hours =
-      submitted
-        ? (
-            Date.now() -
-            submitted.getTime()
-          )
-          /
-          (1000 * 60 * 60)
-        : 0;
-
-    const availableNormally =
-      hours >= 24;
-
-    let action = `
-
-      <button
-        onclick='openSubmissionDetail(
-          ${JSON.stringify(x)}
-        )'>
-        Detail
-      </button>
-
-      <button
-        onclick='openResultEditor(
-          ${JSON.stringify(x)}
-        )'>
-        Edit Marks
-      </button>
-
-    `;
-
-    if(
-      !released &&
-      !availableNormally
-    ){
-
-      action += `
-
-        <button
-          class="green"
-          onclick="releaseResultNow(
-            ${Number(x.id)}
-          )">
-          Release Now
-        </button>
-
-      `;
-
-    }
-
-    const releaseText =
-      released
-        ? `<span class="badge badge-pass">
-             RELEASED
-           </span>`
-        : availableNormally
-          ? `<span class="badge badge-pass">
-               AVAILABLE
-             </span>`
-          : `<span class="badge badge-fail">
-               24H PENDING
-             </span>`;
-
-    const resultBadge =
-      String(x.final_result || "")
-        .toUpperCase()
-        === "PASS"
-        ? `<span class="badge badge-pass">PASS</span>`
-        : `<span class="badge badge-fail">FAIL</span>`;
-
-    const tr =
-      document.createElement("tr");
-
-    tr.innerHTML = `
-
-      <td>
-        ${safe(x.applicant_name)}
-      </td>
-
-      <td>
-        ${safe(x.post)}
-      </td>
-
-      <td>
-        <strong>${safe(x.exam_code)}</strong>
-      </td>
-
-      <td>
-        ${safe(x.exam_section || "-")}
-      </td>
-
-      <td>
-        ${Number(x.objective_score || 0)}/18
-      </td>
-
-      <td>
-        ${Number(x.subjective_marks || 0)}/10
-      </td>
-
-      <td>
-        ${Number(x.total_marks || 0)}/28
-      </td>
-
-      <td>
-        ${resultBadge}
-      </td>
-
-      <td>
-        ${releaseText}
-      </td>
-
-      <td>
-        ${formatDate(x.submitted_at)}
-      </td>
-
-      <td>
-        ${action}
-      </td>
-
-    `;
-
-    body.appendChild(tr);
-
-  });
-
-  msg.textContent =
-    `${rows.length} submission(s) shown.`;
-
-}
-
-
-/* =====================================================
-   SUBMISSION DETAIL
-===================================================== */
-
-function openSubmissionDetail(row){
-
-  const detail =
-    document.getElementById(
-      "detailContent"
-    );
-
-  detail.innerHTML = `
-
-    <div class="detail-grid">
-
-      <div class="detail-item">
-        <strong>Applicant</strong><br>
-        ${safe(row.applicant_name)}
-      </div>
-
-      <div class="detail-item">
-        <strong>Exam Code</strong><br>
-        ${safe(row.exam_code)}
-      </div>
-
-      <div class="detail-item">
-        <strong>Post</strong><br>
-        ${safe(row.post)}
-      </div>
-
-      <div class="detail-item">
-        <strong>Section</strong><br>
-        ${safe(row.exam_section || "-")}
-      </div>
-
-      <div class="detail-item">
-        <strong>Objective</strong><br>
-        ${Number(row.objective_score || 0)}/18
-      </div>
-
-      <div class="detail-item">
-        <strong>Subjective</strong><br>
-        ${Number(row.subjective_marks || 0)}/10
-      </div>
-
-      <div class="detail-item">
-        <strong>Total</strong><br>
-        ${Number(row.total_marks || 0)}/28
-      </div>
-
-      <div class="detail-item">
-        <strong>Result</strong><br>
-        ${safe(row.final_result)}
-      </div>
-
-    </div>
-
-    <h3>Subjective Answer 1</h3>
-
-    <div class="answer-box">
-      ${safe(row.subjective_answer_1 || "उत्तर नहीं दिया गया।")}
-    </div>
-
-    <h3>Subjective Answer 2</h3>
-
-    <div class="answer-box">
-      ${safe(row.subjective_answer_2 || "उत्तर नहीं दिया गया।")}
-    </div>
-
-    <p class="small">
-      Submitted:
-      ${formatDate(row.submitted_at)}
-    </p>
-
-  `;
-
-  document
-    .getElementById("detailModal")
-    .classList.remove("hidden");
-
-}
-
-
-function closeDetailModal(){
-
-  document
-    .getElementById("detailModal")
-    .classList.add("hidden");
-
-}
-
-
-/* =====================================================
-   EARLY RESULT RELEASE
-===================================================== */
-
-async function releaseResultNow(id){
-
-  if(
-    !confirm(
-      "क्या यह Result 24 घंटे से पहले applicant को जारी करना है?"
-    )
-  ){
-
-    return;
-
-  }
-
-  const {data,error} =
-    await supabaseClient.rpc(
-      "release_exam_result",
-      {
-        input_submission_id:
-          id
-      }
-    );
-
-  if(error){
-
-    alert(error.message);
-
-    return;
-
-  }
-
-  const result =
-    typeof data === "string"
-      ? JSON.parse(data)
-      : data;
-
-  if(result?.success){
-
-    alert(
-      "Result successfully released."
-    );
-
-    await loadResults();
-
-  }else{
-
-    alert(
-      result?.message ||
-      "Result release failed."
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   RESULT EDITOR
-===================================================== */
-
-function openResultEditor(row){
-
-  document
-    .getElementById("editSubmissionId")
-    .value =
-      row.id;
-
-  document
-    .getElementById("editObjective")
-    .value =
-      row.objective_score ?? 0;
-
-  document
-    .getElementById("editSubjective")
-    .value =
-      row.subjective_marks ?? 0;
-
-  document
-    .getElementById("editTotal")
-    .value =
-      row.total_marks ?? 0;
-
-  document
-    .getElementById("editResult")
-    .value =
-      String(row.final_result || "")
-        .toUpperCase()
-        === "FAIL"
-        ? "FAIL"
-        : "PASS";
-
-  document
-    .getElementById("editMessage")
-    .textContent = "";
-
-  document
-    .getElementById("resultModal")
-    .classList.remove("hidden");
-
-}
-
-
-function closeResultModal(){
-
-  document
-    .getElementById("resultModal")
-    .classList.add("hidden");
-
-}
-
-
-/* =====================================================
-   SAVE RESULT
-===================================================== */
-
-async function saveResult(){
-
-  const id =
-    Number(
-      document
-        .getElementById("editSubmissionId")
-        .value
-    );
-
-  const objective =
-    Number(
-      document
-        .getElementById("editObjective")
-        .value
-    );
-
-  const subjective =
-    Number(
-      document
-        .getElementById("editSubjective")
-        .value
-    );
-
-  const total =
-    Number(
-      document
-        .getElementById("editTotal")
-        .value
-    );
-
-  const finalResult =
-    document
-      .getElementById("editResult")
-      .value;
-
-  const msg =
-    document
-      .getElementById("editMessage");
-
-
-  if(
-    objective < 0 ||
-    objective > 18 ||
-    subjective < 0 ||
-    subjective > 10 ||
-    total < 0 ||
-    total > 28
-  ){
-
-    msg.innerHTML =
-      `<span class="error">
-      Marks सीमा गलत है।
-      </span>`;
-
-    return;
-
-  }
-
-
-  if(
-    objective + subjective !== total
-  ){
-
-    msg.innerHTML =
-      `<span class="error">
-      Total = Objective + Subjective होना चाहिए।
-      </span>`;
-
-    return;
-
-  }
-
-
-  msg.textContent =
-    "Saving...";
-
-
-  const {data,error} =
-    await supabaseClient.rpc(
-      "update_exam_result",
-      {
-        input_submission_id:
-          id,
-
-        input_objective:
-          objective,
-
-        input_subjective:
-          subjective,
-
-        input_total:
-          total,
-
-        input_final_result:
-          finalResult
-      }
-    );
-
-
-  if(error){
-
-    msg.innerHTML =
-      `<span class="error">
-      ${safe(error.message)}
-      </span>`;
-
-    return;
-
-  }
-
-
-  const result =
-    typeof data === "string"
-      ? JSON.parse(data)
-      : data;
-
-
-  if(result?.success){
-
-    msg.innerHTML =
-      `<span class="success">
-      Final Result saved successfully.
-      </span>`;
-
-    await loadResults();
-
-    setTimeout(
-      closeResultModal,
-      700
-    );
-
-  }else{
-
-    msg.innerHTML =
-      `<span class="error">
-      ${safe(
-        result?.message ||
-        "Save failed."
-      )}
-      </span>`;
-
-  }
-
-}
-
-
-/* =====================================================
-   HELPERS
-===================================================== */
+/* =========================
+   BASIC HELPERS
+========================= */
 
 function safe(value){
 
-  if(
-    value === null ||
-    value === undefined
-  ){
-
-    return "";
-
-  }
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-function safeJs(value){
-
-  return String(value || "")
-    .replaceAll("\\","\\\\")
-    .replaceAll("'","\\'")
-    .replaceAll("\n"," ")
-    .replaceAll("\r"," ");
-
-}
-
-
-function formatDate(value){
-
-  if(!value){
-
-    return "-";
-
-  }
-
-  try{
-
-    return new Date(value)
-      .toLocaleString(
-        "en-IN",
-        {
-          dateStyle:"medium",
-          timeStyle:"short"
-        }
-      );
-
-  }catch{
-
-    return String(value);
-
-  }
-
-}
-
-
-/* =====================================================
-   START
-===================================================== */
-
-checkSession();
-
-</script>
-
-</body>
-</html>
+  if(value === null ||

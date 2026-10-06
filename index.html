@@ -68,6 +68,7 @@ nav{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
+  justify-content:center;
 }
 
 nav a{
@@ -200,11 +201,14 @@ td{
   background:#fff;
 }
 
-.points-box{
+.points-box,
+.result-box,
+.contact-box,
+.attendance-box{
   background:#111;
   border:1px solid #333;
   border-radius:12px;
-  padding:20px;
+  padding:22px;
 }
 
 .date-row{
@@ -228,6 +232,82 @@ input{
   text-align:center;
   padding:15px;
   color:#aaa;
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+  margin-top:18px;
+}
+
+.info-card{
+  background:#151515;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:18px;
+  text-align:center;
+}
+
+.info-card strong{
+  display:block;
+  color:#d4af37;
+  font-size:22px;
+  margin-bottom:7px;
+}
+
+.result-box{
+  text-align:center;
+}
+
+.result-box h3{
+  color:#d4af37;
+  margin-bottom:10px;
+}
+
+.result-box p{
+  color:#ccc;
+  line-height:1.6;
+}
+
+.attendance-box{
+  text-align:center;
+}
+
+.attendance-box h3{
+  color:#d4af37;
+  margin-bottom:10px;
+}
+
+.attendance-box p{
+  color:#ccc;
+  line-height:1.6;
+}
+
+.contact-box{
+  text-align:center;
+}
+
+.contact-box h3{
+  color:#d4af37;
+  margin-bottom:10px;
+}
+
+.contact-box p{
+  color:#ccc;
+  line-height:1.8;
+}
+
+.location{
+  margin-top:15px;
+  padding:16px;
+  background:#151515;
+  border:1px solid #333;
+  border-radius:10px;
+}
+
+.location strong{
+  color:#d4af37;
 }
 
 .application{
@@ -286,6 +366,7 @@ footer strong{
 }
 
 @media(max-width:700px){
+
   .header-inner{
     flex-direction:column;
   }
@@ -297,6 +378,10 @@ footer strong{
   .hero h2{
     font-size:29px;
   }
+
+  table{
+    min-width:700px;
+  }
 }
 </style>
 </head>
@@ -304,153 +389,246 @@ footer strong{
 <body>
 
 <header>
-  <div class="header-inner">
 
-    <div class="brand">
-      <img src="classic-empire-logo.png" alt="Classic Empire Logo">
+<div class="header-inner">
 
-      <div class="brand-text">
-        <h1>Classic Empire Ltd</h1>
-        <p>Official Main Website</p>
-      </div>
-    </div>
+<div class="brand">
 
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#leadership">Leadership</a>
-      <a href="#employees">Employees</a>
-      <a href="#currency">Currency</a>
-      <a href="#salary">Salary</a>
-      <a href="#points">Points</a>
-      <a href="#exam">Exam</a>
-      <a href="#apply">Apply</a>
-    </nav>
+<img
+src="classic-empire-logo.png"
+alt="Classic Empire Logo"
+>
 
-  </div>
+<div class="brand-text">
+
+<h1>Classic Empire Ltd</h1>
+
+<p>Official Main Website</p>
+
+</div>
+
+</div>
+
+<nav>
+
+<a href="#home">Home</a>
+<a href="#leadership">Leadership</a>
+<a href="#employees">Employees</a>
+<a href="#currency">Currency</a>
+<a href="#salary">Salary</a>
+<a href="#points">Points</a>
+<a href="#result">Result</a>
+<a href="#attendance">Attendance</a>
+<a href="#exam">Exam</a>
+<a href="#apply">Apply</a>
+<a href="#contact">Contact</a>
+
+</nav>
+
+</div>
+
 </header>
 
 
+<!-- HOME -->
+
 <section class="hero" id="home">
 
-  <img
-    src="classic-empire-logo.png"
-    alt="Classic Empire Ltd Logo"
-    class="hero-logo"
-  >
+<img
+src="classic-empire-logo.png"
+alt="Classic Empire Ltd Logo"
+class="hero-logo"
+>
 
-  <h2>Classic Empire Ltd</h2>
+<h2>Classic Empire Ltd</h2>
 
-  <p>
-    Welcome to the Official Classic Empire Ltd Main Website
-  </p>
+<p>
+Welcome to the Official Classic Empire Ltd Main Website
+</p>
 
-  <div style="margin-top:20px;">
-    <a class="btn" href="#points">View Points</a>
-    <a class="btn" href="exam.html">Exam Portal</a>
-  </div>
+<div style="margin-top:20px;">
+
+<a class="btn" href="#points">
+View Points
+</a>
+
+<a class="btn" href="#result">
+View Result
+</a>
+
+<a class="btn" href="exam.html">
+Exam Portal
+</a>
+
+</div>
 
 </section>
 
 
 <div class="container">
 
+
+<!-- LEADERSHIP -->
+
 <section id="leadership">
 
-<h2 class="section-title">Leadership</h2>
+<h2 class="section-title">
+Leadership
+</h2>
 
 <div class="card-grid">
 
+
 <div class="card">
+
 <img src="noor-ahmad.png" alt="Noor Ahmad">
+
 <h3>Noor Ahmad</h3>
+
 <p>President</p>
+
 </div>
 
+
 <div class="card">
+
 <img src="tabshir-alam.png" alt="Tabshir Alam">
+
 <h3>Tabshir Alam</h3>
+
 <p>President's Assistant</p>
+
 </div>
 
+
 <div class="card">
+
 <img src="jakir-hussain.png" alt="Jakir Hussain">
+
 <h3>Jakir Hussain</h3>
+
 <p>DM</p>
+
 </div>
 
+
 <div class="card">
+
 <img src="shadat-hussain.png" alt="Shadat Hussain">
+
 <h3>Shadat Hussain</h3>
+
 <p>DM's Assistant</p>
+
 </div>
 
+
 <div class="card">
+
 <img src="aszad-sayeed.png" alt="Aszad Sayeed">
+
 <h3>Aszad Sayeed</h3>
+
 <p>SDM</p>
+
 </div>
 
+
 <div class="card">
+
 <img src="shahnawaz-alam.png" alt="Shahnawaz Alam">
+
 <h3>Shahnawaz Alam</h3>
+
 <p>SP</p>
+
 </div>
 
+
 <div class="card">
+
 <img src="shadab-alam.png" alt="Shadab Alam">
+
 <h3>Shadab Alam</h3>
+
 <p>DSP</p>
+
 </div>
+
 
 </div>
 
 </section>
 
+
+<!-- OTHER EMPLOYEES -->
 
 <section id="employees">
 
-<h2 class="section-title">Other Employees</h2>
+<h2 class="section-title">
+Other Employees
+</h2>
 
 <div class="card-grid">
 
-<div class="card">
-<img src="mahir-alam.png" alt="Mahir Alam">
-<h3>Mahir Alam</h3>
-<p>Employee</p>
-</div>
 
 <div class="card">
-<img src="sajjad-alam.png" alt="Sajjad Alam">
-<h3>Sajjad Alam</h3>
+
+<img src="mahir-alam.png" alt="Mahir Alam">
+
+<h3>Mahir Alam</h3>
+
 <p>Employee</p>
+
 </div>
+
+
+<div class="card">
+
+<img src="sajjad-alam.png" alt="Sajjad Alam">
+
+<h3>Sajjad Alam</h3>
+
+<p>Employee</p>
+
+</div>
+
 
 </div>
 
 </section>
 
 
+<!-- CURRENCY -->
+
 <section id="currency">
 
-<h2 class="section-title">Classic Empire Currency</h2>
+<h2 class="section-title">
+Classic Empire Currency
+</h2>
 
 <div class="table-wrap">
 
 <table>
+
 <tr>
+
 <th>Currency</th>
 <th>Code</th>
 <th>Short Name</th>
 <th>Symbol</th>
 <th>Value</th>
+
 </tr>
 
 <tr>
+
 <td>Classic Dinar</td>
 <td>CLD</td>
 <td>CD</td>
 <td>د.ك</td>
 <td>1 CD = ₹93,600</td>
+
 </tr>
 
 </table>
@@ -460,9 +638,13 @@ footer strong{
 </section>
 
 
+<!-- SALARY -->
+
 <section id="salary">
 
-<h2 class="section-title">Weekly Salary</h2>
+<h2 class="section-title">
+Weekly Salary
+</h2>
 
 <div class="table-wrap">
 
@@ -519,53 +701,111 @@ Salary is paid every Thursday.
 </section>
 
 
+<!-- POINTS -->
+
 <section id="points">
 
-<h2 class="section-title">Points & Awards</h2>
+<h2 class="section-title">
+Points & Awards
+</h2>
 
 <div class="points-box">
 
 <div class="date-row">
 
-<label for="pointDate">Point Date:</label>
+<label for="pointDate">
+Date:
+</label>
 
 <input
-  type="date"
-  id="pointDate"
+type="date"
+id="pointDate"
 >
 
 <button
-  class="btn"
-  onclick="loadPoints()"
+class="btn"
+onclick="loadPoints()"
 >
 View Points
 </button>
 
 </div>
 
-<div id="pointsMessage" class="message">
+
+<div class="info-grid">
+
+<div class="info-card">
+
+<strong>1%</strong>
+
+School / Madrasa
+
+</div>
+
+
+<div class="info-card">
+
+<strong>2%</strong>
+
+Classic Empire Game Work
+
+</div>
+
+
+<div class="info-card">
+
+<strong>3%</strong>
+
+Maximum Daily Points
+
+</div>
+
+
+<div class="info-card">
+
+<strong>+10%</strong>
+
+25 Full-Day Bonus
+
+</div>
+
+</div>
+
+
+<div
+id="pointsMessage"
+class="message"
+>
 Loading points...
 </div>
 
+
 <div class="table-wrap">
 
-<table id="pointsTable" style="display:none;">
+<table
+id="pointsTable"
+style="display:none;"
+>
 
 <thead>
 
 <tr>
+
 <th>Member</th>
 <th>School / Madrasa</th>
 <th>Game Work</th>
-<th>Total</th>
+<th>Daily Total</th>
+<th>Monthly Points</th>
 <th>Percentage</th>
 <th>Award</th>
 <th>Bonus</th>
+
 </tr>
 
 </thead>
 
-<tbody id="pointsBody"></tbody>
+<tbody id="pointsBody">
+</tbody>
 
 </table>
 
@@ -576,17 +816,128 @@ Loading points...
 </section>
 
 
+<!-- RESULT -->
+
+<section id="result">
+
+<h2 class="section-title">
+Exam Result
+</h2>
+
+<div class="result-box">
+
+<h3>Result & Marksheet</h3>
+
+<p>
+Approved exam applicants can check their final result
+through the Result Portal.
+</p>
+
+<div class="info-grid">
+
+<div class="info-card">
+
+<strong>18</strong>
+
+Objective Marks
+
+</div>
+
+<div class="info-card">
+
+<strong>10</strong>
+
+Subjective Marks
+
+</div>
+
+<div class="info-card">
+
+<strong>28</strong>
+
+Total Marks
+
+</div>
+
+<div class="info-card">
+
+<strong>21+</strong>
+
+PASS Marks
+
+</div>
+
+</div>
+
+<br>
+
+<a
+class="btn"
+href="result.html"
+>
+Open Result Portal
+</a>
+
+</div>
+
+</section>
+
+
+<!-- ATTENDANCE -->
+
+<section id="attendance">
+
+<h2 class="section-title">
+QR Attendance
+</h2>
+
+<div class="attendance-box">
+
+<h3>Classic Empire Attendance</h3>
+
+<p>
+Attendance can be marked through the official QR scanner.
+</p>
+
+<p style="margin-top:8px;">
+Camera scanning and Gallery QR scanning are supported.
+</p>
+
+<br>
+
+<a
+class="btn"
+href="attendance.html"
+>
+Open QR Attendance
+</a>
+
+</div>
+
+</section>
+
+
+<!-- EXAM -->
+
 <section id="exam">
 
-<h2 class="section-title">Exam Portal</h2>
+<h2 class="section-title">
+Exam Portal
+</h2>
 
 <div style="text-align:center;">
 
 <p style="color:#ccc;margin-bottom:15px;">
-Approved applicants can enter the exam using their Exam Code.
+
+Approved applicants can enter the exam using
+their Exam Code.
+
 </p>
 
-<a class="btn" href="exam.html">
+<a
+class="btn"
+href="exam.html"
+>
 Open Exam Portal
 </a>
 
@@ -595,9 +946,13 @@ Open Exam Portal
 </section>
 
 
+<!-- APPLY -->
+
 <section id="apply">
 
-<h2 class="section-title">Apply for Post</h2>
+<h2 class="section-title">
+Apply for Post
+</h2>
 
 <div class="application">
 
@@ -605,64 +960,153 @@ Open Exam Portal
 
 <div class="form-grid">
 
+
 <div class="form-group">
-<label>Applicant Name</label>
-<input id="applicantName" required>
+
+<label>
+Applicant Name
+</label>
+
+<input
+id="applicantName"
+required
+>
+
 </div>
 
+
 <div class="form-group">
-<label>Age</label>
-<input id="age">
+
+<label>
+Age
+</label>
+
+<input
+id="age"
+>
+
 </div>
 
+
 <div class="form-group">
-<label>Class</label>
-<input id="className">
+
+<label>
+Class
+</label>
+
+<input
+id="className"
+>
+
 </div>
 
+
 <div class="form-group">
-<label>Post</label>
 
-<select id="post" required>
+<label>
+Post
+</label>
 
-<option value="">Select Post</option>
-<option>DM</option>
-<option>DM Assistant</option>
-<option>SDM</option>
-<option>SP</option>
-<option>DSP</option>
-<option>President Assistant</option>
+<select
+id="post"
+required
+>
+
+<option value="">
+Select Post
+</option>
+
+<option>
+DM
+</option>
+
+<option>
+DM Assistant
+</option>
+
+<option>
+SDM
+</option>
+
+<option>
+SP
+</option>
+
+<option>
+DSP
+</option>
+
+<option>
+President Assistant
+</option>
 
 </select>
 
 </div>
 
-<div class="form-group">
-<label>Email</label>
-<input id="email" type="email" required>
-</div>
 
 <div class="form-group">
-<label>Contact Number</label>
-<input id="contact">
+
+<label>
+Email
+</label>
+
+<input
+id="email"
+type="email"
+required
+>
+
 </div>
+
+
+<div class="form-group">
+
+<label>
+Contact Number
+</label>
+
+<input
+id="contact"
+>
+
+</div>
+
 
 <div class="form-group full">
-<label>Reason for Application</label>
-<textarea id="reason"></textarea>
-</div>
+
+<label>
+Reason for Application
+</label>
+
+<textarea
+id="reason"
+></textarea>
 
 </div>
 
-<div style="text-align:center;margin-top:18px;">
 
-<button class="btn" type="submit">
+</div>
+
+
+<div
+style="text-align:center;margin-top:18px;"
+>
+
+<button
+class="btn"
+type="submit"
+>
 Submit Application
 </button>
 
 </div>
 
-<div id="applicationMessage" class="message"></div>
+
+<div
+id="applicationMessage"
+class="message"
+></div>
 
 </form>
 
@@ -670,12 +1114,63 @@ Submit Application
 
 </section>
 
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<h2 class="section-title">
+Contact & Head Office
+</h2>
+
+<div class="contact-box">
+
+<h3>
+Classic Empire Ltd
+</h3>
+
+<p>
+Official Main Website Contact Information
+</p>
+
+<div class="location">
+
+<strong>📍 Head Office</strong>
+
+<br><br>
+
+Chakla Ghat,
+Kishanganj,
+Bihar, India
+
+</div>
+
+<br>
+
+<p>
+<strong>Email:</strong><br>
+classicempireltd09@gmail.com
+</p>
+
+</div>
+
+</section>
+
+
 </div>
 
 
+<!-- FOOTER -->
+
 <footer>
 
-<strong>Classic Empire Ltd</strong>
+<strong>
+Classic Empire Ltd
+</strong>
+
+<br><br>
+
+Head Office: Chakla Ghat, Kishanganj, Bihar, India
 
 <br><br>
 
@@ -700,12 +1195,14 @@ const SUPABASE_KEY =
 
 const supabaseClient =
 supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
 
-/* DEFAULT DATE */
+/* =========================
+   DEFAULT DATE
+========================= */
 
 const pointDate =
 document.getElementById("pointDate");
@@ -714,205 +1211,554 @@ pointDate.value =
 new Date().toISOString().split("T")[0];
 
 
-/* PUBLIC POINTS */
+/* =========================
+   AWARD SYSTEM
+========================= */
 
-async function loadPoints(){
+function getAward(percentage){
 
-  const date =
-    document.getElementById("pointDate").value;
+if(percentage >= 95){
 
-  const message =
-    document.getElementById("pointsMessage");
+return {
+name:"Empire Honor Award",
+emoji:"🌟"
+};
 
-  const table =
-    document.getElementById("pointsTable");
+}
 
-  const body =
-    document.getElementById("pointsBody");
+if(percentage >= 90){
 
-  message.textContent =
-    "Loading points...";
+return {
+name:"Empire Gold Award",
+emoji:"💎"
+};
 
-  table.style.display="none";
+}
 
-  body.innerHTML="";
+if(percentage >= 85){
 
-  const {data,error} =
-    await supabaseClient.rpc(
-      "get_public_points",
-      {
-        input_date:date
-      }
-    );
+return {
+name:"Royal Leadership Award",
+emoji:"👑"
+};
 
-  if(error){
+}
 
-    message.textContent =
-      "Points load नहीं हो पाए: "
-      + error.message;
+if(percentage >= 82){
 
-    return;
-  }
+return {
+name:"Classic Excellence Award",
+emoji:"🏆"
+};
 
-  if(!data || data.length===0){
+}
 
-    message.textContent =
-      "इस तारीख के लिए कोई points उपलब्ध नहीं हैं।";
+if(percentage >= 79){
 
-    return;
-  }
+return {
+name:"Empire Achievement Award",
+emoji:"🥇"
+};
 
-  data.forEach(row=>{
+}
 
-    const school =
-      row.school_points ??
-      row.school_madrasa_point ??
-      0;
+if(percentage >= 77){
 
-    const game =
-      row.game_points ??
-      row.game_work_point ??
-      0;
+return {
+name:"Classic Service Award",
+emoji:"🏅"
+};
 
-    const total =
-      row.total_points ??
-      row.daily_total ??
-      (school + game);
+}
 
-    const percentage =
-      row.percentage ??
-      0;
+if(percentage >= 75){
 
-    const award =
-      row.award_name ??
-      "No Award";
+return {
+name:"Classic Star Award",
+emoji:"⭐"
+};
 
-    const emoji =
-      row.award_emoji ??
-      "❌";
+}
 
-    const bonus =
-      row.bonus_points ??
-      0;
-
-    const tr =
-      document.createElement("tr");
-
-    tr.innerHTML=`
-
-      <td>${row.member_name ?? ""}</td>
-
-      <td>${school}</td>
-
-      <td>${game}</td>
-
-      <td>${total}</td>
-
-      <td>${percentage}%</td>
-
-      <td>${emoji} ${award}</td>
-
-      <td>${bonus}</td>
-
-    `;
-
-    body.appendChild(tr);
-
-  });
-
-  table.style.display="table";
-
-  message.textContent =
-    "Points successfully loaded.";
+return {
+name:"No Award",
+emoji:"❌"
+};
 
 }
 
 
-/* APPLICATION */
+/* =========================
+   CHECK 25 CONSECUTIVE DAYS
+========================= */
 
-document
-.getElementById("applicationForm")
-.addEventListener("submit",async function(e){
+function has25FullDays(records){
 
-  e.preventDefault();
+if(!records.length){
+return false;
+}
 
-  const message =
-    document.getElementById("applicationMessage");
+const fullDates =
+records
+.filter(row => {
 
-  message.textContent =
-    "Submitting application...";
+const school =
+Number(
+row.school_madrasa_point || 0
+);
 
-  const {data,error} =
-    await supabaseClient.rpc(
-      "submit_application",
-      {
-        input_applicant_name:
-          document.getElementById("applicantName").value,
+const game =
+Number(
+row.game_work_point || 0
+);
 
-        input_age:
-          document.getElementById("age").value,
+return school === 1 && game === 2;
 
-        input_class:
-          document.getElementById("className").value,
+})
+.map(row => row.date)
+.sort();
 
-        input_post:
-          document.getElementById("post").value,
 
-        input_applicant_photo:
-          "",
+if(fullDates.length < 25){
+return false;
+}
 
-        input_applicant_email:
-          document.getElementById("email").value,
 
-        input_contact_number:
-          document.getElementById("contact").value,
+let streak = 1;
 
-        input_reason:
-          document.getElementById("reason").value
-      }
-    );
 
-  if(error){
+for(let i=1;i<fullDates.length;i++){
 
-    message.textContent =
-      "Error: " + error.message;
+const previous =
+new Date(
+fullDates[i-1] + "T00:00:00"
+);
 
-    return;
+const current =
+new Date(
+fullDates[i] + "T00:00:00"
+);
+
+const difference =
+(
+current - previous
+) / (
+1000 * 60 * 60 * 24
+);
+
+
+if(difference === 1){
+
+streak++;
+
+if(streak >= 25){
+return true;
+}
+
+}else{
+
+streak = 1;
+
+}
+
+}
+
+return false;
+
+}
+
+
+/* =========================
+   PUBLIC POINTS
+========================= */
+
+async function loadPoints(){
+
+const selectedDate =
+document.getElementById(
+"pointDate"
+).value;
+
+const message =
+document.getElementById(
+"pointsMessage"
+);
+
+const table =
+document.getElementById(
+"pointsTable"
+);
+
+const body =
+document.getElementById(
+"pointsBody"
+);
+
+
+message.textContent =
+"Loading points...";
+
+table.style.display =
+"none";
+
+body.innerHTML =
+"";
+
+
+/*
+  Latest public function:
+  get_public_points()
+  No date argument.
+*/
+
+const {data,error} =
+await supabaseClient.rpc(
+"get_public_points"
+);
+
+
+if(error){
+
+message.textContent =
+"Points load नहीं हो पाए: "
++ error.message;
+
+return;
+
+}
+
+
+if(!data){
+
+message.textContent =
+"Points data उपलब्ध नहीं है।";
+
+return;
+
+}
+
+
+/*
+  Function response:
+  {
+    success:true,
+    members:[]
   }
+*/
 
-  if(data && data.success){
+const members =
+Array.isArray(data)
+? data
+: (
+data.members || []
+);
 
-    message.textContent =
-      "Application successfully submitted. Status: Pending";
 
-    document
-      .getElementById("applicationForm")
-      .reset();
+if(!members.length){
 
-  }else{
+message.textContent =
+"कोई points उपलब्ध नहीं हैं।";
 
-    message.textContent =
-      data?.message ||
-      "Application submit नहीं हो पाई।";
+return;
 
-  }
+}
+
+
+const selected =
+new Date(
+selectedDate + "T00:00:00"
+);
+
+const selectedMonth =
+selected.getMonth();
+
+const selectedYear =
+selected.getFullYear();
+
+
+members.forEach(member => {
+
+
+const dailyRecords =
+Array.isArray(
+member.daily_points
+)
+? member.daily_points
+: [];
+
+
+const records =
+dailyRecords
+.filter(row => {
+
+const date =
+row.date;
+
+if(!date){
+return false;
+}
+
+const d =
+new Date(
+date + "T00:00:00"
+);
+
+return (
+d.getMonth() === selectedMonth &&
+d.getFullYear() === selectedYear
+);
+
+});
+
+
+let monthlyPoints = 0;
+
+let selectedSchool = 0;
+
+let selectedGame = 0;
+
+let selectedDailyTotal = 0;
+
+
+records.forEach(row => {
+
+const school =
+Number(
+row.school_madrasa_point || 0
+);
+
+const game =
+Number(
+row.game_work_point || 0
+);
+
+const total =
+Number(
+row.total_points ??
+(
+school + game
+)
+);
+
+
+monthlyPoints += total;
+
+
+if(row.date === selectedDate){
+
+selectedSchool =
+school;
+
+selectedGame =
+game;
+
+selectedDailyTotal =
+total;
+
+}
 
 });
 
 
 /*
-  IMPORTANT:
-
-  Main Website has NO Admin Login.
-  Main Website has NO Points Editor.
-  Main Website has NO Admin Controls.
-
-  Admin is completely separate:
-  admin.html
-
-  Points Editor is completely separate:
-  points-editor.html
+  25 consecutive full days
+  gives +10 bonus.
 */
+
+const bonus =
+has25FullDays(records)
+? 10
+: 0;
+
+
+let percentage =
+monthlyPoints + bonus;
+
+
+/*
+  Maximum is always 100%.
+*/
+
+if(percentage > 100){
+
+percentage = 100;
+
+}
+
+
+const award =
+getAward(percentage);
+
+
+const tr =
+document.createElement("tr");
+
+
+tr.innerHTML = `
+
+<td>
+${member.member_name || ""}
+</td>
+
+<td>
+${selectedSchool}
+</td>
+
+<td>
+${selectedGame}
+</td>
+
+<td>
+${selectedDailyTotal}
+</td>
+
+<td>
+${monthlyPoints}
+</td>
+
+<td>
+${percentage}%
+</td>
+
+<td>
+${award.emoji} ${award.name}
+</td>
+
+<td>
+${bonus}
+</td>
+
+`;
+
+
+body.appendChild(tr);
+
+});
+
+
+table.style.display =
+"table";
+
+
+message.textContent =
+"Points successfully loaded.";
+
+}
+
+
+/* =========================
+   APPLICATION
+========================= */
+
+document
+.getElementById(
+"applicationForm"
+)
+.addEventListener(
+"submit",
+async function(e){
+
+e.preventDefault();
+
+
+const message =
+document.getElementById(
+"applicationMessage"
+);
+
+
+message.textContent =
+"Submitting application...";
+
+
+const {data,error} =
+await supabaseClient.rpc(
+"submit_application",
+{
+
+input_applicant_name:
+document.getElementById(
+"applicantName"
+).value,
+
+input_age:
+document.getElementById(
+"age"
+).value,
+
+input_class:
+document.getElementById(
+"className"
+).value,
+
+input_post:
+document.getElementById(
+"post"
+).value,
+
+input_applicant_photo:
+"",
+
+input_applicant_email:
+document.getElementById(
+"email"
+).value,
+
+input_contact_number:
+document.getElementById(
+"contact"
+).value,
+
+input_reason:
+document.getElementById(
+"reason"
+).value
+
+}
+);
+
+
+if(error){
+
+message.textContent =
+"Error: "
++ error.message;
+
+return;
+
+}
+
+
+if(
+data &&
+data.success
+){
+
+message.textContent =
+"Application successfully submitted. Status: Pending";
+
+
+document
+.getElementById(
+"applicationForm"
+)
+.reset();
+
+
+}else{
+
+message.textContent =
+data?.message ||
+"Application submit नहीं हो पाई।";
+
+}
+
+});
+
+
+/* =========================
+   START
+========================= */
 
 loadPoints();
 

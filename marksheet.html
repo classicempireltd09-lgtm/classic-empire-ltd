@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -15,231 +15,285 @@
 
 body{
   margin:0;
-  padding:20px;
   background:#080808;
-  color:#111;
-  font-family:Arial,sans-serif;
-}
-
-.loading,
-.error-box{
-  max-width:850px;
-  margin:30px auto;
-  padding:20px;
-  border-radius:10px;
-  text-align:center;
-}
-
-.loading{
-  background:#151515;
   color:#fff;
-  border:1px solid #555;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
-.error-box{
-  background:#351111;
-  color:#ffb0b0;
-  border:1px solid #ff4444;
-}
-
-.marksheet{
-  max-width:850px;
-  margin:20px auto;
-  background:#fff;
-  border:6px double #d4af37;
-  border-radius:12px;
-  padding:25px;
-}
-
-.header{
+header{
   text-align:center;
-  border-bottom:2px solid #d4af37;
-  padding-bottom:18px;
+  padding:20px 10px;
+  border-bottom:1px solid #d4af37;
 }
 
-.logo{
+header img{
   width:90px;
   height:90px;
   object-fit:contain;
 }
 
-.title{
-  margin:8px 0 4px;
-  font-size:28px;
+header h1{
+  margin:8px 0 3px;
+  color:#ffd700;
+  font-size:25px;
 }
 
-.subtitle{
+header p{
   margin:0;
-  color:#666;
+  color:#ccc;
+}
+
+.container{
+  max-width:850px;
+  margin:25px auto;
+  padding:15px;
+}
+
+.card{
+  background:#111;
+  border:1px solid #d4af37;
+  border-radius:14px;
+  padding:25px;
+  box-shadow:0 0 20px rgba(212,175,55,.12);
+}
+
+.loading{
+  text-align:center;
+  color:#ffd700;
+  font-size:20px;
+}
+
+.error{
+  text-align:center;
+  color:#ff5c5c;
+  font-size:18px;
+  padding:20px;
+}
+
+.hidden{
+  display:none;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:flex-start;
+  border-bottom:1px solid #555;
+  padding-bottom:20px;
+}
+
+.applicant{
+  flex:1;
+}
+
+.photo{
+  width:115px;
+  height:140px;
+  border:2px solid #d4af37;
+  border-radius:8px;
+  object-fit:cover;
+  background:#222;
+}
+
+.title{
+  text-align:center;
+  margin:20px 0;
+}
+
+.title h2{
+  color:#ffd700;
+  margin:0;
 }
 
 .info{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
-  margin-top:20px;
 }
 
-.info-box{
-  border:1px solid #ccc;
-  border-radius:6px;
-  padding:11px;
+.info div{
+  background:#191919;
+  padding:12px;
+  border-radius:8px;
 }
 
 .label{
-  color:#777;
-  font-size:12px;
+  color:#aaa;
+  font-size:13px;
 }
 
 .value{
-  margin-top:5px;
+  color:#fff;
   font-weight:bold;
+  margin-top:4px;
 }
 
-table{
+.marks{
   width:100%;
   border-collapse:collapse;
-  margin-top:25px;
+  margin-top:20px;
 }
 
-th,td{
-  border:1px solid #aaa;
+.marks th,
+.marks td{
+  border:1px solid #555;
   padding:12px;
   text-align:center;
 }
 
-th{
-  background:#eee;
+.marks th{
+  color:#ffd700;
+  background:#191919;
 }
 
 .result{
-  margin-top:20px;
-  padding:15px;
-  border:2px solid #222;
   text-align:center;
-  font-size:22px;
-  font-weight:bold;
+  margin:25px 0;
+  padding:15px;
+  border:1px solid #d4af37;
+  border-radius:10px;
 }
 
 .pass{
-  color:green;
+  color:#55ff88;
+  font-size:25px;
+  font-weight:bold;
 }
 
 .fail{
-  color:red;
+  color:#ff5555;
+  font-size:25px;
+  font-weight:bold;
 }
 
-.interview{
-  margin-top:20px;
-  border:1px solid #ccc;
-  padding:15px;
-}
-
-.signature-area{
+.sign-area{
   display:flex;
   justify-content:space-between;
-  align-items:flex-end;
+  align-items:end;
   margin-top:45px;
   gap:30px;
 }
 
-.sign-box{
-  width:45%;
+.signature-box,
+.seal-box{
   text-align:center;
-}
-
-.seal{
-  max-width:160px;
-  max-height:140px;
-  object-fit:contain;
+  flex:1;
 }
 
 .signature{
-  max-width:220px;
-  max-height:90px;
+  max-width:190px;
+  max-height:80px;
+  object-fit:contain;
+}
+
+.seal{
+  width:120px;
+  height:120px;
   object-fit:contain;
 }
 
 .default-seal{
   width:120px;
   height:120px;
-  margin:auto;
-  border:4px double #555;
+  border:3px double #d4af37;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
+  color:#ffd700;
   font-size:12px;
+  margin:auto;
 }
 
-.default-sign{
-  font-family:cursive;
-  font-size:30px;
-}
-
-.release{
+.interview{
   margin-top:25px;
-  text-align:center;
-  color:#777;
-  font-size:12px;
+  padding:15px;
+  background:#191919;
+  border-left:4px solid #ffd700;
 }
 
 .buttons{
-  max-width:850px;
-  margin:15px auto;
-  display:flex;
-  gap:10px;
+  text-align:center;
+  margin-top:25px;
 }
 
 button{
-  flex:1;
-  padding:13px;
-  border:0;
-  border-radius:7px;
   background:#ffd700;
   color:#000;
+  border:0;
+  padding:12px 20px;
+  margin:5px;
+  border-radius:8px;
   font-weight:bold;
   cursor:pointer;
 }
 
+button:hover{
+  background:#fff;
+}
+
+footer{
+  text-align:center;
+  color:#999;
+  margin:25px 0;
+  font-size:13px;
+}
+
 @media(max-width:600px){
+  .top{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
 
   .info{
     grid-template-columns:1fr;
   }
 
-  .signature-area{
+  .sign-area{
     flex-direction:column;
     align-items:center;
-  }
-
-  .sign-box{
-    width:100%;
-  }
-
-  .buttons{
-    flex-direction:column;
-  }
-
-  .title{
-    font-size:22px;
   }
 }
 
 @media print{
-
   body{
     background:#fff;
-    padding:0;
+    color:#000;
+  }
+
+  header{
+    border-bottom:2px solid #000;
+  }
+
+  header h1{
+    color:#000;
+  }
+
+  header p,
+  footer{
+    color:#333;
+  }
+
+  .card{
+    border:1px solid #000;
+    box-shadow:none;
   }
 
   .buttons{
     display:none;
   }
 
-  .marksheet{
-    margin:0;
+  .info div{
+    background:#fff;
+    border:1px solid #ccc;
+  }
+
+  .marks th{
+    background:#eee;
+    color:#000;
   }
 }
 </style>
@@ -247,181 +301,221 @@ button{
 
 <body>
 
-<div id="loading" class="loading">
-  Marksheet loading...
-</div>
+<header>
+  <img src="classic-empire-logo.png" alt="Classic Empire Ltd Logo">
 
-<div id="errorBox"
-     class="error-box"
-     style="display:none;">
-</div>
+  <h1>CLASSIC EMPIRE LTD</h1>
 
+  <p>Official Examination Marksheet</p>
+</header>
 
-<div id="marksheet"
-     class="marksheet"
-     style="display:none;">
+<div class="container">
 
-  <div class="header">
+  <div class="card">
 
-    <img
-      src="classic-empire-logo.png"
-      class="logo"
-      alt="Classic Empire Ltd"
-    >
-
-    <h1 class="title">
-      CLASSIC EMPIRE LTD
-    </h1>
-
-    <p class="subtitle">
-      Official Examination Marksheet
-    </p>
-
-  </div>
-
-
-  <div class="info">
-
-    <div class="info-box">
-      <div class="label">Applicant</div>
-      <div id="applicantName" class="value">-</div>
+    <div id="loading" class="loading">
+      Marksheet Loading...
     </div>
 
-    <div class="info-box">
-      <div class="label">Exam Code</div>
-      <div id="examCode" class="value">-</div>
-    </div>
+    <div id="error" class="error hidden"></div>
 
-    <div class="info-box">
-      <div class="label">Post</div>
-      <div id="post" class="value">-</div>
-    </div>
+    <div id="marksheet" class="hidden">
 
-    <div class="info-box">
-      <div class="label">Section</div>
-      <div id="section" class="value">-</div>
-    </div>
+      <div class="top">
 
-  </div>
+        <div class="applicant">
+          <h2 id="applicantName">-</h2>
 
+          <p>
+            <b>Exam Code:</b>
+            <span id="examCode">-</span>
+          </p>
 
-  <table>
+          <p>
+            <b>Post:</b>
+            <span id="post">-</span>
+          </p>
 
-    <thead>
-      <tr>
-        <th>Subject</th>
-        <th>Obtained</th>
-        <th>Maximum</th>
-      </tr>
-    </thead>
+          <p>
+            <b>Section:</b>
+            <span id="section">-</span>
+          </p>
+        </div>
 
-    <tbody>
+        <img
+          id="applicantPhoto"
+          class="photo hidden"
+          alt="Applicant Photo"
+        >
 
-      <tr>
-        <td>Objective</td>
-        <td id="objective">-</td>
-        <td>18</td>
-      </tr>
-
-      <tr>
-        <td>Subjective</td>
-        <td id="subjective">-</td>
-        <td>10</td>
-      </tr>
-
-      <tr>
-        <th>Total</th>
-        <th id="total">-</th>
-        <th>28</th>
-      </tr>
-
-    </tbody>
-
-  </table>
+      </div>
 
 
-  <div id="resultBox"
-       class="result">
-
-    Result:
-    <span id="result">-</span>
-
-  </div>
+      <div class="title">
+        <h2>EXAMINATION MARKSHEET</h2>
+      </div>
 
 
-  <div class="interview">
+      <div class="info">
 
-    <strong>Interview Information</strong>
+        <div>
+          <div class="label">Applicant</div>
+          <div class="value" id="infoName">-</div>
+        </div>
 
-    <p id="interviewLocation">
-      Head Office: Chakla Ghat,
-      Kishanganj, Bihar, India
-    </p>
+        <div>
+          <div class="label">Exam Code</div>
+          <div class="value" id="infoCode">-</div>
+        </div>
 
-  </div>
+        <div>
+          <div class="label">Post</div>
+          <div class="value" id="infoPost">-</div>
+        </div>
 
-
-  <div class="signature-area">
-
-    <div class="sign-box">
-
-      <div id="sealContainer">
-
-        <div class="default-seal">
-          CLASSIC<br>
-          EMPIRE<br>
-          LTD
+        <div>
+          <div class="label">Section</div>
+          <div class="value" id="infoSection">-</div>
         </div>
 
       </div>
 
-      <p>Official Seal</p>
 
-    </div>
+      <table class="marks">
+
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Obtained</th>
+            <th>Maximum</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Objective</td>
+            <td id="objective">0</td>
+            <td>18</td>
+          </tr>
+
+          <tr>
+            <td>Subjective</td>
+            <td id="subjective">0</td>
+            <td>10</td>
+          </tr>
+
+          <tr>
+            <th>Total</th>
+            <th id="total">0</th>
+            <th>28</th>
+          </tr>
+
+        </tbody>
+
+      </table>
 
 
-    <div class="sign-box">
+      <div class="result">
 
-      <div id="signatureContainer">
+        <div>FINAL RESULT</div>
 
-        <div class="default-sign">
-          N. Ahmad
+        <div id="resultText" class="pass">
+          -
         </div>
 
       </div>
 
-      <p>
-        <strong>Noor Ahmad</strong><br>
-        President<br>
-        CLASSIC EMPIRE LTD
-      </p>
+
+      <div class="info">
+
+        <div>
+          <div class="label">Submitted At</div>
+          <div class="value" id="submittedAt">-</div>
+        </div>
+
+        <div>
+          <div class="label">Result Released At</div>
+          <div class="value" id="releasedAt">-</div>
+        </div>
+
+      </div>
+
+
+      <div class="interview">
+
+        <b>Interview Information</b>
+
+        <p id="interviewLocation">
+          Head Office: Chakla Ghat, Kishanganj, Bihar, India
+        </p>
+
+      </div>
+
+
+      <div class="sign-area">
+
+        <div class="signature-box">
+
+          <img
+            id="signature"
+            class="signature hidden"
+            alt="President Signature"
+          >
+
+          <div id="defaultSignature">
+            <b>N. Ahmad</b>
+          </div>
+
+          <hr>
+
+          <b>Noor Ahmad</b><br>
+          President<br>
+          CLASSIC EMPIRE LTD
+
+        </div>
+
+
+        <div class="seal-box">
+
+          <img
+            id="seal"
+            class="seal hidden"
+            alt="Official Seal"
+          >
+
+          <div id="defaultSeal" class="default-seal">
+            CLASSIC<br>
+            EMPIRE LTD
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="buttons">
+
+        <button onclick="window.print()">
+          Print / Save PDF
+        </button>
+
+        <button onclick="location.reload()">
+          Refresh
+        </button>
+
+      </div>
 
     </div>
 
   </div>
 
-
-  <div class="release">
-
-    Result Released:
-    <span id="releaseDate">-</span>
-
-  </div>
-
 </div>
 
 
-<div class="buttons">
-
-  <button onclick="window.print()">
-    Print / Save PDF
-  </button>
-
-  <button onclick="location.reload()">
-    Refresh
-  </button>
-
-</div>
+<footer>
+  Classic Empire Ltd • Chakla Ghat, Kishanganj, Bihar, India
+</footer>
 
 
 <script>
@@ -432,232 +526,127 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
   "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
-
-const supabaseClient =
-  supabase.createClient(
+const client =
+  window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
 
 
-function getCode(){
+function getExamCode(){
 
   const params =
-    new URLSearchParams(
-      window.location.search
-    );
+    new URLSearchParams(window.location.search);
 
   return (
     params.get("code") ||
     params.get("exam_code") ||
     ""
   ).trim();
+
 }
 
 
-/*
-  Supabase RPC कभी JSON object,
-  कभी JSON string,
-  कभी array दे सकता है।
-  यह function सभी formats संभालता है।
-*/
+function parseRPCData(data){
 
-function normalizeData(data){
-
-  let value = data;
-
-
-  if(
-    value &&
-    typeof value === "object" &&
-    value.get_marksheet_data !== undefined
-  ){
-
-    value =
-      value.get_marksheet_data;
+  if(data === null || data === undefined){
+    return null;
   }
 
-
-  if(Array.isArray(value)){
-
-    value =
-      value.length > 0
-        ? value[0]
-        : null;
+  if(typeof data === "object"){
+    return data;
   }
 
+  if(typeof data === "string"){
 
-  if(typeof value === "string"){
+    let value = data.trim();
 
     try{
+      return JSON.parse(value);
+    }
+    catch(e){}
 
-      value =
-        JSON.parse(value);
+    if(value.startsWith('"') && value.endsWith('"')){
 
-    }catch(error){
+      try{
+        const unquoted =
+          JSON.parse(value);
 
-      console.error(
-        "JSON parse failed:",
-        error
-      );
+        if(typeof unquoted === "string"){
+          return JSON.parse(unquoted);
+        }
 
-      return null;
+      }
+      catch(e){}
+
     }
 
   }
 
+  return null;
 
-  if(
-    value &&
-    typeof value === "object" &&
-    value.get_marksheet_data !== undefined
-  ){
-
-    value =
-      value.get_marksheet_data;
-  }
-
-
-  if(typeof value === "string"){
-
-    try{
-
-      value =
-        JSON.parse(value);
-
-    }catch(error){
-
-      return null;
-    }
-
-  }
-
-
-  return value;
 }
 
 
 function showError(message){
 
-  document.getElementById(
-    "loading"
-  ).style.display = "none";
+  document.getElementById("loading")
+    .classList.add("hidden");
 
+  const error =
+    document.getElementById("error");
 
-  const box =
-    document.getElementById(
-      "errorBox"
-    );
+  error.textContent = message;
 
+  error.classList.remove("hidden");
 
-  box.innerHTML =
-    "<strong>Marksheet नहीं मिली</strong><br><br>" +
-    message;
-
-
-  box.style.display =
-    "block";
 }
 
 
 function setText(id,value){
 
-  document.getElementById(id)
-    .textContent =
+  document.getElementById(id).textContent =
     value === null ||
     value === undefined ||
     value === ""
       ? "-"
       : value;
-}
 
-
-function showImage(
-  containerId,
-  url,
-  className,
-  alt
-){
-
-  if(!url){
-    return;
-  }
-
-
-  const container =
-    document.getElementById(
-      containerId
-    );
-
-
-  const img =
-    document.createElement("img");
-
-
-  img.src = url;
-
-  img.className =
-    className;
-
-  img.alt =
-    alt;
-
-
-  container.innerHTML = "";
-
-  container.appendChild(img);
 }
 
 
 async function loadMarksheet(){
 
-  const code =
-    getCode();
+  const examCode =
+    getExamCode();
 
-
-  if(!code){
+  if(!examCode){
 
     showError(
-      "Exam Code URL में नहीं मिला।"
+      "Exam Code नहीं मिला। URL में ?code=ExamCode डालें।"
     );
 
     return;
   }
 
 
-  console.log(
-    "Loading marksheet:",
-    code
-  );
-
-
   try{
 
     const response =
-      await supabaseClient.rpc(
+      await client.rpc(
         "get_marksheet_data",
         {
-          input_exam_code:
-            code
+          input_exam_code: examCode
         }
       );
 
 
-    console.log(
-      "Raw RPC response:",
-      response
-    );
-
-
     if(response.error){
 
-      console.error(
-        "RPC error:",
-        response.error
-      );
-
+      console.error(response.error);
 
       showError(
+        "Marksheet load नहीं हो सकी: " +
         response.error.message
       );
 
@@ -666,15 +655,28 @@ async function loadMarksheet(){
 
 
     let data =
-      normalizeData(
-        response.data
-      );
+      parseRPCData(response.data);
 
 
-    console.log(
-      "Normalized marksheet data:",
-      data
-    );
+    /*
+      कभी-कभी RPC result
+      array के अंदर भी आ सकता है।
+    */
+
+    if(Array.isArray(data)){
+
+      if(data.length === 0){
+
+        showError(
+          "इस Exam Code की कोई marksheet नहीं मिली।"
+        );
+
+        return;
+      }
+
+      data = data[0];
+
+    }
 
 
     if(!data){
@@ -687,7 +689,13 @@ async function loadMarksheet(){
     }
 
 
-    if(data.success === false){
+    /*
+      अगर function ने success false भेजा।
+    */
+
+    if(
+      data.success === false
+    ){
 
       showError(
         data.message ||
@@ -698,39 +706,48 @@ async function loadMarksheet(){
     }
 
 
+    /*
+      Result release check.
+      अगर field मौजूद है और false है,
+      तो marksheet अभी release नहीं हुई।
+    */
+
     if(
       data.result_released === false
     ){
 
       showError(
-        "इस Exam Code का result अभी release नहीं हुआ है।"
+        "इस Exam Code का Result अभी release नहीं हुआ है।"
       );
 
       return;
     }
 
 
-    /*
-      Applicant
-    */
+    document
+      .getElementById("loading")
+      .classList.add("hidden");
+
+
+    document
+      .getElementById("marksheet")
+      .classList.remove("hidden");
+
 
     setText(
       "applicantName",
       data.applicant_name
     );
 
-
     setText(
       "examCode",
-      data.exam_code || code
+      data.exam_code || examCode
     );
-
 
     setText(
       "post",
       data.post
     );
-
 
     setText(
       "section",
@@ -738,90 +755,90 @@ async function loadMarksheet(){
     );
 
 
-    /*
-      Marks
-    */
+    setText(
+      "infoName",
+      data.applicant_name
+    );
 
-    const objective =
-      Number(
-        data.objective_marks || 0
-      );
+    setText(
+      "infoCode",
+      data.exam_code || examCode
+    );
 
+    setText(
+      "infoPost",
+      data.post
+    );
 
-    const subjective =
-      Number(
-        data.subjective_marks || 0
-      );
-
-
-    const total =
-      data.total_marks !== null &&
-      data.total_marks !== undefined
-        ? Number(data.total_marks)
-        : objective + subjective;
+    setText(
+      "infoSection",
+      data.section
+    );
 
 
     setText(
       "objective",
-      objective + "/18"
+      data.objective_marks
     );
-
 
     setText(
       "subjective",
-      subjective + "/10"
+      data.subjective_marks
     );
-
 
     setText(
       "total",
-      total + "/28"
+      data.total_marks
     );
 
 
-    /*
-      Result
-    */
-
-    const finalResult =
+    const result =
       String(
-        data.final_result || "-"
+        data.final_result || ""
       ).toUpperCase();
 
 
-    setText(
-      "result",
-      finalResult
-    );
-
-
-    const resultBox =
+    const resultElement =
       document.getElementById(
-        "resultBox"
+        "resultText"
       );
 
 
-    if(finalResult === "PASS"){
+    resultElement.textContent =
+      result || "-";
 
-      resultBox.classList.add(
-        "pass"
+
+    resultElement.className =
+      result === "PASS"
+        ? "pass"
+        : result === "FAIL"
+          ? "fail"
+          : "";
+
+
+    if(data.submitted_at){
+
+      setText(
+        "submittedAt",
+        new Date(
+          data.submitted_at
+        ).toLocaleString("en-IN")
       );
 
     }
 
 
-    if(finalResult === "FAIL"){
+    if(data.result_released_at){
 
-      resultBox.classList.add(
-        "fail"
+      setText(
+        "releasedAt",
+        new Date(
+          data.result_released_at
+        ).toLocaleString("en-IN")
       );
 
     }
 
-
-    /*
-      Interview
-    */
 
     setText(
       "interviewLocation",
@@ -831,71 +848,75 @@ async function loadMarksheet(){
 
 
     /*
-      Release date
+      Applicant Photo
     */
 
-    if(data.result_released_at){
+    if(data.applicant_photo){
 
-      setText(
-        "releaseDate",
-        new Date(
-          data.result_released_at
-        ).toLocaleString(
-          "en-IN"
-        )
-      );
+      const photo =
+        document.getElementById(
+          "applicantPhoto"
+        );
+
+      photo.src =
+        data.applicant_photo;
+
+      photo.classList.remove("hidden");
 
     }
 
 
     /*
-      Seal
+      Official Seal
     */
 
-    showImage(
-      "sealContainer",
-      data.official_seal_url,
-      "seal",
-      "Official Seal"
-    );
+    if(data.official_seal_url){
+
+      document
+        .getElementById("seal")
+        .src =
+        data.official_seal_url;
+
+      document
+        .getElementById("seal")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("defaultSeal")
+        .classList.add("hidden");
+
+    }
 
 
     /*
       President Signature
     */
 
-    showImage(
-      "signatureContainer",
-      data.president_signature_url,
-      "signature",
-      "President Signature"
-    );
+    if(data.president_signature_url){
+
+      document
+        .getElementById("signature")
+        .src =
+        data.president_signature_url;
+
+      document
+        .getElementById("signature")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("defaultSignature")
+        .classList.add("hidden");
+
+    }
 
 
-    /*
-      SUCCESS
-    */
+  }
+  catch(error){
 
-    document.getElementById(
-      "loading"
-    ).style.display = "none";
-
-
-    document.getElementById(
-      "marksheet"
-    ).style.display = "block";
-
-
-  }catch(error){
-
-    console.error(
-      "FETCH ERROR:",
-      error
-    );
-
+    console.error(error);
 
     showError(
-      "Failed to fetch marksheet data: " +
+      "Marksheet load करते समय error आया: " +
       error.message
     );
 

@@ -1,269 +1,320 @@
-हाँ भाई 👍 पूरा नया admin.html दे रहा हूँ। इसमें Section वाला fix पहले से लगा हुआ है और बाकी current Exam Code History + Submission/Result management भी रहेगा।
-इसे पूरा replace करके admin.html में डाल देना।
 <!DOCTYPE html>
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Classic Empire Ltd — Admin Panel</title>
+<title>Classic Empire Ltd — Marksheet</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
 }
 
 body{
+  margin:0;
   font-family:Arial,sans-serif;
   background:#080808;
   color:#fff;
-  min-height:100vh;
 }
 
-header{
-  position:sticky;
-  top:0;
-  z-index:50;
+.topbar{
   background:#111;
-  border-bottom:1px solid #d4af37;
-  padding:14px;
-  display:flex;
-  align-items:center;
-  gap:12px;
+  border-bottom:2px solid #d4af37;
+  padding:15px;
+  text-align:center;
 }
 
-header img{
-  width:48px;
-  height:48px;
+.topbar img{
+  width:70px;
+  height:70px;
   object-fit:contain;
 }
 
-header h1{
+.topbar h1{
+  margin:8px 0 3px;
   color:#ffd700;
-  font-size:20px;
+  font-size:24px;
 }
 
-header p{
+.topbar p{
+  margin:0;
   color:#aaa;
-  font-size:12px;
-  margin-top:3px;
+  font-size:13px;
 }
 
 .container{
   width:94%;
-  max-width:1250px;
+  max-width:900px;
   margin:25px auto;
 }
 
-.card{
+.loading,
+.error{
   background:#111;
   border:1px solid #333;
-  border-radius:14px;
-  padding:18px;
+  border-radius:12px;
+  padding:25px;
+  text-align:center;
+}
+
+.error{
+  border-color:#b00020;
+  color:#ff8080;
+}
+
+.marksheet{
+  background:#fff;
+  color:#111;
+  border:8px double #c9a227;
+  border-radius:4px;
+  padding:30px;
+  position:relative;
+}
+
+.marksheet-header{
+  text-align:center;
+  border-bottom:2px solid #c9a227;
+  padding-bottom:18px;
+}
+
+.marksheet-header img{
+  width:85px;
+  height:85px;
+  object-fit:contain;
+}
+
+.marksheet-header h2{
+  margin:8px 0 3px;
+  color:#111;
+  font-size:27px;
+}
+
+.marksheet-header h3{
+  margin:0;
+  color:#7d6411;
+  font-size:18px;
+}
+
+.title{
+  margin:20px 0;
+  text-align:center;
+  font-size:25px;
+  font-weight:bold;
+  color:#111;
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+
+.info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  border:1px solid #aaa;
   margin-bottom:20px;
-  box-shadow:0 0 15px rgba(255,215,0,.05);
 }
 
-.card h2{
-  color:#ffd700;
-  margin-bottom:15px;
-  font-size:19px;
-}
-
-input,
-select,
-textarea{
-  width:100%;
+.info div{
   padding:11px;
-  margin:6px 0 12px;
-  background:#080808;
-  border:1px solid #444;
-  border-radius:8px;
-  color:#fff;
-  outline:none;
+  border-bottom:1px solid #ccc;
+  border-right:1px solid #ccc;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:#ffd700;
+.info div:nth-child(even){
+  border-right:0;
+}
+
+.label{
+  font-weight:bold;
+  color:#555;
+}
+
+.value{
+  margin-top:4px;
+  font-weight:bold;
+}
+
+.photo-box{
+  text-align:center;
+  margin:15px 0;
+}
+
+.photo-box img{
+  width:110px;
+  height:135px;
+  object-fit:cover;
+  border:2px solid #777;
+}
+
+.no-photo{
+  width:110px;
+  height:135px;
+  border:2px solid #777;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:#777;
+  font-size:12px;
+}
+
+.marks{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+}
+
+.marks th,
+.marks td{
+  border:1px solid #888;
+  padding:12px;
+  text-align:center;
+}
+
+.marks th{
+  background:#eee;
+}
+
+.total-row{
+  font-weight:bold;
+  font-size:18px;
+}
+
+.result{
+  margin:20px auto;
+  width:max-content;
+  min-width:180px;
+  text-align:center;
+  padding:12px 30px;
+  border:3px solid #16823b;
+  color:#16823b;
+  font-weight:bold;
+  font-size:22px;
+  border-radius:8px;
+}
+
+.interview{
+  margin-top:25px;
+  padding:15px;
+  border:1px solid #aaa;
+  text-align:center;
+}
+
+.signatures{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+  margin-top:50px;
+  text-align:center;
+}
+
+.signature-box{
+  min-height:130px;
+}
+
+.signature-box img{
+  max-width:150px;
+  max-height:80px;
+  object-fit:contain;
+}
+
+.seal-box{
+  width:120px;
+  height:120px;
+  border:3px solid #555;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+  text-align:center;
+  font-size:11px;
+  font-weight:bold;
+  padding:10px;
+}
+
+.signature-name{
+  margin-top:10px;
+  font-weight:bold;
+}
+
+.footer{
+  margin-top:30px;
+  padding-top:12px;
+  border-top:1px solid #aaa;
+  text-align:center;
+  color:#666;
+  font-size:11px;
+}
+
+.buttons{
+  text-align:center;
+  margin:20px 0;
 }
 
 button{
   border:0;
+  padding:12px 20px;
+  margin:5px;
   border-radius:8px;
-  padding:10px 15px;
   cursor:pointer;
   font-weight:bold;
-  margin:4px;
 }
 
-.gold{
+.print{
   background:#ffd700;
   color:#000;
 }
 
-.dark{
-  background:#222;
-  color:#fff;
-  border:1px solid #555;
-}
-
-.red{
-  background:#b00020;
-  color:#fff;
-}
-
-.green{
-  background:#16823b;
-  color:#fff;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
-  margin-bottom:20px;
-}
-
-.stat{
-  background:#111;
-  border:1px solid #333;
-  border-radius:12px;
-  padding:18px;
-  text-align:center;
-}
-
-.stat strong{
-  display:block;
-  color:#ffd700;
-  font-size:28px;
-  margin-top:8px;
-}
-
-.table-wrap{
-  overflow-x:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:850px;
-}
-
-th,
-td{
-  padding:10px;
-  border-bottom:1px solid #333;
-  text-align:left;
-  font-size:13px;
-}
-
-th{
-  color:#ffd700;
-  background:#181818;
-}
-
-.badge{
-  display:inline-block;
-  padding:4px 8px;
-  border-radius:20px;
-  font-size:11px;
-  background:#222;
-  border:1px solid #555;
-}
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.82);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:100;
-  padding:15px;
-}
-
-.modal-box{
-  width:100%;
-  max-width:600px;
-  max-height:90vh;
-  overflow-y:auto;
-  background:#111;
-  border:1px solid #ffd700;
-  border-radius:14px;
-  padding:20px;
-}
-
-.close{
-  float:right;
+.back{
   background:#333;
   color:#fff;
 }
 
-.message{
-  padding:10px;
-  border-radius:8px;
-  margin:10px 0;
-  display:none;
-}
-
-.success{
-  display:block;
-  background:#123d20;
-  border:1px solid #16823b;
-}
-
-.error{
-  display:block;
-  background:#42131b;
-  border:1px solid #b00020;
-}
-
-.small{
-  color:#999;
-  font-size:12px;
-}
-
-.hidden{
-  display:none!important;
-}
-
-.login{
-  max-width:450px;
-  margin:70px auto;
-}
-
-.logo-center{
-  text-align:center;
-  margin-bottom:20px;
-}
-
-.logo-center img{
-  width:90px;
-  height:90px;
-  object-fit:contain;
-}
-
-a{
-  color:#ffd700;
-}
-
 @media(max-width:600px){
-  header h1{
-    font-size:16px;
+
+  .info{
+    grid-template-columns:1fr;
+  }
+
+  .info div{
+    border-right:0;
+  }
+
+  .marksheet{
+    padding:15px;
+  }
+
+  .signatures{
+    grid-template-columns:1fr;
+  }
+
+  .marksheet-header h2{
+    font-size:22px;
+  }
+}
+
+@media print{
+
+  body{
+    background:#fff;
+  }
+
+  .topbar,
+  .buttons{
+    display:none;
   }
 
   .container{
-    width:96%;
+    width:100%;
+    max-width:none;
+    margin:0;
   }
 
-  .card{
-    padding:13px;
+  .marksheet{
+    border:8px double #c9a227;
+    box-shadow:none;
   }
 }
 </style>
@@ -271,398 +322,208 @@ a{
 
 <body>
 
-<!-- LOGIN -->
-<div id="loginScreen" class="login card">
+<div class="topbar">
 
-  <div class="logo-center">
-    <img src="classic-empire-logo.png" alt="Classic Empire Ltd">
-    <h2>Classic Empire Ltd</h2>
-    <p class="small">President / Admin Login</p>
-  </div>
+  <img
+    src="classic-empire-logo.png"
+    alt="Classic Empire Ltd"
+  >
 
-  <button class="gold" style="width:100%;" onclick="login()">
-    Login with Supabase
-  </button>
+  <h1>CLASSIC EMPIRE LTD</h1>
 
-  <div id="loginMsg" class="message"></div>
+  <p>
+    Official Examination Marksheet
+  </p>
+
 </div>
-
-
-<!-- ADMIN -->
-<div id="adminScreen" class="hidden">
-
-<header>
-  <img src="classic-empire-logo.png" alt="Classic Empire Ltd">
-
-  <div>
-    <h1>Classic Empire Ltd — Administration</h1>
-    <p>President Control Panel</p>
-  </div>
-
-  <button class="red" style="margin-left:auto;" onclick="logout()">
-    Logout
-  </button>
-</header>
 
 
 <div class="container">
 
-  <!-- OVERVIEW -->
-  <div class="stats">
-
-    <div class="stat">
-      Applications
-      <strong id="totalApplications">0</strong>
-    </div>
-
-    <div class="stat">
-      Pending
-      <strong id="pendingApplications">0</strong>
-    </div>
-
-    <div class="stat">
-      Approved
-      <strong id="approvedApplications">0</strong>
-    </div>
-
-    <div class="stat">
-      Rejected
-      <strong id="rejectedApplications">0</strong>
-    </div>
-
+  <div id="loading" class="loading">
+    Marksheet loading...
   </div>
 
-
-  <!-- PRESIDENT -->
-  <div class="card">
-
-    <h2>👑 President Control</h2>
-
-    <p>
-      <b>President:</b> Noor Ahmad
-    </p>
-
-    <p class="small" style="margin-top:7px;">
-      President is the founder and permanent President of
-      Classic Empire Ltd. No other authority can change the
-      President under the normal system.
-    </p>
-
-  </div>
+  <div id="errorBox" class="error" style="display:none;"></div>
 
 
-  <!-- APPLICATIONS -->
-  <div class="card">
+  <div id="marksheetArea" style="display:none;">
 
-    <h2>📋 Application Management</h2>
+    <div class="marksheet">
 
-    <button class="gold" onclick="loadApplications()">
-      Refresh Applications
-    </button>
+      <div class="marksheet-header">
 
-    <div id="applicationMsg" class="message"></div>
+        <img
+          src="classic-empire-logo.png"
+          alt="Classic Empire Ltd Logo"
+        >
 
-    <div class="table-wrap">
+        <h2>CLASSIC EMPIRE LTD</h2>
 
-      <table>
+        <h3>EXAMINATION MARKSHEET</h3>
+
+      </div>
+
+
+      <div class="title">
+        Official Marksheet
+      </div>
+
+
+      <div class="photo-box">
+
+        <div id="photoContainer"></div>
+
+      </div>
+
+
+      <div class="info">
+
+        <div>
+          <div class="label">Applicant Name</div>
+          <div class="value" id="applicantName">-</div>
+        </div>
+
+        <div>
+          <div class="label">Exam Code</div>
+          <div class="value" id="examCode">-</div>
+        </div>
+
+        <div>
+          <div class="label">Post</div>
+          <div class="value" id="post">-</div>
+        </div>
+
+        <div>
+          <div class="label">Section</div>
+          <div class="value" id="section">-</div>
+        </div>
+
+        <div>
+          <div class="label">Exam Status</div>
+          <div class="value">Result Released</div>
+        </div>
+
+        <div>
+          <div class="label">Result Released</div>
+          <div class="value" id="releaseDate">-</div>
+        </div>
+
+      </div>
+
+
+      <table class="marks">
 
         <thead>
+
           <tr>
-            <th>ID</th>
-            <th>Applicant</th>
-            <th>Age</th>
-            <th>Class</th>
-            <th>Post</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Created</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-        <tbody id="applicationsBody">
-        </tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-
-  <!-- MANUAL CODE -->
-  <div class="card">
-
-    <h2>🔐 Manual Exam Code Generator</h2>
-
-    <p class="small">
-      President/Admin emergency or manual use के लिए
-      application के बिना भी exam code generate कर सकता है।
-    </p>
-
-    <input
-      id="manualApplicant"
-      type="text"
-      placeholder="Applicant Name"
-    >
-
-    <select id="manualPost">
-
-      <option value="">
-        Select Post
-      </option>
-
-      <option value="President's Assistant">
-        President's Assistant
-      </option>
-
-      <option value="DM">
-        DM
-      </option>
-
-      <option value="DM's Assistant">
-        DM's Assistant
-      </option>
-
-      <option value="SDM">
-        SDM
-      </option>
-
-      <option value="SP">
-        SP
-      </option>
-
-      <option value="DSP">
-        DSP
-      </option>
-
-    </select>
-
-    <button class="gold" onclick="generateManualCode()">
-      Generate Exam Code
-    </button>
-
-    <div id="manualMsg" class="message"></div>
-
-  </div>
-
-
-  <!-- CODE HISTORY -->
-  <div class="card">
-
-    <h2>🧾 Exam Code History</h2>
-
-    <input
-      id="codeSearch"
-      type="text"
-      placeholder="Search code / applicant / post..."
-      oninput="renderCodeHistory()"
-    >
-
-    <button class="gold" onclick="loadCodeHistory()">
-      Refresh Code History
-    </button>
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Applicant</th>
-            <th>Post</th>
             <th>Section</th>
-            <th>Type</th>
-            <th>Application ID</th>
-            <th>Used</th>
-            <th>Unlock</th>
-            <th>Created</th>
-            <th>Action</th>
+            <th>Obtained</th>
+            <th>Maximum</th>
           </tr>
+
         </thead>
 
-        <tbody id="codeHistoryBody">
-        </tbody>
+        <tbody>
 
-      </table>
-
-    </div>
-
-  </div>
-
-
-  <!-- SUBMISSIONS -->
-  <div class="card">
-
-    <h2>📝 Exam Submission / Result History</h2>
-
-    <input
-      id="resultSearch"
-      type="text"
-      placeholder="Search result..."
-      oninput="renderResults()"
-    >
-
-    <button class="gold" onclick="loadResults()">
-      Refresh Results
-    </button>
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
           <tr>
-            <th>Applicant</th>
-            <th>Exam Code</th>
-            <th>Post</th>
-            <th>Section</th>
-            <th>Objective</th>
-            <th>Subjective</th>
-            <th>Total</th>
-            <th>Result</th>
-            <th>Submitted</th>
-            <th>Action</th>
+            <td>Objective</td>
+            <td id="objectiveMarks">0</td>
+            <td>18</td>
           </tr>
-        </thead>
 
-        <tbody id="resultsBody">
+          <tr>
+            <td>Subjective</td>
+            <td id="subjectiveMarks">0</td>
+            <td>10</td>
+          </tr>
+
+          <tr class="total-row">
+            <td>Total</td>
+            <td id="totalMarks">0</td>
+            <td>28</td>
+          </tr>
+
         </tbody>
 
       </table>
 
+
+      <div id="resultBox" class="result">
+        PASS
+      </div>
+
+
+      <div class="interview">
+
+        <b>Interview / Further Process</b>
+
+        <p id="interviewLocation">
+          Head Office: Chakla Ghat, Kishanganj, Bihar, India
+        </p>
+
+      </div>
+
+
+      <div class="signatures">
+
+        <div class="signature-box">
+
+          <div class="seal-box" id="sealContainer">
+            CLASSIC EMPIRE LTD
+          </div>
+
+          <div class="signature-name">
+            Official Seal
+          </div>
+
+        </div>
+
+
+        <div class="signature-box">
+
+          <div id="signatureContainer"></div>
+
+          <div class="signature-name">
+            Noor Ahmad
+          </div>
+
+          <div>
+            President<br>
+            CLASSIC EMPIRE LTD
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer">
+
+        Classic Empire Ltd • Head Office:
+        Chakla Ghat, Kishanganj, Bihar, India
+
+        <br>
+
+        This marksheet is generated from the
+        Classic Empire Ltd Examination System.
+
+      </div>
+
     </div>
 
-  </div>
 
+    <div class="buttons">
 
-  <!-- LINKS -->
-  <div class="card">
+      <button class="print" onclick="window.print()">
+        🖨️ Print / Save PDF
+      </button>
 
-    <h2>🔗 Administration Links</h2>
+      <button class="back" onclick="history.back()">
+        ← Back
+      </button>
 
-    <p>
-      <a href="marksheet-settings.html">
-        Marksheet Settings
-      </a>
-    </p>
-
-    <p style="margin-top:10px;">
-      <a href="attendance-dashboard.html">
-        Attendance Dashboard
-      </a>
-    </p>
-
-  </div>
-
-</div>
-
-</div>
-
-
-<!-- APPLICATION MODAL -->
-<div id="applicationModal" class="modal">
-
-  <div class="modal-box">
-
-    <button class="close" onclick="closeModal('applicationModal')">
-      ✕
-    </button>
-
-    <h2 style="color:#ffd700;">
-      Application Details
-    </h2>
-
-    <div id="applicationDetails"></div>
-
-  </div>
-
-</div>
-
-
-<!-- SECTION MODAL -->
-<div id="sectionModal" class="modal">
-
-  <div class="modal-box">
-
-    <button class="close" onclick="closeModal('sectionModal')">
-      ✕
-    </button>
-
-    <h2 style="color:#ffd700;">
-      Edit Exam Section
-    </h2>
-
-    <p id="sectionCodeText" class="small"></p>
-
-    <select id="sectionSelect">
-
-      <option value="A">Section A</option>
-      <option value="B">Section B</option>
-      <option value="C">Section C</option>
-      <option value="D">Section D</option>
-
-    </select>
-
-    <button class="gold" onclick="saveSection()">
-      Save Section
-    </button>
-
-    <div id="sectionMsg" class="message"></div>
-
-  </div>
-
-</div>
-
-
-<!-- RESULT MODAL -->
-<div id="resultModal" class="modal">
-
-  <div class="modal-box">
-
-    <button class="close" onclick="closeModal('resultModal')">
-      ✕
-    </button>
-
-    <h2 style="color:#ffd700;">
-      Exam Result Management
-    </h2>
-
-    <p id="resultApplicant" class="small"></p>
-
-    <input type="number"
-           id="editObjective"
-           min="0"
-           max="18"
-           placeholder="Objective Marks /18">
-
-    <input type="number"
-           id="editSubjective"
-           min="0"
-           max="10"
-           placeholder="Subjective Marks /10">
-
-    <input type="number"
-           id="editTotal"
-           min="0"
-           max="28"
-           placeholder="Total Marks /28">
-
-    <select id="editResult">
-      <option value="PASS">PASS</option>
-      <option value="FAIL">FAIL</option>
-    </select>
-
-    <button class="gold" onclick="saveResult()">
-      Save Result
-    </button>
-
-    <button class="green" onclick="releaseResult()">
-      Release Result Now
-    </button>
-
-    <div id="resultMsg" class="message"></div>
+    </div>
 
   </div>
 
@@ -684,22 +545,461 @@ supabase.createClient(
 );
 
 
-const ADMIN_UID =
-"8820968d-c20b-4892-b38b-395083efd026";
+/* =========================
+   GET EXAM CODE
+========================= */
 
+function getExamCode(){
 
-let applications = [];
-let allExamCodes = [];
-let allResults = [];
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
 
-let selectedSectionCode = null;
-let selectedSubmissionId = null;
+  return (
+    params.get("code") ||
+    params.get("exam_code") ||
+    ""
+  ).trim();
+
+}
 
 
 /* =========================
-   BASIC HELPERS
+   SAFE TEXT
 ========================= */
 
-function safe(value){
+function escapeHTML(value){
 
-  if(value === null ||
+  if(value === null || value === undefined){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function formatDate(value){
+
+  if(!value){
+    return "-";
+  }
+
+  const d = new Date(value);
+
+  if(Number.isNaN(d.getTime())){
+    return value;
+  }
+
+  return d.toLocaleString(
+    "en-IN",
+    {
+      dateStyle:"medium",
+      timeStyle:"short"
+    }
+  );
+
+}
+
+
+/* =========================
+   SHOW ERROR
+========================= */
+
+function showError(message){
+
+  document.getElementById(
+    "loading"
+  ).style.display = "none";
+
+  const box =
+    document.getElementById(
+      "errorBox"
+    );
+
+  box.style.display = "block";
+
+  box.innerHTML =
+    "<h3>Marksheet नहीं मिली</h3>" +
+    "<p style='margin-top:10px;'>" +
+    escapeHTML(message) +
+    "</p>";
+
+}
+
+
+/* =========================
+   LOAD MARKSHEET
+========================= */
+
+async function loadMarksheet(){
+
+  const code =
+    getExamCode();
+
+
+  if(!code){
+
+    showError(
+      "Exam Code URL में मौजूद नहीं है।"
+    );
+
+    return;
+  }
+
+
+  document.getElementById(
+    "loading"
+  ).textContent =
+    "Exam Code " +
+    code +
+    " की marksheet loading...";
+
+
+  const { data, error } =
+    await supabaseClient.rpc(
+      "get_marksheet_data",
+      {
+        input_exam_code: code
+      }
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    showError(
+      "Marksheet data load नहीं हो पाया। " +
+      error.message
+    );
+
+    return;
+  }
+
+
+  console.log(
+    "Marksheet RPC:",
+    data
+  );
+
+
+  if(!data){
+
+    showError(
+      "इस Exam Code की Marksheet नहीं मिली।"
+    );
+
+    return;
+  }
+
+
+  /*
+    Supabase कभी-कभी JSONB को object
+    और कभी string की तरह return कर सकता है।
+  */
+
+  let result = data;
+
+
+  if(typeof result === "string"){
+
+    try{
+
+      result = JSON.parse(result);
+
+    }catch(e){
+
+      showError(
+        "Marksheet data का format सही नहीं है।"
+      );
+
+      return;
+    }
+
+  }
+
+
+  if(result.success !== true){
+
+    showError(
+      result.message ||
+      "इस Exam Code की Marksheet नहीं मिली।"
+    );
+
+    return;
+  }
+
+
+  if(result.result_released !== true){
+
+    showError(
+      "इस Exam का Result अभी release नहीं हुआ है।"
+    );
+
+    return;
+  }
+
+
+  /* =====================
+     BASIC INFORMATION
+  ===================== */
+
+  document.getElementById(
+    "applicantName"
+  ).textContent =
+    result.applicant_name || "-";
+
+
+  document.getElementById(
+    "examCode"
+  ).textContent =
+    result.exam_code || code;
+
+
+  document.getElementById(
+    "post"
+  ).textContent =
+    result.post || "-";
+
+
+  document.getElementById(
+    "section"
+  ).textContent =
+    result.section || "-";
+
+
+  document.getElementById(
+    "releaseDate"
+  ).textContent =
+    formatDate(
+      result.result_released_at
+    );
+
+
+  /* =====================
+     MARKS
+  ===================== */
+
+  document.getElementById(
+    "objectiveMarks"
+  ).textContent =
+    Number(
+      result.objective_marks || 0
+    );
+
+
+  document.getElementById(
+    "subjectiveMarks"
+  ).textContent =
+    Number(
+      result.subjective_marks || 0
+    );
+
+
+  document.getElementById(
+    "totalMarks"
+  ).textContent =
+    Number(
+      result.total_marks || 0
+    );
+
+
+  /* =====================
+     RESULT
+  ===================== */
+
+  const resultBox =
+    document.getElementById(
+      "resultBox"
+    );
+
+  const finalResult =
+    String(
+      result.final_result || "FAIL"
+    ).toUpperCase();
+
+
+  resultBox.textContent =
+    finalResult;
+
+
+  if(finalResult === "PASS"){
+
+    resultBox.style.color =
+      "#16823b";
+
+    resultBox.style.borderColor =
+      "#16823b";
+
+  }else{
+
+    resultBox.style.color =
+      "#b00020";
+
+    resultBox.style.borderColor =
+      "#b00020";
+
+  }
+
+
+  /* =====================
+     INTERVIEW LOCATION
+  ===================== */
+
+  document.getElementById(
+    "interviewLocation"
+  ).textContent =
+    result.interview_location ||
+    "Head Office: Chakla Ghat, Kishanganj, Bihar, India";
+
+
+  /* =====================
+     APPLICANT PHOTO
+  ===================== */
+
+  const photoContainer =
+    document.getElementById(
+      "photoContainer"
+    );
+
+
+  if(result.applicant_photo){
+
+    photoContainer.innerHTML =
+      `
+      <img
+        src="${escapeHTML(result.applicant_photo)}"
+        alt="Applicant Photo"
+      >
+      `;
+
+  }else{
+
+    photoContainer.innerHTML =
+      `
+      <div class="no-photo">
+        Applicant Photo
+        <br>
+        Not Available
+      </div>
+      `;
+
+  }
+
+
+  /* =====================
+     OFFICIAL SEAL
+  ===================== */
+
+  const sealContainer =
+    document.getElementById(
+      "sealContainer"
+    );
+
+
+  if(result.official_seal_url){
+
+    sealContainer.innerHTML =
+      `
+      <img
+        src="${escapeHTML(result.official_seal_url)}"
+        alt="Official Seal"
+        style="
+          width:110px;
+          height:110px;
+          object-fit:contain;
+        "
+      >
+      `;
+
+    sealContainer.style.border =
+      "0";
+
+  }else{
+
+    sealContainer.innerHTML =
+      `
+      <span>
+        CLASSIC<br>
+        EMPIRE<br>
+        LTD
+      </span>
+      `;
+
+  }
+
+
+  /* =====================
+     PRESIDENT SIGNATURE
+  ===================== */
+
+  const signatureContainer =
+    document.getElementById(
+      "signatureContainer"
+    );
+
+
+  if(result.president_signature_url){
+
+    signatureContainer.innerHTML =
+      `
+      <img
+        src="${escapeHTML(result.president_signature_url)}"
+        alt="President Signature"
+      >
+      `;
+
+  }else{
+
+    signatureContainer.innerHTML =
+      `
+      <div style="
+        font-family:cursive;
+        font-size:28px;
+        margin-top:20px;
+      ">
+        N. Ahmad
+      </div>
+      `;
+
+  }
+
+
+  /* =====================
+     SHOW
+  ===================== */
+
+  document.getElementById(
+    "loading"
+  ).style.display =
+    "none";
+
+
+  document.getElementById(
+    "marksheetArea"
+  ).style.display =
+    "block";
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadMarksheet();
+
+</script>
+
+</body>
+</html>

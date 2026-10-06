@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Classic Empire — Attendance QR</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #080808;
+      color: white;
+    }
+
+    header {
+      text-align: center;
+      padding: 22px 15px;
+      background: #111;
+      border-bottom: 1px solid #333;
+    }
+
+    header img {
+      width: 85px;
+      height: 85px;
+      object-fit: contain;
+    }
+
+    h1 {
+      color: #ffd700;
+      margin: 8px 0;
+    }
+
+    header p {
+      color: #bbb;
+      margin: 5px;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 1100px;
+      margin: 25px auto;
+    }
+
+    .notice {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 14px;
+      padding: 15px;
+      margin-bottom: 25px;
+      text-align: center;
+      color: #ccc;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .qr-card {
+      background: white;
+      color: #000;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .qr-card h2 {
+      margin: 5px 0;
+      font-size: 19px;
+    }
+
+    .member-id {
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .qr-box {
+      width: 210px;
+      min-height: 210px;
+      margin: 15px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .qr-box img {
+      max-width: 210px;
+      max-height: 210px;
+    }
+
+    .download-btn {
+      border: none;
+      border-radius: 9px;
+      padding: 11px 17px;
+      background: #111;
+      color: #ffd700;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .download-btn:hover {
+      opacity: 0.85;
+    }
+
+    footer {
+      text-align: center;
+      color: #888;
+      padding: 30px 10px;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      header,
+      .notice,
+      footer,
+      .download-btn {
+        display: none !important;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .qr-card {
+        break-inside: avoid;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <img
+    src="classic-empire-logo.png"
+    alt="Classic Empire Logo"
+  >
+
+  <h1>Classic Empire Ltd.</h1>
+
+  <p>Official QR Attendance Codes</p>
+
+</header>
+
+<div class="container">
+
+  <div class="notice">
+    <strong>⚠️ महत्वपूर्ण</strong><br><br>
+    ये QR Codes Attendance System के official
+    member codes हैं। इन्हें केवल संबंधित member
+    के लिए इस्तेमाल करें।
+  </div>
+
+  <div id="qrGrid" class="grid"></div>
+
+</div>
+
+<footer>
+  Classic Empire Ltd • Chakla Ghat, Kishanganj, Bihar, India
+</footer>
+
+<script>
+
+const members = [
+
+  {
+    id: 1,
+    name: "Jakir Hussain",
+    token: "6d926cccd2fa6eaf87fc9b2ad0703dd6d3c84a8c07bd8c28"
+  },
+
+  {
+    id: 2,
+    name: "Noor Ahmad",
+    token: "4e346302cfac3c3cf86ab54d1201fc79d908e00399e8d127"
+  },
+
+  {
+    id: 3,
+    name: "Shahnawaz Alam",
+    token: "e10a8e1ff518c0363fc6a4e0f41a2a7faea1f49078ac4074"
+  },
+
+  {
+    id: 4,
+    name: "Tabshir Alam",
+    token: "3f013f5f277a95313c8a4f7fb40672c615db9fe5dbf41c2d"
+  },
+
+  {
+    id: 5,
+    name: "Aszad Sayeed",
+    token: "d2fff3e3779d9b03d3a37e24385a4970522856837284db2c"
+  },
+
+  {
+    id: 6,
+    name: "Shadat Hussain",
+    token: "308b908bde86c7fd9fe07841ce4a31d966a8432f85534436"
+  },
+
+  {
+    id: 7,
+    name: "Mahir Alam",
+    token: "bba92f86179f0fb1ee52707826e8a9e1b6ee5c8fcf9e6e86"
+  },
+
+  {
+    id: 8,
+    name: "Sajjad Alam",
+    token: "629691bfaaf2251c64d35d6a41403df23068aaa985d41047"
+  },
+
+  {
+    id: 9,
+    name: "Shadab Alam",
+    token: "ce6f5cd1f216d95d43fbbc24b1155947d70696cd0a50820a"
+  }
+
+];
+
+
+/* =========================
+   CREATE QR CODES
+========================= */
+
+const grid =
+  document.getElementById("qrGrid");
+
+members.forEach(member => {
+
+  const card =
+    document.createElement("div");
+
+  card.className = "qr-card";
+
+  const title =
+    document.createElement("h2");
+
+  title.textContent =
+    member.name;
+
+  const id =
+    document.createElement("div");
+
+  id.className = "member-id";
+
+  id.textContent =
+    "Member ID: " + member.id;
+
+  const qrBox =
+    document.createElement("div");
+
+  qrBox.className = "qr-box";
+
+  qrBox.id =
+    "qr-" + member.id;
+
+  const button =
+    document.createElement("button");
+
+  button.className =
+    "download-btn";
+
+  button.textContent =
+    "⬇️ QR Save करें";
+
+  button.onclick =
+    () => downloadQR(
+      member.id,
+      member.name
+    );
+
+  card.appendChild(title);
+  card.appendChild(id);
+  card.appendChild(qrBox);
+  card.appendChild(button);
+
+  grid.appendChild(card);
+
+  new QRCode(qrBox, {
+
+    text: member.token,
+
+    width: 200,
+    height: 200,
+
+    colorDark: "#000000",
+    colorLight: "#ffffff",
+
+    correctLevel:
+      QRCode.CorrectLevel.H
+
+  });
+
+});
+
+
+/* =========================
+   DOWNLOAD QR
+========================= */
+
+function downloadQR(id, name) {
+
+  const box =
+    document.getElementById(
+      "qr-" + id
+    );
+
+  const image =
+    box.querySelector("img");
+
+  if (!image) {
+    alert("QR अभी तैयार नहीं हुआ।");
+    return;
+  }
+
+  const link =
+    document.createElement("a");
+
+  link.href =
+    image.src;
+
+  link.download =
+    "Classic-Empire-Attendance-" +
+    name.replaceAll(" ", "-") +
+    ".png";
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  document.body.removeChild(link);
+}
+
+</script>
+
+</body>
+</html>

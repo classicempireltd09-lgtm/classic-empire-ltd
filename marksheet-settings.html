@@ -1,138 +1,160 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Classic Empire - Marksheet Settings</title>
+<title>Classic Empire Ltd — Marksheet Settings</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
 }
 
 body{
+  margin:0;
   font-family:Arial,sans-serif;
   background:#080808;
   color:#fff;
-  padding:20px;
 }
 
 .container{
-  max-width:700px;
-  margin:auto;
+  width:94%;
+  max-width:900px;
+  margin:30px auto;
+}
+
+.header{
+  text-align:center;
+  padding:25px;
+  border:1px solid #d4af37;
+  border-radius:15px;
+  background:#111;
 }
 
 .logo{
-  text-align:center;
-  margin-bottom:20px;
-}
-
-.logo img{
   width:100px;
-  height:100px;
-  object-fit:contain;
+  max-width:35%;
+  margin-bottom:10px;
 }
 
 h1{
-  text-align:center;
   color:#ffd700;
-  margin-bottom:8px;
+  margin:8px 0;
 }
 
 .subtitle{
-  text-align:center;
-  color:#aaa;
-  margin-bottom:25px;
+  color:#bbb;
 }
 
 .card{
   background:#111;
   border:1px solid #333;
-  border-radius:16px;
+  border-radius:15px;
   padding:22px;
-  margin-bottom:20px;
+  margin-top:20px;
+}
+
+h2{
+  color:#ffd700;
+  margin-top:0;
 }
 
 label{
   display:block;
-  margin-bottom:8px;
-  color:#ffd700;
+  margin:18px 0 8px;
   font-weight:bold;
 }
 
 input[type="file"]{
   width:100%;
   padding:12px;
-  background:#080808;
+  background:#181818;
   color:#fff;
-  border:1px solid #444;
-  border-radius:10px;
-  margin-bottom:15px;
+  border:1px solid #555;
+  border-radius:8px;
 }
 
 .preview{
-  text-align:center;
-  min-height:120px;
-  padding:15px;
+  margin-top:15px;
+  min-height:100px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#080808;
   border:1px dashed #555;
-  border-radius:12px;
-  margin-bottom:15px;
+  border-radius:10px;
+  padding:15px;
 }
 
 .preview img{
-  max-width:220px;
-  max-height:160px;
+  max-width:260px;
+  max-height:180px;
   object-fit:contain;
 }
 
 button{
   width:100%;
+  margin-top:25px;
   padding:14px;
   border:0;
-  border-radius:10px;
+  border-radius:8px;
   background:#ffd700;
   color:#000;
-  font-weight:bold;
   font-size:16px;
+  font-weight:bold;
   cursor:pointer;
 }
 
 button:disabled{
   opacity:.5;
+  cursor:not-allowed;
 }
 
 .status{
-  text-align:center;
-  margin-top:15px;
-  min-height:25px;
+  margin-top:18px;
+  padding:14px;
+  border-radius:8px;
+  display:none;
+  white-space:pre-wrap;
 }
 
 .success{
-  color:#00ff88;
+  display:block;
+  background:#123b1b;
+  border:1px solid #2ecc71;
+  color:#8cffaa;
 }
 
 .error{
-  color:#ff5555;
+  display:block;
+  background:#3b1212;
+  border:1px solid #ff4444;
+  color:#ff9999;
+}
+
+.info{
+  display:block;
+  background:#171717;
+  border:1px solid #555;
+  color:#ddd;
+}
+
+.current{
+  color:#aaa;
+  font-size:13px;
+  margin-top:10px;
+  word-break:break-all;
 }
 
 .back{
   display:block;
   text-align:center;
+  margin-top:20px;
   color:#ffd700;
   text-decoration:none;
-  margin-top:20px;
-}
-
-footer{
-  text-align:center;
-  color:#777;
-  margin-top:30px;
-  font-size:13px;
 }
 </style>
 </head>
@@ -141,18 +163,26 @@ footer{
 
 <div class="container">
 
-  <div class="logo">
-    <img src="classic-empire-logo.png" alt="Classic Empire">
-  </div>
+  <div class="header">
+    <img
+      src="classic-empire-logo.png"
+      class="logo"
+      alt="Classic Empire Ltd"
+    >
 
-  <h1>Marksheet Settings</h1>
-  <div class="subtitle">
-    President Control Panel
+    <h1>Marksheet Settings</h1>
+    <div class="subtitle">
+      Classic Empire Ltd — President/Admin Only
+    </div>
   </div>
 
   <div class="card">
 
-    <label>Official Seal</label>
+    <h2>Official Seal</h2>
+
+    <label for="sealFile">
+      Upload Official Seal
+    </label>
 
     <input
       type="file"
@@ -161,14 +191,19 @@ footer{
     >
 
     <div class="preview" id="sealPreview">
-      Seal preview
+      Current seal will appear here
     </div>
 
-  </div>
+    <div class="current" id="sealCurrent"></div>
 
-  <div class="card">
 
-    <label>President Signature</label>
+    <h2 style="margin-top:35px;">
+      President Signature
+    </h2>
+
+    <label for="signatureFile">
+      Upload President Signature
+    </label>
 
     <input
       type="file"
@@ -177,91 +212,120 @@ footer{
     >
 
     <div class="preview" id="signaturePreview">
-      Signature preview
+      Current signature will appear here
     </div>
 
-  </div>
+    <div class="current" id="signatureCurrent"></div>
 
-  <div class="card">
 
     <button id="saveBtn">
-      Save Marksheet Assets
+      Save Marksheet Settings
     </button>
 
-    <div id="status" class="status"></div>
+    <div id="statusBox" class="status"></div>
 
   </div>
 
   <a class="back" href="admin.html">
-    ← Admin Panel
+    ← Back to Admin Panel
   </a>
 
-  <footer>
-    Classic Empire Ltd • Chakla Ghat, Kishanganj, Bihar, India
-  </footer>
-
 </div>
+
 
 <script>
 
 const SUPABASE_URL =
-"https://hjatspkzgoddcpgwfkxo.supabase.co";
+  "https://hjatspkzgoddcpgwfkxo.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
+  "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
 
 const supabaseClient =
-supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+const BUCKET =
+  "marksheet-assets";
+
+
+let currentSealUrl = null;
+let currentSignatureUrl = null;
+
 
 const sealFile =
-document.getElementById("sealFile");
+  document.getElementById("sealFile");
 
 const signatureFile =
-document.getElementById("signatureFile");
-
-const sealPreview =
-document.getElementById("sealPreview");
-
-const signaturePreview =
-document.getElementById("signaturePreview");
+  document.getElementById("signatureFile");
 
 const saveBtn =
-document.getElementById("saveBtn");
+  document.getElementById("saveBtn");
 
 const statusBox =
-document.getElementById("status");
+  document.getElementById("statusBox");
+
+const sealPreview =
+  document.getElementById("sealPreview");
+
+const signaturePreview =
+  document.getElementById("signaturePreview");
+
+const sealCurrent =
+  document.getElementById("sealCurrent");
+
+const signatureCurrent =
+  document.getElementById("signatureCurrent");
 
 
-function previewImage(file, box){
+function showStatus(message,type){
+
+  statusBox.textContent = message;
+
+  statusBox.className =
+    "status " + type;
+}
+
+
+function previewFile(input,preview){
+
+  const file = input.files[0];
 
   if(!file){
-    box.innerHTML = "Preview";
     return;
   }
 
-  const reader = new FileReader();
+  if(file.size > 10 * 1024 * 1024){
 
-  reader.onload = function(e){
+    showStatus(
+      "Image 10 MB से बड़ी है।",
+      "error"
+    );
 
-    box.innerHTML =
-      `<img src="${e.target.result}" alt="Preview">`;
+    input.value = "";
+    return;
+  }
 
-  };
+  const url =
+    URL.createObjectURL(file);
 
-  reader.readAsDataURL(file);
+  preview.innerHTML =
+    `<img src="${url}" alt="Preview">`;
 }
 
 
 sealFile.addEventListener(
   "change",
   function(){
-    previewImage(
-      this.files[0],
+
+    previewFile(
+      sealFile,
       sealPreview
     );
+
   }
 );
 
@@ -269,79 +333,171 @@ sealFile.addEventListener(
 signatureFile.addEventListener(
   "change",
   function(){
-    previewImage(
-      this.files[0],
+
+    previewFile(
+      signatureFile,
       signaturePreview
     );
+
   }
 );
 
 
-async function checkPresident(){
+async function checkAdmin(){
 
   const {
-    data:{
+    data: {
       session
     }
   } = await supabaseClient
     .auth
     .getSession();
 
+
   if(!session){
 
-    statusBox.textContent =
-      "कृपया President login करें।";
-
-    statusBox.className =
-      "status error";
+    showStatus(
+      "Login required. पहले President/Admin login करें।",
+      "error"
+    );
 
     saveBtn.disabled = true;
 
     return false;
   }
+
 
   const {
     data,
     error
-  } = await supabaseClient.rpc(
-    "check_admin_access"
-  );
+  } = await supabaseClient
+    .rpc("check_admin_access");
+
 
   if(error){
 
-    statusBox.textContent =
-      "Access check failed.";
+    showStatus(
+      "Admin access check failed:\n" +
+      error.message,
+      "error"
+    );
 
-    statusBox.className =
-      "status error";
+    saveBtn.disabled = true;
+
+    return false;
+  }
+
+
+  if(
+    !data ||
+    data.allowed !== true
+  ){
+
+    showStatus(
+      "केवल President इस Marksheet Settings को बदल सकता है।",
+      "error"
+    );
 
     saveBtn.disabled = true;
 
     return false;
   }
 
-  if(!data || data.allowed !== true){
-
-    statusBox.textContent =
-      "केवल President को अनुमति है।";
-
-    statusBox.className =
-      "status error";
-
-    saveBtn.disabled = true;
-
-    return false;
-  }
 
   return true;
 }
 
 
-async function uploadFile(file, prefix){
+async function loadSettings(){
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .rpc("get_marksheet_settings");
+
+
+  if(error){
+
+    showStatus(
+      "Settings load नहीं हुई:\n" +
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+
+  let settings = data;
+
+
+  if(typeof settings === "string"){
+
+    try{
+      settings = JSON.parse(settings);
+    }catch(e){}
+  }
+
+
+  if(Array.isArray(settings)){
+    settings = settings[0];
+  }
+
+
+  if(!settings){
+    return;
+  }
+
+
+  currentSealUrl =
+    settings.seal_url ||
+    settings.official_seal_url ||
+    null;
+
+
+  currentSignatureUrl =
+    settings.signature_url ||
+    settings.president_signature_url ||
+    null;
+
+
+  if(currentSealUrl){
+
+    sealPreview.innerHTML =
+      `<img
+        src="${currentSealUrl}"
+        alt="Official Seal"
+      >`;
+
+    sealCurrent.textContent =
+      "Current Seal: " +
+      currentSealUrl;
+  }
+
+
+  if(currentSignatureUrl){
+
+    signaturePreview.innerHTML =
+      `<img
+        src="${currentSignatureUrl}"
+        alt="President Signature"
+      >`;
+
+    signatureCurrent.textContent =
+      "Current Signature: " +
+      currentSignatureUrl;
+  }
+
+}
+
+
+async function uploadImage(file,type){
 
   if(!file){
     return null;
   }
+
 
   const extension =
     file.name
@@ -349,181 +505,263 @@ async function uploadFile(file, prefix){
       .pop()
       .toLowerCase();
 
+
+  const safeExtension =
+    ["png","jpg","jpeg","webp"]
+      .includes(extension)
+      ? extension
+      : "png";
+
+
   const fileName =
-    prefix +
+    type +
     "-" +
     Date.now() +
+    "-" +
+    Math.random()
+      .toString(36)
+      .substring(2,8)
+    +
     "." +
-    extension;
+    safeExtension;
 
-  const path =
-    "official/" +
+
+  const filePath =
+    "marksheet/" +
     fileName;
+
 
   const {
     error
   } = await supabaseClient
     .storage
-    .from("marksheet-assets")
+    .from(BUCKET)
     .upload(
-      path,
+      filePath,
       file,
       {
-        upsert:true,
+        cacheControl:"3600",
+        upsert:false,
         contentType:file.type
       }
     );
 
+
   if(error){
-    throw error;
+
+    throw new Error(
+      "Upload failed: " +
+      error.message
+    );
   }
+
 
   const {
     data
   } = supabaseClient
     .storage
-    .from("marksheet-assets")
-    .getPublicUrl(path);
+    .from(BUCKET)
+    .getPublicUrl(filePath);
+
+
+  if(!data || !data.publicUrl){
+
+    throw new Error(
+      "Public URL generate नहीं हुई।"
+    );
+  }
+
 
   return data.publicUrl;
 }
 
 
-saveBtn.addEventListener(
-  "click",
-  async function(){
+async function saveSettings(){
 
-    try{
+  saveBtn.disabled = true;
 
-      saveBtn.disabled = true;
+  showStatus(
+    "Saving... कृपया wait करें।",
+    "info"
+  );
 
-      statusBox.textContent =
-        "Uploading...";
 
-      statusBox.className =
-        "status";
+  try{
 
-      const seal =
-        sealFile.files[0];
+    const allowed =
+      await checkAdmin();
 
-      const signature =
-        signatureFile.files[0];
+    if(!allowed){
+      return;
+    }
 
-      if(!seal && !signature){
 
-        throw new Error(
-          "कम से कम एक image चुनें।"
+    let sealUrl =
+      currentSealUrl;
+
+    let signatureUrl =
+      currentSignatureUrl;
+
+
+    /*
+      Upload new seal
+    */
+
+    if(sealFile.files.length > 0){
+
+      showStatus(
+        "Official Seal upload हो रही है...",
+        "info"
+      );
+
+      sealUrl =
+        await uploadImage(
+          sealFile.files[0],
+          "official-seal"
         );
+    }
 
-      }
 
-      const allowedTypes = [
-        "image/png",
-        "image/jpeg",
-        "image/webp"
-      ];
+    /*
+      Upload new signature
+    */
 
-      if(
-        seal &&
-        !allowedTypes.includes(seal.type)
-      ){
+    if(signatureFile.files.length > 0){
 
-        throw new Error(
-          "Seal केवल PNG, JPG या WEBP हो सकती है।"
+      showStatus(
+        "President Signature upload हो रही है...",
+        "info"
+      );
+
+      signatureUrl =
+        await uploadImage(
+          signatureFile.files[0],
+          "president-signature"
         );
+    }
 
-      }
 
-      if(
-        signature &&
-        !allowedTypes.includes(signature.type)
-      ){
+    /*
+      Save URLs
+    */
 
-        throw new Error(
-          "Signature केवल PNG, JPG या WEBP हो सकती है।"
-        );
+    showStatus(
+      "Settings database में save हो रही हैं...",
+      "info"
+    );
 
-      }
 
-      let sealUrl = null;
-      let signatureUrl = null;
-
-      if(seal){
-
-        sealUrl =
-          await uploadFile(
-            seal,
-            "official-seal"
-          );
-
-      }
-
-      if(signature){
-
-        signatureUrl =
-          await uploadFile(
-            signature,
-            "president-signature"
-          );
-
-      }
-
-      const {
-        data,
-        error
-      } = await supabaseClient.rpc(
+    const {
+      data,
+      error
+    } = await supabaseClient
+      .rpc(
         "update_marksheet_settings",
         {
           input_seal_url:
-            sealUrl || "",
+            sealUrl,
 
           input_signature_url:
-            signatureUrl || ""
+            signatureUrl
         }
       );
 
-      if(error){
-        throw error;
-      }
 
-      if(!data || data.success !== true){
+    if(error){
 
-        throw new Error(
-          data?.message ||
-          "Settings save नहीं हुईं।"
-        );
-
-      }
-
-      statusBox.textContent =
-        "✅ Marksheet assets successfully saved.";
-
-      statusBox.className =
-        "status success";
-
-    }catch(error){
-
-      console.error(error);
-
-      statusBox.textContent =
-        "❌ " +
-        (error.message ||
-        "Something went wrong.");
-
-      statusBox.className =
-        "status error";
-
-    }finally{
-
-      saveBtn.disabled = false;
-
+      throw new Error(
+        "Database save failed: " +
+        error.message
+      );
     }
 
+
+    let result = data;
+
+    if(typeof result === "string"){
+
+      try{
+        result = JSON.parse(result);
+      }catch(e){}
+    }
+
+
+    if(
+      result &&
+      result.success === false
+    ){
+
+      throw new Error(
+        result.message ||
+        "Settings save नहीं हुईं।"
+      );
+    }
+
+
+    currentSealUrl =
+      sealUrl;
+
+    currentSignatureUrl =
+      signatureUrl;
+
+
+    sealFile.value = "";
+    signatureFile.value = "";
+
+
+    await loadSettings();
+
+
+    showStatus(
+      "✅ Marksheet Seal और President Signature successfully save हो गए।",
+      "success"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    showStatus(
+      "❌ Failed:\n" +
+      error.message,
+      "error"
+    );
+
+  }finally{
+
+    saveBtn.disabled = false;
+
   }
+
+}
+
+
+saveBtn.addEventListener(
+  "click",
+  saveSettings
 );
 
 
-checkPresident();
+(async function(){
+
+  saveBtn.disabled = true;
+
+  const allowed =
+    await checkAdmin();
+
+  if(allowed){
+
+    await loadSettings();
+
+    saveBtn.disabled = false;
+
+    showStatus(
+      "Settings ready हैं। Seal और Signature upload कर सकते हैं।",
+      "info"
+    );
+  }
+
+})();
 
 </script>
 

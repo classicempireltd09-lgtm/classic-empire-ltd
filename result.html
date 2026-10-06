@@ -123,6 +123,12 @@ button:hover{
   margin-bottom:20px;
 }
 
+.result-section{
+  color:#d4af37;
+  margin-bottom:20px;
+  font-weight:bold;
+}
+
 .result-box{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -178,10 +184,30 @@ button:hover{
   font-size:13px;
 }
 
+.marksheet-button{
+  display:block;
+  width:100%;
+  margin-top:20px;
+  padding:15px;
+  background:#d4af37;
+  color:#000;
+  text-decoration:none;
+  border-radius:8px;
+  font-weight:bold;
+  font-size:16px;
+  text-align:center;
+}
+
+.marksheet-button:hover{
+  background:#fff;
+}
+
 @media(max-width:600px){
+
   .result-box{
     grid-template-columns:1fr;
   }
+
 }
 </style>
 </head>
@@ -199,6 +225,7 @@ button:hover{
 >
 
 <div>
+
 <h2 style="margin:0">
 Classic Empire Ltd
 </h2>
@@ -264,6 +291,12 @@ Official Result Portal
 <div
   id="studentPost"
   class="result-post"
+>
+</div>
+
+<div
+  id="studentSection"
+  class="result-section"
 >
 </div>
 
@@ -362,6 +395,16 @@ Total
 >
 </div>
 
+
+<a
+  id="marksheetButton"
+  class="marksheet-button"
+  href="#"
+  target="_blank"
+>
+📄 Marksheet देखें / PDF बनाएं
+</a>
+
 </div>
 
 
@@ -410,6 +453,7 @@ async function checkResult(){
     document
       .getElementById("resultPanel");
 
+
   if(!code){
 
     message.innerHTML =
@@ -421,134 +465,159 @@ async function checkResult(){
 
   }
 
+
   message.textContent =
     "Result checking...";
 
   resultPanel.classList.add("hidden");
 
 
-  const {data,error} =
-    await supabaseClient.rpc(
-      "get_exam_result",
-      {
-        input_exam_code:code
-      }
-    );
+  if(countdownTimer){
+
+    clearInterval(countdownTimer);
+
+    countdownTimer=null;
+
+  }
 
 
-  if(error){
+  try{
+
+    const {data,error} =
+      await supabaseClient.rpc(
+        "get_exam_result",
+        {
+          input_exam_code:code
+        }
+      );
+
+
+    if(error){
+
+      message.innerHTML =
+        `<span class="error">
+        ${escapeHtml(error.message)}
+        </span>`;
+
+      return;
+
+    }
+
+
+    const result =
+      typeof data === "string"
+        ? JSON.parse(data)
+        : data;
+
+
+    if(!result){
+
+      message.innerHTML =
+        `<span class="error">
+        Result नहीं मिला।
+        </span>`;
+
+      return;
+
+    }
+
+
+    if(result.success === false){
+
+      message.innerHTML =
+        `<span class="error">
+        ${escapeHtml(
+          result.message ||
+          "Result उपलब्ध नहीं है।"
+        )}
+        </span>`;
+
+      return;
+
+    }
+
+
+    resultPanel.classList.remove("hidden");
+
+
+    document
+      .getElementById("studentName")
+      .textContent =
+        result.applicant_name || "";
+
+
+    document
+      .getElementById("studentPost")
+      .textContent =
+        result.post || "";
+
+
+    document
+      .getElementById("studentSection")
+      .textContent =
+        result.section
+          ? `Exam Section: ${result.section}`
+          : "";
+
+
+    const lockedBox =
+      document.getElementById("lockedBox");
+
+    const availableBox =
+      document.getElementById("availableBox");
+
+
+    lockedBox.classList.add("hidden");
+    availableBox.classList.add("hidden");
+
+
+    const released =
+      result.result_released === true ||
+      result.released === true;
+
+
+    const available =
+      result.available === true ||
+      result.can_view === true;
+
+
+    const remaining =
+      Number(
+        result.remaining_seconds ??
+        result.countdown_seconds ??
+        0
+      );
+
+
+    if(
+      released ||
+      available ||
+      remaining <= 0
+    ){
+
+      showAvailableResult(result,code);
+
+    }else{
+
+      showLockedResult(remaining);
+
+    }
+
+
+    message.textContent =
+      "Result status loaded.";
+
+
+  }catch(error){
+
+    console.error(error);
 
     message.innerHTML =
       `<span class="error">
-      ${escapeHtml(error.message)}
+      Result load करते समय समस्या हुई।
       </span>`;
 
-    return;
-
   }
-
-
-  const result =
-    typeof data === "string"
-      ? JSON.parse(data)
-      : data;
-
-
-  if(!result){
-
-    message.innerHTML =
-      `<span class="error">
-      Result नहीं मिला।
-      </span>`;
-
-    return;
-
-  }
-
-
-  if(result.success === false){
-
-    message.innerHTML =
-      `<span class="error">
-      ${escapeHtml(
-        result.message ||
-        "Result उपलब्ध नहीं है।"
-      )}
-      </span>`;
-
-    return;
-
-  }
-
-
-  resultPanel.classList.remove("hidden");
-
-
-  document
-    .getElementById("studentName")
-    .textContent =
-      result.applicant_name || "";
-
-
-  document
-    .getElementById("studentPost")
-    .textContent =
-      result.post || "";
-
-
-  const lockedBox =
-    document.getElementById("lockedBox");
-
-  const availableBox =
-    document.getElementById("availableBox");
-
-
-  lockedBox.classList.add("hidden");
-  availableBox.classList.add("hidden");
-
-
-  /*
-    IMPORTANT:
-
-    Backend should return:
-    - released = true
-    OR
-    - available = true
-    OR
-    - remaining_seconds
-  */
-
-  const released =
-    result.result_released === true ||
-    result.released === true;
-
-
-  const available =
-    result.available === true ||
-    result.can_view === true;
-
-
-  const remaining =
-    Number(
-      result.remaining_seconds ??
-      result.countdown_seconds ??
-      0
-    );
-
-
-  if(released || available || remaining <= 0){
-
-    showAvailableResult(result);
-
-  }else{
-
-    showLockedResult(remaining);
-
-  }
-
-
-  message.textContent =
-    "Result status loaded.";
 
 }
 
@@ -609,7 +678,11 @@ function startCountdown(seconds){
 
       clearInterval(countdownTimer);
 
+      countdownTimer=null;
+
       checkResult();
+
+      return;
 
     }
 
@@ -630,11 +703,12 @@ function startCountdown(seconds){
    SHOW RESULT
 ========================= */
 
-function showAvailableResult(result){
+function showAvailableResult(result,code){
 
   document
     .getElementById("lockedBox")
     .classList.add("hidden");
+
 
   document
     .getElementById("availableBox")
@@ -648,11 +722,13 @@ function showAvailableResult(result){
       0
     );
 
+
   const subjective =
     Number(
       result.subjective_marks ??
       0
     );
+
 
   const total =
     Number(
@@ -683,7 +759,7 @@ function showAvailableResult(result){
     String(
       result.final_result ||
       ""
-    ).toUpperCase();
+    ).toUpperCase().trim();
 
 
   const finalElement =
@@ -700,12 +776,17 @@ function showAvailableResult(result){
 
     finalElement.classList.add("pass");
 
-  }else{
+  }else if(final==="FAIL"){
 
     finalElement.textContent =
       "❌ FAIL";
 
     finalElement.classList.add("fail");
+
+  }else{
+
+    finalElement.textContent =
+      final || "RESULT PENDING";
 
   }
 
@@ -731,6 +812,24 @@ function showAvailableResult(result){
 
   }
 
+
+  /*
+    MARKSHEET BUTTON
+
+    Exam Code automatically passes
+    to marksheet.html
+  */
+
+  const marksheetButton =
+    document.getElementById(
+      "marksheetButton"
+    );
+
+
+  marksheetButton.href =
+    "marksheet.html?code=" +
+    encodeURIComponent(code);
+
 }
 
 
@@ -748,6 +847,38 @@ function escapeHtml(value){
     .replaceAll("'","&#039;");
 
 }
+
+
+/* =========================
+   AUTO READ URL CODE
+========================= */
+
+window.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const code =
+      params.get("code");
+
+
+    if(code){
+
+      document
+        .getElementById("examCode")
+        .value =
+          code.toUpperCase();
+
+      checkResult();
+
+    }
+
+  }
+);
 
 </script>
 

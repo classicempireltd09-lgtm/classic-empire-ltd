@@ -15,39 +15,40 @@
 
 body{
   margin:0;
-  font-family:Arial,sans-serif;
   background:#080808;
   color:#fff;
+  font-family:Arial, sans-serif;
 }
 
 header{
-  background:#111;
-  border-bottom:2px solid #d4af37;
-  padding:18px;
   text-align:center;
+  padding:25px 15px;
+  background:#111;
+  border-bottom:1px solid #d4af37;
+  position:relative;
 }
 
 header img{
-  width:70px;
-  height:70px;
+  width:90px;
+  height:90px;
   object-fit:contain;
+  margin-bottom:8px;
 }
 
 header h1{
-  margin:8px 0 3px;
+  margin:5px 0;
   color:#ffd700;
   font-size:25px;
 }
 
 header p{
-  margin:0;
-  color:#aaa;
-  font-size:13px;
+  margin:5px 0;
+  color:#bbb;
 }
 
 .container{
-  width:94%;
-  max-width:1200px;
+  width:95%;
+  max-width:1400px;
   margin:25px auto;
 }
 
@@ -57,28 +58,27 @@ header p{
   border-radius:14px;
   padding:20px;
   margin-bottom:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.35);
 }
 
-.card h2{
+h2{
   color:#ffd700;
   margin-top:0;
 }
 
-.login-box{
-  max-width:430px;
-  margin:50px auto;
+.hidden{
+  display:none!important;
 }
 
-input,
-select,
-textarea{
+input,select,textarea{
   width:100%;
   padding:12px;
-  margin:7px 0 14px;
+  margin:7px 0;
   border-radius:8px;
   border:1px solid #444;
-  background:#181818;
+  background:#080808;
   color:#fff;
+  outline:none;
 }
 
 textarea{
@@ -89,8 +89,8 @@ textarea{
 button{
   border:0;
   border-radius:8px;
-  padding:11px 17px;
-  margin:4px;
+  padding:11px 16px;
+  margin:5px;
   cursor:pointer;
   font-weight:bold;
 }
@@ -100,38 +100,52 @@ button{
   color:#000;
 }
 
-.dark{
-  background:#333;
-  color:#fff;
-}
-
 .red{
-  background:#b00020;
+  background:#d33;
   color:#fff;
 }
 
 .green{
-  background:#16823b;
+  background:#168a45;
   color:#fff;
 }
 
-.logout{
-  float:right;
+.blue{
+  background:#2867c7;
+  color:#fff;
+}
+
+.gray{
+  background:#444;
+  color:#fff;
+}
+
+button:hover{
+  opacity:.85;
+}
+
+.login-box{
+  max-width:450px;
+  margin:45px auto;
 }
 
 .status{
   padding:12px;
+  margin-top:10px;
   border-radius:8px;
-  background:#181818;
-  margin-bottom:15px;
+  background:#191919;
+  border:1px solid #444;
+  white-space:pre-wrap;
 }
 
 .success{
-  color:#5cff91;
+  border-color:#168a45;
+  color:#7dffae;
 }
 
 .error{
-  color:#ff7777;
+  border-color:#c33;
+  color:#ff8b8b;
 }
 
 .cards{
@@ -141,7 +155,7 @@ button{
 }
 
 .stat{
-  background:#181818;
+  background:#080808;
   border:1px solid #333;
   border-radius:10px;
   padding:18px;
@@ -150,51 +164,76 @@ button{
 
 .stat strong{
   display:block;
-  font-size:27px;
   color:#ffd700;
-  margin-top:5px;
+  font-size:28px;
+  margin-top:8px;
+}
+
+.table-wrap{
+  overflow-x:auto;
+  margin-top:15px;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
-  margin-top:15px;
+  min-width:1000px;
 }
 
-th,
-td{
-  border:1px solid #333;
+th,td{
   padding:10px;
+  border:1px solid #333;
   text-align:left;
   vertical-align:top;
 }
 
 th{
-  background:#1d1d1d;
   color:#ffd700;
+  background:#181818;
+}
+
+tr:nth-child(even){
+  background:#0d0d0d;
+}
+
+.small{
+  color:#aaa;
+  font-size:13px;
 }
 
 .badge{
   display:inline-block;
   padding:5px 9px;
-  border-radius:6px;
+  border-radius:20px;
+  background:#222;
+  border:1px solid #555;
   font-size:12px;
-  font-weight:bold;
+}
+
+.pass{
+  color:#7dffae;
+  border-color:#168a45;
+}
+
+.fail{
+  color:#ff8b8b;
+  border-color:#c33;
+}
+
+.released{
+  color:#7dffae;
+  border-color:#168a45;
 }
 
 .pending{
-  background:#665500;
   color:#ffd700;
+  border-color:#a88b00;
 }
 
-.approved{
-  background:#124d29;
-  color:#5cff91;
-}
-
-.rejected{
-  background:#5a1020;
-  color:#ff8a9b;
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
 }
 
 .modal{
@@ -208,43 +247,43 @@ th{
   z-index:1000;
 }
 
+.modal.show{
+  display:flex;
+}
+
 .modal-box{
   background:#111;
-  border:1px solid #d4af37;
+  border:1px solid #ffd700;
   border-radius:14px;
+  padding:22px;
   width:100%;
-  max-width:600px;
+  max-width:650px;
   max-height:90vh;
   overflow:auto;
-  padding:22px;
 }
 
-.small{
-  color:#aaa;
-  font-size:12px;
+.answer-box{
+  background:#080808;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:12px;
+  margin:8px 0;
+  white-space:pre-wrap;
 }
 
-.hidden{
-  display:none!important;
-}
-
-.section-title{
+.actions{
   display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
   flex-wrap:wrap;
+  gap:5px;
 }
 
-@media(max-width:850px){
+@media(max-width:800px){
   .cards{
     grid-template-columns:repeat(2,1fr);
   }
 
-  table{
-    display:block;
-    overflow-x:auto;
-    white-space:nowrap;
+  .form-grid{
+    grid-template-columns:1fr;
   }
 }
 
@@ -263,73 +302,81 @@ th{
 <body>
 
 <header>
-  <button class="red logout hidden" id="logoutBtn" onclick="logout()">
+
+  <button
+    id="logoutBtn"
+    class="red hidden"
+    style="position:absolute;right:12px;top:12px;"
+    onclick="logout()">
     Logout
   </button>
 
-  <img src="classic-empire-logo.png" alt="Classic Empire Ltd">
+  <img
+    src="classic-empire-logo.png"
+    alt="Classic Empire Ltd">
 
   <h1>CLASSIC EMPIRE LTD</h1>
   <p>President Administration Panel</p>
-</header>
 
+</header>
 
 <div class="container">
 
   <!-- LOGIN -->
+
   <div id="loginArea" class="card login-box">
 
     <h2>🔐 President Login</h2>
 
-    <p class="small">
-      Admin Panel केवल President/Admin के लिए है।
-    </p>
-
-    <label>Email</label>
     <input
       id="email"
       type="email"
-      placeholder="President email"
-      autocomplete="email"
-    >
+      placeholder="President Email">
 
-    <label>Password</label>
     <input
       id="password"
       type="password"
-      placeholder="Password"
-      autocomplete="current-password"
-    >
+      placeholder="Password">
 
-    <button class="gold" onclick="login()">
+    <button
+      class="gold"
+      style="width:100%;"
+      onclick="login()">
       Login
     </button>
 
-    <div id="loginMessage" class="status hidden"></div>
+    <div
+      id="loginMessage"
+      class="status hidden">
+    </div>
 
   </div>
 
 
   <!-- ADMIN -->
+
   <div id="adminArea" class="hidden">
 
     <div class="card">
 
-      <div class="section-title">
-        <div>
-          <h2>Classic Empire Admin Dashboard</h2>
-          <div class="small" id="loggedUser">
-            Checking session...
-          </div>
-        </div>
+      <h2>👑 Classic Empire Admin Dashboard</h2>
+
+      <div
+        class="small"
+        id="loggedUser">
+        Checking session...
       </div>
 
-      <div id="messageBox" class="status hidden"></div>
+      <div
+        id="messageBox"
+        class="status hidden">
+      </div>
 
     </div>
 
 
     <!-- OVERVIEW -->
+
     <div class="card">
 
       <h2>📊 Overview</h2>
@@ -361,7 +408,8 @@ th{
     </div>
 
 
-    <!-- PRESIDENT CONTROL -->
+    <!-- PRESIDENT -->
+
     <div class="card">
 
       <h2>👑 President Control</h2>
@@ -371,37 +419,39 @@ th{
       </p>
 
       <p class="small">
-        President is the permanent founder of Classic Empire Ltd.
-        Normal system में कोई अन्य authority President position को change नहीं कर सकती।
+        President is the founder and permanent President
+        of Classic Empire Ltd under the normal system.
       </p>
 
     </div>
 
 
     <!-- APPLICATION MANAGEMENT -->
+
     <div class="card">
 
-      <div class="section-title">
-        <h2>📋 Application Management</h2>
+      <h2>📋 Application Management</h2>
 
-        <button class="gold" onclick="loadApplications()">
-          Refresh
-        </button>
-      </div>
+      <button
+        class="gold"
+        onclick="loadApplications()">
+        🔄 Refresh Applications
+      </button>
 
-      <div style="overflow-x:auto;">
+      <div class="table-wrap">
 
         <table>
 
           <thead>
             <tr>
-              <th>ID</th>
+              <th>Application ID</th>
               <th>Applicant</th>
               <th>Age</th>
               <th>Class</th>
               <th>Post</th>
               <th>Email</th>
               <th>Contact</th>
+              <th>Reason</th>
               <th>Status</th>
               <th>Created</th>
               <th>Action</th>
@@ -410,8 +460,8 @@ th{
 
           <tbody id="applicationsBody">
             <tr>
-              <td colspan="10">
-                Applications loading...
+              <td colspan="11">
+                Loading...
               </td>
             </tr>
           </tbody>
@@ -424,85 +474,144 @@ th{
 
 
     <!-- MANUAL EXAM CODE -->
+
     <div class="card">
 
       <h2>🎫 Manual Exam Code Generator</h2>
 
       <p class="small">
-        Emergency/manual use के लिए बिना application के भी Exam Code बनाया जा सकता है।
+        Application ID केवल existing application के लिए भरें।
+        बिना application के manual code बनाना हो तो इसे खाली छोड़ सकते हैं।
       </p>
 
-      <label>Applicant Name</label>
-      <input
-        id="manualName"
-        type="text"
-        placeholder="Applicant name"
-      >
+      <div class="form-grid">
 
-      <label>Application ID (optional)</label>
-      <input
-        id="manualApplicationId"
-        type="number"
-        placeholder="Optional application ID"
-      >
+        <div>
+          <label>Applicant Name</label>
+          <input
+            id="manualName"
+            placeholder="Applicant name">
+        </div>
 
-      <label>Exam Post</label>
+        <div>
+          <label>Application ID — Optional</label>
+          <input
+            id="manualApplicationId"
+            type="number"
+            placeholder="Application ID">
+        </div>
 
-      <select id="manualPost">
+        <div>
+          <label>Post</label>
 
-        <option value="">
-          Select Post
-        </option>
+          <select id="manualPost">
 
-        <option value="PRESIDENT'S ASSISTANT">
-          President's Assistant
-        </option>
+            <option value="PRESIDENT'S ASSISTANT">
+              President's Assistant
+            </option>
 
-        <option value="DM">
-          DM
-        </option>
+            <option value="DM">
+              DM
+            </option>
 
-        <option value="DM'S ASSISTANT">
-          DM's Assistant
-        </option>
+            <option value="DM'S ASSISTANT">
+              DM's Assistant
+            </option>
 
-        <option value="SDM">
-          SDM
-        </option>
+            <option value="SDM">
+              SDM
+            </option>
 
-        <option value="SP">
-          SP
-        </option>
+            <option value="SP">
+              SP
+            </option>
 
-        <option value="DSP">
-          DSP
-        </option>
+            <option value="DSP">
+              DSP
+            </option>
 
-      </select>
+          </select>
 
-      <button class="gold" onclick="generateManualCode()">
+        </div>
+
+      </div>
+
+      <button
+        class="gold"
+        onclick="generateManualCode()">
         Generate Exam Code
       </button>
 
-      <div id="manualCodeResult" class="status hidden"></div>
+      <div
+        id="manualCodeResult"
+        class="status hidden">
+      </div>
 
     </div>
 
 
     <!-- EXAM CODE HISTORY -->
+
     <div class="card">
 
-      <div class="section-title">
+      <h2>🎟️ Exam Code History</h2>
 
-        <h2>📜 Exam Code History</h2>
+      <button
+        class="gold"
+        onclick="loadExamCodes()">
+        🔄 Refresh Code History
+      </button>
 
-        <button class="gold" onclick="loadExamCodes()">
-          Refresh
-        </button>
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>ID</th>
+              <th>Exam Code</th>
+              <th>Applicant</th>
+              <th>Application ID</th>
+              <th>Post</th>
+              <th>Section</th>
+              <th>Unlock At</th>
+              <th>Created At</th>
+              <th>Used</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="examCodesBody">
+
+            <tr>
+              <td colspan="9">
+                Loading...
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
 
       </div>
 
-      <div style="overflow-x:auto;">
+    </div>
+
+
+    <!-- EXAM SUBMISSION HISTORY -->
+
+    <div class="card">
+
+      <h2>📝 Exam Submission History</h2>
+
+      <button
+        class="gold"
+        onclick="loadSubmissions()">
+        🔄 Refresh Submission History
+      </button>
+
+      <div class="table-wrap">
 
         <table>
 
@@ -514,60 +623,12 @@ th{
               <th>Applicant</th>
               <th>Post</th>
               <th>Section</th>
-              <th>Application ID</th>
-              <th>Unlock</th>
-              <th>Used</th>
-              <th>Created</th>
-            </tr>
-
-          </thead>
-
-          <tbody id="examCodesBody">
-
-            <tr>
-              <td colspan="9">
-                Exam codes loading...
-              </td>
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </div>
-
-
-    <!-- SUBMISSIONS -->
-    <div class="card">
-
-      <div class="section-title">
-
-        <h2>📝 Exam Submission History</h2>
-
-        <button class="gold" onclick="loadSubmissions()">
-          Refresh
-        </button>
-
-      </div>
-
-      <div style="overflow-x:auto;">
-
-        <table>
-
-          <thead>
-
-            <tr>
-              <th>ID</th>
-              <th>Exam Code</th>
-              <th>Applicant</th>
-              <th>Post</th>
               <th>Objective</th>
               <th>Subjective</th>
               <th>Total</th>
               <th>Result</th>
-              <th>Released</th>
+              <th>Submitted</th>
+              <th>Release</th>
               <th>Action</th>
             </tr>
 
@@ -576,8 +637,8 @@ th{
           <tbody id="submissionsBody">
 
             <tr>
-              <td colspan="10">
-                Submissions loading...
+              <td colspan="12">
+                Loading...
               </td>
             </tr>
 
@@ -594,65 +655,86 @@ th{
 </div>
 
 
-<!-- RESULT EDIT MODAL -->
+<!-- RESULT MODAL -->
 
-<div class="modal" id="resultModal">
+<div
+  id="resultModal"
+  class="modal">
 
   <div class="modal-box">
 
     <h2>✏️ Edit Exam Result</h2>
 
-    <p class="small" id="editApplicant"></p>
+    <input
+      id="editSubmissionId"
+      type="hidden">
 
-    <input type="hidden" id="editSubmissionId">
+    <p>
+      <b>Applicant:</b>
+      <span id="editApplicant"></span>
+    </p>
 
-    <label>Objective Marks / 18</label>
+    <p>
+      <b>Exam Code:</b>
+      <span id="editExamCode"></span>
+    </p>
+
+    <div class="answer-box">
+
+      <b>Subjective Answer 1</b>
+
+      <div id="answer1"></div>
+
+    </div>
+
+    <div class="answer-box">
+
+      <b>Subjective Answer 2</b>
+
+      <div id="answer2"></div>
+
+    </div>
+
+    <label>Objective Marks /18</label>
+
     <input
       id="editObjective"
       type="number"
       min="0"
-      max="18"
-    >
+      max="18">
 
-    <label>Subjective Marks / 10</label>
+    <label>Subjective Marks /10</label>
+
     <input
       id="editSubjective"
       type="number"
       min="0"
-      max="10"
-    >
+      max="10">
 
-    <label>Total Marks / 28</label>
-    <input
-      id="editTotal"
-      type="number"
-      min="0"
-      max="28"
-    >
+    <p class="small">
+      Total और PASS/FAIL automatically calculate होंगे।
+    </p>
 
-    <label>Result</label>
+    <div class="actions">
 
-    <select id="editResult">
+      <button
+        class="gold"
+        onclick="saveResult()">
+        💾 Save Result
+      </button>
 
-      <option value="PASS">
-        PASS
-      </option>
+      <button
+        class="gray"
+        onclick="closeResultModal()">
+        Close
+      </button>
 
-      <option value="FAIL">
-        FAIL
-      </option>
+    </div>
 
-    </select>
-
-    <div id="editMessage" class="status hidden"></div>
-
-    <button class="gold" onclick="saveResult()">
-      Save Result
-    </button>
-
-    <button class="dark" onclick="closeResultModal()">
-      Cancel
-    </button>
+    <div
+      id="editMessage"
+      class="status hidden">
+    </div>
 
   </div>
 
@@ -660,10 +742,6 @@ th{
 
 
 <script>
-
-/* =====================================================
-   SUPABASE
-===================================================== */
 
 const SUPABASE_URL =
 "https://hjatspkzgoddcpgwfkxo.supabase.co";
@@ -678,9 +756,41 @@ supabase.createClient(
 );
 
 
-/* =====================================================
-   HELPERS
-===================================================== */
+/* ---------------- HELPERS ---------------- */
+
+function showMessage(
+  text,
+  type = "success"
+){
+
+  const box =
+    document.getElementById("messageBox");
+
+  box.textContent = text;
+
+  box.className =
+    "status " + type;
+
+  box.classList.remove("hidden");
+}
+
+
+function showLoginMessage(
+  text,
+  type = "error"
+){
+
+  const box =
+    document.getElementById("loginMessage");
+
+  box.textContent = text;
+
+  box.className =
+    "status " + type;
+
+  box.classList.remove("hidden");
+}
+
 
 function escapeHTML(value){
 
@@ -700,47 +810,28 @@ function escapeHTML(value){
 function formatDate(value){
 
   if(!value){
-    return "-";
+    return "—";
   }
 
-  const d = new Date(value);
+  try{
 
-  if(Number.isNaN(d.getTime())){
-    return escapeHTML(value);
+    return new Date(value).toLocaleString(
+      "en-IN",
+      {
+        dateStyle:"medium",
+        timeStyle:"short"
+      }
+    );
+
+  }catch(e){
+
+    return value;
+
   }
-
-  return d.toLocaleString(
-    "en-IN",
-    {
-      dateStyle:"medium",
-      timeStyle:"short"
-    }
-  );
 }
 
 
-function showMessage(
-  elementId,
-  message,
-  success = true
-){
-
-  const box =
-    document.getElementById(elementId);
-
-  box.classList.remove("hidden");
-
-  box.className =
-    "status " +
-    (success ? "success" : "error");
-
-  box.textContent = message;
-}
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
+/* ---------------- LOGIN ---------------- */
 
 async function login(){
 
@@ -750,76 +841,71 @@ async function login(){
   const password =
     document.getElementById("password").value;
 
-
   if(!email || !password){
 
-    showMessage(
-      "loginMessage",
-      "Email और password दोनों भरें।",
-      false
+    showLoginMessage(
+      "Email और Password दोनों भरें।"
     );
 
     return;
   }
 
+  showLoginMessage(
+    "Login हो रहा है...",
+    "success"
+  );
 
-  const {
-    data,
-    error
-  } =
+  const {data,error} =
     await supabaseClient.auth.signInWithPassword({
       email,
       password
     });
 
-
   if(error){
 
-    console.error(error);
-
-    showMessage(
-      "loginMessage",
-      "Login failed: " + error.message,
-      false
+    showLoginMessage(
+      error.message,
+      "error"
     );
 
     return;
   }
-
 
   await checkAdminAccess();
 
 }
 
 
-/* =====================================================
-   CHECK ADMIN
-===================================================== */
+/* ---------------- ADMIN ACCESS ---------------- */
 
 async function checkAdminAccess(){
 
   const {
-    data: sessionData
+    data:{
+      session
+    }
   } =
-    await supabaseClient.auth.getSession();
-
-
-  const session =
-    sessionData?.session;
-
+  await supabaseClient.auth.getSession();
 
   if(!session){
 
-    showLogin();
+    document
+      .getElementById("loginArea")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("adminArea")
+      .classList.add("hidden");
+
+    document
+      .getElementById("logoutBtn")
+      .classList.add("hidden");
 
     return;
   }
 
 
-  const {
-    data,
-    error
-  } =
+  const {data,error} =
     await supabaseClient.rpc(
       "check_admin_access"
     );
@@ -827,106 +913,67 @@ async function checkAdminAccess(){
 
   if(error){
 
-    console.error(error);
+    await supabaseClient.auth.signOut();
 
-    showLogin();
-
-    showMessage(
-      "loginMessage",
+    showLoginMessage(
       "Admin access check failed: " +
-      error.message,
-      false
+      error.message
     );
 
     return;
+  }
+
+
+  let result = data;
+
+
+  if(Array.isArray(data)){
+    result = data[0];
   }
 
 
   if(
-    !data ||
-    data.allowed !== true
+    !result ||
+    result.success !== true
   ){
 
     await supabaseClient.auth.signOut();
 
-    showLogin();
-
-    showMessage(
-      "loginMessage",
-      "Admin Panel केवल President के लिए है।",
-      false
+    showLoginMessage(
+      result?.message ||
+      "केवल President/Admin को access है।"
     );
 
     return;
   }
 
 
-  showAdmin(session.user);
+  document
+    .getElementById("loginArea")
+    .classList.add("hidden");
+
+  document
+    .getElementById("adminArea")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("logoutBtn")
+    .classList.remove("hidden");
+
+
+  document
+    .getElementById("loggedUser")
+    .textContent =
+      "Logged in as: " +
+      (session.user.email || "President/Admin");
+
 
   await loadDashboard();
 
 }
 
 
-/* =====================================================
-   SHOW / HIDE
-===================================================== */
-
-function showLogin(){
-
-  document
-    .getElementById("loginArea")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("adminArea")
-    .classList.add("hidden");
-
-  document
-    .getElementById("logoutBtn")
-    .classList.add("hidden");
-}
-
-
-function showAdmin(user){
-
-  document
-    .getElementById("loginArea")
-    .classList.add("hidden");
-
-  document
-    .getElementById("adminArea")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("logoutBtn")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("loggedUser")
-    .textContent =
-      "Logged in as: " +
-      (user.email || "President");
-
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-async function logout(){
-
-  await supabaseClient.auth.signOut();
-
-  showLogin();
-
-}
-
-
-/* =====================================================
-   DASHBOARD
-===================================================== */
+/* ---------------- DASHBOARD ---------------- */
 
 async function loadDashboard(){
 
@@ -940,9 +987,7 @@ async function loadDashboard(){
 }
 
 
-/* =====================================================
-   APPLICATION COUNTS
-===================================================== */
+/* ---------------- APPLICATION COUNTS ---------------- */
 
 async function loadApplicationCounts(){
 
@@ -950,10 +995,9 @@ async function loadApplicationCounts(){
     data,
     error
   } =
-    await supabaseClient.rpc(
-      "get_application_counts"
-    );
-
+  await supabaseClient.rpc(
+    "get_application_counts"
+  );
 
   if(error){
 
@@ -968,14 +1012,8 @@ async function loadApplicationCounts(){
 
   let result = data;
 
-  if(typeof result === "string"){
-
-    try{
-      result = JSON.parse(result);
-    }catch(e){
-      return;
-    }
-
+  if(Array.isArray(data)){
+    result = data[0];
   }
 
 
@@ -987,48 +1025,38 @@ async function loadApplicationCounts(){
   document.getElementById(
     "totalApplications"
   ).textContent =
-    Number(
-      result.total ??
-      result.total_count ??
-      0
-    );
+    result.total ??
+    result.total_applications ??
+    0;
 
 
   document.getElementById(
     "pendingApplications"
   ).textContent =
-    Number(
-      result.pending ??
-      result.pending_count ??
-      0
-    );
+    result.pending ??
+    result.pending_applications ??
+    0;
 
 
   document.getElementById(
     "approvedApplications"
   ).textContent =
-    Number(
-      result.approved ??
-      result.approved_count ??
-      0
-    );
+    result.approved ??
+    result.approved_applications ??
+    0;
 
 
   document.getElementById(
     "rejectedApplications"
   ).textContent =
-    Number(
-      result.rejected ??
-      result.rejected_count ??
-      0
-    );
+    result.rejected ??
+    result.rejected_applications ??
+    0;
 
 }
 
 
-/* =====================================================
-   APPLICATIONS
-===================================================== */
+/* ---------------- APPLICATIONS ---------------- */
 
 async function loadApplications(){
 
@@ -1037,58 +1065,57 @@ async function loadApplications(){
       "applicationsBody"
     );
 
-
   body.innerHTML =
-    `<tr><td colspan="10">Loading...</td></tr>`;
+    `<tr>
+      <td colspan="11">Loading...</td>
+    </tr>`;
 
 
   const {
     data,
     error
   } =
-    await supabaseClient.rpc(
-      "get_applications"
-    );
+  await supabaseClient.rpc(
+    "get_applications"
+  );
 
 
   if(error){
 
-    console.error(error);
-
     body.innerHTML =
-      `<tr><td colspan="10" class="error">
-        ${escapeHTML(error.message)}
-      </td></tr>`;
+      `<tr>
+        <td colspan="11">
+          ❌ ${escapeHTML(error.message)}
+        </td>
+      </tr>`;
 
     return;
   }
 
 
-  let rows = data;
+  let rows = data || [];
 
 
-  if(typeof rows === "string"){
+  if(rows.success === false){
 
-    try{
-      rows = JSON.parse(rows);
-    }catch(e){
-      rows = [];
-    }
+    body.innerHTML =
+      `<tr>
+        <td colspan="11">
+          ❌ ${escapeHTML(rows.message)}
+        </td>
+      </tr>`;
 
-  }
-
-
-  if(
-    rows &&
-    !Array.isArray(rows) &&
-    Array.isArray(rows.applications)
-  ){
-    rows = rows.applications;
+    return;
   }
 
 
   if(!Array.isArray(rows)){
-    rows = [];
+
+    rows =
+      rows.applications ||
+      rows.data ||
+      [];
+
   }
 
 
@@ -1096,8 +1123,8 @@ async function loadApplications(){
 
     body.innerHTML =
       `<tr>
-        <td colspan="10">
-          No applications found.
+        <td colspan="11">
+          कोई application नहीं मिली।
         </td>
       </tr>`;
 
@@ -1109,61 +1136,90 @@ async function loadApplications(){
     rows.map(app => {
 
       const status =
-        String(
-          app.status || "Pending"
-        );
+        app.status || "Pending";
 
-
-      const cls =
+      const statusClass =
         status.toLowerCase() === "approved"
-          ? "approved"
-          : status.toLowerCase() === "rejected"
-            ? "rejected"
-            : "pending";
+        ? "pass"
+        : status.toLowerCase() === "rejected"
+        ? "fail"
+        : "pending";
 
 
       return `
         <tr>
 
-          <td>${escapeHTML(app.id)}</td>
-
           <td>
-            <b>${escapeHTML(app.applicant_name)}</b>
+            <b>#${escapeHTML(app.id)}</b>
           </td>
 
-          <td>${escapeHTML(app.age)}</td>
-
-          <td>${escapeHTML(app.class)}</td>
-
-          <td>${escapeHTML(app.post)}</td>
-
-          <td>${escapeHTML(app.applicant_email)}</td>
-
-          <td>${escapeHTML(app.contact_number)}</td>
+          <td>
+            ${escapeHTML(app.applicant_name)}
+          </td>
 
           <td>
-            <span class="badge ${cls}">
+            ${escapeHTML(app.age)}
+          </td>
+
+          <td>
+            ${escapeHTML(app.class)}
+          </td>
+
+          <td>
+            ${escapeHTML(app.post)}
+          </td>
+
+          <td>
+            ${escapeHTML(app.applicant_email)}
+          </td>
+
+          <td>
+            ${escapeHTML(app.contact_number)}
+          </td>
+
+          <td>
+            ${escapeHTML(app.reason)}
+          </td>
+
+          <td>
+            <span class="badge ${statusClass}">
               ${escapeHTML(status)}
             </span>
           </td>
 
-          <td>${formatDate(app.created_at)}</td>
+          <td>
+            ${formatDate(app.created_at)}
+          </td>
 
           <td>
 
-            <button
-              class="green"
-              onclick="updateApplication('${escapeHTML(app.id)}','Approved')"
-            >
-              Approve
-            </button>
+            <div class="actions">
 
-            <button
-              class="red"
-              onclick="updateApplication('${escapeHTML(app.id)}','Rejected')"
-            >
-              Reject
-            </button>
+              ${
+                status !== "Approved"
+                ? `
+                  <button
+                    class="green"
+                    onclick="updateApplication(${Number(app.id)},'Approved')">
+                    Approve
+                  </button>
+                `
+                : ""
+              }
+
+              ${
+                status !== "Rejected"
+                ? `
+                  <button
+                    class="red"
+                    onclick="updateApplication(${Number(app.id)},'Rejected')">
+                    Reject
+                  </button>
+                `
+                : ""
+              }
+
+            </div>
 
           </td>
 
@@ -1175,22 +1231,20 @@ async function loadApplications(){
 }
 
 
-/* =====================================================
-   APPLICATION STATUS
-===================================================== */
+/* ---------------- APPLICATION STATUS ---------------- */
 
 async function updateApplication(
   applicationId,
   newStatus
 ){
 
-  if(
-    !confirm(
-      "Application status को " +
-      newStatus +
-      " करना है?"
-    )
-  ){
+  if(!confirm(
+    "Application #" +
+    applicationId +
+    " को " +
+    newStatus +
+    " करना है?"
+  )){
     return;
   }
 
@@ -1199,26 +1253,23 @@ async function updateApplication(
     data,
     error
   } =
-    await supabaseClient.rpc(
-      "update_application_status",
-      {
-        input_application_id:
-          Number(applicationId),
+  await supabaseClient.rpc(
+    "update_application_status",
+    {
+      input_application_id:
+        applicationId,
 
-        input_status:
-          newStatus
-      }
-    );
+      input_status:
+        newStatus
+    }
+  );
 
 
   if(error){
 
-    console.error(error);
-
     showMessage(
-      "messageBox",
       error.message,
-      false
+      "error"
     );
 
     return;
@@ -1227,25 +1278,17 @@ async function updateApplication(
 
   let result = data;
 
-  if(typeof result === "string"){
-
-    try{
-      result = JSON.parse(result);
-    }catch(e){}
-
+  if(Array.isArray(data)){
+    result = data[0];
   }
 
 
-  if(
-    result &&
-    result.success === false
-  ){
+  if(!result?.success){
 
     showMessage(
-      "messageBox",
-      result.message ||
+      result?.message ||
       "Application update failed.",
-      false
+      "error"
     );
 
     return;
@@ -1253,102 +1296,90 @@ async function updateApplication(
 
 
   showMessage(
-    "messageBox",
-    "Application status successfully updated."
+    "Application successfully " +
+    newStatus +
+    ".",
+    "success"
   );
 
 
-  await loadApplicationCounts();
-
-  await loadApplications();
+  await loadDashboard();
 
 }
 
 
-/* =====================================================
-   MANUAL EXAM CODE
-===================================================== */
+/* ---------------- MANUAL CODE ---------------- */
 
 async function generateManualCode(){
 
   const name =
-    document
-      .getElementById("manualName")
-      .value
-      .trim();
+    document.getElementById(
+      "manualName"
+    ).value.trim();
 
 
   const applicationValue =
-    document
-      .getElementById("manualApplicationId")
-      .value
-      .trim();
+    document.getElementById(
+      "manualApplicationId"
+    ).value.trim();
 
 
   const post =
-    document
-      .getElementById("manualPost")
-      .value;
+    document.getElementById(
+      "manualPost"
+    ).value;
 
 
   if(!name){
 
     showMessage(
-      "manualCodeResult",
       "Applicant Name भरें।",
-      false
+      "error"
     );
 
     return;
   }
 
 
-  if(!post){
+  let applicationId =
+    applicationValue === ""
+    ? null
+    : Number(applicationValue);
+
+
+  if(
+    applicationId !== null &&
+    !Number.isInteger(applicationId)
+  ){
 
     showMessage(
-      "manualCodeResult",
-      "Exam Post select करें।",
-      false
+      "Application ID सही number होना चाहिए।",
+      "error"
     );
 
     return;
   }
-
-
-  const applicationId =
-    applicationValue
-      ? Number(applicationValue)
-      : null;
 
 
   const {
     data,
     error
   } =
-    await supabaseClient.rpc(
-      "generate_manual_exam_code",
-      {
-        input_applicant_name:
-          name,
-
-        input_application_id:
-          applicationId,
-
-        input_post:
-          post
-      }
-    );
+  await supabaseClient.rpc(
+    "generate_manual_exam_code",
+    {
+      input_applicant_name:name,
+      input_application_id:applicationId,
+      input_post:post
+    }
+  );
 
 
   if(error){
 
-    console.error(error);
-
     showMessage(
-      "manualCodeResult",
-      "Code generation failed: " +
       error.message,
-      false
+      "error"
     );
 
     return;
@@ -1357,95 +1388,82 @@ async function generateManualCode(){
 
   let result = data;
 
-  if(typeof result === "string"){
-
-    try{
-      result = JSON.parse(result);
-    }catch(e){}
-
+  if(Array.isArray(data)){
+    result = data[0];
   }
 
 
-  if(
-    !result ||
-    result.success !== true
-  ){
+  if(!result?.success){
 
     showMessage(
-      "manualCodeResult",
       result?.message ||
-      "Exam Code generate नहीं हुआ।",
-      false
+      "Exam Code generation failed.",
+      "error"
     );
 
     return;
   }
 
 
-  document.getElementById(
-    "manualCodeResult"
-  ).className =
+  const code =
+    result.exam_code ||
+    result.code;
+
+
+  const box =
+    document.getElementById(
+      "manualCodeResult"
+    );
+
+
+  box.innerHTML = `
+    <b>✅ Exam Code Generated</b>
+
+    <br><br>
+
+    <b style="font-size:22px;color:#ffd700;">
+      ${escapeHTML(code)}
+    </b>
+
+    <br><br>
+
+    Applicant:
+    ${escapeHTML(result.applicant_name || name)}
+
+    <br>
+
+    Post:
+    ${escapeHTML(result.post || post)}
+
+    <br>
+
+    Section:
+    ${escapeHTML(result.section || "—")}
+
+    <br>
+
+    Unlock:
+    ${formatDate(result.unlock_at)}
+
+  `;
+
+  box.className =
     "status success";
 
 
-  document.getElementById(
-    "manualCodeResult"
-  ).classList.remove("hidden");
+  document
+    .getElementById(
+      "manualCodeResult"
+    )
+    .classList.remove("hidden");
 
-
-  document.getElementById(
-    "manualCodeResult"
-  ).innerHTML =
-
-    "<b>Exam Code Generated</b><br><br>" +
-
-    "<span style='font-size:24px;color:#ffd700;'>" +
-    escapeHTML(
-      result.exam_code ||
-      result.code
-    ) +
-    "</span><br><br>" +
-
-    "Applicant: " +
-    escapeHTML(
-      result.applicant_name ||
-      name
-    ) +
-    "<br>" +
-
-    "Post: " +
-    escapeHTML(
-      result.post ||
-      post
-    ) +
-    "<br>" +
-
-    "Section: " +
-    escapeHTML(
-      result.section ||
-      "-"
-    );
-
-  document.getElementById(
-    "manualName"
-  ).value = "";
-
-  document.getElementById(
-    "manualApplicationId"
-  ).value = "";
-
-  document.getElementById(
-    "manualPost"
-  ).value = "";
 
   await loadExamCodes();
 
 }
 
 
-/* =====================================================
-   EXAM CODE HISTORY
-===================================================== */
+/* ---------------- EXAM CODE HISTORY ---------------- */
 
 async function loadExamCodes(){
 
@@ -1456,26 +1474,26 @@ async function loadExamCodes(){
 
 
   body.innerHTML =
-    `<tr><td colspan="9">Loading...</td></tr>`;
+    `<tr>
+      <td colspan="9">Loading...</td>
+    </tr>`;
 
 
   const {
     data,
     error
   } =
-    await supabaseClient.rpc(
-      "get_exam_code_history"
-    );
+  await supabaseClient.rpc(
+    "get_exam_code_history"
+  );
 
 
   if(error){
 
-    console.error(error);
-
     body.innerHTML =
       `<tr>
-        <td colspan="9" class="error">
-          ${escapeHTML(error.message)}
+        <td colspan="9">
+          ❌ ${escapeHTML(error.message)}
         </td>
       </tr>`;
 
@@ -1483,31 +1501,29 @@ async function loadExamCodes(){
   }
 
 
-  let rows = data;
+  let rows = data || [];
 
 
-  if(typeof rows === "string"){
+  if(rows.success === false){
 
-    try{
-      rows = JSON.parse(rows);
-    }catch(e){
-      rows = [];
-    }
+    body.innerHTML =
+      `<tr>
+        <td colspan="9">
+          ❌ ${escapeHTML(rows.message)}
+        </td>
+      </tr>`;
 
-  }
-
-
-  if(
-    rows &&
-    !Array.isArray(rows) &&
-    Array.isArray(rows.codes)
-  ){
-    rows = rows.codes;
+    return;
   }
 
 
   if(!Array.isArray(rows)){
-    rows = [];
+
+    rows =
+      rows.codes ||
+      rows.data ||
+      [];
+
   }
 
 
@@ -1516,7 +1532,7 @@ async function loadExamCodes(){
     body.innerHTML =
       `<tr>
         <td colspan="9">
-          No exam codes found.
+          कोई Exam Code History नहीं मिली।
         </td>
       </tr>`;
 
@@ -1530,7 +1546,9 @@ async function loadExamCodes(){
       return `
         <tr>
 
-          <td>${escapeHTML(row.id)}</td>
+          <td>
+            ${escapeHTML(row.id)}
+          </td>
 
           <td>
             <b style="color:#ffd700;">
@@ -1538,21 +1556,45 @@ async function loadExamCodes(){
             </b>
           </td>
 
-          <td>${escapeHTML(row.applicant_name)}</td>
-
-          <td>${escapeHTML(row.post)}</td>
-
-          <td>${escapeHTML(row.section || "-")}</td>
-
-          <td>${escapeHTML(row.application_id ?? "-")}</td>
-
-          <td>${formatDate(row.unlock_at)}</td>
-
           <td>
-            ${row.used ? "✅ Used" : "❌ Unused"}
+            ${escapeHTML(row.applicant_name)}
           </td>
 
-          <td>${formatDate(row.created_at)}</td>
+          <td>
+            ${
+              row.application_id === null ||
+              row.application_id === undefined
+              ? "Manual / None"
+              : "#" +
+                escapeHTML(row.application_id)
+            }
+          </td>
+
+          <td>
+            ${escapeHTML(row.post)}
+          </td>
+
+          <td>
+            <span class="badge">
+              ${escapeHTML(row.section || "—")}
+            </span>
+          </td>
+
+          <td>
+            ${formatDate(row.unlock_at)}
+          </td>
+
+          <td>
+            ${formatDate(row.created_at)}
+          </td>
+
+          <td>
+            ${
+              row.used
+              ? `<span class="badge fail">Used</span>`
+              : `<span class="badge pass">Unused</span>`
+            }
+          </td>
 
         </tr>
       `;
@@ -1562,9 +1604,7 @@ async function loadExamCodes(){
 }
 
 
-/* =====================================================
-   SUBMISSIONS
-===================================================== */
+/* ---------------- SUBMISSION HISTORY ---------------- */
 
 async function loadSubmissions(){
 
@@ -1575,26 +1615,26 @@ async function loadSubmissions(){
 
 
   body.innerHTML =
-    `<tr><td colspan="10">Loading...</td></tr>`;
+    `<tr>
+      <td colspan="12">Loading...</td>
+    </tr>`;
 
 
   const {
     data,
     error
   } =
-    await supabaseClient.rpc(
-      "get_exam_submissions"
-    );
+  await supabaseClient.rpc(
+    "get_exam_submissions"
+  );
 
 
   if(error){
 
-    console.error(error);
-
     body.innerHTML =
       `<tr>
-        <td colspan="10" class="error">
-          ${escapeHTML(error.message)}
+        <td colspan="12">
+          ❌ ${escapeHTML(error.message)}
         </td>
       </tr>`;
 
@@ -1602,31 +1642,16 @@ async function loadSubmissions(){
   }
 
 
-  let rows = data;
-
-
-  if(typeof rows === "string"){
-
-    try{
-      rows = JSON.parse(rows);
-    }catch(e){
-      rows = [];
-    }
-
-  }
-
-
-  if(
-    rows &&
-    !Array.isArray(rows) &&
-    Array.isArray(rows.submissions)
-  ){
-    rows = rows.submissions;
-  }
+  let rows = data || [];
 
 
   if(!Array.isArray(rows)){
-    rows = [];
+
+    rows =
+      rows.submissions ||
+      rows.data ||
+      [];
+
   }
 
 
@@ -1634,8 +1659,8 @@ async function loadSubmissions(){
 
     body.innerHTML =
       `<tr>
-        <td colspan="10">
-          No exam submissions found.
+        <td colspan="12">
+          अभी कोई Exam Submission नहीं है।
         </td>
       </tr>`;
 
@@ -1646,14 +1671,19 @@ async function loadSubmissions(){
   body.innerHTML =
     rows.map(row => {
 
-      const released =
-        row.result_released === true;
+      const resultClass =
+        String(row.final_result || "")
+          .toUpperCase() === "PASS"
+        ? "pass"
+        : "fail";
 
 
       return `
         <tr>
 
-          <td>${escapeHTML(row.id)}</td>
+          <td>
+            ${escapeHTML(row.id)}
+          </td>
 
           <td>
             <b style="color:#ffd700;">
@@ -1661,50 +1691,96 @@ async function loadSubmissions(){
             </b>
           </td>
 
-          <td>${escapeHTML(row.applicant_name)}</td>
-
-          <td>${escapeHTML(row.post)}</td>
-
-          <td>${escapeHTML(row.objective_score ?? 0)}/18</td>
-
-          <td>${escapeHTML(row.subjective_marks ?? 0)}/10</td>
-
-          <td><b>${escapeHTML(row.total_marks ?? 0)}/28</b></td>
-
-          <td>${escapeHTML(row.final_result || "-")}</td>
+          <td>
+            ${escapeHTML(row.applicant_name)}
+          </td>
 
           <td>
-            ${released ? "✅ Released" : "⏳ Pending"}
+            ${escapeHTML(row.post)}
+          </td>
+
+          <td>
+            <span class="badge">
+              ${escapeHTML(row.section || "—")}
+            </span>
+          </td>
+
+          <td>
+            ${escapeHTML(row.objective_score ?? 0)} / 18
+          </td>
+
+          <td>
+            ${escapeHTML(row.subjective_marks ?? 0)} / 10
+          </td>
+
+          <td>
+            <b>
+              ${escapeHTML(row.total_marks ?? 0)} / 28
+            </b>
+          </td>
+
+          <td>
+            <span class="badge ${resultClass}">
+              ${escapeHTML(row.final_result || "—")}
+            </span>
+          </td>
+
+          <td>
+            ${formatDate(row.submitted_at)}
           </td>
 
           <td>
 
-            <button
-              class="gold"
-              onclick="openResultModal(
-                ${Number(row.id)},
-                '${escapeHTML(row.applicant_name)}',
-                ${Number(row.objective_score || 0)},
-                ${Number(row.subjective_marks || 0)},
-                ${Number(row.total_marks || 0)},
-                '${escapeHTML(row.final_result || "FAIL")}'
-              )"
-            >
-              Edit
-            </button>
-
             ${
-              released
-              ? ""
+              row.result_released
+              ? `
+                <span class="badge released">
+                  Released
+                </span>
+              `
               : `
-                <button
-                  class="green"
-                  onclick="releaseResult(${Number(row.id)})"
-                >
-                  Release
-                </button>
+                <span class="badge pending">
+                  Not Released
+                </span>
               `
             }
+
+            ${
+              row.result_released_at
+              ? `
+                <br>
+                <span class="small">
+                  ${formatDate(row.result_released_at)}
+                </span>
+              `
+              : ""
+            }
+
+          </td>
+
+          <td>
+
+            <div class="actions">
+
+              <button
+                class="blue"
+                onclick="openResultModal(${Number(row.id)})">
+                ✏️ Edit
+              </button>
+
+              ${
+                row.result_released
+                ? ""
+                : `
+                  <button
+                    class="green"
+                    onclick="releaseResult(${Number(row.id)})">
+                    🔓 Release
+                  </button>
+                `
+              }
+
+            </div>
 
           </td>
 
@@ -1716,135 +1792,110 @@ async function loadSubmissions(){
 }
 
 
-/* =====================================================
-   RELEASE RESULT
-===================================================== */
+/* ---------------- FIND SUBMISSION ---------------- */
 
-async function releaseResult(
-  submissionId
-){
+let currentSubmissions = [];
 
-  if(
-    !confirm(
-      "क्या आप इस Result को release करना चाहते हैं?"
-    )
-  ){
-    return;
-  }
 
+async function refreshSubmissionCache(){
 
   const {
     data,
     error
   } =
-    await supabaseClient.rpc(
-      "release_exam_result",
-      {
-        input_submission_id:
-          Number(submissionId)
-      }
-    );
-
-
-  if(error){
-
-    console.error(error);
-
-    showMessage(
-      "messageBox",
-      error.message,
-      false
-    );
-
-    return;
-  }
-
-
-  let result = data;
-
-  if(typeof result === "string"){
-
-    try{
-      result = JSON.parse(result);
-    }catch(e){}
-
-  }
-
-
-  if(
-    !result ||
-    result.success !== true
-  ){
-
-    showMessage(
-      "messageBox",
-      result?.message ||
-      "Result release failed.",
-      false
-    );
-
-    return;
-  }
-
-
-  showMessage(
-    "messageBox",
-    "Result successfully released."
+  await supabaseClient.rpc(
+    "get_exam_submissions"
   );
 
 
-  await loadSubmissions();
+  if(error){
+    return [];
+  }
+
+
+  if(Array.isArray(data)){
+    return data;
+  }
+
+
+  return (
+    data?.submissions ||
+    data?.data ||
+    []
+  );
 
 }
 
 
-/* =====================================================
-   RESULT MODAL
-===================================================== */
+/* ---------------- EDIT RESULT ---------------- */
 
-function openResultModal(
-  id,
-  applicant,
-  objective,
-  subjective,
-  total,
-  result
+async function openResultModal(
+  submissionId
 ){
+
+  currentSubmissions =
+    await refreshSubmissionCache();
+
+
+  const row =
+    currentSubmissions.find(
+      x => Number(x.id) === Number(submissionId)
+    );
+
+
+  if(!row){
+
+    showMessage(
+      "Submission नहीं मिली।",
+      "error"
+    );
+
+    return;
+  }
+
 
   document.getElementById(
     "editSubmissionId"
-  ).value = id;
+  ).value =
+    row.id;
 
 
   document.getElementById(
     "editApplicant"
   ).textContent =
-    "Applicant: " +
-    applicant;
+    row.applicant_name || "—";
+
+
+  document.getElementById(
+    "editExamCode"
+  ).textContent =
+    row.exam_code || "—";
+
+
+  document.getElementById(
+    "answer1"
+  ).textContent =
+    row.subjective_answer_1 ||
+    "कोई answer नहीं।";
+
+
+  document.getElementById(
+    "answer2"
+  ).textContent =
+    row.subjective_answer_2 ||
+    "कोई answer नहीं।";
 
 
   document.getElementById(
     "editObjective"
   ).value =
-    objective;
+    row.objective_score ?? 0;
 
 
   document.getElementById(
     "editSubjective"
   ).value =
-    subjective;
-
-
-  document.getElementById(
-    "editTotal"
-  ).value =
-    total;
-
-
-  document.getElementById(
-    "editResult"
-  ).value =
-    result;
+    row.subjective_marks ?? 0;
 
 
   document.getElementById(
@@ -1852,27 +1903,14 @@ function openResultModal(
   ).classList.add("hidden");
 
 
-  document.getElementById(
-    "resultModal"
-  ).style.display =
-    "flex";
+  document
+    .getElementById("resultModal")
+    .classList.add("show");
 
 }
 
 
-function closeResultModal(){
-
-  document.getElementById(
-    "resultModal"
-  ).style.display =
-    "none";
-
-}
-
-
-/* =====================================================
-   SAVE RESULT
-===================================================== */
+/* ---------------- SAVE RESULT ---------------- */
 
 async function saveResult(){
 
@@ -1900,92 +1938,168 @@ async function saveResult(){
     );
 
 
-  const total =
-    Number(
-      document.getElementById(
-        "editTotal"
-      ).value
+  if(
+    !Number.isInteger(objective) ||
+    objective < 0 ||
+    objective > 18
+  ){
+
+    showEditMessage(
+      "Objective marks 0 से 18 के बीच होने चाहिए।",
+      "error"
     );
 
+    return;
+  }
 
-  const result =
-    document.getElementById(
-      "editResult"
-    ).value;
+
+  if(
+    !Number.isInteger(subjective) ||
+    subjective < 0 ||
+    subjective > 10
+  ){
+
+    showEditMessage(
+      "Subjective marks 0 से 10 के बीच होने चाहिए।",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const total =
+    objective + subjective;
+
+
+  const finalResult =
+    total >= 21
+    ? "PASS"
+    : "FAIL";
 
 
   const {
     data,
     error
   } =
-    await supabaseClient.rpc(
-      "update_exam_result",
-      {
-        input_submission_id:
-          id,
-
-        input_objective:
-          objective,
-
-        input_subjective:
-          subjective,
-
-        input_total:
-          total,
-
-        input_final_result:
-          result
-      }
-    );
+  await supabaseClient.rpc(
+    "update_exam_result",
+    {
+      input_submission_id:id,
+      input_objective:objective,
+      input_subjective:subjective,
+      input_total:total,
+      input_final_result:finalResult
+    }
+  );
 
 
   if(error){
 
-    console.error(error);
-
-    showMessage(
-      "editMessage",
+    showEditMessage(
       error.message,
-      false
+      "error"
     );
 
     return;
   }
 
 
-  let response = data;
+  let result = data;
 
-  if(typeof response === "string"){
-
-    try{
-      response = JSON.parse(response);
-    }catch(e){}
-
+  if(Array.isArray(data)){
+    result = data[0];
   }
 
 
-  if(
-    !response ||
-    response.success !== true
-  ){
+  if(!result?.success){
+
+    showEditMessage(
+      result?.message ||
+      "Result update failed.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  showEditMessage(
+    "Result successfully updated.",
+    "success"
+  );
+
+
+  await loadSubmissions();
+
+
+  setTimeout(
+    closeResultModal,
+    700
+  );
+
+}
+
+
+/* ---------------- RELEASE RESULT ---------------- */
+
+async function releaseResult(
+  submissionId
+){
+
+  if(!confirm(
+    "क्या आप यह Result अभी Release करना चाहते हैं?"
+  )){
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient.rpc(
+    "release_exam_result",
+    {
+      input_submission_id:
+        submissionId
+    }
+  );
+
+
+  if(error){
 
     showMessage(
-      "editMessage",
-      response?.message ||
-      "Result update failed.",
-      false
+      error.message,
+      "error"
     );
 
     return;
   }
 
 
-  closeResultModal();
+  let result = data;
+
+  if(Array.isArray(data)){
+    result = data[0];
+  }
+
+
+  if(!result?.success){
+
+    showMessage(
+      result?.message ||
+      "Result release failed.",
+      "error"
+    );
+
+    return;
+  }
 
 
   showMessage(
-    "messageBox",
-    "Result successfully updated."
+    "Result successfully released.",
+    "success"
   );
 
 
@@ -1994,30 +2108,80 @@ async function saveResult(){
 }
 
 
-/* =====================================================
-   AUTH STATE
-===================================================== */
+/* ---------------- MODAL ---------------- */
+
+function closeResultModal(){
+
+  document
+    .getElementById("resultModal")
+    .classList.remove("show");
+
+}
+
+
+function showEditMessage(
+  text,
+  type = "error"
+){
+
+  const box =
+    document.getElementById(
+      "editMessage"
+    );
+
+  box.textContent = text;
+
+  box.className =
+    "status " + type;
+
+  box.classList.remove("hidden");
+
+}
+
+
+/* ---------------- LOGOUT ---------------- */
+
+async function logout(){
+
+  await supabaseClient.auth.signOut();
+
+  location.reload();
+
+}
+
+
+/* ---------------- AUTH LISTENER ---------------- */
 
 supabaseClient.auth.onAuthStateChange(
   async (event, session) => {
 
     if(
-      event === "SIGNED_OUT" ||
-      !session
+      event === "SIGNED_IN" &&
+      session
     ){
 
-      showLogin();
+      setTimeout(
+        checkAdminAccess,
+        0
+      );
 
-      return;
     }
 
-
     if(
-      event === "SIGNED_IN" ||
-      event === "INITIAL_SESSION"
+      event === "SIGNED_OUT"
     ){
 
-      await checkAdminAccess();
+      document
+        .getElementById("adminArea")
+        .classList.add("hidden");
+
+      document
+        .getElementById("loginArea")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("logoutBtn")
+        .classList.add("hidden");
 
     }
 
@@ -2025,27 +2189,11 @@ supabaseClient.auth.onAuthStateChange(
 );
 
 
-/* =====================================================
-   START
-===================================================== */
+/* ---------------- START ---------------- */
 
 (async function(){
 
-  const {
-    data
-  } =
-    await supabaseClient.auth.getSession();
-
-
-  if(data?.session){
-
-    await checkAdminAccess();
-
-  }else{
-
-    showLogin();
-
-  }
+  await checkAdminAccess();
 
 })();
 

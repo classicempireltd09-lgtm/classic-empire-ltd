@@ -28,14 +28,15 @@
     }
 
     header img {
-      width: 80px;
-      height: 80px;
+      width: 82px;
+      height: 82px;
       object-fit: contain;
     }
 
     header h1 {
       color: #ffd700;
       margin: 8px 0;
+      font-size: 25px;
     }
 
     header p {
@@ -47,6 +48,73 @@
       width: 94%;
       max-width: 1100px;
       margin: 25px auto;
+    }
+
+    .login-card,
+    .card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .login-card {
+      max-width: 500px;
+      margin: 30px auto;
+    }
+
+    .login-card h2,
+    .card h2 {
+      color: #ffd700;
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      color: #ccc;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #555;
+      background: #080808;
+      color: white;
+      font-size: 15px;
+    }
+
+    button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      background: #ffd700;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    button.secondary {
+      background: #222;
+      color: #ffd700;
+      border: 1px solid #ffd700;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .stats {
@@ -65,26 +133,14 @@
       text-align: center;
     }
 
-    .stat h2 {
+    .stat h3 {
       color: #ffd700;
-      margin: 0 0 8px;
+      margin: 0 0 10px;
+      font-size: 16px;
     }
 
     .stat strong {
-      font-size: 28px;
-    }
-
-    .card {
-      background: #111;
-      border: 1px solid #333;
-      border-radius: 15px;
-      padding: 18px;
-      overflow-x: auto;
-    }
-
-    .card h2 {
-      color: #ffd700;
-      margin-top: 0;
+      font-size: 30px;
     }
 
     .controls {
@@ -94,29 +150,19 @@
       margin-bottom: 15px;
     }
 
-    input {
+    .controls input {
       flex: 1;
       min-width: 200px;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #555;
-      background: #080808;
-      color: white;
     }
 
-    button {
-      padding: 12px 18px;
-      border: none;
-      border-radius: 8px;
-      background: #ffd700;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
     }
 
     table {
       width: 100%;
-      min-width: 700px;
+      min-width: 720px;
       border-collapse: collapse;
     }
 
@@ -142,24 +188,52 @@
       font-weight: bold;
     }
 
-    #message {
+    .message {
+      padding: 13px;
+      border-radius: 9px;
+      margin-bottom: 18px;
       text-align: center;
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 10px;
       display: none;
     }
 
+    .success {
+      display: block;
+      background: #123b1c;
+      border: 1px solid #36d35b;
+    }
+
     .error {
-      display: block !important;
+      display: block;
       background: #351212;
       border: 1px solid #ff4444;
+    }
+
+    .info {
+      display: block;
+      background: #171717;
+      border: 1px solid #555;
+    }
+
+    #dashboard {
+      display: none;
+    }
+
+    #loginSection {
+      display: none;
+    }
+
+    .user-info {
+      color: #bbb;
+      text-align: center;
+      margin-bottom: 15px;
+      line-height: 1.6;
     }
 
     footer {
       text-align: center;
       color: #777;
       padding: 30px 10px;
+      font-size: 13px;
     }
   </style>
 </head>
@@ -175,84 +249,187 @@
 
   <h1>Classic Empire Ltd.</h1>
 
-  <p>Attendance Dashboard</p>
+  <p>QR Attendance Dashboard</p>
 
 </header>
 
 <div class="container">
 
-  <div id="message"></div>
+  <!-- =========================
+       LOGIN
+  ========================== -->
 
-  <div class="stats">
+  <section id="loginSection" class="login-card">
 
-    <div class="stat">
-      <h2>कुल Records</h2>
-      <strong id="totalRecords">0</strong>
-    </div>
+    <h2>🔐 Attendance Login</h2>
 
-    <div class="stat">
-      <h2>Present</h2>
-      <strong id="presentCount">0</strong>
-    </div>
+    <div id="loginMessage" class="message"></div>
 
-    <div class="stat">
-      <h2>Members</h2>
-      <strong id="memberCount">0</strong>
-    </div>
+    <div class="field">
 
-  </div>
-
-  <div class="card">
-
-    <h2>📋 Attendance History</h2>
-
-    <div class="controls">
+      <label for="email">
+        Email
+      </label>
 
       <input
-        type="text"
-        id="search"
-        placeholder="Member का नाम खोजें..."
-        oninput="filterTable()"
+        type="email"
+        id="email"
+        placeholder="Email दर्ज करें"
+        autocomplete="email"
       >
-
-      <button onclick="loadAttendance()">
-        🔄 Refresh
-      </button>
 
     </div>
 
-    <table>
+    <div class="field">
 
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Member ID</th>
-          <th>Member Name</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Status</th>
-        </tr>
-      </thead>
+      <label for="password">
+        Password
+      </label>
 
-      <tbody id="attendanceBody">
-        <tr>
-          <td colspan="6">
-            Loading...
-          </td>
-        </tr>
-      </tbody>
+      <input
+        type="password"
+        id="password"
+        placeholder="Password दर्ज करें"
+        autocomplete="current-password"
+      >
 
-    </table>
+    </div>
 
-  </div>
+    <button onclick="login()">
+      Login
+    </button>
+
+  </section>
+
+
+  <!-- =========================
+       DASHBOARD
+  ========================== -->
+
+  <section id="dashboard">
+
+    <div id="mainMessage" class="message"></div>
+
+    <div class="card">
+
+      <div class="user-info">
+        Logged in user:
+        <strong id="userEmail"></strong>
+      </div>
+
+      <div class="buttons" style="justify-content:center;">
+
+        <button onclick="loadAttendance()">
+          🔄 Refresh
+        </button>
+
+        <button
+          class="secondary"
+          onclick="logout()"
+        >
+          Logout
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         STATISTICS
+    ========================== -->
+
+    <div class="stats">
+
+      <div class="stat">
+        <h3>कुल Records</h3>
+        <strong id="totalRecords">0</strong>
+      </div>
+
+      <div class="stat">
+        <h3>Present</h3>
+        <strong id="presentCount">0</strong>
+      </div>
+
+      <div class="stat">
+        <h3>कुल Members</h3>
+        <strong id="memberCount">0</strong>
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         ATTENDANCE TABLE
+    ========================== -->
+
+    <div class="card">
+
+      <h2>📋 Attendance History</h2>
+
+      <div class="controls">
+
+        <input
+          type="text"
+          id="search"
+          placeholder="Member का नाम खोजें..."
+          oninput="filterTable()"
+        >
+
+        <button onclick="loadAttendance()">
+          🔄 Refresh
+        </button>
+
+      </div>
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>ID</th>
+              <th>Member ID</th>
+              <th>Member Name</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Status</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="attendanceBody">
+
+            <tr>
+              <td colspan="6">
+                Loading...
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </section>
 
 </div>
+
 
 <footer>
   Classic Empire Ltd • Chakla Ghat, Kishanganj, Bihar, India
 </footer>
 
+
 <script>
+
+/* =====================================
+   SUPABASE
+===================================== */
 
 const SUPABASE_URL =
   "https://hjatspkzgoddcpgwfkxo.supabase.co";
@@ -266,36 +443,218 @@ const supabaseClient =
     SUPABASE_KEY
   );
 
+
+/* =====================================
+   DATA
+===================================== */
+
 let attendanceData = [];
 
 
-/* =========================
+/* =====================================
+   PAGE START
+===================================== */
+
+window.addEventListener(
+  "load",
+  checkLogin
+);
+
+
+/* =====================================
+   CHECK LOGIN
+===================================== */
+
+async function checkLogin() {
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.auth.getSession();
+
+  if (error) {
+
+    showLoginMessage(
+      "❌ Login status check नहीं हो पाया।",
+      false
+    );
+
+    showLogin();
+
+    return;
+  }
+
+  if (data.session) {
+
+    const email =
+      data.session.user.email || "";
+
+    document.getElementById(
+      "userEmail"
+    ).textContent = email;
+
+    showDashboard();
+
+    await loadAttendance();
+
+  } else {
+
+    showLogin();
+
+  }
+}
+
+
+/* =====================================
+   SHOW LOGIN
+===================================== */
+
+function showLogin() {
+
+  document.getElementById(
+    "loginSection"
+  ).style.display = "block";
+
+  document.getElementById(
+    "dashboard"
+  ).style.display = "none";
+}
+
+
+/* =====================================
+   SHOW DASHBOARD
+===================================== */
+
+function showDashboard() {
+
+  document.getElementById(
+    "loginSection"
+  ).style.display = "none";
+
+  document.getElementById(
+    "dashboard"
+  ).style.display = "block";
+}
+
+
+/* =====================================
+   LOGIN
+===================================== */
+
+async function login() {
+
+  const email =
+    document.getElementById(
+      "email"
+    ).value.trim();
+
+  const password =
+    document.getElementById(
+      "password"
+    ).value;
+
+  if (!email || !password) {
+
+    showLoginMessage(
+      "कृपया Email और Password दोनों भरें।",
+      false
+    );
+
+    return;
+  }
+
+  showLoginMessage(
+    "⏳ Login किया जा रहा है...",
+    true,
+    "info"
+  );
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+  if (error) {
+
+    console.error(error);
+
+    showLoginMessage(
+      "❌ Login failed: " +
+      error.message,
+      false
+    );
+
+    return;
+  }
+
+  document.getElementById(
+    "userEmail"
+  ).textContent =
+    data.user.email || email;
+
+  showDashboard();
+
+  await loadAttendance();
+
+}
+
+
+/* =====================================
+   LOGOUT
+===================================== */
+
+async function logout() {
+
+  await supabaseClient.auth.signOut();
+
+  attendanceData = [];
+
+  document.getElementById(
+    "attendanceBody"
+  ).innerHTML = `
+    <tr>
+      <td colspan="6">
+        Login required
+      </td>
+    </tr>
+  `;
+
+  showLogin();
+
+}
+
+
+/* =====================================
    LOAD ATTENDANCE
-========================= */
+===================================== */
 
 async function loadAttendance() {
 
-  hideMessage();
+  hideMainMessage();
+
+  document.getElementById(
+    "attendanceBody"
+  ).innerHTML = `
+    <tr>
+      <td colspan="6">
+        ⏳ Attendance load हो रही है...
+      </td>
+    </tr>
+  `;
 
   const {
     data: sessionData
-  } = await supabaseClient.auth.getSession();
+  } =
+    await supabaseClient.auth.getSession();
 
   if (!sessionData.session) {
 
-    showMessage(
-      "🔒 Attendance Dashboard देखने के लिए login आवश्यक है।"
-    );
-
-    document.getElementById(
-      "attendanceBody"
-    ).innerHTML = `
-      <tr>
-        <td colspan="6">
-          Login required
-        </td>
-      </tr>
-    `;
+    showLogin();
 
     return;
   }
@@ -303,35 +662,69 @@ async function loadAttendance() {
   const {
     data,
     error
-  } = await supabaseClient.rpc(
-    "get_attendance_history"
-  );
+  } =
+    await supabaseClient.rpc(
+      "get_attendance_history"
+    );
 
   if (error) {
 
     console.error(error);
 
-    showMessage(
-      "❌ Attendance history load नहीं हो सकी।"
+    showMainMessage(
+      "❌ Attendance history load नहीं हो सकी।",
+      false
     );
 
     return;
   }
 
+  /*
+    Function अब object return करता है:
+    {
+      success: true,
+      records: [...]
+    }
+  */
+
+  if (!data || data.success !== true) {
+
+    showMainMessage(
+      data?.message ||
+      "Attendance Dashboard की अनुमति नहीं है।",
+      false
+    );
+
+    document.getElementById(
+      "attendanceBody"
+    ).innerHTML = `
+      <tr>
+        <td colspan="6">
+          🔒 अनुमति नहीं है
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
   attendanceData =
-    Array.isArray(data)
-      ? data
+    Array.isArray(data.records)
+      ? data.records
       : [];
 
   updateStats();
 
-  renderTable(attendanceData);
+  renderTable(
+    attendanceData
+  );
+
 }
 
 
-/* =========================
+/* =====================================
    STATISTICS
-========================= */
+===================================== */
 
 function updateStats() {
 
@@ -348,12 +741,14 @@ function updateStats() {
 
   document.getElementById(
     "presentCount"
-  ).textContent = present;
+  ).textContent =
+    present;
 
   const members =
     new Set(
       attendanceData.map(
-        item => item.member_id
+        item =>
+          item.member_id
       )
     );
 
@@ -361,12 +756,13 @@ function updateStats() {
     "memberCount"
   ).textContent =
     members.size;
+
 }
 
 
-/* =========================
-   TABLE
-========================= */
+/* =====================================
+   RENDER TABLE
+===================================== */
 
 function renderTable(data) {
 
@@ -392,21 +788,13 @@ function renderTable(data) {
     data.map(item => {
 
       const date =
-        new Date(
+        formatDate(
           item.attendance_date
-        ).toLocaleDateString(
-          "hi-IN"
         );
 
       const time =
-        new Date(
+        formatTime(
           item.attendance_time
-        ).toLocaleTimeString(
-          "hi-IN",
-          {
-            hour: "2-digit",
-            minute: "2-digit"
-          }
         );
 
       const statusClass =
@@ -416,24 +804,42 @@ function renderTable(data) {
 
       return `
         <tr>
-          <td>${item.id}</td>
-          <td>${item.member_id}</td>
-          <td>${escapeHtml(item.member_name)}</td>
-          <td>${date}</td>
-          <td>${time}</td>
+
+          <td>
+            ${escapeHtml(item.id)}
+          </td>
+
+          <td>
+            ${escapeHtml(item.member_id)}
+          </td>
+
+          <td>
+            ${escapeHtml(item.member_name)}
+          </td>
+
+          <td>
+            ${date}
+          </td>
+
+          <td>
+            ${time}
+          </td>
+
           <td class="${statusClass}">
             ${escapeHtml(item.status)}
           </td>
+
         </tr>
       `;
 
     }).join("");
+
 }
 
 
-/* =========================
+/* =====================================
    SEARCH
-========================= */
+===================================== */
 
 function filterTable() {
 
@@ -447,65 +853,156 @@ function filterTable() {
   const filtered =
     attendanceData.filter(
       item =>
-        item.member_name
+        String(
+          item.member_name || ""
+        )
           .toLowerCase()
           .includes(search)
     );
 
   renderTable(filtered);
+
 }
 
 
-/* =========================
-   MESSAGE
-========================= */
+/* =====================================
+   DATE
+===================================== */
 
-function showMessage(message) {
+function formatDate(value) {
+
+  if (!value) return "-";
+
+  return new Date(
+    value + "T00:00:00"
+  ).toLocaleDateString(
+    "hi-IN"
+  );
+
+}
+
+
+/* =====================================
+   TIME
+===================================== */
+
+function formatTime(value) {
+
+  if (!value) return "-";
+
+  return new Date(
+    value
+  ).toLocaleTimeString(
+    "hi-IN",
+    {
+      hour: "2-digit",
+      minute: "2-digit"
+    }
+  );
+
+}
+
+
+/* =====================================
+   LOGIN MESSAGE
+===================================== */
+
+function showLoginMessage(
+  message,
+  success,
+  type = ""
+) {
 
   const box =
     document.getElementById(
-      "message"
+      "loginMessage"
     );
 
   box.textContent = message;
 
-  box.className = "error";
+  box.className = "message";
+
+  if (type === "info") {
+
+    box.classList.add("info");
+
+  } else if (success) {
+
+    box.classList.add("success");
+
+  } else {
+
+    box.classList.add("error");
+
+  }
+
 }
 
 
-function hideMessage() {
+/* =====================================
+   MAIN MESSAGE
+===================================== */
+
+function showMainMessage(
+  message,
+  success,
+  type = ""
+) {
 
   const box =
     document.getElementById(
-      "message"
+      "mainMessage"
+    );
+
+  box.textContent = message;
+
+  box.className = "message";
+
+  if (type === "info") {
+
+    box.classList.add("info");
+
+  } else if (success) {
+
+    box.classList.add("success");
+
+  } else {
+
+    box.classList.add("error");
+
+  }
+
+}
+
+
+function hideMainMessage() {
+
+  const box =
+    document.getElementById(
+      "mainMessage"
     );
 
   box.textContent = "";
 
-  box.className = "";
+  box.className = "message";
+
 }
 
 
-/* =========================
-   SECURITY
-========================= */
+/* =====================================
+   HTML SECURITY
+===================================== */
 
 function escapeHtml(value) {
 
-  return String(value)
+  return String(value ?? "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+
 }
-
-
-/* =========================
-   START
-========================= */
-
-loadAttendance();
 
 </script>
 

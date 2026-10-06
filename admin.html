@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Classic Empire Ltd — Marksheet</title>
+<title>Classic Empire Ltd — Admin Panel</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -20,26 +20,26 @@ body{
   color:#fff;
 }
 
-.topbar{
+header{
   background:#111;
   border-bottom:2px solid #d4af37;
-  padding:15px;
+  padding:18px;
   text-align:center;
 }
 
-.topbar img{
+header img{
   width:70px;
   height:70px;
   object-fit:contain;
 }
 
-.topbar h1{
+header h1{
   margin:8px 0 3px;
   color:#ffd700;
-  font-size:24px;
+  font-size:25px;
 }
 
-.topbar p{
+header p{
   margin:0;
   color:#aaa;
   font-size:13px;
@@ -47,274 +47,214 @@ body{
 
 .container{
   width:94%;
-  max-width:900px;
+  max-width:1200px;
   margin:25px auto;
 }
 
-.loading,
-.error{
+.card{
   background:#111;
   border:1px solid #333;
-  border-radius:12px;
-  padding:25px;
-  text-align:center;
-}
-
-.error{
-  border-color:#b00020;
-  color:#ff8080;
-}
-
-.marksheet{
-  background:#fff;
-  color:#111;
-  border:8px double #c9a227;
-  border-radius:4px;
-  padding:30px;
-  position:relative;
-}
-
-.marksheet-header{
-  text-align:center;
-  border-bottom:2px solid #c9a227;
-  padding-bottom:18px;
-}
-
-.marksheet-header img{
-  width:85px;
-  height:85px;
-  object-fit:contain;
-}
-
-.marksheet-header h2{
-  margin:8px 0 3px;
-  color:#111;
-  font-size:27px;
-}
-
-.marksheet-header h3{
-  margin:0;
-  color:#7d6411;
-  font-size:18px;
-}
-
-.title{
-  margin:20px 0;
-  text-align:center;
-  font-size:25px;
-  font-weight:bold;
-  color:#111;
-  text-transform:uppercase;
-  letter-spacing:2px;
-}
-
-.info{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:0;
-  border:1px solid #aaa;
+  border-radius:14px;
+  padding:20px;
   margin-bottom:20px;
 }
 
-.info div{
-  padding:11px;
-  border-bottom:1px solid #ccc;
-  border-right:1px solid #ccc;
+.card h2{
+  color:#ffd700;
+  margin-top:0;
 }
 
-.info div:nth-child(even){
-  border-right:0;
+.login-box{
+  max-width:430px;
+  margin:50px auto;
 }
 
-.label{
+input,
+select,
+textarea{
+  width:100%;
+  padding:12px;
+  margin:7px 0 14px;
+  border-radius:8px;
+  border:1px solid #444;
+  background:#181818;
+  color:#fff;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+button{
+  border:0;
+  border-radius:8px;
+  padding:11px 17px;
+  margin:4px;
+  cursor:pointer;
   font-weight:bold;
-  color:#555;
 }
 
-.value{
-  margin-top:4px;
-  font-weight:bold;
+.gold{
+  background:#ffd700;
+  color:#000;
 }
 
-.photo-box{
+.dark{
+  background:#333;
+  color:#fff;
+}
+
+.red{
+  background:#b00020;
+  color:#fff;
+}
+
+.green{
+  background:#16823b;
+  color:#fff;
+}
+
+.logout{
+  float:right;
+}
+
+.status{
+  padding:12px;
+  border-radius:8px;
+  background:#181818;
+  margin-bottom:15px;
+}
+
+.success{
+  color:#5cff91;
+}
+
+.error{
+  color:#ff7777;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.stat{
+  background:#181818;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:18px;
   text-align:center;
-  margin:15px 0;
 }
 
-.photo-box img{
-  width:110px;
-  height:135px;
-  object-fit:cover;
-  border:2px solid #777;
+.stat strong{
+  display:block;
+  font-size:27px;
+  color:#ffd700;
+  margin-top:5px;
 }
 
-.no-photo{
-  width:110px;
-  height:135px;
-  border:2px solid #777;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  color:#777;
-  font-size:12px;
-}
-
-.marks{
+table{
   width:100%;
   border-collapse:collapse;
   margin-top:15px;
 }
 
-.marks th,
-.marks td{
-  border:1px solid #888;
-  padding:12px;
-  text-align:center;
+th,
+td{
+  border:1px solid #333;
+  padding:10px;
+  text-align:left;
+  vertical-align:top;
 }
 
-.marks th{
-  background:#eee;
+th{
+  background:#1d1d1d;
+  color:#ffd700;
 }
 
-.total-row{
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:6px;
+  font-size:12px;
   font-weight:bold;
-  font-size:18px;
 }
 
-.result{
-  margin:20px auto;
-  width:max-content;
-  min-width:180px;
-  text-align:center;
-  padding:12px 30px;
-  border:3px solid #16823b;
-  color:#16823b;
-  font-weight:bold;
-  font-size:22px;
-  border-radius:8px;
+.pending{
+  background:#665500;
+  color:#ffd700;
 }
 
-.interview{
-  margin-top:25px;
-  padding:15px;
-  border:1px solid #aaa;
-  text-align:center;
+.approved{
+  background:#124d29;
+  color:#5cff91;
 }
 
-.signatures{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:30px;
-  margin-top:50px;
-  text-align:center;
+.rejected{
+  background:#5a1020;
+  color:#ff8a9b;
 }
 
-.signature-box{
-  min-height:130px;
-}
-
-.signature-box img{
-  max-width:150px;
-  max-height:80px;
-  object-fit:contain;
-}
-
-.seal-box{
-  width:120px;
-  height:120px;
-  border:3px solid #555;
-  border-radius:50%;
-  display:flex;
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.82);
+  display:none;
   align-items:center;
   justify-content:center;
-  margin:auto;
-  text-align:center;
-  font-size:11px;
-  font-weight:bold;
-  padding:10px;
+  padding:15px;
+  z-index:1000;
 }
 
-.signature-name{
-  margin-top:10px;
-  font-weight:bold;
+.modal-box{
+  background:#111;
+  border:1px solid #d4af37;
+  border-radius:14px;
+  width:100%;
+  max-width:600px;
+  max-height:90vh;
+  overflow:auto;
+  padding:22px;
 }
 
-.footer{
-  margin-top:30px;
-  padding-top:12px;
-  border-top:1px solid #aaa;
-  text-align:center;
-  color:#666;
-  font-size:11px;
+.small{
+  color:#aaa;
+  font-size:12px;
 }
 
-.buttons{
-  text-align:center;
-  margin:20px 0;
+.hidden{
+  display:none!important;
 }
 
-button{
-  border:0;
-  padding:12px 20px;
-  margin:5px;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:bold;
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
-.print{
-  background:#ffd700;
-  color:#000;
+@media(max-width:850px){
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  table{
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
 }
 
-.back{
-  background:#333;
-  color:#fff;
-}
-
-@media(max-width:600px){
-
-  .info{
+@media(max-width:500px){
+  .cards{
     grid-template-columns:1fr;
   }
 
-  .info div{
-    border-right:0;
-  }
-
-  .marksheet{
-    padding:15px;
-  }
-
-  .signatures{
-    grid-template-columns:1fr;
-  }
-
-  .marksheet-header h2{
-    font-size:22px;
-  }
-}
-
-@media print{
-
-  body{
-    background:#fff;
-  }
-
-  .topbar,
-  .buttons{
-    display:none;
-  }
-
-  .container{
-    width:100%;
-    max-width:none;
-    margin:0;
-  }
-
-  .marksheet{
-    border:8px double #c9a227;
-    box-shadow:none;
+  header h1{
+    font-size:21px;
   }
 }
 </style>
@@ -322,208 +262,397 @@ button{
 
 <body>
 
-<div class="topbar">
+<header>
+  <button class="red logout hidden" id="logoutBtn" onclick="logout()">
+    Logout
+  </button>
 
-  <img
-    src="classic-empire-logo.png"
-    alt="Classic Empire Ltd"
-  >
+  <img src="classic-empire-logo.png" alt="Classic Empire Ltd">
 
   <h1>CLASSIC EMPIRE LTD</h1>
-
-  <p>
-    Official Examination Marksheet
-  </p>
-
-</div>
+  <p>President Administration Panel</p>
+</header>
 
 
 <div class="container">
 
-  <div id="loading" class="loading">
-    Marksheet loading...
+  <!-- LOGIN -->
+  <div id="loginArea" class="card login-box">
+
+    <h2>🔐 President Login</h2>
+
+    <p class="small">
+      Admin Panel केवल President/Admin के लिए है।
+    </p>
+
+    <label>Email</label>
+    <input
+      id="email"
+      type="email"
+      placeholder="President email"
+      autocomplete="email"
+    >
+
+    <label>Password</label>
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+      autocomplete="current-password"
+    >
+
+    <button class="gold" onclick="login()">
+      Login
+    </button>
+
+    <div id="loginMessage" class="status hidden"></div>
+
   </div>
 
-  <div id="errorBox" class="error" style="display:none;"></div>
 
+  <!-- ADMIN -->
+  <div id="adminArea" class="hidden">
 
-  <div id="marksheetArea" style="display:none;">
+    <div class="card">
 
-    <div class="marksheet">
-
-      <div class="marksheet-header">
-
-        <img
-          src="classic-empire-logo.png"
-          alt="Classic Empire Ltd Logo"
-        >
-
-        <h2>CLASSIC EMPIRE LTD</h2>
-
-        <h3>EXAMINATION MARKSHEET</h3>
-
+      <div class="section-title">
+        <div>
+          <h2>Classic Empire Admin Dashboard</h2>
+          <div class="small" id="loggedUser">
+            Checking session...
+          </div>
+        </div>
       </div>
 
+      <div id="messageBox" class="status hidden"></div>
 
-      <div class="title">
-        Official Marksheet
-      </div>
-
-
-      <div class="photo-box">
-
-        <div id="photoContainer"></div>
-
-      </div>
+    </div>
 
 
-      <div class="info">
+    <!-- OVERVIEW -->
+    <div class="card">
 
-        <div>
-          <div class="label">Applicant Name</div>
-          <div class="value" id="applicantName">-</div>
+      <h2>📊 Overview</h2>
+
+      <div class="cards">
+
+        <div class="stat">
+          Applications
+          <strong id="totalApplications">0</strong>
         </div>
 
-        <div>
-          <div class="label">Exam Code</div>
-          <div class="value" id="examCode">-</div>
+        <div class="stat">
+          Pending
+          <strong id="pendingApplications">0</strong>
         </div>
 
-        <div>
-          <div class="label">Post</div>
-          <div class="value" id="post">-</div>
+        <div class="stat">
+          Approved
+          <strong id="approvedApplications">0</strong>
         </div>
 
-        <div>
-          <div class="label">Section</div>
-          <div class="value" id="section">-</div>
-        </div>
-
-        <div>
-          <div class="label">Exam Status</div>
-          <div class="value">Result Released</div>
-        </div>
-
-        <div>
-          <div class="label">Result Released</div>
-          <div class="value" id="releaseDate">-</div>
+        <div class="stat">
+          Rejected
+          <strong id="rejectedApplications">0</strong>
         </div>
 
       </div>
 
-
-      <table class="marks">
-
-        <thead>
-
-          <tr>
-            <th>Section</th>
-            <th>Obtained</th>
-            <th>Maximum</th>
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          <tr>
-            <td>Objective</td>
-            <td id="objectiveMarks">0</td>
-            <td>18</td>
-          </tr>
-
-          <tr>
-            <td>Subjective</td>
-            <td id="subjectiveMarks">0</td>
-            <td>10</td>
-          </tr>
-
-          <tr class="total-row">
-            <td>Total</td>
-            <td id="totalMarks">0</td>
-            <td>28</td>
-          </tr>
-
-        </tbody>
-
-      </table>
+    </div>
 
 
-      <div id="resultBox" class="result">
+    <!-- PRESIDENT CONTROL -->
+    <div class="card">
+
+      <h2>👑 President Control</h2>
+
+      <p>
+        <b>President:</b> Noor Ahmad
+      </p>
+
+      <p class="small">
+        President is the permanent founder of Classic Empire Ltd.
+        Normal system में कोई अन्य authority President position को change नहीं कर सकती।
+      </p>
+
+    </div>
+
+
+    <!-- APPLICATION MANAGEMENT -->
+    <div class="card">
+
+      <div class="section-title">
+        <h2>📋 Application Management</h2>
+
+        <button class="gold" onclick="loadApplications()">
+          Refresh
+        </button>
+      </div>
+
+      <div style="overflow-x:auto;">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Applicant</th>
+              <th>Age</th>
+              <th>Class</th>
+              <th>Post</th>
+              <th>Email</th>
+              <th>Contact</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody id="applicationsBody">
+            <tr>
+              <td colspan="10">
+                Applications loading...
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+
+    <!-- MANUAL EXAM CODE -->
+    <div class="card">
+
+      <h2>🎫 Manual Exam Code Generator</h2>
+
+      <p class="small">
+        Emergency/manual use के लिए बिना application के भी Exam Code बनाया जा सकता है।
+      </p>
+
+      <label>Applicant Name</label>
+      <input
+        id="manualName"
+        type="text"
+        placeholder="Applicant name"
+      >
+
+      <label>Application ID (optional)</label>
+      <input
+        id="manualApplicationId"
+        type="number"
+        placeholder="Optional application ID"
+      >
+
+      <label>Exam Post</label>
+
+      <select id="manualPost">
+
+        <option value="">
+          Select Post
+        </option>
+
+        <option value="PRESIDENT'S ASSISTANT">
+          President's Assistant
+        </option>
+
+        <option value="DM">
+          DM
+        </option>
+
+        <option value="DM'S ASSISTANT">
+          DM's Assistant
+        </option>
+
+        <option value="SDM">
+          SDM
+        </option>
+
+        <option value="SP">
+          SP
+        </option>
+
+        <option value="DSP">
+          DSP
+        </option>
+
+      </select>
+
+      <button class="gold" onclick="generateManualCode()">
+        Generate Exam Code
+      </button>
+
+      <div id="manualCodeResult" class="status hidden"></div>
+
+    </div>
+
+
+    <!-- EXAM CODE HISTORY -->
+    <div class="card">
+
+      <div class="section-title">
+
+        <h2>📜 Exam Code History</h2>
+
+        <button class="gold" onclick="loadExamCodes()">
+          Refresh
+        </button>
+
+      </div>
+
+      <div style="overflow-x:auto;">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>ID</th>
+              <th>Exam Code</th>
+              <th>Applicant</th>
+              <th>Post</th>
+              <th>Section</th>
+              <th>Application ID</th>
+              <th>Unlock</th>
+              <th>Used</th>
+              <th>Created</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="examCodesBody">
+
+            <tr>
+              <td colspan="9">
+                Exam codes loading...
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+
+    <!-- SUBMISSIONS -->
+    <div class="card">
+
+      <div class="section-title">
+
+        <h2>📝 Exam Submission History</h2>
+
+        <button class="gold" onclick="loadSubmissions()">
+          Refresh
+        </button>
+
+      </div>
+
+      <div style="overflow-x:auto;">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>ID</th>
+              <th>Exam Code</th>
+              <th>Applicant</th>
+              <th>Post</th>
+              <th>Objective</th>
+              <th>Subjective</th>
+              <th>Total</th>
+              <th>Result</th>
+              <th>Released</th>
+              <th>Action</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="submissionsBody">
+
+            <tr>
+              <td colspan="10">
+                Submissions loading...
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- RESULT EDIT MODAL -->
+
+<div class="modal" id="resultModal">
+
+  <div class="modal-box">
+
+    <h2>✏️ Edit Exam Result</h2>
+
+    <p class="small" id="editApplicant"></p>
+
+    <input type="hidden" id="editSubmissionId">
+
+    <label>Objective Marks / 18</label>
+    <input
+      id="editObjective"
+      type="number"
+      min="0"
+      max="18"
+    >
+
+    <label>Subjective Marks / 10</label>
+    <input
+      id="editSubjective"
+      type="number"
+      min="0"
+      max="10"
+    >
+
+    <label>Total Marks / 28</label>
+    <input
+      id="editTotal"
+      type="number"
+      min="0"
+      max="28"
+    >
+
+    <label>Result</label>
+
+    <select id="editResult">
+
+      <option value="PASS">
         PASS
-      </div>
+      </option>
 
+      <option value="FAIL">
+        FAIL
+      </option>
 
-      <div class="interview">
+    </select>
 
-        <b>Interview / Further Process</b>
+    <div id="editMessage" class="status hidden"></div>
 
-        <p id="interviewLocation">
-          Head Office: Chakla Ghat, Kishanganj, Bihar, India
-        </p>
+    <button class="gold" onclick="saveResult()">
+      Save Result
+    </button>
 
-      </div>
-
-
-      <div class="signatures">
-
-        <div class="signature-box">
-
-          <div class="seal-box" id="sealContainer">
-            CLASSIC EMPIRE LTD
-          </div>
-
-          <div class="signature-name">
-            Official Seal
-          </div>
-
-        </div>
-
-
-        <div class="signature-box">
-
-          <div id="signatureContainer"></div>
-
-          <div class="signature-name">
-            Noor Ahmad
-          </div>
-
-          <div>
-            President<br>
-            CLASSIC EMPIRE LTD
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="footer">
-
-        Classic Empire Ltd • Head Office:
-        Chakla Ghat, Kishanganj, Bihar, India
-
-        <br>
-
-        This marksheet is generated from the
-        Classic Empire Ltd Examination System.
-
-      </div>
-
-    </div>
-
-
-    <div class="buttons">
-
-      <button class="print" onclick="window.print()">
-        🖨️ Print / Save PDF
-      </button>
-
-      <button class="back" onclick="history.back()">
-        ← Back
-      </button>
-
-    </div>
+    <button class="dark" onclick="closeResultModal()">
+      Cancel
+    </button>
 
   </div>
 
@@ -531,6 +660,10 @@ button{
 
 
 <script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
 "https://hjatspkzgoddcpgwfkxo.supabase.co";
@@ -545,29 +678,9 @@ supabase.createClient(
 );
 
 
-/* =========================
-   GET EXAM CODE
-========================= */
-
-function getExamCode(){
-
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
-
-  return (
-    params.get("code") ||
-    params.get("exam_code") ||
-    ""
-  ).trim();
-
-}
-
-
-/* =========================
-   SAFE TEXT
-========================= */
+/* =====================================================
+   HELPERS
+===================================================== */
 
 function escapeHTML(value){
 
@@ -584,10 +697,6 @@ function escapeHTML(value){
 }
 
 
-/* =========================
-   DATE
-========================= */
-
 function formatDate(value){
 
   if(!value){
@@ -597,7 +706,7 @@ function formatDate(value){
   const d = new Date(value);
 
   if(Number.isNaN(d.getTime())){
-    return value;
+    return escapeHTML(value);
   }
 
   return d.toLocaleString(
@@ -607,69 +716,497 @@ function formatDate(value){
       timeStyle:"short"
     }
   );
-
 }
 
 
-/* =========================
-   SHOW ERROR
-========================= */
-
-function showError(message){
-
-  document.getElementById(
-    "loading"
-  ).style.display = "none";
+function showMessage(
+  elementId,
+  message,
+  success = true
+){
 
   const box =
-    document.getElementById(
-      "errorBox"
-    );
+    document.getElementById(elementId);
 
-  box.style.display = "block";
+  box.classList.remove("hidden");
 
-  box.innerHTML =
-    "<h3>Marksheet नहीं मिली</h3>" +
-    "<p style='margin-top:10px;'>" +
-    escapeHTML(message) +
-    "</p>";
+  box.className =
+    "status " +
+    (success ? "success" : "error");
 
+  box.textContent = message;
 }
 
 
-/* =========================
-   LOAD MARKSHEET
-========================= */
+/* =====================================================
+   LOGIN
+===================================================== */
 
-async function loadMarksheet(){
+async function login(){
 
-  const code =
-    getExamCode();
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
 
 
-  if(!code){
+  if(!email || !password){
 
-    showError(
-      "Exam Code URL में मौजूद नहीं है।"
+    showMessage(
+      "loginMessage",
+      "Email और password दोनों भरें।",
+      false
     );
 
     return;
   }
 
 
-  document.getElementById(
-    "loading"
-  ).textContent =
-    "Exam Code " +
-    code +
-    " की marksheet loading...";
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
 
 
-  const { data, error } =
+  if(error){
+
+    console.error(error);
+
+    showMessage(
+      "loginMessage",
+      "Login failed: " + error.message,
+      false
+    );
+
+    return;
+  }
+
+
+  await checkAdminAccess();
+
+}
+
+
+/* =====================================================
+   CHECK ADMIN
+===================================================== */
+
+async function checkAdminAccess(){
+
+  const {
+    data: sessionData
+  } =
+    await supabaseClient.auth.getSession();
+
+
+  const session =
+    sessionData?.session;
+
+
+  if(!session){
+
+    showLogin();
+
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
     await supabaseClient.rpc(
-      "get_marksheet_data",
+      "check_admin_access"
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    showLogin();
+
+    showMessage(
+      "loginMessage",
+      "Admin access check failed: " +
+      error.message,
+      false
+    );
+
+    return;
+  }
+
+
+  if(
+    !data ||
+    data.allowed !== true
+  ){
+
+    await supabaseClient.auth.signOut();
+
+    showLogin();
+
+    showMessage(
+      "loginMessage",
+      "Admin Panel केवल President के लिए है।",
+      false
+    );
+
+    return;
+  }
+
+
+  showAdmin(session.user);
+
+  await loadDashboard();
+
+}
+
+
+/* =====================================================
+   SHOW / HIDE
+===================================================== */
+
+function showLogin(){
+
+  document
+    .getElementById("loginArea")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("adminArea")
+    .classList.add("hidden");
+
+  document
+    .getElementById("logoutBtn")
+    .classList.add("hidden");
+}
+
+
+function showAdmin(user){
+
+  document
+    .getElementById("loginArea")
+    .classList.add("hidden");
+
+  document
+    .getElementById("adminArea")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("logoutBtn")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("loggedUser")
+    .textContent =
+      "Logged in as: " +
+      (user.email || "President");
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+async function logout(){
+
+  await supabaseClient.auth.signOut();
+
+  showLogin();
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+async function loadDashboard(){
+
+  await Promise.all([
+    loadApplicationCounts(),
+    loadApplications(),
+    loadExamCodes(),
+    loadSubmissions()
+  ]);
+
+}
+
+
+/* =====================================================
+   APPLICATION COUNTS
+===================================================== */
+
+async function loadApplicationCounts(){
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "get_application_counts"
+    );
+
+
+  if(error){
+
+    console.error(
+      "Application counts:",
+      error
+    );
+
+    return;
+  }
+
+
+  let result = data;
+
+  if(typeof result === "string"){
+
+    try{
+      result = JSON.parse(result);
+    }catch(e){
+      return;
+    }
+
+  }
+
+
+  if(!result){
+    return;
+  }
+
+
+  document.getElementById(
+    "totalApplications"
+  ).textContent =
+    Number(
+      result.total ??
+      result.total_count ??
+      0
+    );
+
+
+  document.getElementById(
+    "pendingApplications"
+  ).textContent =
+    Number(
+      result.pending ??
+      result.pending_count ??
+      0
+    );
+
+
+  document.getElementById(
+    "approvedApplications"
+  ).textContent =
+    Number(
+      result.approved ??
+      result.approved_count ??
+      0
+    );
+
+
+  document.getElementById(
+    "rejectedApplications"
+  ).textContent =
+    Number(
+      result.rejected ??
+      result.rejected_count ??
+      0
+    );
+
+}
+
+
+/* =====================================================
+   APPLICATIONS
+===================================================== */
+
+async function loadApplications(){
+
+  const body =
+    document.getElementById(
+      "applicationsBody"
+    );
+
+
+  body.innerHTML =
+    `<tr><td colspan="10">Loading...</td></tr>`;
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "get_applications"
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    body.innerHTML =
+      `<tr><td colspan="10" class="error">
+        ${escapeHTML(error.message)}
+      </td></tr>`;
+
+    return;
+  }
+
+
+  let rows = data;
+
+
+  if(typeof rows === "string"){
+
+    try{
+      rows = JSON.parse(rows);
+    }catch(e){
+      rows = [];
+    }
+
+  }
+
+
+  if(
+    rows &&
+    !Array.isArray(rows) &&
+    Array.isArray(rows.applications)
+  ){
+    rows = rows.applications;
+  }
+
+
+  if(!Array.isArray(rows)){
+    rows = [];
+  }
+
+
+  if(rows.length === 0){
+
+    body.innerHTML =
+      `<tr>
+        <td colspan="10">
+          No applications found.
+        </td>
+      </tr>`;
+
+    return;
+  }
+
+
+  body.innerHTML =
+    rows.map(app => {
+
+      const status =
+        String(
+          app.status || "Pending"
+        );
+
+
+      const cls =
+        status.toLowerCase() === "approved"
+          ? "approved"
+          : status.toLowerCase() === "rejected"
+            ? "rejected"
+            : "pending";
+
+
+      return `
+        <tr>
+
+          <td>${escapeHTML(app.id)}</td>
+
+          <td>
+            <b>${escapeHTML(app.applicant_name)}</b>
+          </td>
+
+          <td>${escapeHTML(app.age)}</td>
+
+          <td>${escapeHTML(app.class)}</td>
+
+          <td>${escapeHTML(app.post)}</td>
+
+          <td>${escapeHTML(app.applicant_email)}</td>
+
+          <td>${escapeHTML(app.contact_number)}</td>
+
+          <td>
+            <span class="badge ${cls}">
+              ${escapeHTML(status)}
+            </span>
+          </td>
+
+          <td>${formatDate(app.created_at)}</td>
+
+          <td>
+
+            <button
+              class="green"
+              onclick="updateApplication('${escapeHTML(app.id)}','Approved')"
+            >
+              Approve
+            </button>
+
+            <button
+              class="red"
+              onclick="updateApplication('${escapeHTML(app.id)}','Rejected')"
+            >
+              Reject
+            </button>
+
+          </td>
+
+        </tr>
+      `;
+
+    }).join("");
+
+}
+
+
+/* =====================================================
+   APPLICATION STATUS
+===================================================== */
+
+async function updateApplication(
+  applicationId,
+  newStatus
+){
+
+  if(
+    !confirm(
+      "Application status को " +
+      newStatus +
+      " करना है?"
+    )
+  ){
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "update_application_status",
       {
-        input_exam_code: code
+        input_application_id:
+          Number(applicationId),
+
+        input_status:
+          newStatus
       }
     );
 
@@ -678,326 +1215,839 @@ async function loadMarksheet(){
 
     console.error(error);
 
-    showError(
-      "Marksheet data load नहीं हो पाया। " +
-      error.message
+    showMessage(
+      "messageBox",
+      error.message,
+      false
     );
 
     return;
   }
 
-
-  console.log(
-    "Marksheet RPC:",
-    data
-  );
-
-
-  if(!data){
-
-    showError(
-      "इस Exam Code की Marksheet नहीं मिली।"
-    );
-
-    return;
-  }
-
-
-  /*
-    Supabase कभी-कभी JSONB को object
-    और कभी string की तरह return कर सकता है।
-  */
 
   let result = data;
-
 
   if(typeof result === "string"){
 
     try{
-
       result = JSON.parse(result);
+    }catch(e){}
 
+  }
+
+
+  if(
+    result &&
+    result.success === false
+  ){
+
+    showMessage(
+      "messageBox",
+      result.message ||
+      "Application update failed.",
+      false
+    );
+
+    return;
+  }
+
+
+  showMessage(
+    "messageBox",
+    "Application status successfully updated."
+  );
+
+
+  await loadApplicationCounts();
+
+  await loadApplications();
+
+}
+
+
+/* =====================================================
+   MANUAL EXAM CODE
+===================================================== */
+
+async function generateManualCode(){
+
+  const name =
+    document
+      .getElementById("manualName")
+      .value
+      .trim();
+
+
+  const applicationValue =
+    document
+      .getElementById("manualApplicationId")
+      .value
+      .trim();
+
+
+  const post =
+    document
+      .getElementById("manualPost")
+      .value;
+
+
+  if(!name){
+
+    showMessage(
+      "manualCodeResult",
+      "Applicant Name भरें।",
+      false
+    );
+
+    return;
+  }
+
+
+  if(!post){
+
+    showMessage(
+      "manualCodeResult",
+      "Exam Post select करें।",
+      false
+    );
+
+    return;
+  }
+
+
+  const applicationId =
+    applicationValue
+      ? Number(applicationValue)
+      : null;
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "generate_manual_exam_code",
+      {
+        input_applicant_name:
+          name,
+
+        input_application_id:
+          applicationId,
+
+        input_post:
+          post
+      }
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    showMessage(
+      "manualCodeResult",
+      "Code generation failed: " +
+      error.message,
+      false
+    );
+
+    return;
+  }
+
+
+  let result = data;
+
+  if(typeof result === "string"){
+
+    try{
+      result = JSON.parse(result);
+    }catch(e){}
+
+  }
+
+
+  if(
+    !result ||
+    result.success !== true
+  ){
+
+    showMessage(
+      "manualCodeResult",
+      result?.message ||
+      "Exam Code generate नहीं हुआ।",
+      false
+    );
+
+    return;
+  }
+
+
+  document.getElementById(
+    "manualCodeResult"
+  ).className =
+    "status success";
+
+
+  document.getElementById(
+    "manualCodeResult"
+  ).classList.remove("hidden");
+
+
+  document.getElementById(
+    "manualCodeResult"
+  ).innerHTML =
+
+    "<b>Exam Code Generated</b><br><br>" +
+
+    "<span style='font-size:24px;color:#ffd700;'>" +
+    escapeHTML(
+      result.exam_code ||
+      result.code
+    ) +
+    "</span><br><br>" +
+
+    "Applicant: " +
+    escapeHTML(
+      result.applicant_name ||
+      name
+    ) +
+    "<br>" +
+
+    "Post: " +
+    escapeHTML(
+      result.post ||
+      post
+    ) +
+    "<br>" +
+
+    "Section: " +
+    escapeHTML(
+      result.section ||
+      "-"
+    );
+
+  document.getElementById(
+    "manualName"
+  ).value = "";
+
+  document.getElementById(
+    "manualApplicationId"
+  ).value = "";
+
+  document.getElementById(
+    "manualPost"
+  ).value = "";
+
+  await loadExamCodes();
+
+}
+
+
+/* =====================================================
+   EXAM CODE HISTORY
+===================================================== */
+
+async function loadExamCodes(){
+
+  const body =
+    document.getElementById(
+      "examCodesBody"
+    );
+
+
+  body.innerHTML =
+    `<tr><td colspan="9">Loading...</td></tr>`;
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "get_exam_code_history"
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    body.innerHTML =
+      `<tr>
+        <td colspan="9" class="error">
+          ${escapeHTML(error.message)}
+        </td>
+      </tr>`;
+
+    return;
+  }
+
+
+  let rows = data;
+
+
+  if(typeof rows === "string"){
+
+    try{
+      rows = JSON.parse(rows);
     }catch(e){
-
-      showError(
-        "Marksheet data का format सही नहीं है।"
-      );
-
-      return;
+      rows = [];
     }
 
   }
 
 
-  if(result.success !== true){
+  if(
+    rows &&
+    !Array.isArray(rows) &&
+    Array.isArray(rows.codes)
+  ){
+    rows = rows.codes;
+  }
 
-    showError(
-      result.message ||
-      "इस Exam Code की Marksheet नहीं मिली।"
-    );
+
+  if(!Array.isArray(rows)){
+    rows = [];
+  }
+
+
+  if(rows.length === 0){
+
+    body.innerHTML =
+      `<tr>
+        <td colspan="9">
+          No exam codes found.
+        </td>
+      </tr>`;
 
     return;
   }
 
 
-  if(result.result_released !== true){
+  body.innerHTML =
+    rows.map(row => {
 
-    showError(
-      "इस Exam का Result अभी release नहीं हुआ है।"
-    );
+      return `
+        <tr>
 
-    return;
-  }
+          <td>${escapeHTML(row.id)}</td>
 
+          <td>
+            <b style="color:#ffd700;">
+              ${escapeHTML(row.exam_code)}
+            </b>
+          </td>
 
-  /* =====================
-     BASIC INFORMATION
-  ===================== */
+          <td>${escapeHTML(row.applicant_name)}</td>
 
-  document.getElementById(
-    "applicantName"
-  ).textContent =
-    result.applicant_name || "-";
+          <td>${escapeHTML(row.post)}</td>
 
+          <td>${escapeHTML(row.section || "-")}</td>
 
-  document.getElementById(
-    "examCode"
-  ).textContent =
-    result.exam_code || code;
+          <td>${escapeHTML(row.application_id ?? "-")}</td>
 
+          <td>${formatDate(row.unlock_at)}</td>
 
-  document.getElementById(
-    "post"
-  ).textContent =
-    result.post || "-";
+          <td>
+            ${row.used ? "✅ Used" : "❌ Unused"}
+          </td>
 
+          <td>${formatDate(row.created_at)}</td>
 
-  document.getElementById(
-    "section"
-  ).textContent =
-    result.section || "-";
-
-
-  document.getElementById(
-    "releaseDate"
-  ).textContent =
-    formatDate(
-      result.result_released_at
-    );
-
-
-  /* =====================
-     MARKS
-  ===================== */
-
-  document.getElementById(
-    "objectiveMarks"
-  ).textContent =
-    Number(
-      result.objective_marks || 0
-    );
-
-
-  document.getElementById(
-    "subjectiveMarks"
-  ).textContent =
-    Number(
-      result.subjective_marks || 0
-    );
-
-
-  document.getElementById(
-    "totalMarks"
-  ).textContent =
-    Number(
-      result.total_marks || 0
-    );
-
-
-  /* =====================
-     RESULT
-  ===================== */
-
-  const resultBox =
-    document.getElementById(
-      "resultBox"
-    );
-
-  const finalResult =
-    String(
-      result.final_result || "FAIL"
-    ).toUpperCase();
-
-
-  resultBox.textContent =
-    finalResult;
-
-
-  if(finalResult === "PASS"){
-
-    resultBox.style.color =
-      "#16823b";
-
-    resultBox.style.borderColor =
-      "#16823b";
-
-  }else{
-
-    resultBox.style.color =
-      "#b00020";
-
-    resultBox.style.borderColor =
-      "#b00020";
-
-  }
-
-
-  /* =====================
-     INTERVIEW LOCATION
-  ===================== */
-
-  document.getElementById(
-    "interviewLocation"
-  ).textContent =
-    result.interview_location ||
-    "Head Office: Chakla Ghat, Kishanganj, Bihar, India";
-
-
-  /* =====================
-     APPLICANT PHOTO
-  ===================== */
-
-  const photoContainer =
-    document.getElementById(
-      "photoContainer"
-    );
-
-
-  if(result.applicant_photo){
-
-    photoContainer.innerHTML =
-      `
-      <img
-        src="${escapeHTML(result.applicant_photo)}"
-        alt="Applicant Photo"
-      >
+        </tr>
       `;
 
-  }else{
-
-    photoContainer.innerHTML =
-      `
-      <div class="no-photo">
-        Applicant Photo
-        <br>
-        Not Available
-      </div>
-      `;
-
-  }
-
-
-  /* =====================
-     OFFICIAL SEAL
-  ===================== */
-
-  const sealContainer =
-    document.getElementById(
-      "sealContainer"
-    );
-
-
-  if(result.official_seal_url){
-
-    sealContainer.innerHTML =
-      `
-      <img
-        src="${escapeHTML(result.official_seal_url)}"
-        alt="Official Seal"
-        style="
-          width:110px;
-          height:110px;
-          object-fit:contain;
-        "
-      >
-      `;
-
-    sealContainer.style.border =
-      "0";
-
-  }else{
-
-    sealContainer.innerHTML =
-      `
-      <span>
-        CLASSIC<br>
-        EMPIRE<br>
-        LTD
-      </span>
-      `;
-
-  }
-
-
-  /* =====================
-     PRESIDENT SIGNATURE
-  ===================== */
-
-  const signatureContainer =
-    document.getElementById(
-      "signatureContainer"
-    );
-
-
-  if(result.president_signature_url){
-
-    signatureContainer.innerHTML =
-      `
-      <img
-        src="${escapeHTML(result.president_signature_url)}"
-        alt="President Signature"
-      >
-      `;
-
-  }else{
-
-    signatureContainer.innerHTML =
-      `
-      <div style="
-        font-family:cursive;
-        font-size:28px;
-        margin-top:20px;
-      ">
-        N. Ahmad
-      </div>
-      `;
-
-  }
-
-
-  /* =====================
-     SHOW
-  ===================== */
-
-  document.getElementById(
-    "loading"
-  ).style.display =
-    "none";
-
-
-  document.getElementById(
-    "marksheetArea"
-  ).style.display =
-    "block";
+    }).join("");
 
 }
 
 
-/* =========================
-   START
-========================= */
+/* =====================================================
+   SUBMISSIONS
+===================================================== */
 
-loadMarksheet();
+async function loadSubmissions(){
+
+  const body =
+    document.getElementById(
+      "submissionsBody"
+    );
+
+
+  body.innerHTML =
+    `<tr><td colspan="10">Loading...</td></tr>`;
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "get_exam_submissions"
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    body.innerHTML =
+      `<tr>
+        <td colspan="10" class="error">
+          ${escapeHTML(error.message)}
+        </td>
+      </tr>`;
+
+    return;
+  }
+
+
+  let rows = data;
+
+
+  if(typeof rows === "string"){
+
+    try{
+      rows = JSON.parse(rows);
+    }catch(e){
+      rows = [];
+    }
+
+  }
+
+
+  if(
+    rows &&
+    !Array.isArray(rows) &&
+    Array.isArray(rows.submissions)
+  ){
+    rows = rows.submissions;
+  }
+
+
+  if(!Array.isArray(rows)){
+    rows = [];
+  }
+
+
+  if(rows.length === 0){
+
+    body.innerHTML =
+      `<tr>
+        <td colspan="10">
+          No exam submissions found.
+        </td>
+      </tr>`;
+
+    return;
+  }
+
+
+  body.innerHTML =
+    rows.map(row => {
+
+      const released =
+        row.result_released === true;
+
+
+      return `
+        <tr>
+
+          <td>${escapeHTML(row.id)}</td>
+
+          <td>
+            <b style="color:#ffd700;">
+              ${escapeHTML(row.exam_code)}
+            </b>
+          </td>
+
+          <td>${escapeHTML(row.applicant_name)}</td>
+
+          <td>${escapeHTML(row.post)}</td>
+
+          <td>${escapeHTML(row.objective_score ?? 0)}/18</td>
+
+          <td>${escapeHTML(row.subjective_marks ?? 0)}/10</td>
+
+          <td><b>${escapeHTML(row.total_marks ?? 0)}/28</b></td>
+
+          <td>${escapeHTML(row.final_result || "-")}</td>
+
+          <td>
+            ${released ? "✅ Released" : "⏳ Pending"}
+          </td>
+
+          <td>
+
+            <button
+              class="gold"
+              onclick="openResultModal(
+                ${Number(row.id)},
+                '${escapeHTML(row.applicant_name)}',
+                ${Number(row.objective_score || 0)},
+                ${Number(row.subjective_marks || 0)},
+                ${Number(row.total_marks || 0)},
+                '${escapeHTML(row.final_result || "FAIL")}'
+              )"
+            >
+              Edit
+            </button>
+
+            ${
+              released
+              ? ""
+              : `
+                <button
+                  class="green"
+                  onclick="releaseResult(${Number(row.id)})"
+                >
+                  Release
+                </button>
+              `
+            }
+
+          </td>
+
+        </tr>
+      `;
+
+    }).join("");
+
+}
+
+
+/* =====================================================
+   RELEASE RESULT
+===================================================== */
+
+async function releaseResult(
+  submissionId
+){
+
+  if(
+    !confirm(
+      "क्या आप इस Result को release करना चाहते हैं?"
+    )
+  ){
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "release_exam_result",
+      {
+        input_submission_id:
+          Number(submissionId)
+      }
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    showMessage(
+      "messageBox",
+      error.message,
+      false
+    );
+
+    return;
+  }
+
+
+  let result = data;
+
+  if(typeof result === "string"){
+
+    try{
+      result = JSON.parse(result);
+    }catch(e){}
+
+  }
+
+
+  if(
+    !result ||
+    result.success !== true
+  ){
+
+    showMessage(
+      "messageBox",
+      result?.message ||
+      "Result release failed.",
+      false
+    );
+
+    return;
+  }
+
+
+  showMessage(
+    "messageBox",
+    "Result successfully released."
+  );
+
+
+  await loadSubmissions();
+
+}
+
+
+/* =====================================================
+   RESULT MODAL
+===================================================== */
+
+function openResultModal(
+  id,
+  applicant,
+  objective,
+  subjective,
+  total,
+  result
+){
+
+  document.getElementById(
+    "editSubmissionId"
+  ).value = id;
+
+
+  document.getElementById(
+    "editApplicant"
+  ).textContent =
+    "Applicant: " +
+    applicant;
+
+
+  document.getElementById(
+    "editObjective"
+  ).value =
+    objective;
+
+
+  document.getElementById(
+    "editSubjective"
+  ).value =
+    subjective;
+
+
+  document.getElementById(
+    "editTotal"
+  ).value =
+    total;
+
+
+  document.getElementById(
+    "editResult"
+  ).value =
+    result;
+
+
+  document.getElementById(
+    "editMessage"
+  ).classList.add("hidden");
+
+
+  document.getElementById(
+    "resultModal"
+  ).style.display =
+    "flex";
+
+}
+
+
+function closeResultModal(){
+
+  document.getElementById(
+    "resultModal"
+  ).style.display =
+    "none";
+
+}
+
+
+/* =====================================================
+   SAVE RESULT
+===================================================== */
+
+async function saveResult(){
+
+  const id =
+    Number(
+      document.getElementById(
+        "editSubmissionId"
+      ).value
+    );
+
+
+  const objective =
+    Number(
+      document.getElementById(
+        "editObjective"
+      ).value
+    );
+
+
+  const subjective =
+    Number(
+      document.getElementById(
+        "editSubjective"
+      ).value
+    );
+
+
+  const total =
+    Number(
+      document.getElementById(
+        "editTotal"
+      ).value
+    );
+
+
+  const result =
+    document.getElementById(
+      "editResult"
+    ).value;
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "update_exam_result",
+      {
+        input_submission_id:
+          id,
+
+        input_objective:
+          objective,
+
+        input_subjective:
+          subjective,
+
+        input_total:
+          total,
+
+        input_final_result:
+          result
+      }
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    showMessage(
+      "editMessage",
+      error.message,
+      false
+    );
+
+    return;
+  }
+
+
+  let response = data;
+
+  if(typeof response === "string"){
+
+    try{
+      response = JSON.parse(response);
+    }catch(e){}
+
+  }
+
+
+  if(
+    !response ||
+    response.success !== true
+  ){
+
+    showMessage(
+      "editMessage",
+      response?.message ||
+      "Result update failed.",
+      false
+    );
+
+    return;
+  }
+
+
+  closeResultModal();
+
+
+  showMessage(
+    "messageBox",
+    "Result successfully updated."
+  );
+
+
+  await loadSubmissions();
+
+}
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+supabaseClient.auth.onAuthStateChange(
+  async (event, session) => {
+
+    if(
+      event === "SIGNED_OUT" ||
+      !session
+    ){
+
+      showLogin();
+
+      return;
+    }
+
+
+    if(
+      event === "SIGNED_IN" ||
+      event === "INITIAL_SESSION"
+    ){
+
+      await checkAdminAccess();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+(async function(){
+
+  const {
+    data
+  } =
+    await supabaseClient.auth.getSession();
+
+
+  if(data?.session){
+
+    await checkAdminAccess();
+
+  }else{
+
+    showLogin();
+
+  }
+
+})();
 
 </script>
 

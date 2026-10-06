@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Classic Empire — QR Attendance</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #080808;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px 15px;
+      border-bottom: 1px solid #333;
+      background: #111;
+    }
+
+    header img {
+      width: 85px;
+      height: 85px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+
+    header h1 {
+      margin: 5px 0;
+      color: #ffd700;
+      font-size: 25px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      color: #ccc;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 600px;
+      margin: 25px auto;
+    }
+
+    .card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.08);
+    }
+
+    .card h2 {
+      color: #ffd700;
+      margin-top: 0;
+      text-align: center;
+    }
+
+    #reader {
+      width: 100%;
+      max-width: 420px;
+      margin: 15px auto;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 13px 18px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #ffd700;
+      color: #000;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    button.secondary {
+      background: #222;
+      color: #ffd700;
+      border: 1px solid #ffd700;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .file-label {
+      display: inline-block;
+      background: #ffd700;
+      color: #000;
+      padding: 13px 18px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #result {
+      display: none;
+      text-align: center;
+      padding: 18px;
+      border-radius: 12px;
+      margin-top: 18px;
+      line-height: 1.7;
+    }
+
+    .success {
+      display: block !important;
+      background: #123b1c;
+      border: 1px solid #36d35b;
+      color: #fff;
+    }
+
+    .error {
+      display: block !important;
+      background: #3b1212;
+      border: 1px solid #ff4d4d;
+      color: #fff;
+    }
+
+    .info {
+      color: #ccc;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      color: #888;
+      padding: 25px 10px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <img src="classic-empire-logo.png" alt="Classic Empire Logo">
+
+  <h1>Classic Empire Ltd.</h1>
+
+  <p>QR Attendance System</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>📷 QR Code Scan</h2>
+
+    <p class="info">
+      Camera से QR Code scan करें या Gallery से QR image चुनें।
+    </p>
+
+    <div id="reader"></div>
+
+    <div class="buttons">
+
+      <button onclick="startCamera()">
+        📷 Camera Scan
+      </button>
+
+      <label class="file-label">
+        🖼️ Gallery से QR चुनें
+        <input
+          type="file"
+          id="qrImage"
+          accept="image/*"
+          onchange="scanFromGallery(event)"
+        >
+      </label>
+
+      <button
+        class="secondary"
+        onclick="stopCamera()"
+      >
+        ⏹️ Camera बंद करें
+      </button>
+
+    </div>
+
+    <div id="result"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>ℹ️ कैसे काम करेगा?</h2>
+
+    <p class="info">
+      1. Member का official QR Code scan करें।<br><br>
+      2. System QR token को verify करेगा।<br><br>
+      3. Member की पहचान automatically होगी।<br><br>
+      4. उसी दिन दोबारा Attendance नहीं लगेगी।
+    </p>
+
+  </div>
+
+</div>
+
+<footer>
+  Classic Empire Ltd • Chakla Ghat, Kishanganj, Bihar, India
+</footer>
+
+<script>
+
+const SUPABASE_URL =
+  "https://hjatspkzgoddcpgwfkxo.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_nw9-8f_8dfZBN7M2q27Wrg_NXk6Eij_";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+let scanner = null;
+let scanning = false;
+let processing = false;
+
+
+/* =========================
+   CAMERA SCANNER
+========================= */
+
+async function startCamera() {
+
+  if (scanning) return;
+
+  clearResult();
+
+  scanner = new Html5Qrcode("reader");
+
+  try {
+
+    await scanner.start(
+      { facingMode: "environment" },
+
+      {
+        fps: 10,
+        qrbox: {
+          width: 250,
+          height: 250
+        }
+      },
+
+      async (decodedText) => {
+
+        if (processing) return;
+
+        processing = true;
+
+        await handleQRCode(decodedText);
+
+        setTimeout(() => {
+          processing = false;
+        }, 2000);
+
+      },
+
+      () => {}
+    );
+
+    scanning = true;
+
+  } catch (error) {
+
+    showResult(
+      "❌ Camera शुरू नहीं हो पाया। कृपया Camera Permission दें या Gallery से QR image चुनें।",
+      false
+    );
+
+  }
+}
+
+
+/* =========================
+   STOP CAMERA
+========================= */
+
+async function stopCamera() {
+
+  if (!scanner || !scanning) return;
+
+  try {
+
+    await scanner.stop();
+
+    scanner.clear();
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+
+  scanning = false;
+}
+
+
+/* =========================
+   GALLERY QR SCAN
+========================= */
+
+async function scanFromGallery(event) {
+
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  clearResult();
+
+  const galleryScanner =
+    new Html5Qrcode("reader");
+
+  try {
+
+    const decodedText =
+      await galleryScanner.scanFile(
+        file,
+        true
+      );
+
+    await handleQRCode(decodedText);
+
+  } catch (error) {
+
+    showResult(
+      "❌ इस image में valid QR Code नहीं मिला।",
+      false
+    );
+
+  } finally {
+
+    try {
+      galleryScanner.clear();
+    } catch (e) {}
+
+    event.target.value = "";
+
+  }
+}
+
+
+/* =========================
+   SEND TOKEN TO SUPABASE
+========================= */
+
+async function handleQRCode(qrText) {
+
+  const token = qrText.trim();
+
+  if (!token) {
+
+    showResult(
+      "❌ QR Code खाली है।",
+      false
+    );
+
+    return;
+  }
+
+  showResult(
+    "⏳ QR Code verify किया जा रहा है...",
+    true,
+    "loading"
+  );
+
+  const { data, error } =
+    await supabaseClient.rpc(
+      "mark_qr_attendance",
+      {
+        input_token: token
+      }
+    );
+
+  if (error) {
+
+    console.error(error);
+
+    showResult(
+      "❌ Attendance system से connection error हुआ।",
+      false
+    );
+
+    return;
+  }
+
+  const result =
+    Array.isArray(data)
+      ? data[0]
+      : data;
+
+  if (!result) {
+
+    showResult(
+      "❌ कोई response नहीं मिला।",
+      false
+    );
+
+    return;
+  }
+
+  if (result.success) {
+
+    showResult(
+      `
+      ✅ <strong>Attendance सफलतापूर्वक लग गई!</strong>
+      <br><br>
+      👤 Member: <strong>${escapeHtml(result.member_name)}</strong>
+      <br>
+      📅 Date: ${new Date().toLocaleDateString("hi-IN")}
+      <br>
+      🟢 Status: Present
+      `,
+      true
+    );
+
+  } else if (result.already_marked) {
+
+    showResult(
+      `
+      ⚠️ <strong>Attendance पहले ही लग चुकी है।</strong>
+      <br><br>
+      👤 Member: <strong>${escapeHtml(result.member_name)}</strong>
+      <br>
+      📅 आज की Attendance दोबारा नहीं लग सकती।
+      `,
+      false
+    );
+
+  } else {
+
+    showResult(
+      "❌ " +
+      escapeHtml(
+        result.message || "अमान्य QR Code"
+      ),
+      false
+    );
+
+  }
+}
+
+
+/* =========================
+   RESULT MESSAGE
+========================= */
+
+function showResult(
+  message,
+  success,
+  type = ""
+) {
+
+  const box =
+    document.getElementById("result");
+
+  box.className = "";
+
+  box.innerHTML = message;
+
+  if (type === "loading") {
+
+    box.classList.add("success");
+
+    return;
+  }
+
+  if (success) {
+
+    box.classList.add("success");
+
+  } else {
+
+    box.classList.add("error");
+
+  }
+}
+
+
+function clearResult() {
+
+  const box =
+    document.getElementById("result");
+
+  box.className = "";
+
+  box.innerHTML = "";
+
+}
+
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+</script>
+
+</body>
+</html>
